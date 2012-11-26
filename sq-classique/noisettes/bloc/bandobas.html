@@ -1,0 +1,39 @@
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<!----------------------------------------CHEMIN---------------------------->
+
+<div id="chemin">
+
+		<BOUCLE_rubrique_hierarchie(RUBRIQUES){id_rubrique}{tout}>
+					<b><a href="#URL_SITE_SPIP" class="lienss">ACCUEIL</a></b>
+						<BOUCLE_chemin(HIERARCHIE){id_rubrique}{tout}>
+							<b> &gt;&gt;&nbsp; </b>
+							<a href="[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" [title="(#DESCRIPTIF|textebrut|entites_html)"] class="lienss">
+							<b>[(#TITRE|supprimer_numero)]</b></a>
+						</BOUCLE_chemin>
+		</BOUCLE_rubrique_hierarchie>
+		
+		<BOUCLE_article(ARTICLES){id_article}>
+							<b> &gt;&gt;&nbsp; [(#TITRE|supprimer_numero)]</b>
+		</BOUCLE_article>
+
+		<BOUCLE_breve(BREVES){id_breve}>
+							<b> &gt;&gt;&nbsp; [(#TITRE|supprimer_numero)]</b>
+		</BOUCLE_breve>
+
+</div>
+
+<!----------------------------------------BANDO---------------------------->
+
+<div id="bandobas">
+
+	<a href="spip.php?page=plan" class="lienss">
+		<img src="#CHEMIN{images/menu/m_plansite.gif}" alt="Plan du site" width="68" height="12" border="0" class="img_menu" />
+	</a>
+	<img src="#CHEMIN{images/menu_trait_separation.gif}" alt="" width="2 height="19" class="trait_menu" />
+	<a href="spip.php?page=contact&id_rubrique=#ID_RUBRIQUE" class="lienss">
+		<img src="#CHEMIN{images/menu/m_contact.gif}" alt="Contact" width="52" height="12" border="0" class="img_menu" />
+	</a>
+
+</div>

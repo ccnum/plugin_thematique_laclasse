@@ -1,0 +1,51 @@
+<BOUCLE_principale(RUBRIQUES){id_rubrique}{doublons}{tout}>
+	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+		
+		[(#REM) ---------------- entete publication ---------------- ]
+		#SET{type_objet,#TYPE_OBJET}
+		[(#TYPE_OBJET|=={reponse}|et{#MODE|=={ajax}|oui})#SET{type_objet,ressource}]
+		
+		[(#REM) ---------------- entete publication ---------------- ] 
+			<BOUCLE_nb_doc(DOCUMENTS) {id_rubrique} {mode=document}>
+			</BOUCLE_nb_doc>
+				#SET{nb_doc,#TOTAL_BOUCLE}
+			</B_nb_doc>
+				#SET{nb_doc,0}
+			<//B_nb_doc>
+			
+		[(#REM) ---------------- titre & logo ---------------- ] 
+			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+			    <div class="texte">
+			        <div class="titre">[(#TITRE|supprimer_numero)]</div>
+			        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
+			    </div>
+			</div>
+		
+		[(#REM) ---------------- bloc rubrique ---------------- ] 
+		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+		
+		<div id="bloc_article" class="[(#GET{police})]">
+			
+			<div style="clear: both;" class="introduction"></div>
+
+			[(#REM) ---------------- texte ---------------- ]
+				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
+					<ul class="popup_titre"><span class="titre">Modifier</span>
+						<li>le logo : <span class="photo #EDIT{logo}">[(#MODELE{logo_carre}{id_rubrique}{taille=20})]</span></li>
+						<li>le nom de la classe : <span class="#EDIT{titre}">[(#TITRE|supprimer_numero)]</span></li>
+						<li>le descriptif de la classe : <span class="spip #EDIT{texte}">[(#TEXTE|sinon{Double-cliquer pour compléter le descriptif de ma classe - #TITRE.})</span>]</li>
+					</ul>
+				]
+				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non)
+					[(#TEXTE)]
+				]				
+		</div>
+
+	[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
+		</div>
+	]
+
+	[(#MODE|!={ajax-detail}|oui)</div>]
+
+</BOUCLE_principale>

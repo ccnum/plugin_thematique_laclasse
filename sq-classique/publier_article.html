@@ -1,0 +1,22 @@
+<?php
+		include_spip('inc/securiser_action');
+		include_spip('inc/autoriser');
+
+<BOUCLE_rub(RUBRIQUES){id_rubrique}{tout}>				
+		if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'rubrique', #ID_RUBRIQUE)))
+		{
+				$hash1 = $GLOBALS['auteur_session']['id_auteur'].$GLOBALS['auteur_session']['pass'];
+				$action="editer_article";
+				$redirect="#URL_SITE_SPIP/spip.php?page=article&var_mode=recalcul";
+				
+				$confirmation= attribut_html("Etes vous sûr de vouloir créer un nouvel article ?");
+				$att=" mmethod='post' name='formulaire' onSubmit='return confirmation(\"$confirmation\")'";
+
+				$mode="<input type='hidden' name='statut' value='publie' /><input id='titreparent' name='titreparent' type='hidden' type='text' value='#TITRE' /><input type='hidden' id='id_parent' name='id_parent' value='#ID_RUBRIQUE' /><input type='hidden' name='editer_article' value='oui' /><input type='hidden' name='titre' value='Nouvel article' /><input id='text_area' name='texte' type='hidden' value=''><input class='fondo' type='submit' value='#TITRE' /><br /><br />";
+				$arg="oui";							
+				
+				echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+		}
+</BOUCLE_rub>
+?>
+

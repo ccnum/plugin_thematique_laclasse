@@ -1,0 +1,18 @@
+<B_rubrique>
+<datas>
+<BOUCLE_rubrique(RUBRIQUES){titre_mot==travail_en_cours}{tout}>
+<BOUCLE_classes(RUBRIQUES){id_parent}{tout}>
+	<classe>
+	<id>#ID_RUBRIQUE</id>
+	<nom>[(#TITRE|entites_html)]</nom>
+	</classe>
+</BOUCLE_classes>
+</BOUCLE_rubrique>
+<BOUCLE_rubrique2(RUBRIQUES){titre_mot IN consignes}{tout}>
+	<classe>
+	<id>#ID_RUBRIQUE</id>
+	<nom>[(#TITRE|entites_html)]</nom>
+	</classe>
+</BOUCLE_rubrique2>
+</datas>
+</B_rubrique>

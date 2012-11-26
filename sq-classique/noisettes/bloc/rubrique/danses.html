@@ -1,0 +1,45 @@
+<BOUCLE_film0(RUBRIQUES) {id_parent=3} {id_rubrique} {tout}>
+<BOUCLE_film01(ARTICLES) {id_rubrique} {doublons} {par date} {inverse}>
+<BOUCLE_film02(spip_mots_articles){id_article}{tout}>
+</BOUCLE_film02>
+</B_film02>
+<?php $nb=#TOTAL_BOUCLE; ?>
+<//B_film02>
+</BOUCLE_film01>
+</BOUCLE_film0>
+
+<?php 
+if ($nb>0)
+{
+?>
+
+<B_film>
+	<div id="titre">
+		<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur1.gif">
+		<span>Enchaînement des séquences</span>
+	</div>
+
+	<div id="bloc_article">
+		<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+			<div id="bloc_article_m">
+
+			<BOUCLE_film(RUBRIQUES) {id_parent=3} {id_rubrique} {tout}>
+				<BOUCLE_film1(ARTICLES) {id_rubrique} {doublons} {par date} {inverse}>
+					<BOUCLE_film2(spip_mots_articles){id_article}{tout}>
+						<BOUCLE_film3(ARTICLES) {id_article=#ID_MOT}{id_rubrique=9}>					
+						<div class="portfolio" >
+							<a href="#URL_ARTICLE" style="text-decoration:none; border:0px;">[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{120})]<br />[(#TITRE|couper{30})]<br />[<em>(#_film1:DESCRIPTIF|couper{50})</em>]</a>
+						</div>
+				
+						</BOUCLE_film3>								
+					</BOUCLE_film2>					
+				</BOUCLE_film1>
+			</BOUCLE_film>
+		</div>
+			<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+		</div>
+</B_film>
+
+<?php
+}
+?>

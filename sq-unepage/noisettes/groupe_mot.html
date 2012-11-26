@@ -1,0 +1,101 @@
+#CACHE{0}
+<BOUCLE_principale(GROUPES_MOTS){id_groupe}{tout}>
+	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+	
+	
+	<div id="ressources_gauche">
+		<div class="popup_titre">
+			[(#MODE|=={ajax}|non)<!--<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">-->]
+			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={reponse}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]		
+			<span class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</span>
+		</div>
+
+		[(#REM)Corps Menu Arborescent]
+		<div id="listmenu">
+		<ul id="menug">
+				
+			[(#REM)Déroulé de l'arborescence]
+				<BOUCLE_rubriques(MOTS) {id_groupe} {par num titre, titre}{tout} {doublons r}>
+						<script type="text/javascript">
+						$().ready(function(){
+						$('#ajax_rub_#ID_MOT').click(function() {
+							$('div#ressources_droite').addClass('chargement');
+							$('#ressources_droite').load('[(#URL_PAGE{groupe_mot}|parametre_url{id_groupe,#ID_GROUPE}|parametre_url{id_mot,#ID_MOT}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+							, {limit: 25}, function(){ 
+								$('div#ressources_droite').removeClass('chargement');
+								$('#ressources_droite').show('slow'); 		
+								});					
+						});});						
+						</script>
+					<li><a id="ajax_rub_#ID_MOT" href="#" class="hac ajax [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">[<strong>(#TITRE|supprimer_numero|couper{80})</strong>]</a>
+						<ul>
+							
+							[(#REM)Articles]
+								<BOUCLE_sous_articles2(ARTICLES) {id_mot} {tout} {par date} {inverse} {doublons}>
+									<script type="text/javascript">
+										$().ready(function(){
+										$('#ajax#ID_ARTICLE').click(function() {
+											$('div#ressources_droite').addClass('chargement');
+											$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+											, {limit: 25}, function(){ 
+												$('div#ressources_droite').removeClass('chargement');	
+												$('#ressources_droite').show('slow'); 		
+												});					
+										});});
+										</script>
+									<li><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+								</BOUCLE_sous_articles2>
+		
+						</ul>
+					</li>
+				</BOUCLE_rubriques>
+				
+				
+			</ul>
+			</div>	
+			</div>
+			
+	[(#REM)Pour ouverture directe si id_article ou publier présent]
+		[(#ID_ARTICLE|oui)
+			<script type="text/javascript">
+			$().ready(function(){
+				$('div#ressources_droite').addClass('chargement');
+				$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+				, {limit: 25}, function(){ 
+					$('div#ressources_droite').removeClass('chargement');
+					$('#ressources_droite').show('slow'); 		
+					});					
+			});						
+			</script>
+		]
+		[(#TYPE_OBJET|=={reponse}|oui)
+			<script type="text/javascript">
+			$().ready(function(){
+				$('div#ressources_droite').addClass('chargement');
+				$('#ressources_droite').load('[(#URL_PAGE{publier}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|parametre_url{type_objet,#TYPE_OBJET}|parametre_url{id_consigne,#ID_CONSIGNE}|html_entity_decode)]'
+				, {limit: 25}, function(){ 
+					$('div#ressources_droite').removeClass('chargement');
+					$('#ressources_droite').show('slow'); 		
+					});					
+			});						
+			</script>
+		]		
+		
+	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>
+	
+	
+	[(#REM)Pour générer les appels aux scripts crayons en cas de besoin]
+	<BOUCLE_crayon(RUBRIQUES){id_rubrique=#RESTREINT}{tout}>
+	<div class="#EDIT{titre}" style="display: none;">
+		<span class="#EDIT{titre}">#TITRE</span>
+		<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE)]</span>
+		<span class="#EDIT{texte}">#TEXTE</span>
+	</div>
+	</BOUCLE_crayon>
+
+[(#MODE|!={ajax-detail}|oui)</div>]
+
+</BOUCLE_principale>
+</B_principale>
+	<INCLURE{fond=chargement}{type_objet=#TYPE_OBJET}>
+<//B_principale>

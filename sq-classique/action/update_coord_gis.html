@@ -1,0 +1,45 @@
+#CACHE{10*24*3600}
+[(#REM)Génération de l'action avec authentification préalable
+Paramètres :
+	-id_gis: id_gis
+	-lat: lat
+	-lonx: lonx
+	-zoom: zoom
+]
+
+<?php
+	[(#REM)Paramètres]
+		[$id_gis = (#ID_GIS);]
+		[$lat = (#LAT);]
+		[$lonx = (#LONX);]
+		[$zoom = (#ZOOM);]
+	
+	[(#REM)Mise à jour]
+		<BOUCLE_gis(GIS){id_gis}{tout}>
+			[(#ID_ARTICLE|oui)
+				[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
+						$objet ="article";
+						$id_objet = #ID_ARTICLE;
+						if ($id_gis = sql_getfetsel("id_gis", "spip_gis", "id_$objet=$id_objet"))
+						{
+							sql_updateq("spip_gis",
+										array("id_$objet" => $id_objet , "lat" => $lat, "lonx" => $lonx),
+										"id_gis=$id_gis");
+						}
+				]
+			]
+			[(#ID_RUBRIQUE|oui)
+				[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
+						$objet ="rubrique";
+						$id_objet = #ID_RUBRIQUE;
+						if ($id_gis = sql_getfetsel("id_gis", "spip_gis", "id_$objet=$id_objet"))
+						{
+							sql_updateq("spip_gis",
+										array("id_$objet" => $id_objet , "lat" => $lat, "lonx" => $lonx),
+										"id_gis=$id_gis");
+						}
+				]
+			]
+		</BOUCLE_gis>
+		
+?>

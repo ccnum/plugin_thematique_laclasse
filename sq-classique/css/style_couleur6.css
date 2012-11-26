@@ -1,0 +1,70 @@
+/* Couleur */
+/* claire : #E6FAE2 */
+/* foncée : #3BA12A */
+
+#bloc_article0 #bloc_texte p:first-letter
+{
+	font-size: 200%;
+	font-weight: bold;
+	color: #3BA12A;
+}
+
+#couleur
+{
+	color :#3BA12A;
+}
+
+#couleur a
+{
+	color :#3BA12A;
+	text-decoration: none;
+}
+
+#couleur a:hover
+{
+	color :#3BA12A;
+	background-color: #E6FAE2;
+}
+
+#cadre_couleur {
+	background-color: #E6FAE2;
+	width: 90%;
+}
+
+#plan{
+	list-style-image: url(../images/puce_couleur6.gif);
+	margin-left: 10px;
+}
+
+#plan li a {
+text-decoration: none;
+}
+
+#plan li a:hover {
+	background-color: #E6FAE2;
+}
+
+#pucetitre{
+	margin: 0;
+	padding: 0;
+	list-style-image: url(../images/puce_titrecouleur6.gif);
+	vertical-align: sub;
+}
+
+#puce{
+	list-style-image: url(../images/puce_couleur6.gif);
+	margin-left: 30px;
+}
+
+.gauche_menu {
+	background-color: #E6FAE2;
+}
+
+#gauche_menu {
+	background-color: #E6FAE2;
+}
+
+.gauche_menu_on {
+		background-color: #3BA12A;
+			color:#FFFFFF;
+}

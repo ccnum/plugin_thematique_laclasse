@@ -1,0 +1,26 @@
+#CACHE{0}
+[(#REM)Stocke les valeurs de coordonnées propres à l'article
+id_mot
+type_objet : article
+id_objet : id_article
+]
+#TYPE_OBJET
+#ID_OBJET
+#ID_MOT
+[(#SESSION{statut}|=={0minirezo}|oui)
+
+	[(#TYPE_OBJET|match{article}|oui)
+
+		[(#AUTORISER{modifier, #TYPE_OBJET, #ID_OBJET}|oui)
+			<?php
+				$id_objet = #ID_OBJET;
+				$id_mot = #ID_MOT;
+				$type_objet = "#TYPE_OBJET";
+				
+				echo sql_insertq("spip_mots_liens",
+					array("id_mot" => $id_mot, "id_objet" => $id_objet, "objet" => $type_objet));
+				
+			?>
+		]
+	]
+]

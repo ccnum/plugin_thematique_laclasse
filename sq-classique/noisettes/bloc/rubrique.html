@@ -1,0 +1,213 @@
+#CACHE{0}
+<BOUCLE_principale(RUBRIQUES){id_rubrique}{doublons}{tout}>
+
+<!-- ------------------- Menu ------------------- -->
+<B_serv3>
+<BOUCLE_serv3(RUBRIQUES){id_enfant}{titre_mot=classe}{tout}>
+</BOUCLE_serv3>
+
+	<!--	---------------------------------------	BD-CLASSE	-------------------------------------------->
+	<INCLURE{fond=noisettes/bloc/rubrique/bd}{id_rubrique}{id_article}{id_document}>
+</B_serv3>
+
+	<!--	---------------------------------------	NORMALE	-------------------------------------------->
+	
+	<div id="bloc_colgauche" >
+		<INCLURE {fond=noisettes/bloc/menug}{id_rubrique}{id_article}{admin}{restreint}>
+	</div>
+	
+	<div id="bloc_colcentre">
+		<INCLURE{fond=noisettes/inc/no_ie6}>
+	
+		<B_test>
+		<BOUCLE_test(RUBRIQUES){id_rubrique=8}{id_rubrique}{tout}>
+		</BOUCLE_test>
+			<INCLURE{fond=noisettes/bloc/rubrique/publier}{id_auteur=#SESSION{id_auteur}}{tout}{id_rubrique}{env}>
+		</B_test>
+
+	[(#REM) Bloc consignes]
+		<BOUCLE_consigne(ARTICLES) {par date} {inverse} {id_rubrique} {id_secteur=6} {0,1}>
+			[(#REM)<INCLURE{fond=noisettes/bloc/rubrique/consigne}{id_rubrique}>]
+		</BOUCLE_consigne>
+		
+	[(#REM) MDD - Bloc extraits]
+		<BOUCLE_site(MOTS){type=site}{titre=maisondeladanse.laclasse.com}>
+		</BOUCLE_site>
+			<INCLURE{fond=noisettes/bloc/rubrique/danses}{id_rubrique}>
+		</B_site>
+
+	[(#REM) Finisterrae - Bloc extraits]
+		<BOUCLE_site1(MOTS){type=site}{titre=finisterrae.laclasse.com}>
+		</BOUCLE_site1>
+			<INCLURE{fond=noisettes/bloc/rubrique/extraits}{id_rubrique}>
+		</B_site1>
+
+	[(#REM)Bloc Intro : titre + logo + descriptif]
+		<INCLURE{fond=noisettes/bloc/rubrique/intro}{id_rubrique}>
+				
+		<!-- ------------------- corps ------------------- -->
+		
+		[(#REM)Tests page laclasse]
+			<B_body1>
+			<BOUCLE_body1(RUBRIQUES) {id_rubrique=4} {id_rubrique} {tout}>
+			</BOUCLE_body1>
+			<!-- 
+				http://www.laclasse.com/pls/education/!page.groupes?p_env_id= 
+			-->
+			[(#NOM_SITE_SPIP|=={ledechetmatiere.laclasse.com}|non)
+			
+				<iframe width="770" height="730" src="http://www.laclasse.com/pls/public/!page.groupes?p_env_id=<?php	
+					switch("#NOM_SITE_SPIP")
+						  {
+							  case "cine.laclasse.com":
+							    echo "628";
+							    break;
+							  case "cluemo.laclasse.com":
+							    echo "587";
+							    break;
+							  case "etudiantsvoyageurs.laclasse.com":
+						    	echo "507";
+						    	break;
+							  case "science.laclasse.com":
+						    	echo "1712";
+						    	break;
+						    case "ledechetmatiere.laclasse.com":
+						    	echo "1987";
+						    	break;	
+						    case "bd.laclasse.com":
+						    	echo "2029";
+						    	break;
+						    case "maisondeladanse.laclasse.com":
+						    	echo "2138";
+						    	break;
+						    case "finisterrae.laclasse.com":
+						    	echo "2475";
+						    	break;
+						    case "novaterra.laclasse.com":
+						    	echo "3079";
+						    	break;						    	
+						  }						
+  					?>&pcontentonly=N" />
+				 </iframe>
+			]
+				 <br /><br /><br />
+			</B_body1>
+			
+[(#REM) ------ CORPS DE LA PAGE ------- ]
+	[(#REM) Novaterra - Carte et mots clefs]	
+		<BOUCLE_travail(RUBRIQUES){id_secteur=3}{id_rubrique}{id_rubrique!=3}{tout}>
+			<BOUCLE_gis(GIS?){id_rubrique}{tout}> #SET{id_gis,#ID_GIS} </BOUCLE_gis>
+			[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
+				<div id="titre">
+				<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur5.gif">
+				<span>Géolocalisation</span>
+				[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
+					[(#GET{id_gis}|oui)	[(#MODELE{carte_gis}{id_article}{id_rubrique}{draggable=objet}{attente=1}{width=530px}{height=350px}{zoom=4})] ]
+					[(#GET{id_gis}|non)	[(#FORMULAIRE_EDITER_GIS{#ID_RUBRIQUE,'',#SELF,'rubrique'})] ]
+				]
+				[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|non)
+					[(#MODELE{carte_gis}{width=500px}{height=350px}{id_rubrique}{attente=1}{zoom=4})]
+				]
+				</div>
+				<div id="titre">
+				<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur1.gif">
+				<span>Dernières explorations</span>
+				</div>
+			]
+		</BOUCLE_travail>
+
+	<BOUCLE_test_article(ARTICLES){branche}{tout}>
+	</BOUCLE_test_article>
+		[(#REM)Tests page chrono]
+			[(#VIGNETTES|=={1}|oui)
+				#SET{vignettes,1}
+			]
+			[(#VIGNETTES|!={1}|oui)
+				#SET{vignettes,0}
+			]
+			<B_test1>
+			<BOUCLE_test1(RUBRIQUES){id_rubrique}{id_secteur IN 3,6}{tout}>
+				#SET{vignettes,1}
+				[(#VIGNETTES|=={0}|oui)
+				#SET{vignettes,0}
+				]
+				[(#ID_RUBRIQUE|=={#ID_SECTEUR}|oui)	#SET{id_secteur,#ID_SECTEUR} ]
+				[(#ID_RUBRIQUE|=={#ID_SECTEUR}|non)	#SET{id_rubrique,#ID_RUBRIQUE} ]
+				<INCLURE{fond=noisettes/bloc/rubrique/chrono}{id_rubrique=#GET{id_rubrique}}{id_secteur=#GET{id_secteur}}{vignettes=#GET{vignettes}}>
+			</BOUCLE_test1>
+			</B_test1>
+			
+			<BOUCLE_blog(RUBRIQUES){id_rubrique}{titre_mot=blog}{tout}>
+				#SET{vignettes,1}
+				[(#VIGNETTES|=={0}|oui)
+				#SET{vignettes,0}
+				]
+				<INCLURE{fond=noisettes/bloc/rubrique/chrono}{id_rubrique=#_principale:ID_RUBRIQUE}{vignettes=#GET{vignettes}}>
+			</BOUCLE_blog>
+			</B_blog>
+			
+			<B_plan>
+			<BOUCLE_plan(RUBRIQUES){id_rubrique}{titre_mot=chrono}{tout}>
+				<INCLURE{fond=noisettes/bloc/rubrique/chrono}{id_rubrique}{vignettes=#GET{vignettes}}>
+			</BOUCLE_plan>
+			</B_plan>
+
+		[(#REM)Tests page plan]
+			<div><br /></div>
+			<div id="bloc_article">
+				<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+				<div id="bloc_article_m">
+					<B_trombino>
+					<BOUCLE_trombino(RUBRIQUES){tout}{id_rubrique}{titre_mot=trombinoscope}>
+						<INCLURE{fond=noisettes/bloc/rubrique/trombino}{id_rubrique}>
+					</BOUCLE_trombino>
+					</B_trombino>
+						<INCLURE{fond=noisettes/bloc/rubrique/plan}{id_rubrique}>				
+					<//B_trombino>
+				</div>
+				<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+			<//B_plan>
+			<//B_blog>
+			<//B_test1>
+			
+		[(#REM)Fermeture bloc_article]
+		</B_test_article>
+
+		<//B_body1>
+			[(#REM)Bloc ajout d'article]
+			[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE})
+				<INCLURE{fond=noisettes/objet/objet-ajouter}{objet=article}{id_parent=#ID_RUBRIQUE}{titre=+Nouvel article}>
+			]
+		<//B_test>
+
+	</div>
+	
+	<!-- ------------------- colone_droite ------------------- -->
+
+	<div id="bloc_coldroit" >	
+			
+			[(#REM)Rubrique Publier ]
+				<BOUCLE_test3(RUBRIQUES) {id_rubrique=8} {id_rubrique} {tout}>
+				</BOUCLE_test3>	
+					<INCLURE{fond=noisettes/bloc/rubrique/publier-droite}>
+				</B_test3>
+				
+			[(#REM) Rubrique Normale ]							
+				[(#REM)S'agit il d'une rubrique administrée par un seul auteur dans travail en cours ?]
+				<BOUCLE_test5(RUBRIQUES){id_enfant}{titre_mot=travail_en_cours}{tout}>
+					<BOUCLE_admin(spip_auteurs_rubriques){id_rubrique=#ENV{id_rubrique}}>
+						<BOUCLE_auteur(AUTEURS){id_auteur=#ID_AUTEUR}{statut='0minirezo'}{tout}>
+							<br /><INCLURE {fond=noisettes/bloc/rubrique/auteur}{id_auteur}{tout}{id_rubrique}{colone=droite}>
+						</BOUCLE_auteur>
+					</BOUCLE_admin>
+				</BOUCLE_test5>
+				<br /><br />
+
+		<//B_test3>
+		<!-- fbloc_droite -->	
+
+		</div>
+		<!-- ------------------- fcolone_droite ------------------- -->
+	<//B_serv3>
+
+</BOUCLE_principale>

@@ -1,0 +1,13 @@
+#HTTP_HEADER{Content-Type: text/html}
+#CACHE{10*24*3600}
+[(#REM)Acces directs aux blocs ajax
+Paramètres :
+- type : page
+]
+
+[(#TYPE|=={bloc_article_forum}|oui)
+	<INCLURE{fond=noisettes/bloc/article/forum}{env}>
+]
+(#TYPE|=={article-mot}|oui)
+	<INCLURE{fond=noisettes/bloc/article/forum}{env}>
+]

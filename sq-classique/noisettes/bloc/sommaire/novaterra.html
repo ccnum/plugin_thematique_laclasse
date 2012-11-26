@@ -1,0 +1,18 @@
+<ul id="menu_sommaire">
+	<li id="map_som1"><a href="[(#SELF|parametre_url{type,map_som}|parametre_url{polyline,0})]" title="map" class="ajax">Carte</a></li>
+	<li id="map_som2"><a href="[(#SELF|parametre_url{type,map_som}|parametre_url{polyline,tout})]" title="map" class="ajax">Parcours</a></li>
+	<li id="timeline"><a href="[(#SELF|parametre_url{type,timeline})]" title="timeline" class="ajax">Timeline</a></li>
+	<li id="encyclopedie"><a href="[(#URL_PAGE{mot}|parametre_url{id_groupe,5})]" title="encyclopedie" class="">Encyclopédie</a></li>
+</ul>
+<div id="bloc_animhome2">
+	<div id="menu_sommaire_dipity">&nbsp;</div>
+	[(#TYPE|=={map_som}|ou{#TYPE|non}|oui)
+		[(#MODELE{carte_gis}{width=930px}{height=650px}{id_secteur=3}{attente=1}{voir=tout}{icon_size=40}{polyline=#ENV{polyline}})]
+	]
+	<BOUCLE_timeline(CONDITION){si #TYPE|=={timeline}|oui}>
+		<iframe id="dipity" name="dipity" width="930" height="650" src="http://www.dipity.com/novaterra/personal/embed_tl?bgcolor=%23ffffff&bgimg=/images/white_grad_up.png" scrolling="no" frameborder="0" style="border:1px solid #CCC;"></iframe>
+	</BOUCLE_timeline>
+	[(#TYPE|=={encyclopedie}|oui)
+		<INCLURE{fond=noisettes/bloc/mot}{id_groupe=5}>
+	]
+</div>

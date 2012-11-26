@@ -1,0 +1,21 @@
+<?php
+		include_spip('inc/securiser_action');
+		include_spip('inc/autoriser');
+
+<BOUCLE_rub(ARTICLES){id_article}{tout}>				
+		if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+		{
+				$hash1 = $GLOBALS['auteur_session']['id_auteur'].$GLOBALS['auteur_session']['pass'];
+				$action="instituer_article";
+				$redirect="#URL_SITE_SPIP/spip.php?rubrique8&var_mode=recalcul";
+				
+				$confirmation= attribut_html("Etes vous sûr de vouloir supprimer cet article ?");
+				$att=" mmethod='post' name='formulaire' onSubmit='return confirmation(\"$confirmation\")'";
+
+				$mode="<select name='statut_nouv' style='display: none;'><option type='hidden' value='poubelle' /></select><input class='publier publier_menu_petit' type='submit' value='X' title='supprimer cet article' /><br /><br />";
+				$arg="#ID_ARTICLE";							
+				
+				echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+		}
+</BOUCLE_rub>
+?>

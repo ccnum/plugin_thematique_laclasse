@@ -1,0 +1,36 @@
+<datas>
+	<BOUCLE_rubrique(RUBRIQUES){titre_mot=evenements}{tout}>
+		<BOUCLE_article(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+			<BOUCLE_forum(FORUMS){id_article}><?php ?></BOUCLE_forum>#SET{total,#TOTAL_BOUCLE}</B_forum>#SET{total,0}<//B_forum>
+			[(#SESSION{login}|oui)
+			<article>
+				<id>article_#ID_ARTICLE</id>
+				<id_objet>#ID_ARTICLE</id_objet>				
+				<type_objet>article</type_objet>
+				<titre>[(#TITRE|entites_html)]</titre>
+				<date>[(#DATE|affdate{'d'})]/[(#DATE|affdate{'m'})]/[(#DATE|affdate{'Y'})]</date>
+				<y>[(#_article:Y|sinon{0})]</y>
+				<commentaires>#GET{total}</commentaires>
+			</article>
+			]
+		</BOUCLE_article>		
+		<BOUCLE_syndic(SYNDIC_ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+			[(#REM)Pour exclure les doublons ou articles qui bouclent depuis le WP]
+			<BOUCLE_exclusion(ARTICLES){titre=#_syndic:TITRE}>
+			</BOUCLE_exclusion>
+			</B_exclusion>
+				[(#SESSION{login}|oui)
+				<article>
+					<id>syndic_article_#ID_SYNDIC_ARTICLE</id>
+					<id_objet>#ID_SYNDIC_ARTICLE</id_objet>				
+					<type_objet>syndic_article</type_objet>				
+					<titre>[(#TITRE|entites_html)]</titre>
+					<date>[(#DATE|affdate{'d'})]/[(#DATE|affdate{'m'})]/[(#DATE|affdate{'Y'})]</date>
+					<commentaires>0</commentaires>
+				<y>[(#Y|sinon{0})]</y>
+				</article>
+				]
+			<//B_exclusion>
+		</BOUCLE_syndic>
+	</BOUCLE_rubrique>
+</datas>

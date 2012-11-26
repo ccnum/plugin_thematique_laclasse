@@ -1,0 +1,168 @@
+[(#REM)Page principale - Pour vue de détail forcée à l'ouverture :
+-#ENV{type_objet} : consigne, reponse, article, article_evt, ressource
+-#ENV{id_objet} : id_objet
+et/ou
+-#ENV{vue_date} : 01/10/2011
+]
+
+<div id="offset"></div>
+<div id="global">
+
+	<INCLURE{fond=noisettes/inc/no_ie6}>
+	<div id="zone">
+		<!--<div id='fermer' class='bouton_fermer' style='right: 20px; top: 20px;'><a href='#'><img src='#CHEMIN{img/fermer.png}"></a></div>-->
+	</div>
+	<!--[if IE]><script src="#CHEMIN{js/_excanvas.js}"></script><![endif]-->
+
+	<script language="Javascript">
+		[(#REM)Variables globales JS]
+			var g_u_chemin = "[(#ENV{chemin})]";
+			var g_u_xml = "spip.php?page=xml&annee_scolaire=#ENV{annee_scolaire}&mode=";
+			var g_u_admin = [(#ENV{admin})];
+			var g_u_id_restreint = [(#ENV{restreint}|sinon{0})];
+			var g_u_type_restreint = '[(#ENV{type_restreint})]';
+			var g_u_classe_select = [(#ENV{restreint}|sinon{0})];
+			var g_u_img_blog = "[(#CHEMIN{#ENV{chemin}/img/blog_grand_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/blog_grand.png}|image_reduire{98}|extraire_attribut{src})]";
+			var g_u_img_evt = "[(#CHEMIN{#ENV{chemin}/img/evenement_grand_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/evenement_grand.png}|image_reduire{150,94}|extraire_attribut{src})]";			
+			var g_u_mode_popup = '#ENV{mode_popup}'
+			
+		[(#REM)Vue forcée à l ouverture]
+			var g_u_date = '[(#ENV{vue_date,0})]';
+			var g_u_type_popup = '[(#ENV{type_objet,0})]';
+			var g_u_type_objet = '[(#ENV{page})]';
+			var g_u_id_objet = '[(#ENV{id_objet,0})]';
+		
+	</script>
+	<script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>				
+	<script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>
+	<script type="application/javascript" src="#CHEMIN{js/classe.js}"></script>
+	<script type="application/javascript" src="#CHEMIN{js/consigne.js}"></script>
+	<script type="application/javascript" src="#CHEMIN{js/reponse.js}"></script>
+	<script type="application/javascript" src="#CHEMIN{js/bouton.js}"></script>	
+	<script type="application/javascript" src="#CHEMIN{js/article_blog.js}"></script>
+	<script type="application/javascript" src="#CHEMIN{js/article_evenement.js}"></script>
+	<script type="application/javascript" src="#CHEMIN{js/main.js}"></script>
+
+	<div id="zone_bas">
+
+		[(#REM)Col 1]
+			<div id="col1">
+				<div class="titre3">
+				
+				[(#NOM_SITE_SPIP|=={design.laclasse.com}|non)
+				<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>[(#NOM_SITE_SPIP|replace{.laclasse.com, })]</strong></a><a href="http://www.laclasse.com" title="http://www.laclasse.com">.laclasse.com</a>
+				]
+
+				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui)
+					[(#SESSION{login}|oui)
+						[(#SESSION{pgp}|=={cybercolleges42}|oui)
+						<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>design</strong></a><a href="http://www.cybercolleges42.fr" title="http://www.cybercolleges42.fr">.cybercolleges42.fr</a>
+						]
+						[(#SESSION{pgp}|=={cybercolleges42}|non)
+						<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>design</strong></a><a href="http://www.laclasse.com" title="http://www.laclasse.com">.laclasse.com</a>
+						]
+					]
+					[(#SESSION{login}|non)
+						<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>Atelier design</strong></a>
+					]
+				]
+
+				</div>
+				<div class="sous-colonne">
+					<a id="presentation" class="presentation" rel="presentation" href="#CHEMIN{img/presentation/01.png}" title="1. Des artistes et des scientifiques entrent dans laclasse.com">Le projet</a>
+					<div class="cache">
+						<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
+						<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
+						<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
+						<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
+						<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
+						<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
+						<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
+					</div>
+				</div>
+				<div class="sous-colonne"><a href='#CHEMIN{img/modeemploi.pdf}'>Besoin d'aide ?</a></div>
+
+				<div class="sous-colonne" id="annee_scolaire">
+					<form name="annee_scolaire">
+					<select onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire.annee_scolaire.value)" name="annee_scolaire">
+						<option value=''>Année scolaire</option>
+						<option value=''>----------------</option>
+						<BOUCLE_vieux(ARTICLES){par date}{date!=0000}{0,1}{tout}>
+						[(#DATE|annee|afficher_options_date{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
+						</BOUCLE_vieux>
+					</select>
+					</form>
+				</div>
+				<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}>
+			</div>
+		
+		[(#REM)Col 2]
+			<div class="gauche">
+				<img src="#CHEMIN{img/filet.png}">
+			</div>
+
+			<div id="col2">
+				<!--<div id="travaux">
+					<img src="#CHEMIN{img/reponse_petit.png}">&nbsp;<a href="#" onClick="showhide_travaux();">Masquer les consignes et travaux des élèves</a>
+				</div>-->
+				<div id="blog">
+					#SET{blog,le blog projet}
+					[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,le journal du capitaine et le novamag} ]
+					[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,les actualités littéraires} ]
+					[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,le blog du potager} ]
+					[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,le blog de Flavie Jones} ]
+					[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,les actualités} ]
+					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/blog_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/blog_petit.png})]})]
+					<img src="#GET{img}">&nbsp;<a href="#" onClick="showhide_articles_blog();">Afficher #GET{blog}</a>
+				</div>
+
+				<div id="evenements">
+					[(#ADMIN|>={0}|oui)
+						#SET{blog,le blog pédagogique}
+						[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/evenement_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/evenement_petit.png})]})]
+						<img src="#GET{img}">&nbsp;<a href="#" onClick="showhide_articles_evenement();">Afficher #GET{blog}</a>
+					]				
+				</div>
+
+				<div id="forum">
+					[(#NOM_SITE_SPIP|match{miam|aqueduc|novaterra|design}|et{#SESSION{login}|oui}|oui)
+						#SET{blog,Discuter avec les intervenants}					
+						[(#NOM_SITE_SPIP|match{novaterra}|oui)#SET{blog,Guichet du savoir intergalactique}]
+						[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_chat_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_chat_petit.png})]})]
+						<img src="#GET{img}">&nbsp;<a href="spip.php?page=rubrique&id_rubrique=33&mode=ajax&type_objet=ressource" class="profil">#GET{blog}</a>
+					]
+				</div>
+			</div>
+		
+		[(#REM)Col 3]
+			<div style="float:left;">
+				<img src="#CHEMIN{img/filet.png}">
+			</div>
+		
+			<div id="col3">
+				<div id="documents">
+					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_ressources_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_ressources_petit.png})]})]
+					<img src="#GET{img}">&nbsp;<a href="#" onClick="ressources_click();">Ouvrir les ressources documentaires</a><br>
+				</div>
+				<div id="classes">
+					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_classes_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_classes_petit.png})]})]
+					<img src="#GET{img}">&nbsp;<a href="#" onClick="classes_click();">Ouvrir les classes</a><br>
+				</div>		
+				<div id="chat">
+					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_doc_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_doc_petit.png})]})]
+					[(#NOM_SITE_SPIP|match{novaterra}|oui)
+					<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click();">Ouvrir l'encyclopédie</a><br>
+					]
+					[(#NOM_SITE_SPIP|match{miam}|oui)
+					<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click();">Tableau des saisons</a><br>
+					]
+				</div>
+				<div id="chat2">
+					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_doc2_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_doc2_petit.png})]})]
+					[(#NOM_SITE_SPIP|match{miam}|oui)
+					<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click(2);">Carte du projet</a><br>					
+					]
+				</div>				
+			</div>
+	</div>
+</div>

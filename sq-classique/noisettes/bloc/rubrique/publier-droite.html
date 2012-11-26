@@ -1,0 +1,82 @@
+#CACHE{0}
+
+[(#REM)Bloc auteur]
+	<br /><INCLURE {fond=noisettes/bloc/rubrique/auteur}{id_auteur=#SESSION{id_auteur}}{tout}{id_rubrique}{colone=droite}>
+
+	<INCLURE{fond=noisettes/bloc/js/accordeon}{nom=bloc_option_auteur}>
+	<div id="bloc_option_auteur">
+	[(#REM)Bloc statistiques]
+		<ul ><li><a class="hac " title="modifier le desciptif et le logo" style="cursor: pointer; margin-left:7px;">
+				<div id="titre">
+					<img class='img_titre' src='#CHEMIN{images}/puce_titrecouleur6.gif'>
+					<span title="mes statistiques">Mes statistiques</span>
+				</div>
+			</a><ul style="display: none;"><li>
+
+			<div style="margin-top: -22px;">
+				<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+				<div id="bloc_colhome2_m">
+					<B_art1><?php $visites = 0; ?><BOUCLE_art1(ARTICLES) {id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}}><?php $visites += #VISITES; ?></BOUCLE_art1>#SET{nb_art,#TOTAL_BOUCLE}</B_art1><//B_art1>
+					<br /><b>> Articles publiés : </a></b>#GET{nb_art}<br /> 
+					<br /><b>> Nombre de visites reçues : </a></b><?php echo $visites; ?><br /> 											
+					<span class="date">[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]</span>
+					<div class="ttpetit"><br /></div>
+					[(#TEXTE|textebrut|couper{150})<br />]
+				</div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+			</div>
+			</li></ul></li></ul>
+
+	[(#REM)Bloc consignes]
+		<ul style="margin-top: -22px;"><li><a class="hac " title="voir toutes les consignes" style="cursor: pointer; margin-left:7px;">
+				<div id="titre">
+					<img class='img_titre' src='#CHEMIN{images}/puce_titrecouleur4.gif'>
+					<span title="revoir les dernières consignes">Dernières consignes</span>
+				</div>
+			</a><ul style="display: none;"><li>
+				<div style="margin-top: -22px;">
+					<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+					<div id="bloc_colhome2_m">
+						<BOUCLE_consignes(ARTICLES){id_rubrique=6}{par date}{inverse}{0,3}>
+							<br />
+							<b>> <a class="lienss" href="#URL_ARTICLE">[(#TITRE)]</a></b>
+							<br /> 
+							<span class="date">
+								[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+							</span>
+							<div class="ttpetit"><br /></div>
+							[(#TEXTE|textebrut|couper{150})<br />]
+						</BOUCLE_consignes>
+					</div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+				</div>
+		</li></ul></li></ul>
+
+	[(#REM)Bloc forum]
+		<BOUCLE_auteur3(AUTEURS){id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}}{statut='0minirezo'}{tout}>
+			<B_forum2>
+				<ul style="margin-top: -22px;"><li><a class="hac " title="modifier le desciptif et le logo" style="cursor: pointer; margin-left:7px;">
+					<div id="titre">
+						<img class='img_titre' src='#CHEMIN{images}/puce_titrecouleur1.gif'>
+						<span title="dernières contributions de forum">Sur le forum</span>
+					</div>
+				</a><ul style="display: none;"><li>
+
+				<div style="margin-top: -22px;">
+					<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+					<div id="bloc_colhome2_m">
+							<BOUCLE_forum2(FORUMS) {par date} {inverse} {0,3}>
+								<br />
+								<b>> <a class="lienss" href="#URL_ARTICLE">[(#TITRE)]</a></b>
+								<br /> 
+								<span class="date">
+									[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+								</span>
+								<div class="ttpetit"><br /></div>
+								[(#TEXTE|textebrut|couper{150})<br />]
+							</BOUCLE_forum2>
+					</div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+				</div>
+				</li></ul></li></ul>
+			</B_forum2>
+		</BOUCLE_auteur3>
+
+</div>	

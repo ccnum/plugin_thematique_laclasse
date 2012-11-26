@@ -1,0 +1,78 @@
+#HTTP_HEADER{"Cache-Control: no-store, no-cache, must-revalidate"}
+#HTTP_HEADER{"Pragma: no-cache"}
+
+<div class='formulaire_spip formulaire_login'>
+	[(#REM) pour IE qui sinon se perd dans l'ajax !, ne pas retirer]<br class='bugajaxie' />
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{_deja_loge})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class='reponse_formulaire reponse_formulaire_erreur'>(#ENV**{message_erreur})</p>]
+
+	[(#ENV{echec_cookie})
+	<fieldset class='reponse_formulaire reponse_formulaire_erreur'>
+		<h2><:avis_erreur_cookie:></h2>
+		<p class="erreur_message"><:login_cookie_oblige:><br /><:login_cookie_accepte:></p>
+	</fieldset>]
+
+	[(#ENV{editable})
+	<form id='formulaire_login' method='post' action='#ENV{action}' enctype='multipart/form-data'>
+	[(#REM) declarer les hidden qui declencheront le service du formulaire parametre : url d'action ]
+	#ACTION_FORMULAIRE{#ENV{action}}
+	<fieldset>
+		<legend><:form_forum_identifiants:></legend>
+		<span id="spip_logo_auteur">#ENV*{_logo,''}</span>
+		<ul>
+			<li class="editer_login obligatoire">
+				<label for="var_login">Login</label>
+				<input type='text' class='text' name='var_login' id='var_login' value="[(#ENV**{var_login})]" size='40' />
+				[<span class="erreur_message">(#ENV**{erreurs}|table_valeur{var_login})</span>]
+			</li>
+			<li class="editer_password obligatoire">
+				<label for="password"><:login_pass2:></label>
+				<input type='password' class='password' name='password' id='password' value="" size='40' />
+				[<span class="erreur_message">(#ENV**{erreurs}|table_valeur{password})</span>]
+				[<li><span class='details'><a href="(#URL_PAGE{spip_pass})" id='spip_pass'><:login_motpasseoublie:></a></span></li>]
+			</li>
+			[(#ENV{rester_connecte})
+			<li class="editer_session"><div class='choix'>
+				<input type="checkbox" class="checkbox" name="session_remember" id="session_remember" value="oui" [(#ENV**{cnx}|?{' '})checked="checked"] onchange="jQuery(this).addClass('modifie');" />
+				<label class='nofx' for="session_remember"><:login_rester_identifie:></label>
+			</div></li>]
+		</ul>
+	</fieldset>
+	<p class="boutons"><input type="submit" class="submit" value="<:bouton_valider:>" /></p>
+	</form>
+	]
+	[(#REM) en cas d'absence de cookie, on represente le formulaire alternatif ]
+	[<form action="(#ENV{auth_http})" method="get">[
+	(#ENV{auth_http}|form_hidden)
+	]
+	<fieldset>
+		<legend><:login_sans_cookiie:></legend>
+		<:login_preferez_refuser:>
+		<input type="hidden" name="essai_auth_http" value="oui"/>
+		[<input type="hidden" name="url" value="(#ENV{url})"/>]
+		<p class="boutons"><input type="submit" class="submit" value="<:login_sans_cookiie:>"/></p>
+	</fieldset>
+	</form>
+	]
+</div>
+[(#REM) javascript qui gere la securite du login en evitant de faire circuler le pass en clair]
+<script type="text/javascript" src="#EVAL{_DIR_JAVASCRIPT}md5.js"></script>
+<script type="text/javascript" src="#EVAL{_DIR_JAVASCRIPT}login.js"></script>
+<script type='text/javascript'>/*<!#EVAL{chr(91)}CDATA#EVAL{chr(91)}*/
+var alea_actuel='#ENV{_alea_actuel}';
+var alea_futur='#ENV{_alea_futur}';
+var login='#ENV{var_login,''}';
+var page_auteur = '#URL_PAGE{informer_auteur}';
+var informe_auteur_en_cours = false;
+var attente_informe = 0;
+
+(function($){
+	$('#password')
+		.after("<em id='pass_securise'><img src='#EVAL{_DIR_IMG_PACK}securise.gif' width='16' height='16' alt='<:login_securise:>' title='<:login_securise:>' \/><\/em>");
+	affiche_login_secure();
+	$('#var_login').change(actualise_auteur);
+	$('form#formulaire_login').submit(login_submit);
+}(jQuery));
+
+/*#EVAL{chr(93)}[(#EVAL{chr(93)})]>*/</script>

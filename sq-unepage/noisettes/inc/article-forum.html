@@ -1,0 +1,31 @@
+#CACHE{0}
+[(#REM)Paramètres
+-id_article]
+<BOUCLE_art(ARTICLES){id_article}{tout}>
+	<div class="bloc_option_doc nettoyeur">
+	<ul><li>
+	[(#REM)Commenter]
+		<script type="text/javascript">
+			$().ready(function(){
+			$('#ajaxf1#ID_ARTICLE').click(function() {
+				var visibility = $('div#ajax_callback_forum_#ID_ARTICLE').css("display");
+				if (visibility == 'none'){
+				$(this).addClass('chargement');
+				$('#ajax_callback_forum_#ID_ARTICLE').load('[(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+				, {limit: 25}, function(){ 
+					$('#ajax_callback_forum_#ID_ARTICLE').show('slow'); 
+					$('#ajaxf1#ID_ARTICLE').removeClass('chargement');	});
+				}
+				else $('#ajax_callback_forum_#ID_ARTICLE').hide('slow');
+				return false; // Or ev.preventDefault();
+			});
+			});
+			</script>
+			<a id="ajaxf1#ID_ARTICLE" class="hac liens_voir" title="afficher le forum">
+			<img src='[(#CHEMIN{img/logo_aide_on_15.png}||image_reduire{15}|extraire_attribut{src})]' >&nbsp;&nbsp;Commenter
+			</a>
+	
+	<div id="ajax_callback_forum_#ID_ARTICLE" class="bloc_texte" style='display: none;'></div>	
+
+	</li></ul></div>
+</BOUCLE_art>

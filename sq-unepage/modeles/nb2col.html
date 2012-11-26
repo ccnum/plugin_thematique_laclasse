@@ -1,0 +1,25 @@
+#SET{id_rubrique,0}
+<BOUCLE_article(ARTICLES){id_article}{tout}>
+	#SET{id_rubrique,#ID_RUBRIQUE}
+</BOUCLE_article>
+</B_article>
+	
+	<BOUCLE_auteur2(AUTEURS){id_auteur}{tout}>
+		#SET{id_rubrique,#ID_AUTEUR}
+	</BOUCLE_auteur2>
+	</B_auteur2>
+		#SET{id_rubrique,#ENV{id_rubrique,0}}
+	<//B_auteur2>
+
+	<BOUCLE_auteurs_liens(auteurs_liens){id_auteur}{objet=rubrique}{!par id_objet}>
+		<BOUCLE_auteur(RUBRIQUES){id_rubrique=#ID_OBJET}{tout}{!titre_mot IN evenements,blogs,ressources}>
+			<BOUCLE_ex(RUBRIQUES){id_enfant}{titre_mot IN evenements,blogs,ressources}>
+			</BOUCLE_ex>
+			</B_ex>
+				#SET{id_rubrique,#ID_RUBRIQUE}
+			<//B_ex>
+		</BOUCLE_auteur>
+	</BOUCLE_auteurs_liens>
+<//B_article>
+
+[(#GET{id_rubrique}|substr{[(#GET{id_rubrique}|strlen|moins{1})],1})]

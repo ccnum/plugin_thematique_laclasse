@@ -1,0 +1,89 @@
+			                  <table cellpadding="10">
+			                    <BR><BR>
+			                    <tr> 
+			                      <BOUCLE_documents_joints(DOCUMENTS) {id_article}{par date}{doublons} {0,2}>
+			                      <td width="50%" align="center" valign="top"> 
+								  
+			                        <table cellpadding="0" cellspacing="0" border="0">
+			                          <tr> 
+			                            <td bgcolor="#FFFFFF" align="center" valign="middle"> 
+										
+			                              <table bgcolor="#000000">
+			                                <tr> 
+			                                  <td bgcolor="#FFFFFF" align="center"><a href="#URL_DOCUMENT" target="_blank">[(#LOGO_DOCUMENT)]</a></td>
+			                                </tr>
+			                              </table>
+										  
+			                            </td>
+			                            <td bgcolor="#FFFFFF" width="5" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_2.gif" valign="top"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_1.gif" width="6" height="8"></td>
+			                          </tr>
+			                          <tr> 
+			                            <td bgcolor="#FFFFFF" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_4.gif"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_3.gif" width="7" height="8"></td>
+			                            <td bgcolor="#FFFFFF" width="5" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_2.gif"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_5.gif" width="5" height="8"></td>
+			                          </tr>
+			                        </table>
+			                        [ 
+			                        <div align="center"><b>(#TITRE)</b></div>
+			                        ] 
+			                        [<div align="center">(#DESCRIPTIF)</div>]
+														[(#TAILLE|taille_en_octets)][, 
+			                      (#LARGEUR) x #HAUTEUR pixels</span>]
+			                        
+			                        </td>
+			                      </BOUCLE_documents_joints>
+			                    </tr>
+			                    <BOUCLE_ligne_suite (BOUCLE_documents_joints)>
+			                    </BOUCLE_ligne_suite>
+			                    <tr> 
+			                      <BOUCLE_ligne_suite2 (BOUCLE_documents_joints)>
+			                      </BOUCLE_ligne_suite2>
+			                    </tr>
+			                  </table>
+			                  
+			                  
+			                [ 
+			                <div id="spip">(#PS|justifier)</div>
+			                ] [ 
+			                <hr>
+			                <div id="spip">(#NOTES)</div>
+			                ] 
+
+	 				<!----------------------------DOCUMENTS----------------------------->
+			            
+			                <B_documents>
+			                <hr>
+			                <BOUCLE_documents(DOCUMENTS){id_article}{par titre}{doublons}>
+			                <table cellpadding=0 cellspacing=0 border=0>
+			                  <tr> 
+			                    <td align='center' bgcolor="#FFFFFF" colspan="2"> 
+			                      <table cellpadding="0" cellspacing="0" border="0">
+			                        <tr> 
+			                          <td bgcolor="#FFFFFF" width="5"><img src="#DOSSIER_SQUELETTE/IMG_v2/transp.gif" width="5" height="5"></td>
+			                          <td bgcolor="#FFFFFF"><img src="#DOSSIER_SQUELETTE/IMG_v2/transp.gif" width="5" height="5"></td>
+			                          <td bgcolor="#FFFFFF" width="5" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_2.gif" valign="top"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_1.gif" width="6" height="8"></td>
+			                        </tr>
+			                        <tr> 
+			                          <td bgcolor="#FFFFFF" width="5"><img src="#DOSSIER_SQUELETTE/IMG_v2/transp.gif" width="5" height="5"></td>
+			                          <td bgcolor="#FFFFFF" align="center" valign="middle">[(#LOGO_DOCUMENT|#URL_DOCUMENT)]</td>
+			                          <td bgcolor="#FFFFFF" width="5" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_2.gif"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_2.gif" width="6" height="1"></td>
+			                        </tr>
+			                        <tr> 
+			                          <td bgcolor="#FFFFFF" width="5" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_4.gif"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_3.gif" width="7" height="8"></td>
+			                          <td bgcolor="#FFFFFF" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_4.gif"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_4.gif" width="1" height="8"></td>
+			                          <td bgcolor="#FFFFFF" width="5" background="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_2.gif"><img src="#DOSSIER_SQUELETTE/IMG_v2/corps/ombres/ombre_5.gif" width="5" height="8"></td>
+			                        </tr>
+			                      </table>
+			                    </td>
+			                  </tr>
+			                  <tr> 
+			                    <td align='center' bgcolor="#FFFFFF">&nbsp; </td>
+			                    <td bgcolor="#FFFFFF"> <a href="#URL_DOCUMENT">[(#TITRE|majuscules)]</a> 
+			                      [
+			                      <div id="spip">(#DESCRIPTIF)</div>
+			                      ] [(#TAILLE|taille_en_octets)][, 
+			                      (#LARGEUR) x #HAUTEUR pixels</span>] </td>
+			                  </tr>
+			                </table>
+					</BOUCLE_documents>
+			    </B_documents>
+			                

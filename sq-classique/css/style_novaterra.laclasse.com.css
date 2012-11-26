@@ -1,0 +1,17 @@
+/* ------------------------------------- NOVATERRA ------------------------------------- */
+
+.editer_lat, .editer_lonx, .editer_zoom, #map_adresse, #rechercher { display: none;}
+#map, .map {margin: 10px; width: 95%; height: 350px; }
+.formulaire_editer_gis {margin: 2px 10px 25px; 10px; width: 95%;}
+#logocontrol, #logocontrol + div { visibility: hidden;}
+
+#menu_sommaire_dipity {position: absolute; width: 932px;  height: 28px; background-color: white; z-index: 999; top: 0px; }
+#menu_sommaire  { position: absolute; list-style:none; margin:0px; padding:0px; z-index: 1000; top: 9px; left: 10px;}
+#menu_sommaire li { list-style:none; display:inline; font-size: 0.9em;}
+li.active a { background-color:#FFF; color:#000; }
+#menu_sommaire li a,#menu li a:link { float:left; background-color:#eee; color:#3c3c3c; margin-right:5px;  padding:2px; margin-top: 2px; -moz-border-radius-topleft: 5px; text-decoration: none; width: 7em; text-align:center; }
+#menu_sommaire li a:hover {  background-color:#888; color:#fff; text-decoration: none;}
+#menu_sommaire li a:active { background-color:#FFF;color:#000; }
+
+#player {display: none;}
+#map_edit {display: none;}

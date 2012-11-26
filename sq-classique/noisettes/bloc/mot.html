@@ -1,0 +1,54 @@
+[(#REM)Affichage d'un ou de plusieurs mots-clefs
+-id_mot
+-id_groupe]	
+	
+[(#REM)Variables]
+	[(#SET{id_groupe,#ENV{id_groupe}})]
+	<BOUCLE_mots(MOTS){id_mot}{tout}>#SET{id_groupe,#ID_GROUPE}</BOUCLE_mots>
+	
+[(#REM)Affichage]
+	<div id="bloc_colgauche">
+		<INCLURE {fond=noisettes/bloc/menug}{id_rubrique=7}>
+	</div>
+
+	<div id="bloc_colcentre">
+		<B_principale>
+			#ANCRE_PAGINATION
+			<div><br /></div>
+			[<div class="titre_bloc pagination nettoyeur" style="text-align: right;">(#PAGINATION{page_precedent_suivant})</div>]
+
+		<BOUCLE_principale(MOTS){id_mot?}{id_groupe=#GET{id_groupe}}{tout}{pagination 7}>
+
+			<!--------------------- bloc titre --------------------->
+				<div id="titre">
+					<img class='img_titre'  src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub1>.gif">
+					<a href="[(#URL_PAGE{mot}|parametre_url{id_mot,#ID_MOT})]" class="ajax">
+						<span>[(#TITRE|supprimer_numero)]</span>
+					</a>
+				</div>
+
+			<!--------------------- bloc intro --------------------->
+				[<div id="bloc_intro" class="#EDIT{descriptif}">
+					(#LOGO_MOT|left||image_reduire{100,100}|inserer_attribut{'class','photo_intro'})
+					<span >#DESCRIPTIF</span>
+				</div>
+				<div id="bloc_intro_b"></div>]
+
+			<!--------------------- contenu --------------------->
+				[(#ENV{id_mot}|oui)
+					<INCLURE{fond=noisettes/bloc/rubrique/chrono}{id_mot=#ID_MOT}{vignettes=1}>
+				]
+				
+		</BOUCLE_principale>
+	</div>
+
+<!--------------------- fcolone_gauche --------------------->
+
+<!--------------------- colone_droite --------------------->
+
+<div id="bloc_coldroit">
+</div>
+
+<!--------------------- fcolone_droite --------------------->
+
+

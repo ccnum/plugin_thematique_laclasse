@@ -1,0 +1,25 @@
+#CACHE{0}
+[(#REM)Stocke les valeurs de coordonnées propres à l'article
+type_objet
+id_objet
+X,Y
+]
+
+[(#SESSION{statut}|=={0minirezo}|oui)
+	[(#TYPE_OBJET|match{article|syndic_article}|oui)
+		[(#AUTORISER{modifier, #TYPE_OBJET, #ID_OBJET}|oui)
+			<?php
+				$id_objet = #ID_OBJET;
+				$x = #ENV{X};
+				$y = #ENV{Y};
+				if (($id_objet = sql_getfetsel("id_#TYPE_OBJET", "spip_#TYPE_OBJETs", "id_#TYPE_OBJET=$id_objet"))
+				&&(is_numeric($x))
+				&&(is_numeric($y)))
+				{	sql_updateq("spip_#TYPE_OBJETs",
+					array("X" => $x, "Y" => $y),
+					"id_#TYPE_OBJET=$id_objet");
+				}
+			?>
+		]
+	]
+]

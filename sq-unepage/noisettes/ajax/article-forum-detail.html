@@ -1,0 +1,90 @@
+#CACHE{24*3600}
+[<div class="lien_forum"><a class="lienss" href="(#PARAMETRES_FORUM|url_reponse_forum)">> <:repondre_article:></a></div>]
+<B_Forums>
+<!-- Début Forum-->	
+	<ul class="forum">
+	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}>
+			#SET{type_objet,#MODELE{type_objet}{id_auteur}}
+
+			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs]
+			[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consigne} ]
+			[(#GET{type_objet}|=={ressource}|oui) #SET{type_objet,consigne} ]
+			<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
+				<div class="photo">
+					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
+				</div>
+				<div class="texte">
+					<div class="titre">[(#TITRE)]</div>
+					<div class="auteur_date">[(#MODELE{titre_auteur}{id_auteur}) - ][(#DATE|affdate)]</div>
+				</div>
+			</div>				
+				[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
+				<B_documents_joints>
+					<BOUCLE_documents_joints(DOCUMENTS) {id_forum} {tout} {doublons}>
+						<div class="">
+							[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{80}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+						</div>
+					</BOUCLE_documents_joints>
+				</B_documents_joints>
+
+				[(#REM)Commenter]
+					[(#ADMIN|=={-2}|non)
+					<div class="bloc_option_doc nettoyeur">
+					<ul><li>
+						<script type="text/javascript">
+							$().ready(function(){
+							$('#ajaxf1#ID_FORUM').click(function() {
+								var visibility = $('div#ajax_callback_forum_#ID_FORUM').css("display");
+								if (visibility == 'none'){
+								$(this).addClass('chargement');
+								$('#ajax_callback_forum_#ID_FORUM').load('[(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+								, {limit: 25}, function(){ 
+									$('#ajax_callback_forum_#ID_FORUM').show('slow'); 
+									$('#ajaxf1#ID_FORUM').removeClass('chargement');	});
+								}
+								else $('#ajax_callback_forum_#ID_FORUM').hide('slow');
+								return false; // Or ev.preventDefault();
+							});
+							});
+						</script>
+						<a id="ajaxf1#ID_FORUM" class="hac liens_voir" title="afficher le forum">
+						<img src='[(#CHEMIN{img/logo_aide_on_15.png}||image_reduire{15}|extraire_attribut{src})]' >&nbsp;&nbsp;Répondre à ce message
+						</a>
+						<div id="ajax_callback_forum_#ID_FORUM" class="bloc_texte" style='display: none;'></div>
+					</li></ul></div>
+					]
+
+
+			<B_forums_fils>
+				<ul class="forum">
+					<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
+						#SET{type_objet,#MODELE{type_objet}{id_auteur}}
+						[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consigne} ]						
+						<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
+							<div class="photo">
+								[(#MODELE{logo_carre}{taille=40}{id_auteur})]
+							</div>
+							<div class="texte">
+								<div class="titre">[(#TITRE)]</div>
+								<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>
+							</div>
+						</div>				
+							[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
+							<BOUCLE_documents_joints3(DOCUMENTS) {id_forum} {tout} {doublons}>
+								<div class="portfolio_grand">
+									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+								</div>
+							</BOUCLE_documents_joints3>
+							<BOUCLE_documents_joints2(DOCUMENTS) {id_forum} {tout} {doublons}>
+								<div class="portfolio">
+									[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{80}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+								</div>
+							</BOUCLE_documents_joints2>
+							<!--[<div id="spip"><a href="(#PARAMETRES_FORUM|url_reponse_forum)"  class="lienss">R&eacute;pondre &agrave; ce message</a></div>]-->
+					</BOUCLE_forums_fils>
+					</ul>
+			</B_forums_fils>
+	</BOUCLE_Forums>
+	</ul>
+</B_Forums>
+<//B_Forums>

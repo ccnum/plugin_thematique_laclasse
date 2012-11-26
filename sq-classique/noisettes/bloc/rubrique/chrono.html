@@ -1,0 +1,169 @@
+#CACHE{0}
+[(#REM)Intro]
+	<BOUCLE_auteurs(AUTEURS){id_auteur}>
+		<?php if ($affiche!='') { ?><INCLURE {fond=noisettes/bloc/rubrique/auteur}{id_auteur}> <?php } ?>
+	</BOUCLE_auteurs>
+
+	<BOUCLE_ex(ARTICLES) {id_rubrique} {titre_mot=rubrique_edito} {0,1} {doublons}>
+	</BOUCLE_ex>
+
+[(#REM)Articles]
+	<B_article_1>
+		#ANCRE_PAGINATION
+		<div><br /></div>
+		[<div class="titre_bloc pagination nettoyeur" style="text-align: right;"><a class="lien_pagination ajax" rel="nofollow" href="#SELF&debut_article_1=0#pagination_article_1">0</a> | (#PAGINATION{page_precedent_suivant})</div>]		
+	<BOUCLE_article_1(ARTICLES) {id_secteur?} {id_rubrique?} {id_auteur?} {id_mot?} {recherche?} {par date} {inverse} {doublons} {pagination 5}>
+			<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+			<div id="bloc_article" class="[(#GET{police})] [(#LESAUTEURS*|match{Barroco}|oui) barocco]">
+				<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+				<div id="bloc_article_m">
+					[(#REM)Bloc suppression]
+						[(#AUTORISER{modifier, article, #ID_ARTICLE})
+							[(#SET{confirmation,Etes vous sûr de vouloir supprimer l\'article [(#TITRE|attribut_html)]})]
+							<!--<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}>-->
+						]
+					[(#REM)Titre]
+						<div class="titre_article">
+						<INCLURE {fond=noisettes/bloc/article/titre_fiche}{id_article}{self=#SELF}>
+						<a href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]" class="lienss">#TITRE</a>
+						</div>
+						<span class="titre_auteur">[Le (#DATE|nom_jour)] [(#DATE|affdate|sinon{<br />})]
+							<B_auteurs_1>
+							par <BOUCLE_auteurs_1(AUTEURS) {id_article} {", "}>#NOM
+							</BOUCLE_auteurs_1>
+						</span><br /><br />
+				
+					[(#REM)--Images jointes--]
+						<!-- [<div id="bloc_photoliste">(#LOGO_ARTICLE||image_reduire{0,32}|inserer_attribut{'class','photo_liste'})</div>] -->
+						<B_documents_joints>
+						<BOUCLE_documents_joints(DOCUMENTS) {id_article} {extension IN jpg,png,gif} {mode=document} {par num titre, date} {doublons d} >
+							[(#VIGNETTES|=={1}|oui)	
+								[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox" type="#MIME_TYPE" [(#COMPTEUR_BOUCLE|>{1}|oui)style="display: none;"]>
+								(#EMBED_DOCUMENT|image_reduire{300})<br /><br />
+								</a>]
+							]
+							[(#VIGNETTES|!={1}|oui)
+								[<div id="bloc_photoliste">(#LOGO_DOCUMENT||image_reduire{0,32}|inserer_attribut{'class','photo_liste'})</div>]
+							]
+						</BOUCLE_documents_joints>
+							<div class="nettoyeur"></div>
+						</B_documents_joints>
+
+					[(#REM)Texte]
+						<div id="bloc_texte">
+							[(#VIGNETTES|=={1}|oui)
+							[<div class="#EDIT{texte}"><p class="spip">[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) ordinateur@novaterra:~$ ](#TEXTE)</p></div>]
+							]
+							[(#VIGNETTES|!={1}|oui)
+							<div id="bloc_liresuite_liste"><a href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]" class="lienss"><strong>&gt; Lire la suite</strong></a></div>
+							]
+						</div>
+
+					[(#REM)--Documents joints--]
+						<BOUCLE_documents_joints2(DOCUMENTS) {id_article}{par num titre, date} {doublons d} >
+							[(#VIGNETTES|=={1}|oui)
+								<div class="portfolio">
+									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox"})]   type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{0,75}||inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}||inserer_attribut{style,'border:0px solid #000000;'})</a>]
+									[<span class="#EDIT{descriptif} spip_doc_descriptif"><br />(#DESCRIPTIF)</span>]
+								</div>
+							]
+						</BOUCLE_documents_joints2>
+							<div class="nettoyeur"></div>
+						</B_documents_joints2>
+							[<div id="bloc_photoliste">(#LOGO_ARTICLE||image_reduire{0,32}|inserer_attribut{'class','photo_liste'})</div>]
+						<//B_documents_joints2>
+
+					[(#REM)--Forums--]
+						[(#REM)Commenter]
+							[<a class="lienss image_principale" href="(#PARAMETRES_FORUM|url_reponse_forum)"  title="Répondre à cet article">
+								<img src='[(#CHEMIN{images/logo-plus2-15-gris.png}||image_reduire{10}|extraire_attribut{src})]' >&nbsp;&nbsp;Commenter
+							</a>]
+						[(#REM)Commentaires]							
+							<BOUCLE_forum(spip_forum){id_article}{tout}>
+							</BOUCLE_forum>
+								<script type="text/javascript">
+								jQuery().ready(function(){
+								jQuery('#ajax#ID_ARTICLE').click(function() {
+									var visibility = $('div#ajax_callback_forum_#ID_ARTICLE').css("display");
+									if (visibility == 'none'){
+									$(this).addClass('chargement');
+									$('#ajax_callback_forum_#ID_ARTICLE').load('[(#URL_PAGE{ajax}|parametre_url{type,bloc_article_forum}|parametre_url{id_article,#ID_ARTICLE}|html_entity_decode)]'
+									, {limit: 25}, function(){ 
+										$('#ajax_callback_forum_#ID_ARTICLE').show('slow'); 
+										$('#ajax#ID_ARTICLE').removeClass('chargement');	});
+									}
+									else $('#ajax_callback_forum_#ID_ARTICLE').hide('slow');
+									return false; // Or ev.preventDefault();
+								});
+								});
+								</script>
+								&nbsp;/&nbsp;
+								<a id="ajax#ID_ARTICLE" class="hac lien_ajouter" title="afficher le forum">
+									<img src='[(#CHEMIN{images/logo-plus2-15.png}||image_reduire{10}|extraire_attribut{src})]' >&nbsp;&nbsp;Commentaires (#TOTAL_BOUCLE)
+								</a>
+								<div id="ajax_callback_forum_#ID_ARTICLE" class="bloc_texte" style='display: none;'></div>
+							</B_forum>
+							<//B_forum>
+				</div>
+			<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+		</div>
+	</BOUCLE_article_1>
+
+	</B_article_1>
+		Pas de publications pour le moment
+	<//B_article_1>
+	
+<BOUCLE_pas_auteur(AUTEURS){id_auteur}>
+</BOUCLE_pas_auteur>
+</B_pas_auteur>
+
+[(#REM)Breves]
+	<B_article_2>
+		<div id="titre">
+			<img class='img_titre'  src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub2(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub2>.gif">
+			<span>Breves</span>
+		</div>
+	<BOUCLE_article_2(BREVES) {branche?} {recherche?} {par date} {inverse} {doublons}>
+		
+			<div id="bloc_article">
+				<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+					<div id="bloc_article_m">
+			
+						<div class="titre_article">&gt;<a href="#URL_BREVE" class="lienss">#TITRE</a></div>
+						<span class="titre_auteur">[Le (#DATE|nom_jour)] [(#DATE|affdate)]
+						</span>
+						[<div id="bloc_photoliste">(#LOGO_BREVE_RUBRIQUE||image_reduire{0,32}|inserer_attribut{'class','photo_liste'})</div>]
+						<div id="bloc_liresuite_liste"><a href="#URL_BREVE" class="lienss"><strong>&gt; Lire la suite</strong></a></div>
+
+					</div>
+			<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+		</div>
+									
+	</BOUCLE_article_2>
+
+[(#REM)Sites Web]
+
+	<B_article_3>
+		<div id="titre">
+			<img class='img_titre'  src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub3(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub3>.gif">
+			<span>Sites Web</span>
+		</div>
+	<BOUCLE_article_3(SITES) {branche?} {recherche?} {doublons}>
+		
+			<div id="bloc_article">
+				<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+					<div id="bloc_article_m">
+			
+						<span class="titre_article">&gt;<a href="#URL_SITE" class="lienss">#NOM_SITE</a></span><br />
+						<span class="titre_auteur">[Le (#DATE|nom_jour)] [(#DATE|affdate)]
+						</span>
+						[<div id="bloc_photoliste">(#LOGO_RUBRIQUE||image_reduire{0,32}|inserer_attribut{'class','photo_liste'})</div>]
+						<div id="bloc_liresuite_liste"><a href="#URL_SITE" class="lienss"><strong>&gt; Lire la suite</strong></a></div>
+
+					</div>
+			<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+		</div>
+									
+	</BOUCLE_article_3>
+
+<//B_pas_auteur>

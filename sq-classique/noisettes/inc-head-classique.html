@@ -1,0 +1,18 @@
+[(#REM)Fonctions JS spécifiques]
+	<script language="JavaScript" type="text/javascript" src="#CHEMIN{js/jquery-ui-accordion.min.js}"></script>
+	<script language="JavaScript" type="text/javascript" src="#CHEMIN{js/script.js}"></script>
+	<script language="JavaScript" type="text/javascript">
+		var ajaxbloc_selecteur = '.pagination a, a.ajax, a.lienss, .titre_article a';
+		function ShowHide(id){
+				obj = document.getElementById(id);
+				if (obj.style.display == 'none')
+			   	obj.style.display = 'inline';
+				else 
+				obj.style.display = 'none';
+		}
+	</script>
+
+[(#REM)Feuilles de style spécifiques]	
+	<link href="#CHEMIN{css/style.css}" rel="stylesheet" type="text/css" />
+	[<link href="(#CHEMIN{css/style_#NOM_SITE_SPIP.css})" rel="stylesheet" type="text/css" />]
+

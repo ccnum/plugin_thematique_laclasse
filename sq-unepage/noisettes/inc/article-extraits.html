@@ -1,0 +1,88 @@
+#CACHE{0}
+<BOUCLE_mot0(spip_mots_articles){id_article}{tout}>
+	<BOUCLE_art0(ARTICLES){id_article=#ID_MOT}{id_rubrique=17}>
+	</BOUCLE_art0>
+</BOUCLE_mot0>
+	#SET{nb,#TOTAL_BOUCLE}
+	<?php $nb_danse=#TOTAL_BOUCLE; ?>
+</B_mot0>
+	<?php $nb_danse=0; ?>
+<//B_mot0>
+
+#SET{aff,non}
+
+<BOUCLE_principale(ARTICLES){id_article}>
+
+<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_extraits}>
+<div id="bloc_option_extraits" style="clear: both;">
+<ul ><li><a class="hac lien_ajouter" title="ajouter un document">
+<img src="[(#CHEMIN{img/logo_editer_on_15.png}||image_reduire{15}|extraire_attribut{src})]" >&nbsp;&nbsp;Gérer les extraits</a>
+<ul style="display: none;">
+
+		[(#REM)Affichage mots-clefs]
+			<BOUCLE_mot(spip_mots_articles){id_article}{tout}>
+				<BOUCLE_art(ARTICLES){id_article=#ID_MOT}{id_rubrique=17}>
+				[(#REM)Bouton supprimer]
+				<?php
+					if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #_principale:ID_ARTICLE)))
+					{
+						$action="editer_mots";
+						$redirect="spip.php?page=article&id_article=#_principale:ID_ARTICLE";
+						$arg="#_principale:ID_ARTICLE,#ID_MOT,articles,id_article,article";
+						echo '<a class="" title="Changer l\'extrait" href="'.securiser_action_auteur($action, $arg, $redirect, $mode=false, $att="").'"><div class="action_supprimer"></div></a>';
+					}
+				?>
+				
+				<div style='text-align: center;'>
+				[(#REM)FLV choisi]
+					<a href="#URL_ARTICLE" style="text-decoration:none; border:0px;">[(#TITRE|couper{30})]</a>
+					<B_documents_joints_flv>
+						<br style="clear: both;"/>
+						<BOUCLE_documents_joints_flv(DOCUMENTS) {id_article=#ID_ARTICLE} {mode=document} {extension IN flv} {par num titre, date} {doublons} >
+							[(#MODELE{doc_video}{id_document}{id_article=#ID_ARTICLE})]
+						</BOUCLE_documents_joints_flv>
+					</B_documents_joints_flv>
+
+				[(#REM)Mp3 eventuellement joint à l'article]
+					<B_documents_joints_mp3>
+						<br /><br />
+					<BOUCLE_documents_joints_mp3(DOCUMENTS) {id_article=#_principale:ID_ARTICLE} {mode=document} {extension==mp3} {par num titre, date}>
+						<INCLURE{fond=noisettes/bloc/article/doc-flv}{id_document}{id_article=#ID_ARTICLE}{affiche-titre=non}>
+					</BOUCLE_documents_joints_mp3>
+						<br /><p style="color: #cccccc;">Lancer les bandes sons librement en appuyant sur PLAY après avoir déclenché le film muet.</p>
+					</B_documents_joints_mp3>
+										
+				</div>
+				#SET{aff,oui}
+				</BOUCLE_art>
+			</BOUCLE_mot>
+
+		[(#REM)Articles substitué à Mots clefs(magouille) dans la table spip_mot_article / modifiables sur FrontOffice]						
+			<?php
+				if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+				{			
+					[(#REM)On ne peut choisir qu'un extrait - on affiche le formulaire que si on a pas de danse]
+						if ($nb_danse==0) 
+						{
+							$action="editer_mots";
+							$redirect="spip.php?page=article&id_article=#ID_ARTICLE";
+							$att=" method='post' ";
+							$mode="<input name='image' type='file' size='15' /><input name='sousaction1' type='submit' value='T&eacute;l&eacute;charger' class='fondo spip_xx-small' /><input type='hidden' name='iframe_redirect' value='#URL_SITE_SPIP%2Fecrire%2F%3Fexec%3Diconifier%26type%3Did_article%26id_article%3D#ID_ARTICLE%26script%3Darticles' />";
+							$mode="<select name='nouv_mot' size='1' >";
+							$mode.="<option value=''>Sélectionner un extrait</option>";
+							<BOUCLE_materiau(ARTICLES){id_rubrique=17}>
+								$mode.="<option value='#ID_ARTICLE'>#TITRE</option>";
+							</BOUCLE_materiau>
+							$mode.="</select><input type='submit' value='valider' id='valider_groupe_3' />";
+
+							$arg="#ID_ARTICLE,,articles,id_article,article";
+					
+							//echo "<div style='clear:both; padding: 5px 0px 0px 10px; position: relative; '><img src='plugins/crayons/images/crayon20.png' alt='modifier' title='modifier les extraits' style='cursor:pointer;'' /><span id='modif_mat' padding:5px;'><input class='publier_menu publier_droite publier' type='submit' onclick='window.open(\"spip.php?rubrique17\")' value='Voir les extraits'/>";					
+							echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+							//echo "</span></div>";
+						}
+
+					}
+			?>
+</li></ul></ul></div>
+</BOUCLE_principale>

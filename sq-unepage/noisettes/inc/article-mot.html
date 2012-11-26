@@ -1,0 +1,80 @@
+#CACHE{0}
+[(#REM)Permets d'associer un mot-clef à un article depuis l'espace public
+Paramètres
+id_article : article concerné
+id_groupe : groupe de mot-clef
+titre : optionnel
+]
+
+[(#REM)Variables]
+	<BOUCLE_mot0(MOTS){id_article}{id_groupe}{tout}>
+	</BOUCLE_mot0>
+		#SET{nb,#TOTAL_BOUCLE}
+		<?php $nb_mot=#TOTAL_BOUCLE; ?>
+	</B_mot0>
+		<?php $nb_mot=0; ?>
+	<//B_mot0>
+
+	<BOUCLE_groupe(groupes_mots){id_groupe}>
+	#SET{titre,#TITRE}
+	</BOUCLE_groupe>
+	[(#TITRE|oui)	#SET{titre,#TITRE}	]
+
+	#SET{aff,non}
+
+[(#REM)Affichages]
+	<?php 
+	if (($nb_mot>0)||(((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE))))) {
+	?>
+
+
+
+	<BOUCLE_principale(ARTICLES){id_article}>
+			[(#REM)Affichage mots-clefs]
+				<BOUCLE_mot(MOTS){id_article}{id_groupe}{tout}{0,1}>
+					<div class="cache">
+					<div class="bloc_gauche cache" >
+						<a href="[(#URL_PAGE{mot}|parametre_url{id_mot,#ID_MOT})]" style="text-decoration:none; border:0px;" class="ajax">[<strong>(#TITRE|couper{30})</strong>]</a>
+						<br />[<a href="[(#URL_PAGE{mot}|parametre_url{id_mot,#ID_MOT})]" type="#MIME_TYPE" title="#TITRE" class="ajax">(#LOGO_MOT||image_reduire{100})</a>]
+					</div>
+					<div class="bloc_droite #EDIT{descriptif}" >[(#DESCRIPTIF|sinon{[(#SESSION|oui)Cliquer pour ajouter un descriptif]})]</div>
+					#SET{aff,oui}
+					#SET{mot,#ID_MOT}
+					</div>
+				</BOUCLE_mot>
+
+
+			[(#REM)Articles substitué à Mots clefs(magouille) dans la table spip_mot_article / modifiables sur FrontOffice]					
+				<?php
+					if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+					{	
+						[(#REM)On ne peut choisir qu'un mot - on affiche le formulaire que si on a pas de mot]
+							if ($nb_mot>-1) 
+							{
+							
+							?>
+
+							<script>
+								function save_mot(id_objet,type_objet,id_mot){
+									$.get("spip.php?page=ajax&mode=article-sauve-mot", {id_objet:id_objet, type_objet:type_objet, id_mot:id_mot} );
+								}
+							</script>
+
+							<?php
+								$mode = "<form name='mot_clef'>";
+								$mode .= "<select onChange=\"save_mot(#ID_ARTICLE,'article',document.mot_clef.mot_encyclopedie.value)\" name='mot_encyclopedie' size='1' style='width: 180px; ' class='fondl' >";
+								$mode .= "<option value=''>Sélectionner une thématique</option>";
+								$mode .= "<option value=''></option>";								
+								<BOUCLE_mots(MOTS){id_groupe}>
+									$mode.="<option value='#ID_MOT' [(#GET{mot}|=={#ID_MOT}|oui)selected]>#TITRE</option>";
+								</BOUCLE_mots>
+								$mode .= "</select></form>";	
+								echo $mode;
+							}
+						}
+				?>
+	</BOUCLE_principale>
+
+	<?php
+	} 
+	?>

@@ -1,0 +1,52 @@
+<!--------------------- colone_gauche --------------------->
+
+<div id="bloc_colgauche">
+	<INCLURE {fond=noisettes/bloc/menug}{id_rubrique}>
+</div>
+
+<div id="bloc_colcentre">
+		<BOUCLE_rubriques_ex(RUBRIQUES) {tout} {titre_mot=pas_menu} {doublons}>
+		</BOUCLE_rubriques_ex>
+	
+		<BOUCLE_secteurs(RUBRIQUES) {racine} {tout} {par titre} {doublons}>
+						
+				<!--------------------- bloc titre --------------------->
+	
+				<div id="titre">
+					<img class='img_titre'  src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub1>.gif">
+					[(#TITRE|supprimer_numero)]
+				</div>
+	
+				<!--------------------- bloc principal --------------------->
+				<div id="bloc_article">
+	
+					<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+					<div id="bloc_article_m">
+	
+					<div>&nbsp;</div>
+	
+				<!--------------------- plan --------------------->
+					<div id="bloc_texte">
+	
+							<INCLURE {fond=noisettes/bloc/rubrique/plan}{id_rubrique}>
+								  
+						</div>
+					
+					</div>
+			
+					<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+			
+				</div>
+				<!--------------------- fin bloc article --------------------->
+			
+		</BOUCLE_secteurs>
+			
+</div>
+
+
+<!--------------------- colone_droite --------------------->
+
+<div id="bloc_coldroit">
+</div>
+
+<!--------------------- fcolone_droite --------------------->

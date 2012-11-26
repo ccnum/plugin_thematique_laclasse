@@ -1,0 +1,29 @@
+#CACHE{0}
+[(#REM)Bloc d'affichage des rubriques de la famille
+Parametres :
+-objet : type de contenu à créer
+-id_objet : id_rubrique parente
+-url ?
+]
+
+[(#SET{url,[(#URL|!={''}|?{#URL}|sinon{[(#SELF)]})]})]
+
+[(#AUTORISER{modifier, rubrique, #ID_PARENT})
+	[(#OBJET|=={thematique}|oui)
+		<a class="ajax" title="Modifier la thématique" href="[(#URL|parametre_url{edition,thematique}|parametre_url{id_rubrique_thematique,#ID_OBJET}|parametre_url{id_rubrique_carte,-1})]">
+	]	
+	[(#OBJET|=={carte}|oui)
+		<a class="ajax" title="Modifier la carte" href="[(#URL|parametre_url{edition,carte}|parametre_url{id_rubrique_carte,#ID_OBJET}|parametre_url{num_1,#ID_OBJET})]">
+	]
+	[(#OBJET|=={document}|oui)
+		<a class="ajax" title="Modifier le document" href="[(#URL|parametre_url{edition,contenu}|parametre_url{id_document,#ID_OBJET})]">
+	]
+	[(#OBJET|=={article}|oui)
+		<a class="ajax" title="Modifier le texte" href="[(#URL|parametre_url{edition,contenu}|parametre_url{id_article,#ID_OBJET})]">
+	]
+	[(#OBJET|=={site}|oui)
+		<a class="ajax" title="Modifier le flux RSS" href="[(#URL|parametre_url{edition,contenu}|parametre_url{id_syndic,#ID_OBJET})]">
+	]
+	<div class="action_modifier"></div>
+	</a>
+]

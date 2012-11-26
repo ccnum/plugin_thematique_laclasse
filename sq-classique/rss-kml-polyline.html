@@ -1,0 +1,41 @@
+[(#CACHE{0})][(#HTTP_HEADER{Content-type: text/xml[; charset=(#CHARSET)]})]<?xml 
+version="1.0"[ encoding="(#CHARSET)"]?>
+
+[(#REM)Génère le xml/rss des marqueurs du contexte gis passé en paramètres :
+-icon_size : taille max des icones
+-draggable : tout, objet, rien
+-voir : tout, objet, objet_unique(todo)
+]
+
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document><name>Your name of document</name>
+<description>Your description</description>
+
+<BOUCLE_principale(RUBRIQUES){id_rubrique?}{id_secteur?}{tout}>
+	<Placemark>
+	<Style>
+	<LineStyle>
+		<width>6</width>
+		<color>[70(#VAL{0}|rand_hexcolor)]</color>
+	</LineStyle>
+	<PolyStyle><color>[(#VAL{0}|rand_hexcolor)]</color></PolyStyle>
+	</Style>
+	<LineString>
+	<tessellate>1</tessellate>
+	<coordinates>
+		<BOUCLE_amiral(RUBRIQUES){titre_mot==pas_menu}{id_secteur=3}{tout}><BOUCLE_gis_amiral(GIS){id_rubrique}{tout}>
+		#LONX, [(#LAT|plus{1})]
+		</BOUCLE_gis_amiral></BOUCLE_amiral>		
+		<BOUCLE_un_article(ARTICLES){id_rubrique}{tout}{par date}><BOUCLE_gis_art(GIS){id_article}{tout}>
+		#LONX, #LAT
+		</BOUCLE_gis_art></BOUCLE_un_article>
+		<BOUCLE_un_rubrique(RUBRIQUES){id_rubrique}{tout}><BOUCLE_gis_rub(GIS){id_rubrique}{tout}>
+		#LONX, #LAT
+		</BOUCLE_gis_rub></BOUCLE_un_rubrique>
+	</coordinates>
+	</LineString>
+	</Placemark>
+</BOUCLE_principale>
+
+</Document>
+</kml>

@@ -1,0 +1,72 @@
+<?php
+
+if ((isset($HTTP_GET_VARS['vignettes'])) )
+{ 
+ $vignettes=$HTTP_GET_VARS['vignettes'];
+}
+$vignettes=1;
+?>
+
+<!-- ------------------- colone_gauche ------------------- -->
+
+	<div id="bloc_colgauche">
+		<INCLURE {fond=noisettes/bloc/menug}{id_rubrique=3}><p>&nbsp;</p><p>&nbsp;</p>
+	</div>
+
+	<div id="bloc_colcentre">
+
+[(#REM)c'est la le problème de requete à régler]
+		#SET{deb,#EVAL{$GLOBALS['auteur_debut']}}
+		<BOUCLE_aut1(CONDITION){si #ID_AUTEUR|oui}>
+		<BOUCLE_auteur(AUTEURS){par nom}{id_auteur}>
+			<INCLURE {fond=noisettes/bloc/rubrique/auteur}{id_auteur}{colone=centre}>
+			<INCLURE {fond=noisettes/bloc/rubrique/chrono}{id_auteur}{vignettes=1}>
+			<br /><br />
+		</BOUCLE_auteur>
+		</BOUCLE_aut1>
+		</B_aut1>
+			<BOUCLE_auteur2(AUTEURS){par nom}{id_auteur>#GET{deb}}>
+				<INCLURE {fond=noisettes/bloc/rubrique/auteur}{id_auteur}{colone=centre}>
+				<INCLURE {fond=noisettes/bloc/rubrique/chrono}{id_auteur}{vignettes=1}>
+				<br /><br />
+			</BOUCLE_auteur2>
+		<//B_aut1>
+
+	</div>
+		
+		<!-- ------------------- colone_droite ------------------- -->
+
+		<div id="bloc_coldroit">
+			
+			<div id="bloc_coldroite">
+				<!--
+				<?php if (!$vignettes) echo "<a href=\"".$PHP_SELF."?".$QUERY_STRING."&vignettes=1\" class=\"transp\"><strong>>tout d&eacute;plier</strong></a>"; ?>
+				<?php if ($vignettes) echo "<a href=\"".$PHP_SELF."?".$QUERY_STRING."&vignettes=0\" class=\"transp\"><strong>>&nbsp;tout replier</strong></a>"; ?>
+				-->
+			<br />
+			<br />
+				<B_art0>
+						<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+						<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/t_forum.gif}" alt="Forum" width="43" height="16" />
+						<BOUCLE_art0(ARTICLES) {id_auteur} {par date} {inverse} {0,10}>
+							<BOUCLE_forum(FORUMS) {id_article} {par date} {inverse} {id_article!=0} {0,3}>
+								<br /><br />
+								<b>> <a class="lienss" href="#URL_ARTICLE">[(#TITRE)]</a></b>
+								<br> 
+								<span class="date">
+									[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+								</span>
+								[(#TEXTE|textebrut|couper{150})</font>]
+							</BOUCLE_forum>	
+						</BOUCLE_art0>
+						 <br />
+						 <br />
+						</div>
+					<div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+				</B_art0>					
+			</div>
+		<!-- fbloc_droite -->	
+	
+		</div>
+	
+		<!-- ------------------- fcolone_droite ------------------- -->

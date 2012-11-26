@@ -1,0 +1,350 @@
+#CACHE{0}
+<BOUCLE_principale(ARTICLES){id_article}{doublons}>
+
+	<!--------------------- colone_gauche --------------------->
+		<div id="bloc_colgauche">
+			<INCLURE {fond=noisettes/bloc/menug}{id_article}{id_rubrique}>
+		</div>
+
+		<div id="bloc_colcentre">			
+			<INCLURE{fond=noisettes/inc/no_ie6}>
+			
+			<!--------------------- titre & logo --------------------->
+
+			<div id="titre">
+				<?php
+					include_spip('inc/securiser_action');
+					include_spip('inc/autoriser');
+					if (!((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE))))
+					{
+				?>
+					[(#DESCRIPTIF|=={''}|oui)
+						[<a href="[(#LOGO_ARTICLE_RUBRIQUE||extraire_attribut{src})]" class="thickbox" >(#LOGO_ARTICLE_RUBRIQUE|right||image_reduire{120,100}|inserer_attribut{'class','photo_intro thickbox'}|inserer_attribut{'style','padding: 10px;'})</a>]
+					]
+				<?php
+					}
+				?>
+				<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub1>.gif">
+				<span class="#EDIT{titre}">[(#TITRE|supprimer_numero)]</span>
+				<?php
+					if (!((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE))))
+					{
+				?>
+				[(#REM)hack pour créer un espace pour rendre le lien de l'image cliquable]
+					[(#DESCRIPTIF|=={''}|oui)
+						[<br />(#LOGO_ARTICLE_RUBRIQUE||image_reduire{100,80}|inserer_attribut{'class','photo_intro thickbox'}|inserer_attribut{'style','visibility: hidden;'})]
+					]
+				<?php
+					}
+				?>
+			</div>
+
+		<!--------------------- bloc intro --------------------->
+		[(#REM)dechet, cluemo, bd : rien]
+		<BOUCLE_site0(MOTS){type=site}{titre IN 'cluemo.laclasse.com', 'bd.laclasse.com', 'novaterra.laclasse.com', 'maisondeladanse.laclasse.com', 'finisterrae.laclasse.com'}>
+		</BOUCLE_site0>
+		</B_site0>
+		[(#REM)blog : rien]
+			<BOUCLE_blog(RUBRIQUES){id_rubrique}{titre_mot=blog}>
+			</BOUCLE_blog>
+			</B_blog>
+				[(#REM)etvoyageurs]
+					<BOUCLE_site1(MOTS){type=site}{titre IN 'etudiantsvoyageurs.laclasse.com'}>
+					</BOUCLE_site1>
+						[<div id="bloc_intro" >
+							[(#LOGO_ARTICLE_RUBRIQUE|left||image_reduire{120,80}|inserer_attribut{'class','thickbox photo_intro'})]
+							<div class="#EDIT{descriptif}">(#DESCRIPTIF|nl2br)</div>
+						</div><div id="bloc_intro_b"></div>]
+					</B_site1>	
+			
+				[(#REM)les autres]
+					[(#REM)A exclure]
+					<BOUCLE_site5(MOTS){type=site}{titre IN 'ledechetmatiere.laclasse.com'}>
+						<BOUCLE_site3(RUBRIQUES){id_rubrique}><BOUCLE_site4(RUBRIQUES){id_enfant}{titre_mot=travail_en_cours}>
+							<BOUCLE_exclus(ARTICLES){id_article}{doublons 1}></BOUCLE_exclus>
+						</BOUCLE_site4></BOUCLE_site3>
+					</BOUCLE_site5>
+
+					<BOUCLE_inclus(ARTICLES){id_article}{doublons 1}>
+					</BOUCLE_inclus>
+					[(#REM)Affichage public]		
+							[(#DESCRIPTIF|!={''}|oui)
+							<div id="bloc_intro" >
+							[<a href="[(#LOGO_ARTICLE_RUBRIQUE||extraire_attribut{src})]" class="thickbox">(#LOGO_ARTICLE_RUBRIQUE|left||image_reduire{100,80}|inserer_attribut{'class','photo_intro thickbox'}|sinon{'<img src="<?php echo $logo_auteurs; ?>" class="photo_intro" style="float: left;" />'})</a>]
+							[<div class="#EDIT{descriptif}">(#DESCRIPTIF|nl2br)</div>]
+							</div>
+							<div id="bloc_intro_b"></div>
+							]
+
+					[(#REM)Modifications si auteur autorisé]
+						<?php if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE))) {	?>
+								<INCLURE{fond=noisettes/bloc/js/accordeon}{nom=bloc_option_logo_art}>
+								<div id="bloc_option_logo_art">
+								<ul ><li><a class="hac " title="modifier le logo [(#DESCRIPTIF|=={''}|?{ et le descriptif})]" style="cursor: pointer; margin-left:7px; color: #9dd53b;"><img src='#CHEMIN{images/logo-plus2-15.png}' >&nbsp;&nbsp;modifier le logo [(#DESCRIPTIF|=={''}|?{ et le descriptif})]</a>
+								<ul style="display: none;"><li>
+								
+								[(#DESCRIPTIF|=={''}|oui)
+								<div id="bloc_intro" >
+								[<a href="[(#LOGO_ARTICLE_RUBRIQUE||extraire_attribut{src})]" class="thickbox">(#LOGO_ARTICLE_RUBRIQUE|left||image_reduire{100,80}|inserer_attribut{'class','photo_intro thickbox'})</a>]
+								[<div class="#EDIT{descriptif} bloc_intro2" style="color: gray;">(#DESCRIPTIF|nl2br|sinon{'Double-cliquer ici pour modifier le descriptif... '})</div>]
+								</div>
+								<div id="bloc_intro_b"></div>
+								]
+
+								<?php 
+										$hash1 = $GLOBALS['auteur_session']['id_rubrique'].$GLOBALS['auteur_session']['pass'];
+										$action="iconifier";
+										$redirect="#URL_SITE_SPIP/spip.php?article#ID_ARTICLE&var_mode=recalcul";
+
+										if ('[(#LOGO_ARTICLE|fichier)]'!='')
+										{
+											echo "<div style='padding: 10px; position: relative; color: gray;'>Supprimer le logo : ";
+											$arg="#ID_ARTICLE-[(#LOGO_ARTICLE|fichier)]";
+											echo "<a href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' class='supprimer_couleur'>Supprimer</a>";
+											echo "</div>";
+										}
+										else
+										{
+											echo "<div style='padding: 0px 0px 0px 0px; position: relative; color: gray;'>Charger un nouveau logo : ";
+											$att=" method='post' enctype='multipart/form-data' class='form_upload_icon'";
+											$mode="<input name='image' type='file' class='forml spip_xx-small' size='15' /><input name='sousaction1' type='submit' value='T&eacute;l&eacute;charger' class='fondo spip_xx-small' /><input type='hidden' name='iframe_redirect' value='#URL_SITE_SPIP%2Fecrire%2F%3Fexec%3Diconifier%26type%3Did_article%26id_rubrique%3D#ID_RUBRIQUE%26script%3Drubriques' />";
+											$arg="#ID_ARTICLE+arton#ID_ARTICLE";							
+											echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+											echo "</div>";
+										}
+
+								?>
+								</li></ul></li></ul></div><br />
+
+							<?php } ?>
+
+						</B_inclus>
+					<//B_site1>
+				<//B_blog>
+			<//B_site0>
+			
+			<!--------------------- bloc article --------------------->
+			<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+			<div><br /></div>
+			<div id="bloc_article" class="[(#GET{police})]">
+
+				<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+				<div id="bloc_article_m">
+				[(#REM)Bloc suppression]
+					[(#AUTORISER{modifier, article, #ID_ARTICLE})
+						[(#SET{confirmation,Etes vous sûr de vouloir supprimer l\'article [(#TITRE|attribut_html)]})]
+						[(#SET{url,[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE})]})]
+						<!--<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#GET{url}}>-->
+					]
+				
+				[<span class="titre_article">(#INCLURE{fond=noisettes/bloc/article/titre_fiche}{id_article})</span><br/>]
+
+				<span class="date">
+					[(#DATE|nom_jour)] [(#DATE|affdate)]
+					<B_auteurs_1> 
+						, <b>par
+						<BOUCLE_auteurs_1(AUTEURS) {id_article} {", "}>
+							<a class="date ajax" href="spip.php?page=auteur&id_auteur=#ID_AUTEUR">
+								[(#NOM)]
+							</a>
+						</BOUCLE_auteurs_1>
+					</b>
+					</B_auteurs1>
+				</span>
+
+				<BOUCLE_album(ARTICLES){id_article}{titre_mot IN album,planche}>
+					<INCLURE{fond=noisettes/bloc/article/album}{id_article}>
+				</BOUCLE_album>
+
+				<div style="clear: both;">&nbsp;</div>
+
+	<!--------------------- texte --------------------->
+
+	[(#REM)Champs personnalisés - Ledechetmatiere]
+		<BOUCLE_art_ldm(ARTICLES){id_article}{titre_mot IN objet,materiau,vocabulaire}>
+			<INCLURE{fond=noisettes/bloc/article/ledechetmatiere}{id_article}>
+		</BOUCLE_art_ldm>
+		
+	[(#REM)Texte]
+		<div id="bloc_texte">
+			<BOUCLE_site2(MOTS){type=site}{titre IN finisterrae.laclasse.com,novaterra.laclasse.com}>
+			</BOUCLE_site2>
+				[<div class="#EDIT{texte}"><p class="spip">
+				[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) ordinateur@novaterra:~$]
+				(#TEXTE|sinon{Pas de texte pour le moment...<br /><br /><br />})</p></div>]
+			</B_site2>
+				[<div class="#EDIT{texte}"><p class="spip">(#TEXTE|sinon{Pas de texte pour le moment...<br /><br /><br />})</p></div>]
+			<//B_site2>			
+		</div>
+
+		<!--[<div id="spip">(#PS|justifier)</div>] -->
+		<!--[<hr><div id="spip">(#NOTES)</div>]-->
+
+ 
+	<!--------------------- documents --------------------->
+
+	[(#REM)Documents inclus automatiquement avec player]
+			<BOUCLE_art_exclus(ARTICLES){id_article}{titre_mot==doc_sources}>
+			</BOUCLE_art_exclus>
+			</B_art_exclus>
+				<BOUCLE_art_exclus2(RUBRIQUES){id_rubrique}{id_secteur=3}>
+				</BOUCLE_art_exclus2>
+				</B_art_exclus2>
+					<B_documents_joints_flv>
+						<br style="clear: both;"/>
+						<BOUCLE_documents_joints_flv(DOCUMENTS) {id_article} {mode=document} {extension IN flv,mp3} {par num titre, date} {doublons} >
+							<INCLURE{fond=noisettes/bloc/article/doc-flv}{id_document}{id_article=#ID_ARTICLE}>
+						</BOUCLE_documents_joints_flv>
+					</B_documents_joints_flv>
+				<//B_art_exclus2>
+			<//B_art_exclus>
+	
+	[(#REM)Documents joints]			
+			<B_documents_joints>
+				<br style="clear: both;"/><hr /><br />
+				<h2>Documents joints</h2>
+				<BOUCLE_documents_joints(DOCUMENTS) {id_article} {mode=document} {par num titre, date} {doublons} >
+					<div class="portfolio">
+						[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|=={jpg}|?{class="thickbox"})] [(#TYPE_DOCUMENT|=={png}|?{class="thickbox"})] [(#TYPE_DOCUMENT|=={gif}|?{class="thickbox"})] type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{0,75}||inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}||inserer_attribut{style,'border:0px solid #000000;'})</a>]
+						<?php
+							if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+								{	echo '<br />[<span class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur">nouveau titre</span>})</span>]';
+									$action="documenter";
+									$redirect="#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul";
+									$arg="-#ID_ARTICLE/article/#ID_DOCUMENT";
+									$confirmation= attribut_html("Etes vous sûr de vouloir supprimer ce document ?");
+									echo "<br /><br /><a href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' class='supprimer_couleur' onClick='return confirmation(\"$confirmation\")' title='supprimer ce document' >Supprimer</a>";
+								}
+							else
+							echo '[<br /><span class="spip_doc_titre">(#TITRE|supprimer_numero|couper{25})</span>]';
+						?>
+						[<span class="#EDIT{descriptif} spip_doc_descriptif"><br />(#DESCRIPTIF)</span>]
+					</div>
+				</BOUCLE_documents_joints>
+			</B_documents_joints>
+
+	[(#REM)Ajouter un document]
+		<?php
+			if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+				{
+		?>
+					<INCLURE{fond=noisettes/bloc/js/accordeon}{nom=bloc_option_doc}>
+					<div id="bloc_option_doc" style="clear: both;">
+					<ul ><li><a class="hac lien_ajouter" title="ajouter un document">
+					<img src="#CHEMIN{images/logo-plus2-15.png}" style=" margin-left: 7px;">&nbsp;&nbsp;ajouter un document</a>
+					<ul style="display: none;"><li><br />
+		<?php					
+					$action="joindre";
+					$redirect="#URL_SITE_SPIP/spip.php?page=article&id_article=#ID_ARTICLE&var_mode=recalcul";
+					$att="  method='post' enctype='multipart/form-data' class='form_upload'"; 
+					$mode="<span>T&eacute;l&eacute;charger depuis votre ordinateur&nbsp;:</span><br /><input name='fichier' type='file' class='forml spip_xx-small' size='15' /><input name='sousaction1' type='submit' value='T&eacute;l&eacute;charger' class='fondo' /><input type='hidden' name='iframe_redirect' value='#URL_SITE_SPIP%2Fecrire%2F%3Fexec%3Ddocumenter%26id_article%3D21%26type%3Darticle' />";
+					$arg="#ID_ARTICLE/0/document/article";							
+					echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+					echo "</li></ul><br /></li></ul></div>";
+				}
+		?>
+
+		</div>
+
+		<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+
+	</div>
+	
+
+	<!--------------------- fin bloc article --------------------->
+
+	[(#REM)Géolocalisation]
+		<BOUCLE_art_geoloc(ARTICLES){id_article}{type_mot=geolocalisation}>
+			<div id="titre">
+				<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub4(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub4>.gif">
+				<a href="spip.php?page=geolocalisation-3d&id_article=#ID_ARTICLE" target="_blank">
+					<span>Voir sur la carte</span>
+				</a>
+			</div>
+		</BOUCLE_art_geoloc>
+
+	[(#REM)Matériaux joints 2007 - Ledechetmatiere]
+		[(#REM)ancienne inclusion]
+		<BOUCLE_art_objet(ARTICLES){id_article}{titre_mot=objet}>
+			<INCLURE{fond=noisettes/bloc/article/materiaux}{id_article}>
+		</BOUCLE_art_objet>
+		</B_art_objet>
+		[(#REM)nouvelle inclusion - pour se retrouver aussi dans les archives]
+		<BOUCLE_dechet(MOTS){type=site}{titre=ledechetmatiere.laclasse.com}>
+		</BOUCLE_dechet>
+			<BOUCLE_rub2_tec(RUBRIQUES){id_rubrique}{titre_mot=objet}><BOUCLE_rub_tec(RUBRIQUES){id_enfant}{titre_mot=travail_en_cours}>
+				<INCLURE{fond=noisettes/bloc/article/materiaux}{id_article}>
+			</BOUCLE_rub_tec></BOUCLE_rub2_tec>
+		</B_dechet>
+		<//B_art_objet>
+			
+	[(#REM)Danses jointes à la réponse - MDLD]
+		<!--<BOUCLE_site(MOTS){type=site}{titre=maisondeladanse.laclasse.com}>
+		</BOUCLE_site>
+			<BOUCLE_mdld(RUBRIQUES){id_rubrique}{id_secteur=3}>
+				<INCLURE{fond=noisettes/bloc/article/danses}{id_article}>
+			</BOUCLE_mdld>
+			<BOUCLE_mdld2(RUBRIQUES){id_rubrique}{id_rubrique=9}>
+				<INCLURE{fond=noisettes/bloc/article/articles-joints}{id_article}>
+			</BOUCLE_mdld2>
+		</B_site>-->
+
+	[(#REM)Extrait joint à la réponse - Finisterrae]
+		<BOUCLE_finis1(MOTS){type=site}{titre=finisterrae.laclasse.com}>
+		</BOUCLE_finis1>
+			<BOUCLE_finis(RUBRIQUES){id_rubrique}{id_secteur IN 3,5}>
+				[(#TITRE|match{Travail|archive|Archive}|oui)
+				<INCLURE{fond=noisettes/bloc/article/extraits}{id_article}>
+				]
+			</BOUCLE_finis>
+			<BOUCLE_finis2(RUBRIQUES){id_rubrique}{id_rubrique=17}>
+				<INCLURE{fond=noisettes/bloc/article/articles-joints}{id_article}>
+			</BOUCLE_finis2>
+		</B_finis1>
+
+	[(#REM) Novaterra - Carte et mots clefs]
+		<BOUCLE_nova0(CONDITION){si #NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui}>
+			<BOUCLE_nova(RUBRIQUES){id_rubrique}{id_secteur=3}>
+					[(#REM)Géolocalisation]
+					<div id="titre">
+						<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur5.gif">
+						<span>Géolocalisation</span>
+					</div>
+						<BOUCLE_gis(GIS?){id_article}{tout}>	#SET{id_gis,#ID_GIS} </BOUCLE_gis>
+						[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
+							[(#GET{id_gis}|oui)	[(#MODELE{carte_gis}{id_article}{draggable=objet}{width=540px}{height=350px}{attente=1}{zoom=4})] ]
+							[(#GET{id_gis}|non)	[(#FORMULAIRE_EDITER_GIS{#ID_ARTICLE,'',#SELF})] ]
+						]
+						[(#AUTORISER{modifier, article, #ID_ARTICLE}|non)
+							[(#MODELE{carte_gis}{id_article}{attente=1}{width=540px}{height=350px}{zoom=4})]
+						]
+					[(#REM)Thématiques]			
+					<INCLURE{fond=noisettes/bloc/article/mot}{id_article}{id_groupe=5}{titre='Thématique'}>
+			</BOUCLE_nova>
+		</BOUCLE_nova0>
+
+	<div><br/ ><br/ ></div>
+	</div>
+
+	<!--------------------- fcolone_gauche --------------------->
+
+	<!--------------------- colone_droite --------------------->
+	
+	<div id="bloc_coldroit">
+
+		<div id="bloc_coldroite">
+			<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+			<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/t_forum.gif}" alt="Forum" width="43" height="16" />
+				<br />
+				<br />
+				<INCLURE{fond=noisettes/bloc/article/forum}{id_article}>
+				<br />
+			</div>
+		<div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+		</div>
+
+	</div>
+
+	<!--------------------- fcolone_droite --------------------->
+
+</BOUCLE_principale>

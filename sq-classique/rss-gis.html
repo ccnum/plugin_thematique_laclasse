@@ -1,0 +1,150 @@
+[(#CACHE{1})][(#HTTP_HEADER{Content-type: text/xml[; charset=(#CHARSET)]})]<?xml 
+version="1.0"[ encoding="(#CHARSET)"]?>
+
+[(#REM)Génère le xml/rss des marqueurs du contexte gis passé en paramètres :
+-icon_size : taille max des icones
+-draggable : tout, objet, rien
+-voir : tout, objet, objet_unique(todo)
+]
+
+<rss  version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" 
+xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+
+<channel>
+	<title>[(#NOM_SITE_SPIP|texte_backend)]</title>
+	<link>[(#URL_SITE_SPIP)/]</link>
+	<description>[(#DESCRIPTIF_SITE_SPIP|supprimer_tags|texte_backend)]</description>
+    <itunes:category text="Music"/>
+    <itunes:owner>
+		<itunes:name>[(#NOM_SITE_SPIP|texte_backend)]</itunes:name>
+		<itunes:email>#EMAIL_WEBMASTER</itunes:email>
+	</itunes:owner>
+	<itunes:explicit>no</itunes:explicit>
+	<language>#LANG</language>
+[(#REM)Create data set for each geolocalised article]
+	<BOUCLE_un_article(ARTICLES){id_rubrique?}{id_secteur?}{id_mot ?}{id_auteur ?}{recherche ?}{id_groupe ?}{par date}{inverse}{0, #ENV{limit}}>
+	<BOUCLE_gis_art(GIS){id_article}{tout}>
+	<item>
+		[(#REM)Generalities]
+			<title>[(#TITRE|supprimer_numero|texte_backend)]</title>
+			[<link>(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|url_absolue)</link>]
+			<description>&lt;p&gt;[(#CHAPO|sinon{#INTRODUCTION}|supprimer_tags|texte_backend)]&lt;/p&gt;
+				<BOUCLE_imaxe(DOCUMENTS){id_article}{extension==jpg|png|gif}{0,1}>&lt;a href='[(#URL_DOCUMENT|url_absolue)]' [title='(#TITRE|texte_backend)']&gt;&lt;img src='[(#LOGO_DOCUMENT|fichier|url_absolue)]' [height='(#LOGO_DOCUMENT||hauteur)'] [width='(#LOGO_DOCUMENT||largeur)'] alt='[(#TITRE|texte_backend|sinon{Image})]' /&gt;&lt;/a&gt;</BOUCLE_imaxe>
+			</description>
+			[<dc:date>(#DATE|date_iso)</dc:date>]
+			[<dc:language>(#LANG)</dc:language>]
+			[<dc:creator>(#LESAUTEURS|supprimer_tags|texte_backend)</dc:creator>]			
+		[(#REM)Coordinates]
+			<geo_lat>#LAT</geo_lat>
+			<geo_long>#LONX</geo_long>
+			<guid>#ID_GIS</guid>
+			[(#DRAGGABLE|=={objet}|et{#ID_ARTICLE|=={#ENV{id_article}}|oui}|oui
+			|ou{#DRAGGABLE|=={tout}|oui})
+				<draggable>[(#AUTORISER{modifier, article, #ID_ARTICLE}|?{true,false})]</draggable>
+			]
+		[(#REM)Document mp3]
+			<BOUCLE_mp3(DOCUMENTS){id_article}{mode=document}{extension=mp3}{0,1}><enclosure url="[(#URL_DOCUMENT|url_absolue)]" length="#TAILLE" type="audio/mpeg" /></BOUCLE_mp3>
+		[(#REM)Icon]
+			<B_tags1><BOUCLE_tags1(MOTS){id_article}{type=marker_icon}>
+				[(#SET{logo,#LOGO_MOT})]
+			</BOUCLE_tags1></B_tags1>
+			<B_tags2><BOUCLE_tags2(MOTS){id_rubrique}{type=marker_icon}>
+				[(#SET{logo,#LOGO_MOT})]
+			</BOUCLE_tags2></B_tags2>
+				<BOUCLE_tags3(RUBRIQUES){id_rubrique IN #ENV{id_rubrique},#ENV{id_secteur}}{tout}{0,1}>
+					<BOUCLE_tags4(RUBRIQUES){id_secteur=3}{id_rubrique}{tout}><BOUCLE_tag5(RUBRIQUES){id_rubrique=#ID_SECTEUR}{tout}>
+						[(#LOGO_RUBRIQUE_NORMAL|!={''}|oui)	[(#SET{logo,#LOGO_RUBRIQUE_NORMAL})]	]
+					</BOUCLE_tag5></BOUCLE_tags4>
+					</B_tags4>
+						[(#LOGO_RUBRIQUE_NORMAL|!={''}|oui)	[(#SET{logo,#LOGO_RUBRIQUE_NORMAL})]	]
+					<//B_tags4>
+				</BOUCLE_tags3>
+			<//B_tags2>
+			<//B_tags1>
+			[(#GET{logo}|oui)
+				[(#REM)Couleur]
+				[(#ID_ARTICLE|=={#ENV{id_article}}|oui
+				|ou{#VOIR|=={tout}|oui})
+					<geo_icon>[#URL_SITE_SPIP/(#GET{logo}||image_reduire{#ENV{icon_size,50}}|extraire_attribut{src})]</geo_icon>
+				]
+				[(#REM)N&B]
+				[(#ID_ARTICLE|=={#ENV{id_article}}|non
+				|et{#VOIR|=={tout}|non})
+					<geo_icon>[#URL_SITE_SPIP/(#GET{logo}||image_reduire{#ENV{icon_size,50}}||image_nb||image_alpha{70}|extraire_attribut{src})]</geo_icon>
+				]
+				<geo_iconx>[(#GET{logo}||image_reduire{#ENV{icon_size,50}}|extraire_attribut{width})]</geo_iconx>
+				<geo_icony>[(#GET{logo}||image_reduire{#ENV{icon_size,50}}|extraire_attribut{height})]</geo_icony>
+			]
+		[(#REM)Tags]
+			<B_tags><dc:subject><BOUCLE_tags(MOTS){id_article}>[(#TITRE|texte_backend)]</BOUCLE_tags></dc:subject></B_tags>
+		[(#REM)Itunes]
+			[<itunes:author>(#LESAUTEURS|supprimer_tags|texte_backend)</itunes:author>]
+			[<itunes:summary>(#DESCRIPTIF|supprimer_tags|texte_backend)</itunes:summary>]
+			<itunes:duration>00:00:00</itunes:duration>
+			<BOUCLE_img(DOCUMENTS){id_article}{mode=document}{extension==jpg|png|gif}{0,3}>
+				[<itunes:image href="(#URL_DOCUMENT|url_absolue)" />]
+			</BOUCLE_img>
+	</item>
+	</BOUCLE_gis_art>
+	</BOUCLE_un_article>
+
+[(#REM)Create data set for the rubrique]
+	<BOUCLE_un_rubrique(RUBRIQUES){id_rubrique?}{id_secteur?}{id_mot?}{recherche?}{id_groupe?}{par date}{inverse}{tout}{0,#ENV{limit}}>
+	<BOUCLE_gis_rub(GIS){id_rubrique}{tout}>
+	<item>
+		[(#REM)Generalities]
+			<title>[(#TITRE|supprimer_numero|texte_backend)]</title>
+			[<link>(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|url_absolue)</link>]
+			<description>&lt;p&gt;[(#TEXTE|supprimer_tags|texte_backend)]&lt;/p&gt;
+				<BOUCLE_imaxe_rub(DOCUMENTS){id_rubrique}{extension==jpg|png|gif}{0,1}>&lt;a href='[(#URL_DOCUMENT|url_absolue)]' [title='(#TITRE|texte_backend)']&gt;&lt;img src='[(#LOGO_DOCUMENT|fichier|url_absolue)]' [height='(#LOGO_DOCUMENT||hauteur)'] [width='(#LOGO_DOCUMENT||largeur)'] alt='[(#TITRE|texte_backend|sinon{Image})]' /&gt;&lt;/a&gt;</BOUCLE_imaxe_rub>
+			</description>
+			[<dc:date>(#DATE|date_iso)</dc:date>]
+			[<dc:language>(#LANG)</dc:language>]			
+		[(#REM)GIS]
+			<geo_lat>#LAT</geo_lat>
+			<geo_long>#LONX</geo_long>
+			<guid>#ID_GIS</guid>
+			[(#DRAGGABLE|=={objet}|et{#ENV{id_article}|non}|oui
+			|ou{#DRAGGABLE|=={tout}|oui})
+				<draggable>[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|?{true,false})]</draggable>
+			]
+		[(#REM)Document mp3]
+			<BOUCLE_mp3_rub(DOCUMENTS){id_rubrique}{mode=document}{extension=mp3}{0,1}><enclosure url="[(#URL_DOCUMENT|url_absolue)]" length="#TAILLE" type="audio/mpeg" /></BOUCLE_mp3_rub>
+		[(#REM)Icon]
+			<B_tags2_rub><BOUCLE_tags2_rub(MOTS){id_rubrique}{type=marker_icon}>
+				[(#SET{logo,#LOGO_MOT})]
+			</BOUCLE_tags2_rub></B_tags2_rub>
+				<BOUCLE_tags3_rub(RUBRIQUES){id_rubrique}{tout}>
+					[(#LOGO_RUBRIQUE_NORMAL|!={''}|oui)	[(#SET{logo,#LOGO_RUBRIQUE_NORMAL})]]
+				</BOUCLE_tags3_rub>
+			<//B_tags2_rub>
+			[(#GET{logo}|oui)
+				[(#REM)Couleur]
+					[(#ENV{id_article}|non
+					|ou{#VOIR|=={tout}|oui})
+						<geo_icon>[#URL_SITE_SPIP/(#GET{logo}||image_reduire{#ENV{icon_size,50}}|extraire_attribut{src})]</geo_icon>
+					]
+				[(#REM)N&B]
+					[(#ENV{id_article}|oui
+					|et{#VOIR|=={tout}|non})
+						<geo_icon>[#URL_SITE_SPIP/(#GET{logo}||image_reduire{#ENV{icon_size,50}}||image_nb||image_alpha{70}|extraire_attribut{src})]</geo_icon>
+					]
+				<geo_iconx>[(#GET{logo}||image_reduire{#ENV{icon_size,50}}|extraire_attribut{width})]</geo_iconx>
+				<geo_icony>[(#GET{logo}||image_reduire{#ENV{icon_size,50}}|extraire_attribut{height})]</geo_icony>
+			]
+		[(#REM)Tags]
+			<B_tags_rub><dc:subject><BOUCLE_tags_rub(MOTS){id_rubrique}>[(#TITRE|texte_backend)]</BOUCLE_tags_rub></dc:subject></B_tags_rub>
+			[<itunes:author>(#LESAUTEURS|supprimer_tags|texte_backend)</itunes:author>]
+			[<itunes:summary>(#TEXTE|supprimer_tags|texte_backend)</itunes:summary>]
+			<itunes:duration>00:00:00</itunes:duration>
+		[(#REM)Itunes]
+			<BOUCLE_img_rub(DOCUMENTS){id_rubrique}{mode=document}{extension==jpg|png|gif}{0,3}>
+			[<itunes:image href="(#URL_DOCUMENT|url_absolue)" />]
+			</BOUCLE_img_rub>
+	</item>
+	</BOUCLE_gis_rub>
+	</BOUCLE_un_rubrique>
+	
+</channel>
+</rss>

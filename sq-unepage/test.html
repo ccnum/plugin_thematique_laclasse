@@ -1,0 +1,30 @@
+<html>
+
+	<head>
+		<INCLURE{fond=noisettes/inc-head}>
+	</head>
+
+	<body>
+
+		<style>
+			#draggable { width: 150px; height: 150px; padding: 0.5em; }
+			</style>
+			<script>
+			$(function() {
+				$( "#draggable" ).draggable();
+			});
+		</script>
+		[(#CHEMIN{#ENV{chemin}/img/blog_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/blog.png}|image_reduire{30}|src)]
+		<div class="demo">
+			<div id="draggable" class="ui-widget-content">
+				<p>Drag me around</p>
+			</div>
+		</div><!-- End demo -->
+
+		<div style="display: none;" class="demo-description">
+		<p>Enable draggable functionality on any DOM element. Move the draggable object by clicking on it with the mouse and dragging it anywhere within the viewport.</p>
+		</div><!-- End demo-description -->
+
+	</body>
+
+</html>
