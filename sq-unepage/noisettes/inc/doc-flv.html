@@ -1,0 +1,24 @@
+<BOUCLE_principale(DOCUMENTS){id_document}>
+	<div style='text-align: center;'>
+	[(#MODELE{doc_video}{id_document}{id_article=#ID_ARTICLE})]
+	
+	<?php
+	if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE))&&(!'#AFFICHE-TITRE'=='non'))
+		{	echo '[<p class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur">nouveau titre</span>})</p>]';
+			$action="documenter";
+			$redirect="#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul";
+			$arg="-#ID_ARTICLE/article/#ID_DOCUMENT";
+			$confirmation= attribut_html("Etes vous sûr de vouloir supprimer ce document ?");
+			echo "<br /><a href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' class='supprimer_couleur' onClick='return confirmation(\"$confirmation\")' title='supprimer ce document' ><input class='publier publier_menu_petit' type='submit' value='X' title='supprimer ce document' /></a>";
+		}
+	else
+	<BOUCLE_principale2(DOCUMENTS){id_document}{extension!=mp3}>
+		echo '[<p class="spip_doc_titre">(#TITRE|supprimer_numero|couper{25})</p>]';
+	</BOUCLE_principale2>
+	?>
+	<br />
+	<BOUCLE_principale3(DOCUMENTS){id_document}{extension!=mp3}>
+	<br /><br />
+	</BOUCLE_principale3>
+	</div>
+</BOUCLE_principale>

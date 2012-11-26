@@ -1,0 +1,85 @@
+<datas>
+	<projet>
+		<nom>[(#NOM_SITE_SPIP)]</nom>
+		<date_debut>01/09/#ANNEE_SCOLAIRE</date_debut>
+		<date_fin>01/09/[(#ANNEE_SCOLAIRE|plus{1})]</date_fin>
+		<couleur_base_texte>#000000</couleur_base_texte>
+		<couleur_1erplan1>#444444</couleur_1erplan1>
+		<couleur_1erplan2>#C0C0C0</couleur_1erplan2>
+		<couleur_1erplan3>#00A0F0</couleur_1erplan3>
+		<couleur_fond>#EEEEEE</couleur_fond>
+		<couleur_blog>
+			[(#NOM_SITE_SPIP|=={finisterrae.laclasse.com}|oui) #00ffff ]
+			[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #ff9e0d ]
+			[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #ff9e0d ]
+		</couleur_blog>
+		
+		<image_fond>
+			<BOUCLE_rub(RUBRIQUES){titre_mot=images_background}{titre IN #ANNEE_SCOLAIRE,Images,Background,Images Background,Contenu Editorial}{par hasard}{0,1}{tout}>
+				<BOUCLE_images(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1000}|image_recadre{900,550,center}|extraire_attribut{src})]})]</BOUCLE_images>
+			</BOUCLE_rub>
+				<BOUCLE_rub1(RUBRIQUES){titre_mot=images_background}{par hasard}{0,1}{tout}>
+					<BOUCLE_images1(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1000}|image_recadre{900,550,center}|extraire_attribut{src})]})]</BOUCLE_images1>
+				</BOUCLE_rub1>
+			<//B_rub>
+			[(#GET{url}|non)[(#SET{url,[(#CHEMIN{img/fond_#NOM_SITE_SPIP.png}|sinon{#CHEMIN{img/fond.png}})]})]]
+			[(#REM)
+				[(#GET{url}|couleur_extraire|couleur_extreme{0.7}|=={000000}|oui)	[(#SET{url,[(#GET{url}|image_alpha{90}|extraire_attribut{src})]})]	]
+			]
+			#GET{url}
+		</image_fond>
+		<largeur>#EVAL{_largeur}</largeur>
+		<hauteur>#EVAL{_hauteur}</hauteur>
+		<fps>20</fps>
+		<zoom_consignes>2</zoom_consignes>
+		<seq_posy_consignes>0.30, 0.10, 0.50, 1.00, 0.50, 0.20, 0.70, 0.00, 0.30, 0.60, 0.10, 1.00, 0.40, 0.80</seq_posy_consignes>
+		<seq_posy_blogs>0.45, 0.75, 0.25, 0.35, 0.65, 0.15</seq_posy_blogs>
+		[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) <seq_posy_evenements>0.05, 0.65, 0.75, 0.45</seq_posy_evenements> ]
+		[(#NOM_SITE_SPIP|=={air.laclasse.com}|non) <seq_posy_evenements>0.45, 0.05, 0.65, 0.25</seq_posy_evenements> ]
+		<url_popup_consigne>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=consigne</url_popup_consigne>
+		<url_popup_reponse>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=reponse</url_popup_reponse>
+		<url_popup_reponseajout>spip.php?page=publier&amp;mode=#EVAL{_mode_popup}&amp;type_objet=reponse</url_popup_reponseajout>
+		<url_popup_blog>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=article</url_popup_blog>
+		<url_popup_evenement>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=article_evt</url_popup_evenement>
+		<url_popup_ressources>spip.php?page=rubrique&amp;id_rubrique=7&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource</url_popup_ressources>
+		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=3&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource</url_popup_classes>
+		<url_popup_chat>
+			[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
+				spip.php?page=groupe_mot&amp;id_groupe=5&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource
+			]
+			[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui)
+				#SET{gid,8}
+
+				[(#SESSION{nom}|oui)
+					[(#SET{restreint,[(#INCLURE{fond=noisettes/fonction/admin,mode=restreint})]})]
+					[(#GET{restreint}|=={26}|oui)#SET{gid,9}]
+					[(#GET{restreint}|=={23}|oui)#SET{gid,11}]
+					[(#GET{restreint}|=={24}|oui)#SET{gid,10}]
+					[(#GET{restreint}|=={28}|oui)#SET{gid,12}]
+					[(#GET{restreint}|=={27}|oui)#SET{gid,13}]
+					[(#GET{restreint}|=={29}|oui)#SET{gid,15}]
+					[(#GET{restreint}|=={30}|oui)#SET{gid,14}]
+					[(#GET{restreint}|=={22}|oui)#SET{gid,16}]
+					[(#GET{restreint}|=={32}|oui)#SET{gid,17}]
+					[(#GET{restreint}|=={25}|oui)#SET{gid,18}]
+					[(#GET{restreint}|=={31}|oui)#SET{gid,19}]
+					https://docs.google.com/spreadsheet/ccc?key=0An8SJZ8E7nY9dGFlQ25YTnA1ZW1paVVZZ3lXcFlNTXc&amp;hl=fr_FR&amp;target=blank#gid=#GET{gid}
+				]
+
+				[(#SESSION{nom}|non)
+					https://docs.google.com/spreadsheet/pub?hl=fr_FR&amp;key=0An8SJZ8E7nY9dGFlQ25YTnA1ZW1paVVZZ3lXcFlNTXc&amp;hl=fr_FR#gid=8
+				]
+			]		
+		</url_popup_chat>
+		<url_popup_chat2>
+			[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui)
+				[(#SESSION{nom}|oui)
+					https://docs.google.com/drawings/d/1XNN89gz1qaVkV1BBwztvQNJuFetv3y-fXtrwbFGyEPM/edit?target=blank
+				]
+				[(#SESSION{nom}|non)
+					[(#VAL{<img src="https://docs.google.com/drawings/pub?id=1XNN89gz1qaVkV1BBwztvQNJuFetv3y-fXtrwbFGyEPM&w=880&h=630">}|htmlspecialchars)]
+				]
+			]
+		</url_popup_chat2>
+	</projet>
+</datas>

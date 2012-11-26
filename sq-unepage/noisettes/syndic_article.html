@@ -1,0 +1,31 @@
+#CACHE{0}
+<BOUCLE_principale(SYNDIC_ARTICLES){id_syndic_article}>
+	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+
+		[(#REM) ---------------- titre & logo ----------------
+			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique=#ID_RUBRIQUE})]</div>
+			    <div class="texte">
+			        <div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
+			        <div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>
+			    </div>
+			</div>]
+			<div class="popup_titre">
+				<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
+				<span class="date #EDIT{date}">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
+				<span class="auteur">[ - (#LESAUTEURS)]</span>	
+			</div>
+		
+		[(#REM) ---------------- bloc article ---------------- ]
+			<div id="bloc_article" class="[(#GET{police})]">
+				<div class="introduction nettoyeur"></div>
+			
+				[(#REM)Texte]
+				<div id="bloc_texte">
+				<p class="spip">[(#DESCRIPTIF|liens_ouvrants|replace{href, target="_blank" href})]</p>
+				<!--<p class="spip droite"><a href="[(#URL)]" target="_blank">Lire la suite</a</p>-->		
+				</div>
+	 		</div>
+	
+	[(#MODE|!={ajax-detail}|oui)</div>]
+</BOUCLE_principale>

@@ -1,0 +1,45 @@
+.popup, #popup{
+	background-color: transparent;
+}
+
+.popup_consigne, .popup_reponse {
+	/*background-color: #FFFFFF;*/
+	color: #000000;
+	width: 410px;
+	min-height: 300px;		
+}
+
+.popup_reponse_ajouter {
+	/*background-color: #FFFFFF;*/
+	color: #00A0F0;
+	width: 410px;
+	min-height: 300px;	
+}
+
+.popup_ressource, .popup_classes {
+	background-color: transparent;
+	color: #FFFFFF;
+	width: 210px;
+	min-height: 300px;	
+}
+
+.popup_article {
+	background-color: transparent;
+	color: #FFFFFF;
+	width: 340px;
+	min-height: 250px;
+	scrollbar-base-color:#fc0078;
+}
+
+.popup_article_evt {
+	background-color: transparent;
+	color: #000000;
+	width: 340px;
+	min-height: 250px;		
+}
+
+.chargement_grand { 
+	background: url(../img/chargement.gif) no-repeat center center;
+	min-width: 200px;
+	min-height: 200px;
+	}

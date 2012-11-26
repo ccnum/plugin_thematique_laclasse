@@ -1,0 +1,147 @@
+#CACHE{0}
+[(#REM)Détermine la rubrique]
+	[(#SET{id_rubrique,[(#ENV{action}|parametre_url{id_rubrique})]})]
+	[(#SET{id_article,[(#ENV{action}|parametre_url{id_article})]})]
+	<BOUCLE_art(ARTICLES){id_article=#GET{id_article}}>#SET{id_rubrique,#ID_RUBRIQUE}</BOUCLE_art>
+
+<div id="map_edit" class="map" name="map_edit"></div>
+
+<script type="text/javascript">
+//<![CDATA[
+[(#REM)Variables]
+	<INCLURE{fond=inc_public_map_var}>	
+	var letraNH = String.fromCharCode(241);
+	var letraNHNH = String.fromCharCode(209);
+	var letraAacute = String.fromCharCode(225);
+	var letraAAacute = String.fromCharCode(193);
+	var letraEacute = String.fromCharCode(233);
+	var letraEEacute = String.fromCharCode(201);
+	var letraIacute = String.fromCharCode(237);
+	var letraIIacute = String.fromCharCode(205);
+	var letraOacute = String.fromCharCode(243);
+	var letraOOacute = String.fromCharCode(211);
+	var letraUacute = String.fromCharCode(250);
+	var letraUUacute = String.fromCharCode(218);
+	fecha = new Date();
+
+if (GBrowserIsCompatible()) {
+	[(#REM)Partie générique]
+		<INCLURE{fond=inc_public_map_gen}{env}{id_rubrique=#GET{id_rubrique}}{id_carte_gis='_edit'}>
+	
+	// mettre à jour le zoom quand on le modifie
+		GEvent.addListener(map_edit, "zoomend", function(oldlevel, newlevel){
+			jQuery("#formulaire_editer_gis #zoom").val(newlevel);
+		});
+	//icone
+		var icon1 = new GIcon();
+        icon1.image = MarkerImgBase;
+        icon1.shadow = MarkerShadowBase;        
+		icon1.iconSize = new GSize(MarkerBaseWidth, MarkerBaseHeight);
+		icon1.shadowSize = new GSize(37, 34);	
+		icon1.iconAnchor = new GPoint(10, 34);
+		icon1.infoWindowAnchor = new GPoint(5, 1);
+		
+	// marqueur et mise à jour en cas de dragend	
+		[(#ENV**{lat}|oui)
+		point1 = new GPoint([(#ENV**{lonx})],[(#ENV**{lat})]);
+		marker = new GMarker(point1,{draggable:true,icon:icon1});
+		map_edit.addOverlay(marker);
+		GEvent.addListener(marker, "dragend", function(){
+			var center = marker.getPoint();
+	  		jQuery("#formulaire_editer_gis #lat").val(center.lat());
+			jQuery("#formulaire_editer_gis #lonx").val(center.lng());
+			map_edit.panTo(center);
+			});
+		]
+	// mettre a jour les coordonnees quand on clique la carte (si on est dans le cas d'une carte nouvelle)
+		[(#ENV**{lat}|non)
+			GEvent.addListener(map_edit, "click", function(overlay, point){
+				map_edit.clearOverlays();
+				if (point) {
+					map_edit.addOverlay(new GMarker(point));
+					map_edit.panTo(point);
+					jQuery("#formulaire_editer_gis #lat").val(point.y);
+					jQuery("#formulaire_editer_gis #lonx").val(point.x);
+				}
+			});
+		]
+
+	// recherche et mise à jour			
+		[(#ENV**{recherche}|oui)
+		jQuery(document).ready(function(){
+			$("#formulaire_adresse #rechercher").css("cursor","pointer");
+			$("#formulaire_adresse #rechercher").click(function(){
+				var adresse = $("#map_adresse").attr("value");
+				var geocoder = new GClientGeocoder();
+				if (geocoder) {
+					geocoder.getLatLng(adresse, function(point) {
+						if (!point) {
+							alert(adresse + " not found");
+						} else {
+							map_edit.setCenter(point);
+							map_edit.clearOverlays();
+							marker = new GMarker(point,{draggable:true});
+							map_edit.addOverlay(marker);
+							marker.openInfoWindowHtml(adresse);
+							jQuery("#formulaire_editer_gis #lat").val(point.lat());
+							jQuery("#formulaire_editer_gis #lonx").val(point.lng());
+							jQuery("#formulaire_editer_gis #zoom").val(map_edit.getZoom());
+							GEvent.addListener(marker, 'dragend', function(){
+								var center = marker.getPoint();
+								jQuery("#formulaire_editer_gis #lat").val(center.lat());
+								jQuery("#formulaire_editer_gis #lonx").val(center.lng());
+							});
+						}
+					});
+				}
+				return false;
+			});
+		});
+		]
+
+} else {
+    alert("Sorry, the Google Maps API is not compatible with this browser");
+}
+
+//]]>
+
+</script>
+
+<div class="formulaire_spip formulaire_editer formulaire_editer_gis">
+	<!-- br class='spacer' / -->
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[(#ENV{editable})
+	[(#ENV{recherche}|oui)
+	<form id="formulaire_adresse">
+	<ul>
+		<li>
+			<input type="text" class="text" name="map_adresse" id="map_adresse" value="<:gis:address:>" onfocus="this.value='';" style="width: 85%;" />
+			<a id="rechercher"><:gis:label_address:></a>
+		</li>
+	</ul>
+	</form>]
+	<form method='post' action='#ENV{action}' enctype='multipart/form-data' name='formulaire_editer_gis' id='formulaire_editer_gis'><div>
+		[(#REM) declarer les hidden qui declencheront le service du formulaire 
+		parametre : url d'action ]
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<ul>
+			<li class="editer_lat obligatoire[ (#ENV**{erreurs}|table_valeur{lat}|oui)erreur]">
+				<label for="lat">Latitude</label>
+				<input type="text" name="lat" id="lat" class="text" value="[(#ENV**{lat})]" />
+			</li>
+			<li class="editer_lonx obligatoire[ (#ENV**{erreurs}|table_valeur{lonx}|oui)erreur]">
+				<label for="lonx">Longitude</label>
+				<input type="text" name="lonx" id="lonx" class="text" value="[(#ENV**{lonx})]" />
+			</li>
+			<li class="editer_zoom obligatoire[ (#ENV**{erreurs}|table_valeur{zoom}|oui)erreur]">
+				<label for="zoom">Zoom</label>
+				<input type="text" name="zoom" id="zoom" class="text" value="[(#ENV**{zoom})]" />
+			</li>	
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class='boutons'><input class='submit' type='submit' value='Ajouter' /></p>
+	</div></form>
+	]
+</div>

@@ -1,0 +1,90 @@
+#CACHE{0}
+<BOUCLE_mot0(spip_mots_articles){id_article}{tout}>
+	<BOUCLE_art0(ARTICLES){id_article=#ID_MOT}{id_rubrique=9}>
+	</BOUCLE_art0>
+</BOUCLE_mot0>
+	#SET{nb,#TOTAL_BOUCLE}
+	<?php $nb_danse=#TOTAL_BOUCLE; ?>
+</B_mot0>
+	<?php $nb_danse=0; ?>
+<//B_mot0>
+
+#SET{aff,non}
+
+<?php 
+if (($nb_danse>0)||(((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE))))) {
+?>
+
+<div id="titre">
+	<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur1.gif">
+	<span>Danse[(#GET{nb}|>{1}|?{s})] choisie[(#GET{nb}|>{1}|?{s})]</span>
+</div>
+
+<BOUCLE_principale(ARTICLES){id_article}>
+<div id="bloc_article">	
+	<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+	<div id="bloc_article_m">
+
+		<div id="bloc_texte">
+
+			[(#REM)Affichage mots-clefs]
+						<BOUCLE_mot(spip_mots_articles){id_article}{tout}>
+							<BOUCLE_art(ARTICLES){id_article=#ID_MOT}{id_rubrique=9}>
+								<div class="portfolio" >
+									[<a href="[(#URL_ARTICLE)]" type="#MIME_TYPE" title="#TITRE" >(#LOGO_ARTICLE_RUBRIQUE||image_reduire{120})</a>]
+									<br /><a href="#URL_ARTICLE" style="text-decoration:none; border:0px;">[(#TITRE|couper{30})]</a>
+									<?php
+											if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #_principale:ID_ARTICLE)))
+												{
+													$action="editer_mots";
+													$redirect="spip.php?page=article&id_article=#_principale:ID_ARTICLE";
+													$arg="#_principale:ID_ARTICLE,#ID_MOT,articles,id_article,article";
+													echo "<span class='ttpetit'><br /><br /></span><a class='supprimer_couleur' href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' >Supprimer</a>";
+												}
+									?>							
+								</div>
+								#SET{aff,oui}
+							</BOUCLE_art>
+						</BOUCLE_mot>
+
+			[(#REM)Articles substitué à Mots clefs(magouille) dans la table spip_mot_article / modifiables sur FrontOffice]
+												
+								<?php
+									if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+									{			
+									
+										[(#REM)On ne peut choisir qu'une danse - on affiche le formulaire que si on a pas de danse]
+												if ($nb_danse==0) 
+												{
+
+													$action="editer_mots";
+													$redirect="spip.php?page=article&id_article=#ID_ARTICLE";
+													$att=" method='post' ";
+													$mode="<input name='image' type='file' class='forml spip_xx-small' size='15' /><input name='sousaction1' type='submit' value='T&eacute;l&eacute;charger' class='fondo spip_xx-small' /><input type='hidden' name='iframe_redirect' value='#URL_SITE_SPIP%2Fecrire%2F%3Fexec%3Diconifier%26type%3Did_article%26id_article%3D#ID_ARTICLE%26script%3Darticles' />";
+													$mode="<select name='nouv_mot' size='1' style='width: 180px; ' class='fondl' >";
+													$mode.="<option value=''>Sélectionner une danse</option>";
+													<BOUCLE_materiau(ARTICLES){id_rubrique=9}>
+														$mode.="<option value='#ID_ARTICLE'>#TITRE</option>";
+													</BOUCLE_materiau>
+													$mode.="</select><input type='submit' value='valider' id='valider_groupe_3' />";
+
+													$arg="#ID_ARTICLE,,articles,id_article,article";
+													echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+												}
+												
+												[(#REM)Bloc vers utiliser le DVD]
+													<BOUCLE_info(ARTICLES){id_article=92}>
+														[(#GET{aff}|=={oui}|?{echo '<br /><br /><input class="publier_menu publier_droite publier" type="submit" onclick="window.open(\'#URL_ARTICLE\')" value="[(#TITRE|supprimer_numero)]"/>';})]
+													</BOUCLE_info>
+										}
+								?>
+		</div>
+	</div>
+	<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+</div>
+</BOUCLE_principale>
+
+<?php
+} 
+?>
+

@@ -1,0 +1,44 @@
+#CACHE{24*3600}
+[<div class="lien_forum"><a class="lienss" href="(#PARAMETRES_FORUM|url_reponse_forum)">> <:repondre_article:></a></div>]
+<B_Forums>
+<!-- Début Forum-->	
+	<ul id="forum">
+	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}{inverse}>
+			<div id="cadre_forum">
+				<div id="cadre_couleur" class="titre_bloc">[(#TITRE)]</div>
+				<span class="date">
+					[(#DATE|affdate)][, par (#NOM)] 
+					[<br><a href="#URL_SITE" class="lienss">(#NOM_SITE)</a>]
+				</span>
+				<div class="ttpetit"><br /></div>
+				[<div id="spip">(#TEXTE)</div>]
+				<BOUCLE_mots_forum(MOTS){id_forum}{par type, titre}>
+					<li><span>#LOGO_MOT <b>#TYPE :</b> #TITRE</span> 
+				</BOUCLE_mots_forum>
+				<div class="ttpetit"><br /></div>
+				[<div id="spip"><a href="(#PARAMETRES_FORUM|url_reponse_forum)"  class="lienss">R&eacute;pondre &agrave; ce message</a></div>] 
+			</div>
+			
+			<B_forums_fils>
+					<ul id="forum">
+					<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
+							<br />									
+							<div>
+								<B>[(#TITRE)]</B>
+							</div>
+							<span class="date">
+								[(#DATE|affdate)][, par (#NOM)] 
+								[<br><a href="#URL_SITE" class="lienss">(#NOM_SITE)</a>]
+							</span>
+							<div class="ttpetit"><br /></div>
+							[<div id="spip">(#TEXTE)</div>]
+							<div class="ttpetit"><br /></div>
+							[<div id="spip"><a href="(#PARAMETRES_FORUM|url_reponse_forum)" class="lienss">R&eacute;pondre &agrave; ce message</a></div>]
+						<BOUCLE_Forums_Boucle(boucle_forums_fils)></BOUCLE_Forums_Boucle>
+					</BOUCLE_forums_fils>
+					</ul>
+			</B_forums_fils>
+	</BOUCLE_Forums>
+	</ul>
+</B_Forums>
+<//B_Forums>

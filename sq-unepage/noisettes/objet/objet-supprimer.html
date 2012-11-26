@@ -1,0 +1,61 @@
+#CACHE{0}
+[(#REM)Bloc de suppression d'un contenu
+Parametres :
+-objet : type de contenu à supprimer
+-id_objet : id à supprimer
+-type_parent
+-id_parent
+-url ?
+-confirmation : texte pour confirmation / autrement "non"
+]
+
+[(#SET{url,[(#URL|!={''}|?{#URL}|sinon{#SELF})]})]
+
+[(#TYPE_PARENT|!={article}|oui)
+	[(#AUTORISER{modifier, rubrique, #ID_PARENT})
+		[(#OBJET|=={article}|oui)
+			<div class="bloc_option_doc" class="nettoyeur"><ul><li><ul><li><a class="ajax hac liens_supprimer" [onClick="return confirmation('(#CONFIRMATION)')"] title="Supprimer l'article" href="[(#URL_ACTION_AUTEUR{instituer_article,#ID_OBJET-poubelle,[(#GET{url})]})]">
+			<img src="[(#CHEMIN{img/logo_supprimer_on_15.png}||image_reduire{14}|extraire_attribut{src})]" />&nbsp;&nbsp;Supprimer l'article
+			</a></ul></li></div>			
+		]
+		
+		[(#OBJET|=={document}|oui)
+			<a class="ajax" title="Supprimer le document" href="[(#URL_ACTION_AUTEUR{documenter,-#ID_PARENT/rubrique/#ID_OBJET,[(#GET{url}|parametre_url{edition,-1})]})]">
+			<div class="action_supprimer"></div></a>
+		]
+
+		[(#OBJET|=={rubrique}|oui)
+			<a class="ajax" title="Supprimer la carte" href="[(#URL_ACTION_AUTEUR{supprimer,rubrique-#ID_OBJET,[(#GET{url}|parametre_url{edition,-1})]})]">
+			<div class="action_supprimer"></div></a>		
+		]
+		
+		[(#OBJET|=={site}|oui)
+			<a class="ajax" title="Supprimer le flux rss" href="[(#URL_ACTION_AUTEUR{instituer_site,#ID_OBJET-refuse,[(#GET{url}|parametre_url{edition,-1})]})]">
+			<div class="action_supprimer"></div></a>
+		]
+		[(#OBJET|=={syndic_article}|oui)
+			<a class="ajax" title="Ne pas afficher cet article sur le Webnapperon" href="[(#URL_ACTION_AUTEUR{instituer_syndic,#ID_OBJET-refuse,[(#GET{url}|html_entity_decode)]})]">
+			<div class="action_supprimer"></div></a>
+		]
+		
+		[(#OBJET|=={desassocier_mot}|oui)
+			[(#REM)Ajouter la verif d'autorisation + comprendre le pb d'encodage d'url ???]
+			<a class="" title="Désactiver" href="[(#URL_ACTION_AUTEUR{editer_mots,[(#ID_PARENT|concat{',',#ID_OBJET,',rubriques,id_rubrique,rubrique'})],[(#GET{url}|html_entity_decode)]})]">
+			<div class="action_supprimer"></div></a>
+		]
+	]
+	[(#OBJET|=={mot}|oui)
+		[(#REM)Ajouter la verif d'autorisation + comprendre le pb d'encodage d'url ???]
+		<a class="" title="Supprimer le numéro de badge" href="[(#URL_ACTION_AUTEUR{editer_mots,[(#ID_PARENT|concat{',',#ID_OBJET,',',',',','})],[(#GET{url}|html_entity_decode)]})]">
+		<div class="action_supprimer"></div></a>
+	]
+]
+
+[(#TYPE_PARENT|=={article}|oui)
+	[(#AUTORISER{modifier, article, #ID_PARENT})
+		[(#OBJET|=={document}|oui)
+			<a class="ajax" title="Supprimer le texte"  href="[(#URL_ACTION_AUTEUR{documenter,-#ID_PARENT/article/#ID_OBJET,[(#GET{url}|parametre_url{edition,-1})]})]">
+			<div class="action_supprimer"></div></a>
+		]
+	]
+]

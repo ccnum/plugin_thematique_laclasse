@@ -1,0 +1,75 @@
+#CACHE{0}
+[(#REM)Variables]
+	[(#REM)-- Sommaire --]
+			[(#PAGE|=={sommaire}
+			|ou{#PAGE|=={login0}}
+			|oui) 
+				#SET{id_rubrique,0} 
+			]
+	[(#REM)-- par --]
+			[(#PAGE|=={par_date}
+			|ou{#PAGE|=={par_auteur}}
+			|ou{#PAGE|=={auteur}}				
+			|ou{#PAGE|=={breve}}
+			|ou{#PAGE|=={contact}}
+			|ou{#PAGE|=={plan}}
+			|ou{#PAGE|=={plan2}}
+			|ou{#PAGE|=={recherche}}
+			|oui) 
+				#SET{id_rubrique,3}
+			]
+	[(#REM)-- Rubrique --]
+			[(#PAGE|=={rubrique}|oui
+			|ou{#SELF|match{rubrique8}|oui})
+				#SET{id_rubrique,#ENV{id_rubrique,0}}
+			]
+	[(#REM)-- Article --]
+			<BOUCLE_article(ARTICLES){id_article}>
+				[(#PAGE|=={article}|oui)
+				#SET{id_rubrique,#ID_RUBRIQUE}
+				#SET{id_article,#ID_ARTICLE}
+				]
+				[(#PAGE|=={forum}|oui)
+				#SET{id_rubrique,#ID_RUBRIQUE}
+				#SET{id_article,#ID_ARTICLE}
+				]			
+			</BOUCLE_article>
+
+	[(#REM)-- Mots --]
+			[(#PAGE|=={mot}
+			|ou{#PAGE|=={geolocalisation-3d}}
+			|oui) 
+				#SET{id_rubrique,#ID_RUBRIQUE}
+				#SET{id_article,#ID_ARTICLE}
+				#SET{id_rubrique,7}
+			]
+
+	[(#REM)-- Login --]
+			[(#PAGE|=={login}|oui) 
+				#SET{id_rubrique,8}
+			]
+
+	[(#REM)Type d'admin : 0 : total / autrement : nb de rubriques restreintes / -1 : pas admin]	
+		[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
+	[(#REM)Id de la rubrique restreinte sélectionnée]
+		[(#SET{restreint,[(#INCLURE{fond=noisettes/fonction/admin,mode=restreint})]})]
+
+[(#REM)Affichage]
+	[(#REM)Extras]
+		[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
+			<div id="map_ref" style="display: none;"></div>
+		]
+
+	[(#REM)Page]
+		<INCLURE{fond=noisettes/inc-head_ajax}{id_rubrique=#GET{id_rubrique}}{id_article=#GET{id_article}} />
+		<INCLURE{fond=noisettes/layout_page}{id_rubrique=#GET{id_rubrique}}{id_article=#GET{id_article}}{admin=#GET{admin}}{restreint=#GET{restreint}}{page}{env} />
+
+	[(#REM)Hack pour activer crayons pour les admins restreints avec Ajax]
+		<BOUCLE_restreint(CONDITION){si #GET{restreint}|oui}>
+			<div style="display: none;">
+				<BOUCLE_crayons1(RUBRIQUES auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
+					<div class="#EDIT{titre}"></div><div class="#EDIT{texte}"></div>
+					<BOUCLE_crayons(ARTICLES){id_rubrique}{tout}><div class="#EDIT{titre}"></div><div class="#EDIT{texte}"></div></BOUCLE_crayons>
+				</BOUCLE_crayons1>
+			</div>
+		</BOUCLE_restreint>

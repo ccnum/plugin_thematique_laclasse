@@ -1,0 +1,91 @@
+#CACHE{0}
+<?php 
+	//Redirection
+	if (!isset($GLOBALS['auteur_session']['nom'])) header ("location: [(#URL_PAGE{login})]");
+?>
+<BOUCLE_aut1(AUTEURS) {id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}} {tout}>
+
+[(#REM)Dernière consigne]
+	<BOUCLE_consigne(ARTICLES) {par date} {inverse} {id_secteur=6} {0,1}>
+		<INCLURE{fond=noisettes/bloc/rubrique/consigne}{id_rubrique}{bouton=oui}>
+	</BOUCLE_consigne>
+	</B_consigne>
+		<BOUCLE_consigne2(ARTICLES) {par date} {inverse} {id_secteur=7} {0,1}>
+			<INCLURE{fond=noisettes/bloc/rubrique/consigne}{id_rubrique}{bouton=oui}>
+		</BOUCLE_consigne2>
+	<//B_consigne>
+
+
+[(#REM)Répondre et rubrique administrée]
+<BOUCLE_site1(MOTS){type=site}{titre IN 'ledechetmatiere.laclasse.com', 'cluemo.laclasse.com', 'finisterrae.laclasse.com', 'maisondeladanse.laclasse.com', 'novaterra.laclasse.com'}>
+</BOUCLE_site1>
+	<BOUCLE_restreint(CONDITION){si #RESTREINT|oui}>
+	[(#REM)Répondre]
+		<INCLURE{fond=noisettes/objet/objet-ajouter}{objet=article}{id_parent=#RESTREINT}>
+
+	[(#REM)Rubrique administrée]
+		[(#REM)Bloc Intro : titre + logo + descriptif]
+			<INCLURE{fond=noisettes/bloc/rubrique/intro}{id_rubrique=#RESTREINT}>
+		[(#REM) Novaterra - Carte et mots clefs]	
+			<BOUCLE_travail(RUBRIQUES){id_secteur=3}{id_rubrique=#RESTREINT}{id_rubrique!=3}{tout}>
+				<BOUCLE_gis(GIS?){id_rubrique}{tout}> #SET{id_gis,#ID_GIS} </BOUCLE_gis>
+				[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
+					[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
+						[(#GET{id_gis}|oui)	[(#MODELE{carte_gis}{id_article}{id_rubrique}{draggable=objet}{attente=1}{width=530px}{height=350px}{zoom=4})] ]
+						[(#GET{id_gis}|non)	[(#FORMULAIRE_EDITER_GIS{#ID_RUBRIQUE,'',#SELF,'rubrique'})] ]
+					]
+					[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|non)
+						[(#MODELE{carte_gis}{width=500px}{height=350px}{id_rubrique}{attente=1}{zoom=4})]
+					]
+				]
+			</BOUCLE_travail>
+		[(#REM)Accéder]
+			<a class='publier2 publier_droite publier ajax' title='Accéder' href='spip.php?page=rubrique&id_rubrique=#RESTREINT'>Accéder</a>
+	</BOUCLE_restreint>
+	
+</B_site1>
+
+[(#REM)Séquences - MDLD]
+		<BOUCLE_site(MOTS){type=site}{titre=maisondeladanse.laclasse.com}>
+		</BOUCLE_site>
+			<BOUCLE_auteur(spip_auteurs_rubriques){id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}}{0,1}>
+				<INCLURE{fond=noisettes/bloc/rubrique/danses}{id_rubrique=#ID_RUBRIQUE}>
+			</BOUCLE_auteur>
+		</B_site>
+	
+[(#REM)Bloc infos]
+		<?php
+		/*
+		<div id="bloc_article">
+			<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+				<div id="bloc_article_m">
+					Bonjour, <br /><br />
+					<B_art1><BOUCLE_art1(ARTICLES) {id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}}></BOUCLE_art1></B_art1>[Vous avez (#TOTAL_BOUCLE)[(#TOTAL_BOUCLE|>{1}|?{' articles',' article'})] à votre actif.<br /><br />]<//B_art1>
+					Vous pouvez utiliser le menu de gauche pour publier des articles et des documents dans vos rubriques.
+					<br /><br />
+					<a href="<?php echo $url_logout; ?>">Se déconnecter</a> 
+				</div>
+			<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+		</div>
+		*/
+		?>	
+				
+[(#REM)Dernières publications]
+	<?php
+	/*
+	<BOUCLE_art(ARTICLES){id_auteur}>
+	</BOUCLE_art>
+		<div id="titre">
+			<img class='img_titre'  src="#CHEMIN{images}/puce_titrecouleur6.gif">
+			<span>Mes dernières publications</span>
+		</div>
+		<INCLURE {fond=noisettes/bloc/rubrique/chrono}{id_auteur}{affiche='non'}>
+	</B_art>
+		
+	<//B_art>
+	*/
+	?>
+
+</BOUCLE_aut1>
+
+</div>

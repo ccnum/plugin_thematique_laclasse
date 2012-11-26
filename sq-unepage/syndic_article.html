@@ -1,0 +1,35 @@
+<BOUCLE_principale_article(SYNDIC_ARTICLES){id_syndic_article}>
+[(#REM)Type objet: consigne, reponse, article, article_evt,ressource]
+	[(#ENV{type_objet}|oui)
+		#SET{type_objet,#TYPE_OBJET}
+	]
+	[(#ENV{type_objet}|non)
+		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_syndic_article})]})]
+
+	]
+	[(#GET{type_objet}|match{article|article_evt}|oui)#SET{pre,article_}]
+
+[(#REM)Mode]
+	#SET{mode,#EVAL{_mode_popup}}
+	#SET{ref,#EVAL{$_SERVER['HTTP_REFERER']}}
+
+	[(#ENV{mode}|oui)
+		#SET{mode,#MODE}
+	]
+	[(#ENV{mode}|non)
+		[(#GET{ref}|match{#URL_SITE_SPIP/ecrire}|oui) #SET{mode,complet} ]
+		[(#GET{ref}|match{#URL_SITE_SPIP}|non) #SET{mode,complet} ]
+		[(#GET{ref}|non) #SET{mode,complet} ]		
+	]
+	
+[(#GET{mode}|=={detail}|oui)<INCLURE{fond=layout}{id_rubrique}{env}{page=syndic_article}{type_objet=#GET{type_objet}}{id_article=#ID_ARTICLE} />]
+[(#GET{mode}|=={complet}|oui)<INCLURE{fond=layout}{id_rubrique}{env}{page=sommaire}{type_objet=#GET{type_objet}}{id_objet=#ID_SYNDIC_ARTICLE} />]
+[(#GET{mode}|match{ajax}|oui)
+	<INCLURE{fond=noisettes/syndic_article}{id_rubrique}{env}{type_objet=#GET{type_objet}} />
+]
+
+
+</BOUCLE_principale_article>
+</B_principale_article>
+pas d'article syndiqué
+<//B_principale_article>

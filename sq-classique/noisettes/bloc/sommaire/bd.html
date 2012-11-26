@@ -1,0 +1,98 @@
+<!--			GAUCHE			-->
+
+<div id="bloc_gauche">
+
+	<div id="bloc_colhome_bd">
+		<div id="bloc_colhome_h_bd"><img src="#CHEMIN{images/bloc_colhome2_h.gif}" alt="" /></div>
+		<div id="bloc_colhome_m_bd"><img src="#CHEMIN{images/titre/t_edito.gif}" alt="Edito" /><br />
+				<BOUCLE_edito(ARTICLES) {par date} {titre_mot=sommaire_edito} {0,3} {doublons}>
+					<!--[<b>(#TITRE)</b><br />]-->[<span class="#EDIT{texte}"><br />(#TEXTE)<br /><br /><br /></span>]
+				</BOUCLE_edito>
+		</div><div id="bloc_colhome_b_bd"><img src="#CHEMIN{images/bloc_colhome2_b.gif}" alt="" /></div>
+	</div>
+
+	<div class="sommaire">
+		
+		<BOUCLE_rubriques_global_0(ARTICLES){titre_mot=sommaire_edito} {0,3} {doublons}>
+		       <div class="rubrique">
+		                [<div class=image>(#LOGO_ARTICLE|right||image_reduire{300})</div>]
+		                <a class="titre" href="#URL_ARTICLE">#TITRE</a>
+		                <div class="texte">#TEXTE</div>
+		        </div>
+		</BOUCLE_rubriques_global_0>
+	
+	</div>
+	
+	<!-- Une : derniers articles publies -->
+	<div id="annonce">
+		<BOUCLE_article(ARTICLES) {par date} {inverse} {0,6} {doublons}>
+	       <div class="annonce">
+					<BOUCLE_rubrique-mere(RUBRIQUES){id_rubrique}>
+ 						[<div class="image">&nbsp;&nbsp;<a href="#URL_ARTICLE" class="titre0">(#LOGO_ARTICLE_RUBRIQUE|left||image_reduire{30})</a></div>&nbsp;&nbsp;]
+						<A HREF="#URL_RUBRIQUE" class="titre0" style="text-decoration: none;"><strong>#TITRE</strong></A>
+					</BOUCLE_rubrique-mere>
+	   	   	> <a href="#URL_ARTICLE" class="titre0">#TITRE</a>
+				<br />
+				[&nbsp;&nbsp;&nbsp;<i>le (#DATE|nom_jour)] [(#DATE|affdate)</i>]
+		<B_auteurs-article>
+                        , <:par_auteur:>
+                        <BOUCLE_auteurs-article(AUTEURS) {id_article} {", "}>
+			#NOM
+                        </BOUCLE_auteurs-article>
+                   </B_auteurs-article>
+                  
+	       </div>
+       	<br />
+	   </BOUCLE_article>
+	   </div>
+
+
+</div>
+	    
+<!--			DROITE			-->
+<div id="bloc_droite" >
+	<!--
+	<B_article0>		
+	<div class="titre0">Derniere image</div>	<br />	
+			<BOUCLE_article0(DOCUMENTS) {par date} {inverse}{extension==jpg|png|gif} {0,1}>
+ 				<a href="#URL_ARTICLE">
+ 					[(#FICHIER||image_reduire{400,500}||inserer_attribut{'style','border:0px;'})]<br />
+				</a>
+			</BOUCLE_article0>
+			[<i>le (#DATE|nom_jour)] [(#DATE|affdate)</i>]
+	</B_article0>
+	-->
+	
+	<?php
+		<BOUCLE_rubrique_travail(RUBRIQUES){titre_mot=travail_en_cours}{par date}{inverse}{0,1}>
+		<BOUCLE_article_slide(ARTICLES){id_secteur}{par hasard}{0,10}>
+			<BOUCLE_doc(DOCUMENTS){id_article}{mode=document}{extension==jpg}{par hasard}{0,1}>
+				//$picture .= "[(#EMBED_DOCUMENT||image_reduire{800,600}|extraire_attribut{src})]".",";
+				$picture .= "#URL_SITE_SPIP/#FICHIER".",";
+			</BOUCLE_doc>
+		</BOUCLE_article_slide>
+		</BOUCLE_rubrique_travail>
+	?>
+	
+	<object style="padding-left: 20px;" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="420" height="580" id="dewplayer" align="middle">
+		<param name="allowScriptAccess" value="sameDomain" />
+		<param name="movie" value="dewslider.swf?img=<?php echo $picture ?>&amp;randomstart=1&amp;transition=slide&amp;speed=200&amp;timer=10" />
+		<param name="quality" value="high" />
+		<embed src="dewslider.swf?img=<?php echo $picture ?>&amp;randomstart=1&amp;transition=slide&amp;speed=200&amp;timer=10&amp" quality="high" width="420" height="580" name="dewplayer" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+		</embed>
+	</object>
+
+	
+	<!--
+	<embed
+	flashvars="adress=
+	&picture=<?php echo $picture ?>"
+	width="420" 
+	height="580"
+	src="loader_photos.swf" 
+	bgcolor="#FFFFFF" type="application/x-shockwave-flash"
+	pluginspage="http://www.macromedia.com/go/getflashplayer">
+	</embed>
+	-->
+	
+</div>

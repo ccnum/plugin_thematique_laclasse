@@ -1,0 +1,91 @@
+#CACHE{0}
+[(#REM)Bloc d'affichage des rubriques de la famille
+Parametres :
+-objet : type de contenu à créer
+-id_parent : id_rubrique parente
+-titre : du bouton
+-style : classes optionnelles
+-url ?
+]
+
+[(#SET{url,[(#URL|!={''}|?{#URL}|sinon{[(#SELF)]})]})]
+
+[(#AUTORISER{modifier, rubrique, #ID_PARENT})
+	[(#OBJET|=={article}|oui)
+		#SET{titre,+Répondre}
+		[(#SESSION{login}|match{capitaine|olivier|ordinateur}|oui) #SET{titre,+Consigne}]
+		[(#SET{titre,#ENV{titre,#GET{titre}}})]
+		[(#SET{style,#ENV{style,publier_menu publier_droite}})]
+		[(#VAL{#ID_PARENT}|auteur_publier_rubrique{#GET{titre},'',#GET{style},true})]
+	]
+
+	[(#OBJET|=={article0}|oui)
+		<a class="" title="Ajouter un texte" href="[(#URL_ACTION_AUTEUR{editer_#OBJET,nan,[(#GET{url}|parametre_url{edition,contenu})]}
+				|parametre_url{id_parent,#ID_PARENT}
+				|parametre_url{statut,publie}
+				|parametre_url{id_article,new}							
+				|parametre_url{titre,Nouveau contenu}
+				|parametre_url{id_secteur,#ID_SECTEUR}
+				|parametre_url{id_rubrique_carte,#ID_RUBRIQUE_CARTE}
+				)]" title="Ajouter un texte">
+		<div class="action_ajouter" ></div>
+		</a>
+		<div class="nettoyeur" ></div>
+	]
+
+	[(#OBJET|=={site}|oui)
+		<a class="" title="Ajouter un flux RSS" href="[(#URL_ACTION_AUTEUR{editer_#OBJET,nan,[(#GET{url}|parametre_url{edition,contenu})]}
+				|parametre_url{id_parent,#ID_PARENT}
+				|parametre_url{statut,publie}
+				|parametre_url{url_site,url}
+				|parametre_url{nom_site,Nom du site}
+				|parametre_url{syndication,oui}
+				|parametre_url{reload,oui}
+				|parametre_url{oubli,oui}
+				)]" title="Ajouter un flux rss">
+		<div class="action_ajouter" ></div>
+		</a>
+		<div class="nettoyeur" ></div>	
+	]
+
+	[(#OBJET|=={syndic_article}|oui)
+			<a class="ajax" title="Afficher cet article sur le Webnapperon" href="[(#URL_ACTION_AUTEUR{instituer_syndic,#ID_OBJET-publie,[(#GET{url}|html_entity_decode)]})]">
+			<div class="action_ajouter"></div></a>
+		]
+
+	[(#OBJET|=={site1}|oui)
+		<a class="" title="Ajouter un flux RSS" href="[(#URL|parametre_url{id_syndic,new}|parametre_url{edition,contenu})]" title="Ajouter un flux rss">
+		<div class="action_ajouter" ></div>
+		</a>
+		<div class="nettoyeur" ></div>	
+	]
+	
+	[(#OBJET|=={document}|oui)
+		<a class="" title="Ajouter un document" href="[(#URL|parametre_url{id_document,nouveau}|parametre_url{edition,contenu}|parametre_url{mode,document})]" title="Ajouter un document">
+		<div class="action_ajouter" ></div>
+		</a>
+		<div class="nettoyeur" ></div>	
+	]
+
+	[(#OBJET|=={page_web}|oui)
+		<a class="" title="Ajouter une page web" href="[(#URL|parametre_url{id_document,nouveau}|parametre_url{edition,contenu}|parametre_url{mode,page_web})]" title="Ajouter une page Web">
+		<div class="action_ajouter" ></div>
+		</a>
+		<div class="nettoyeur" ></div>	
+	]
+	
+	[(#OBJET|=={carte}|oui)
+		<a title="Ajouter un objet" href="[(#URL|parametre_url{id_rubrique_carte,new}|parametre_url{edition,carte})]" >
+		<div class="bloc_action_ajouter">
+		<div class="action_ajouter" ></div><span class="texte_action_ajouter">Ajouter un objet</span></div>
+		</a>
+		<div class="nettoyeur" ></div>	
+	]
+	
+	[(#OBJET|=={associer_mot}|oui)
+		[(#REM)2 heures pour trouver l'URL... note juste pour s'en souvenir ;)]
+		<a class="" title="Activer" href="[(#URL_ACTION_AUTEUR{editer_mots,[(#ID_PARENT|concat{',',',rubriques,id_rubrique,rubrique',',',#ID_OBJET})],[(#GET{url}|html_entity_decode)]})]">		
+		<div class="action_ajouter" ></div>
+		</a>
+	]
+]

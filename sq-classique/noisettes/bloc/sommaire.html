@@ -1,0 +1,216 @@
+<BOUCLE_site_bd(MOTS){type=site}{titre=bd.laclasse.com}>
+	<INCLURE{fond=noisettes/bloc/sommaire/bd}>
+</BOUCLE_site_bd>
+</B_site_bd>
+
+	<!--<div id="preload"></div>-->
+	
+	[(#REM)Colonne de gauche)]
+		<div id="bloc_colgauche_sommaire">
+			<BOUCLE_site10(MOTS){type=site}{titre IN 'cluemo.laclasse.com'}>
+			</BOUCLE_site10>
+			</B_site10>
+				<INCLURE{fond=noisettes/inc/no_ie6}>
+			<//B_site10>
+
+			<BOUCLE_site1(MOTS){type=site}{titre IN 'etudiantsvoyageurs.laclasse.com'}>
+			</BOUCLE_site1>
+				<div id="map" style="width: 700px; height: 650px; background-color: #FFFFFF;"></div>
+			</B_site1>
+				
+				<BOUCLE_site_tmp(MOTS){type=site}{titre IN 'tmp.laclasse.com',#ENV{mode}}>
+				</BOUCLE_site_tmp>
+					<div style="padding: 20px; padding-top: 30px;">
+						<img src="#DOSSIER_SQUELETTE/images/ecran.gif" width="680px" height="500px" >
+						<marquee style="position: absolute; width: 600px; top: 493px; left: 50px; right: 70px; color: white;"><h2>par suite d'une crise mondiale du temps, Titan a disparu dans l'avenir (plus d'infos dans la consigne d'à côté)</h2></marquee>
+					</div>
+				</B_site_tmp>
+					<BOUCLE_site_novaterra(CONDITION){si #NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui}>
+						<INCLURE{fond=noisettes/bloc/sommaire/novaterra}{ajax}>
+					</BOUCLE_site_novaterra>
+					</B_site_novaterra>
+						<BOUCLE_site3(MOTS){type=site}{titre IN 'finisterrae.laclasse.com'}>
+						</BOUCLE_site3>
+
+								<?php
+									if (isset($GLOBALS['auteur_session']['nom']))
+									{	
+										include_spip('inc/securiser_action');
+										include_spip('inc/autoriser');
+									}
+								?>
+								<div>
+								<BOUCLE_art_finisterrae(ARTICLES){id_rubrique=17}{par hasard}{0,4}>
+								<BOUCLE_docs_flv(DOCUMENTS){id_article}{mode=document}{extension=flv}{0,1}>
+									<div class="portfolio_grand">
+										<BOUCLE_mot3(spip_mots_articles){id_mot=#ID_ARTICLE}{tout}>
+											<BOUCLE_art_finisterrae3(ARTICLES){id_article}>
+											[(#SET{url,[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]})]
+											</BOUCLE_art_finisterrae3>
+										</BOUCLE_mot3>
+										</B_mot3>
+											[(#SET{url,[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]})]
+										<//B_mot3>
+								
+										<BOUCLE_doc(spip_documents_liens){id_document}{objet=article}{0,1}>
+										<BOUCLE_article(ARTICLES){id_article=#ID_OBJET}>
+										[<br /><a href="#GET{url}"><p class="spip_doc_titre">(#TITRE|supprimer_numero|couper{25})</p></a>]
+										</BOUCLE_article>
+										</BOUCLE_doc>
+
+										[(#REM)On utilise la valeur statique pour régler l'affichage plutôt que [(#MODELE{doc_video}{id_document}{id_article=#ID_ARTICLE})] ]									
+										<object width="320" height="240" data="plugins/Lecteur_multimedia/flash/player_flv_maxi.swf" type="application/x-shockwave-flash">
+										<param value="plugins/Lecteur_multimedia/player_flv_maxi.swf" name="movie"/>
+										<param value="flv=#URL_SITE_SPIP/#URL_DOCUMENT&width=320&height=240&bgcolor1=ffffff&bgcolor2=cccccc&buttoncolor=999999&buttonovercolor=0&slidercolor1=cccccc&slidercolor2=999999&sliderovercolor=666666&textcolor=0&showstop=1&title=&ondoubleclick=fullscreen&showfullscreen=1" name="FlashVars"/>
+										<param value="true" name="allowFullScreen"/>
+										</object>
+									
+										[(#REM)Mp3 eventuellement joint à l'article]
+										<BOUCLE_mot(spip_mots_articles){id_mot=#ID_ARTICLE}{tout}>
+											<BOUCLE_art_finisterrae1(ARTICLES){id_article}>
+												<BOUCLE_documents_joints_mp3(DOCUMENTS) {id_article} {mode=document} {extension==mp3} {par num titre, date}{0,1}>
+													<INCLURE{fond=noisettes/bloc/article/doc-flv}{id_document}{id_article=#ID_ARTICLE}{affiche-titre=non}>
+												</BOUCLE_documents_joints_mp3>
+											</BOUCLE_art_finisterrae1>
+										</BOUCLE_mot>
+
+									</div>
+								</BOUCLE_docs_flv>
+								</BOUCLE_art_finisterrae>
+								</div>
+						</B_site3>
+							<br />
+							<div id="bloc_animhome2">
+								 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="720" height="610" id="erasme" align="center">
+									 <param name=movie value="[(#NOM_SITE_SPIP)]_accueil.swf">
+									 <param name=quality value=high>
+									 <param name=bgcolor value=#FFFFFF>
+										 <embed src="[(#NOM_SITE_SPIP)]_accueil.swf" menu=false quality=high bgcolor=#FFFFFF width="720" height="610" name="erasme" align="" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+										 </embed>
+								</object>
+							</div>
+						<//B_site3>
+					<//B_site_novaterra>
+				<//B_site_tmp>
+			<//B_site1>
+		</div>
+
+
+	[(#REM)Colonne de droite)]
+		<div id="bloc_coldroit" [(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) style="display: none;"] >
+		[(#REM)1er bloc : edito]
+			<div id="bloc_colhome">
+				<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+				<div id="bloc_colhome_m"><img src="#CHEMIN{images/titre/t_edito.gif}" alt="Edito" /><br />
+					<B_edito>
+					<BOUCLE_edito(ARTICLES) {par date} {titre_mot=sommaire_edito} {0,3} {doublons}>
+						<!--[<b>(#TITRE)</b>]-->
+						<br />
+						<div class="#EDIT{texte}">
+						[(#EVAL{strlen('[(#TEXTE|textebrut|texte_script)]')}|<{500}|?{[(#TEXTE|image_reduire{100})],[(#TEXTE|couper{250})<br /><br /><span style="float: right;"><a href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]">Lire la suite</a></span>]})]
+						</div>
+						<br />
+					</BOUCLE_edito>
+					</B_edito></div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+			</div>
+
+		[(#REM)2eme bloc : dernier texte ou consigne]
+			<BOUCLE_site4(MOTS){type=site}{titre IN 'cine.laclasse.com','etudiantsvoyageurs.laclasse.com'}>
+			</BOUCLE_site4>
+				<B_texte1>
+				<div id="bloc_colhome2">
+					<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+					<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/txt_textes.gif}" alt="texte" />
+						<BOUCLE_texte1(ARTICLES) {par date} {inverse} {id_secteur=3} {0,1}>
+							<br /><br />
+							<b>> <a class="lienss" href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]">[(#TITRE)]</a></b>
+							<br />
+							<span class="date">[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]</span>
+							<br /> 						
+							[<span class="#EDIT{texte}">(#TEXTE|textebrut|couper{250})</span>]
+						</BOUCLE_texte1>  
+					  </div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+				</div>
+				</B_texte1>
+			</B_site4>
+
+				<B_consigne>
+					<BOUCLE_consigne(ARTICLES) {par date} {inverse} {id_secteur=6} {0,1}>
+					<div id="bloc_colhome2" class="[(#LESAUTEURS*|match{Barroco}|oui) barocco]">
+						<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+						<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/txt_consignes.gif}" alt="consignes" />							
+								<br /><br />
+								<b>> <a class="lienss" href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]">[(#TITRE)]</a></b>
+								<br /> 
+								<!--<span class="date">
+									[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+								</span><br />-->
+								[<span class="">(#TEXTE|couper{250})</span>]
+					</div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+					</div>
+				</BOUCLE_consigne>
+				</B_consigne>
+					<B_consigne2>
+						<BOUCLE_consigne2(ARTICLES) {par date} {inverse} {id_secteur=7} {0,1}>
+							<div id="bloc_colhome2" class="[(#LESAUTEURS*|match{Barroco}|oui) barocco]">
+							<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+							<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/txt_consignes.gif}" alt="consignes" />
+							<br /><br />
+							<b>> <a class="lienss" href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]">[(#TITRE)]</a></b>
+							<br /> 
+							<!--<span class="date">
+								[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+							</span><br />-->
+							[<span class="#EDIT{texte}">(#TEXTE|couper{250})</span>]
+							</div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+							</div>
+						</BOUCLE_consigne2>
+					</B_consigne2>
+				<//B_consigne>
+		
+			<//B_site4>
+		
+		[(#REM)3eme bloc : dernier forum ou texte]
+			<BOUCLE_site2(MOTS){type=site}{titre IN 'cine.laclasse.com','etudiantsvoyageurs.laclasse.com'}>
+			</BOUCLE_site2>
+				<B_forum>
+					<div id="bloc_colhome3">
+						<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+						<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/txt_forums.gif}" alt="forum" />
+							<BOUCLE_forum(FORUMS){par date}{inverse}{0,1}>
+								<br /><br />
+								<b>> <a class="lienss" href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]">[(#TITRE)]</a></b>
+								<br /> 
+								<span class="date">
+									[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+								</span>
+								<br /> 
+								[(#TEXTE|textebrut|couper{250})</font>]
+							</BOUCLE_forum>
+					  </div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+					</div>
+				</B_forum>
+			</B_site2>
+					<B_texte>
+						<BOUCLE_texte(ARTICLES) {par date} {inverse} {id_secteur=3} {0,1}>
+							<div id="bloc_colhome3" class="[(#LESAUTEURS*|match{Barroco}|oui) barocco]">
+							<div id="bloc_colhome_h"><img src="#CHEMIN{images/bloc_colhome_h.gif}" alt="" width="215" height="12" /></div>
+							<div id="bloc_colhome2_m"><img src="#CHEMIN{images/titre/txt_textes.gif}" alt="texte" />
+							<br /><br />
+							<b>> <a class="lienss" href="[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE})]">[(#TITRE)]</a></b>
+							<br> 
+							<span class="date">
+								[Le (#DATE|nom_jour)] [(#DATE|affdate)][ par (#NOM)<br />]
+							</span>
+							<br /> 						
+							[<span class="#EDIT{texte}">(#TEXTE|textebrut|couper{250})</span>]
+							</div><div id="bloc_colhome_b"><img src="#CHEMIN{images/bloc_colhome_b.gif}" alt="" width="215" height="13" /></div>
+							</div>
+						</BOUCLE_texte>
+					</B_texte>
+			<//B_site2>
+	</div>
+<//B_site_bd>
+
+[(#REM)Pour le fonctionement du plugin accordéon]
+	<div id="listmenu" style="display:none;"><ul><li></li></ul></div>

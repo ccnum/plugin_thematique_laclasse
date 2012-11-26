@@ -1,0 +1,18 @@
+[(#REM)Headers statiques]
+	<meta http-equiv="Content-Type" content="text/html; charset=#CHARSET" />
+	<meta name="author" content="Erasme - pvincent (chez) erasme.org" />
+	<title>[(#TITRE) - ][(#NOM_SITE_SPIP)]</title>
+	<link rel="alternate" type="application/rss+xml" href="#URL_SITE_SPIP/spip.php?page=backend" title="Dernières publications">
+	<link rel="alternate" type="application/rss+xml" href="#URL_SITE_SPIP/spip.php?page=rss_maj" title="Dernières mises à jour">
+	<link rel="alternate" type="application/rss+xml" href="#URL_SITE_SPIP/spip.php?page=rss_forum" title="Derniers commentaires dans le forum">
+	<!--<link rel="alternate" type="application/rss+xml" href="#URL_SITE_SPIP/spip.php?page=rss_laclasse_actu" title="Dernières publications pour laclasse.com">-->
+	<!--<link rel="alternate" type="application/rss+xml" href="#URL_SITE_SPIP/spip.php?page=rss_laclasse&recherche=texte" title="Recherche pour laclasse.com (modifier le texte dans l'url)">-->
+
+[(#REM)Fonctions JS générales]
+	#INSERT_HEAD
+	<script type="application/javascript" src="#CHEMIN{js/layout.js}"></script>
+
+[(#REM)Fonctions JS spécifiques projet]
+	[(#PAGE|=={sommaire}|oui)
+		<script type="application/javascript" src="#CHEMIN{js/jquery-ui-1.8.16.custom.min.js}"></script>
+	]

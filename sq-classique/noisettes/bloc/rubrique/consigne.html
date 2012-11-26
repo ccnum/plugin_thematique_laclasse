@@ -1,0 +1,37 @@
+<BOUCLE_article_0(ARTICLES) {id_rubrique} {0,1} {doublons} {par date} {inverse}>
+	<div id="titre">
+		<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur4.gif">
+		<span>Dernière consigne</span>
+	</div>
+		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+		<div id="bloc_article" class="[(#GET{police})]">
+		<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+			<div id="bloc_article_m">
+
+					[<a href="#URL_ARTICLE">(#LOGO_ARTICLE|right||image_reduire{120})</a>]
+					[<h3 class="#EDIT{titre}">(#TITRE|supprimer_numero)</h3><br />]
+					[<br /><div class="bloc_consigne" ><p class="spip"><span class="#EDIT{texte}">[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) ordinateur@novaterra:~$ <br /> <br />](#TEXTE)</span></p></div><br />]
+
+					[(#REM)Documents joints]
+					<br />
+					<B_documents_joints>
+						<BOUCLE_documents_joints(DOCUMENTS) {id_article} {mode=document} {par num titre, date} {doublons} >
+							<div class="portfolio_petit">
+								[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|=={jpg}|?{class="thickbox"})] [(#TYPE_DOCUMENT|=={png}|?{class="thickbox"})] [(#TYPE_DOCUMENT|=={gif}|?{class="thickbox"})] type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{100}||inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}||inserer_attribut{style,'border:0px solid #000000;'})</a>]
+								[<span class="spip_doc_titre"><br />(#TITRE|couper{25})</span>]
+							</div>
+						</BOUCLE_documents_joints>
+					</B_documents_joints>
+					
+					[(#REM)Bloc vers utiliser le DVD]
+					<BOUCLE_site(MOTS){type=site}{titre=maisondeladanse.laclasse.com}>
+						<BOUCLE_info(ARTICLES){id_article=91}>
+							[(#BOUTON|=={oui}|?{<input class="publier_menu publier_droite publier" type="submit" onclick="window.open('#URL_ARTICLE')" value="[(#TITRE|supprimer_numero)]"/>})]
+						</BOUCLE_info>
+					</BOUCLE_site>
+	
+			</div>
+		<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+	</div>
+
+</BOUCLE_article_0>

@@ -1,0 +1,33 @@
+<BOUCLE_mot0(spip_mots_articles){id_mot=#ID_ARTICLE}{tout}>
+</BOUCLE_mot0>
+	#SET{nb,#TOTAL_BOUCLE}
+</B_mot0>
+
+<B_mot>
+<div id="titre">
+	<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur1.gif">
+	<span>Classe[(#GET{nb}|>{1}|?{s})] travaillant dessus</span>
+</div>
+
+<div id="bloc_article">	
+	<div id="bloc_article_h"><img src="#CHEMIN{images/bloc_article_h.gif}" alt="" width="546" height="12" /></div>
+	<div id="bloc_article_m">
+
+		<div id="bloc_texte">
+
+		[(#REM)Articles joints aux articles par la table spip_mots_articles]
+			<BOUCLE_mot(spip_mots_articles){id_mot=#ID_ARTICLE}{tout}>
+				<BOUCLE_art(ARTICLES){id_article}>
+					<div class="portfolio" >
+						[(#LESAUTEURS|inserer_attribut{class,titre_bloc2})<br /><br />]
+						<a href="#URL_ARTICLE" style="text-decoration:none; border:0px;">
+							[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{120})]<br />[(#TITRE)]
+						</a>							
+					</div>
+				</BOUCLE_art>
+			</BOUCLE_mot>
+		</div>
+	</div>
+	<div id="bloc_article_b"><img src="#CHEMIN{images/bloc_article_b.gif}" alt="" width="546" height="13" /></div>
+</div>
+</B_mot>

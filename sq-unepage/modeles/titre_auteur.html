@@ -1,0 +1,25 @@
+#HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
+#CACHE{0}
+[(#REM)Type auteur
+renvoie : titre auteur
+paramètre : id_auteur ou pas
+]
+#SET{titre,#ENV{titre,''}}
+<BOUCLE_auteurs_liens(auteurs_liens){id_auteur}{objet=rubrique}{!par id_objet}>
+	<BOUCLE_auteur(RUBRIQUES){id_rubrique=#ID_OBJET}{tout}{!titre_mot IN evenements,blogs,ressources}>
+		<BOUCLE_ex(RUBRIQUES){id_enfant}{titre_mot IN evenements,blogs,ressources}>
+		</BOUCLE_ex>
+		</B_ex>
+			#SET{titre,#TITRE}
+		<//B_ex>
+	</BOUCLE_auteur>
+	</B_auteur>
+</BOUCLE_auteurs_liens>
+
+<BOUCLE_auteur2(AUTEURS){id_auteur}{tout}>
+[(#GET{titre}|non)
+#SET{titre,#NOM}
+]
+</BOUCLE_auteur2>
+
+#GET{titre}

@@ -1,0 +1,74 @@
+/* CSS Document */
+/* claire : #FCEFD6 */
+/* foncée : #FCAF17 */
+
+#bloc_texte0 p:first-letter
+{
+	font-size: 200%;
+	font-weight: bold;
+	color: #ccc;
+}
+
+#couleur
+{
+	color :#FCAF17;
+}
+
+#couleur a
+{
+	color :#FCAF17;
+	text-decoration: none;
+}
+
+#couleur a:hover
+{
+	color :#FCAF17;
+	background-color: #FCEFD6;
+}
+
+#cadre_couleur {
+	background-color: #FCEFD6;
+	width: 90%;
+}
+
+#plan{
+	list-style-image: url(../images/puce_couleur5.gif);
+	margin-left: 10px;
+}
+
+#plan li a {
+text-decoration: none;
+}
+
+#plan li a:hover {
+	background-color: #FCEFD6;
+}
+
+#pucetitre{
+	margin: 0;
+	padding: 0;
+	list-style-image: url(../images/puce_titrecouleur5.gif);
+	vertical-align: sub;
+}
+
+#puce{
+	list-style-image: url(../images/puce_couleur5.gif);
+	margin-left: 30px;
+}
+
+#gauche_menu {
+	background-color: #FCEFD6;
+}
+
+.gauche_menu {
+		background-color: #FCEFD6;
+}
+
+.gauche_menu_cluemo {
+		background-color: #E6FAE2;
+}
+
+.gauche_menu_on {
+		background-color: #FCAF17;
+		color:#FFFFFF;
+}

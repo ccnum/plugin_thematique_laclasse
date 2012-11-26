@@ -1,0 +1,280 @@
+#CACHE{0*3600}
+<!-- 	DROITE		-->
+			
+<div id="bloc_droite_bd">
+<!-- ------------------- Marge ------------------- -->
+
+	<div id="bloc_droite2">
+
+			<a href="#URL_ARTICLE" style="text-decoration: none; border: 0px;">
+				<div id="titre" style="text-align:left; padding-top:0px;">
+					<img class='img_titre' style="text-decoration: none; border: 0px;" src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub2(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub2>.gif">
+					<span>Marge</span>
+				</div>
+			</a>
+
+		<BOUCLE_marge(ARTICLES) {id_rubrique} {titre_mot=marge} {par date} {inverse} {0,1}>
+
+				<B_documents_portfolio0>
+					<br /><br /><div>
+					<BOUCLE_documents_portfolio0(DOCUMENTS){id_article}{mode=document}{extension==(png|jpg|gif|pdf)}{doublons r}>
+						<div style="float: center;">
+						[<a target="_blank" href="#URL_DOCUMENT">(#LOGO_DOCUMENT{0,60})</a>]
+						</div><br />
+					</BOUCLE_documents_portfolio0>
+					</div>
+					<!--<div style="clear: both;"></div>--><br />
+				</B_documents_portfolio0>
+					
+				<B_documents_joints0>
+					<br /><br /><div>
+					<BOUCLE_documents_joints0(DOCUMENTS) {id_article} {mode=document} {doublons r}>
+						<div style="float: left;">
+						[(#LOGO_DOCUMENT|#URL_DOCUMENT)][<div style="clear: both;"><b>(#TITRE)</b></div>][<div style="clear: both;">(#DESCRIPTIF)</div>]
+						</div>
+					</BOUCLE_documents_joints0>
+					</div>
+					<!--<div style="clear: both;"></div>--><br />
+				</B_documents_joints0>
+
+		</BOUCLE_marge>
+	
+	</div>
+	
+	<!-- ------------------- Forum ------------------- -->
+		<!--
+		<BOUCLE_planche(ARTICLES) {id_rubrique?} {id_article?} {titre_mot=planche} {par date} {inverse} {0,1}>
+
+			<div id="bloc_droite1">
+			
+				<div id="titre" style="padding-top:0px;">
+					<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub1>.gif">
+					<span>Echange avec l'auteur</span>
+				</div>
+			
+
+				
+				[<br /><div class="article"><b><a href="spip.php?page=forum&(#PARAMETRES_FORUM)" >> Poster une contribution</a></b></div><br />]
+				
+				<B_forums>
+				
+				<ul class="forum-total">
+	
+				<BOUCLE_forums(FORUMS){id_article}{par date}{inverse}>
+				
+				<li>
+				<div class="forum-fil">
+				
+				<div class="forum">
+				<div class="forum-chapo">
+				<div class="forum-titre"><b>#TITRE</b><em>, le [(#DATE|affdate)][ <:par_auteur:> (#NOM)]</em></div><br />
+				</div>
+					<div class="forum-item">
+						#TEXTE
+						[<div class="forum-titre"><a href="(#URL_SITE)" class="spip_out">#NOM_SITE</a></div>]
+						[<div class="article" style="text-align:right;"><a href="spip.php?page=forum&(#PARAMETRES_FORUM)" target="_blank"><:repondre_message:></a></div><br />]
+					</div>
+				</div>
+				
+				<B_forums_fils>
+					<ul>
+					<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
+				
+					<li>
+					<div class="forum">
+					<div class="forum-chapo">
+						<div class="forum-titre"><b>#TITRE</b><em>, le [(#DATE|affdate)][ <:par_auteur:> (#NOM)]</em></div><br />
+						<div class="forum-item">
+							#TEXTE
+						[<div class="forum-titre"><a href="(#URL_SITE)" class="spip_out">#NOM_SITE</a></div>]
+						[<div class="article" style="text-align:right;"><a href="spip.php?page=forum&(#PARAMETRES_FORUM)" ><:repondre_message:></a></div><br />]
+						</div>
+					
+					</div>
+				
+					<BOUCLE_Forums_Boucle(boucle_forums_fils)></BOUCLE_Forums_Boucle>
+					</li>
+				
+					</BOUCLE_forums_fils>
+					</ul>
+				</B_forums_fils>
+				
+				</div>
+				</li>
+				</BOUCLE_forums>
+				
+				</ul>
+				</B_forums>
+
+		</div>
+
+		</BOUCLE_planche>
+		-->
+	<div id="bloc_droite1">
+			
+		<div id="titre" style="padding-top:0px;">
+			<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub11(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub11>.gif">
+			<span>Echange avec l'auteur</span>
+		</div>
+		
+		<div>
+			<br />
+			<br />
+			[<span class=""><a class="lienss" href="(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{id_article,#ID_ARTICLE})">> <:repondre_article:></a></span>]
+			<br />
+			<BOUCLE_art_forum(ARTICLES) {id_rubrique?} {id_article?} {titre_mot=planche} {par date} {inverse} {0,1}>
+				<INCLURE{fond=noisettes/bloc/article/forum}{id_article}>
+			</BOUCLE_art_forum>
+			<br />
+		</div>
+
+	</div>
+	
+	</div>
+	
+	<!-- ---------------------------------------	GAUCHE	------------------------------------------ -->
+
+	<div id="bloc_gauche1">
+
+			<BOUCLE_planche3(ARTICLES) {id_rubrique?} {id_article?} {titre_mot=planche} {par date} {inverse} {0,1} {doublons a}>
+				
+				<BOUCLE_articles_ex(ARTICLES) {tout} {titre_mot=marge} {doublons 1}></BOUCLE_articles_ex>
+				<BOUCLE_articles_ex2(ARTICLES) {tout} {titre_mot=marge} {doublons 2}></BOUCLE_articles_ex2>
+				
+			[(#REM)Navigateur entre les articles]
+				<div class="titre_principal_bd">
+					[(#REM)Article précédent]
+					<div style='float: left; width: 15px; height: 15px;'>
+						<?php  $ze_article = "#ID_ARTICLE";  ?>
+						<B_art_prec><BOUCLE_art_prec(ARTICLES){par date}{id_rubrique}{doublons 1}>
+				            <?php	
+					            if ($ze_article == #ID_ARTICLE) echo stripslashes("$art_prec");
+					            $art_prec = "<a href='spip.php?rubrique#ID_RUBRIQUE&id_article=#ID_ARTICLE'> <img src='#CHEMIN{images/flech_g_visionneuse.gif}' alt='Pr&eacute;c&eacute;dent' title='Planche Pr&eacute;c&eacute;dente' border='0' class='img_titre' /></a>";
+							?>
+						</BOUCLE_art_prec></B_art_prec>
+					</div>
+						
+					[(#REM)Article suivant]
+					<div style='float: right; width: 15px; height: 15px;'>
+						<B_art_suiv><BOUCLE_art_suiv(ARTICLES){par date}{id_rubrique}{doublons 2}>
+							<?php
+								$texte_suiv = "<a href='spip.php?rubrique#ID_RUBRIQUE&id_article=#ID_ARTICLE' > <img src='#CHEMIN{images/flech_d_visionneuse.gif}' alt='Suivant' title='Planche Suivannte' border='0' class='img_titre' /> </a>";
+								if ($ze_article == $article_prec)	echo stripslashes("$texte_suiv");
+								$article_prec = #ID_ARTICLE;
+							?>
+						</BOUCLE_art_suiv></B_art_suiv>
+					</div>
+					
+					[(#REM)Titre]
+					<img class='img_titre' style="text-decoration: none; border: 0px;" src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub20(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub20>.gif">
+					<span class="#EDIT{titre}">#TITRE</span>
+				</div>
+
+			[(#REM)Dessin principal]
+				<B_afficher_document>
+				<BOUCLE_afficher_document(DOCUMENTS){id_document?}{id_article}{mode=document}{extension==(png|jpg|gif)}{par date} {inverse} {0,1} {doublons r}>
+					<div class="document_principal">
+						<a href="#URL_DOCUMENT" target="_blank" >
+						[(#EMBED_DOCUMENT||image_reduire{300,500}||inserer_attribut{class,image_principale})]
+						[<br /><span class="#EDIT{titre}"><b>(#TITRE)</b></span>]
+						[<br /><span class="#EDIT{descriptif}">(#DESCRIPTIF)</span>]
+						</a>
+					</div>
+				</BOUCLE_afficher_document>
+				
+				</B_afficher_document>
+					<BOUCLE_afficher_document2(DOCUMENTS){id_document?}{id_article}{mode=document}{extension==(tif|pdf|zip|doc)}{par date} {inverse} {0,1} {doublons r}>
+						<a href="#URL_DOCUMENT" class="document_principal" >#LOGO_DOCUMENT</a><br />
+						[<div class="#EDIT{titre}"><b>(#TITRE)</b></div>]
+						[<div class="#EDIT{descriptif}">(#DESCRIPTIF)</div>]
+					</BOUCLE_afficher_document2>
+					</B_afficher_document2>
+						<div class="document_principal" style="border: 3px dashed #cccccc;">
+							<?php 
+							if ((isset($GLOBALS["auteur_session"]["nom"]))&&(autoriser("modifier", "article", #ID_ARTICLE))) 
+							echo "<span class='ajouter_couleur'><br /><br />&nbsp;&nbsp;ajouter vos images en cliquant sur le logo stylo ci-dessous...<br /><br /></span>";
+							?>
+						</div>
+					<//B_afficher_document2>
+				<//B_afficher_document>
+			
+			[(#REM)Texte]										
+				<div class="#EDIT{texte} texte_principal" >
+					<?php 
+						if ((isset($GLOBALS["auteur_session"]["nom"]))&&(autoriser("modifier", "article", #ID_ARTICLE))) $texte= "<span ><br />&nbsp;&nbsp;ajouter votre texte en double-cliquant ici...<br /><br /></span>"; else $texte="";
+						[echo '(#TEXTE|nl2br|sinon{<div class="texte_principal ajouter_couleur" style="border: 1px dashed #cccccc;">'.$texte.'</div>})'; ]
+					?>
+				</div>
+				
+			[(#REM)Vignettes]
+				<div class="separateur">&nbsp;</div>
+				
+				<B_documents_portfolio>
+
+					<div class="vignettes">
+					<BOUCLE_documents_portfolio(DOCUMENTS){id_article}{mode=document}{extension==(png|jpg|gif|pdf|zip|tif|doc)}>
+						<div style="float: left; padding:10px;">
+						[<a href="#URL_RUBRIQUE&id_document=#ID_DOCUMENT&id_article=#ID_ARTICLE" >(#LOGO_DOCUMENT{0,80})</a>]
+						[<br />(#TITRE)]
+						<?php
+							if (isset($GLOBALS['auteur_session']['nom']))
+							{	
+
+								if (autoriser('modifier', 'article', #ID_ARTICLE))
+								{
+									$action="documenter";
+									$redirect="#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul";
+									$arg="-#ID_ARTICLE/article/#ID_DOCUMENT";
+									$confirmation= attribut_html("Etes vous sûr de vouloir supprimer ce document ?");
+									echo "<br /><a href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' class='supprimer_couleur' onClick='return confirmation(\"$confirmation\")' title='supprimer ce document' >Supprimer</a>";
+								}
+							}
+						?>
+						</div>
+					</BOUCLE_documents_portfolio>
+						<div style="float: right; height:30px; width:250px;">&nbsp; &nbsp;<br />&nbsp;</div>
+					</div>
+
+				</B_documents_portfolio>
+					
+				<?php
+					if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
+						{										
+							echo "<div class='largeur_bd' style='float:right; text-align: left; '><img src='plugins/crayons/images/crayon20.png' alt='modifier les documents' title='modifier les documents' style='cursor:pointer; padding-left: 130px;' Onclick='ShowHide(\"modif_doc\")' /><span id='modif_doc' style='display:none; padding:5px; '>Ajouter un document : <br />";
+							$action="joindre";
+							$redirect="#URL_SITE_SPIP/spip.php?rubrique#ID_RUBRIQUE&id_article=#ID_ARTICLE&var_mode=recalcul";
+							$att="  method='post' enctype='multipart/form-data' class='form_upload'"; 
+							$mode="<span>T&eacute;l&eacute;charger depuis votre ordinateur&nbsp;:</span><br /><input name='fichier' type='file' class='forml spip_xx-small' size='15' /><input name='sousaction1' type='submit' value='T&eacute;l&eacute;charger' class='fondo' /><input type='hidden' name='iframe_redirect' value='#URL_SITE_SPIP%2Fecrire%2F%3Fexec%3Ddocumenter%26id_article%3D21%26type%3Darticle' />";
+							$arg="#ID_ARTICLE/0/document/article";							
+							echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+							echo "</div>";
+						}
+				?>
+					
+		</BOUCLE_planche3>
+
+		<!--
+		<B_planche2>
+		<br /><hr />
+		<div id="titre" style="padding-top:0px;">
+			<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub3(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub3>.gif">
+			<span>Autres planches</span>
+		</div>
+		<BOUCLE_planche2(ARTICLES) {id_rubrique} {tout} {titre_mot=planche} {doublons a}>
+			<div style="float: left; margin: 5px;">
+				<a href="#URL_RUBRIQUE&id_article=#ID_ARTICLE">
+
+					<B_documents_portfolio2>
+						<BOUCLE_documents_portfolio2(DOCUMENTS){id_article}{mode=document}{extension==(png|jpg|gif|tif|pdf|zip)}{par date}{inverse}{0,1}>
+							[(#LOGO_DOCUMENT{0,30})</a>]
+						</BOUCLE_documents_portfolio2>
+					</B_documents_portfolio2>
+
+
+				[<div style="clear: both;"><b>(#TITRE)</b></div>]
+				[<div style="clear: both;">(#DATE|affdate)</div>]
+			</div>
+		</BOUCLE_planche2>
+	-->
+
+	</div>

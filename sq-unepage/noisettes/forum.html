@@ -1,0 +1,16 @@
+<BOUCLE_principale(ARTICLES){id_article}{tout}>
+	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
+	[(#MODE|!={ajax-detail}|oui)<div id="popup" [class="popup_(#GET{type_objet})"]>
+		<div id="titre">
+			<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">
+			Poster un message
+		</div>
+	
+	<div id="bloc_article">
+			<div id="bloc_texte">]
+				[(#FORMULAIRE_FORUM{'spip.php?page=article&amp;mode='#ENV{mode_popup}'&amp;id_article='#ID_ARTICLE})]
+			[</div>
+		</div>
+	</div>
+	(#MODE|!={ajax-detail}|oui)</div>]
+</BOUCLE_principale>

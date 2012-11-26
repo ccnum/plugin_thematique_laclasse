@@ -1,0 +1,244 @@
+#CACHE{0}
+
+<!-- titre=GoogleMap API-->
+<!-- descriptif=
+<h4><:geomap:configuration_titre:></h4>
+-->
+
+<div class="formulaire_spip formulaire_editer formulaire_cfg">
+[(#CONFIG{geomap/cle_api}|oui)
+<div id="formMap" style="width: 470px; height: 350px;margin:10px auto;overflow:hidden"></div>
+<form action="#" onsubmit="showAddress($('#address').attr('value')); return false">
+	<p>
+		<input size="50" name="address" id="address" value="" type="text" />
+		<input value="<:geomap:rechercher:>" type="submit" />
+	</p>
+</form>]
+<script type="text/javascript">/*<!#EVAL{chr(91)}CDATA#EVAL{chr(91)}*/
+[(#CONFIG{geomap/cle_api}|?{' '})
+	var geocoder = null;
+	var formMap = null;
+	function showAddress(address) {
+		if (geocoder) {
+			geocoder.getLatLng(address, function(point) {
+				if (!point) {
+					alert(address+" not found");
+				} else {
+					formMap.setCenter(point);
+				}
+			});
+		}
+	}
+	if (GBrowserIsCompatible()) {
+		var lat= #CONFIG{geomap/latitude,0.0};
+		var long= #CONFIG{geomap/longitude,0.0};
+		formMap = new GMap2(document.getElementById("formMap"));
+		formMap.addControl(new GLargeMapControl());
+		formMap.addControl(new GMapTypeControl());
+		formMap.setCenter(new GLatLng(lat,long), #CONFIG{geomap/zoom,0},#CONFIG{geomap/map_type,G_NORMAL_MAP});
+		geocoder = new GClientGeocoder();
+	[(#CONFIG{geomap/latitude}|oui)
+		point = new GPoint(parseFloat(long),parseFloat(lat));
+		marker = new GMarker(point,{draggable:true});
+		formMap.addOverlay(marker);
+		GEvent.addListener(marker, 'dragend', function(){
+			var point = marker.getPoint();
+			jQuery("#latitude").val(point.lat());
+			jQuery("#longitude").val(point.lng());
+			formMap.panTo(point);			
+		});
+	]
+	[(#CONFIG{geomap/latitude}|non)	
+		// si clic sur la carte on place un marqueur
+		GEvent.addListener(formMap, 'click', function(overlay,point) {
+			formMap.clearOverlays();
+			if(point){
+				marker = new GMarker(point,{draggable:true}); 
+				formMap.addOverlay(marker);
+				var center = marker.getPoint();
+				var zoom = formMap.getZoom();
+				jQuery("#latitude").val(center.lat());
+				jQuery("#longitude").val(center.lng());
+				jQuery("#form_zoom").val(zoom);
+				GEvent.addListener(marker, 'dragend', function(){
+					var center = marker.getPoint();
+					jQuery("#latitude").val(center.lat());
+					jQuery("#longitude").val(center.lng());
+				});
+			}
+		});
+	]
+		// si changement de zoom on centre la carte sur le marqueur
+		GEvent.addListener(formMap, 'zoomend', function(oldlevel, newlevel){
+			jQuery("#zoom").val(newlevel);
+			var center = marker.getPoint();
+			formMap.setCenter(new GLatLng(center.lat(),center.lng()));
+			}
+		);
+		} else {
+			alert("<:geomap:erreur_api_browser:>");
+		}
+]
+(function($){
+	$(function(){
+		$("a.spip_out").attr({
+			target: "_blank"
+		})
+		$("input[name='api_version']").click(function() {
+			if ($("#other_version").is(':checked')){
+				$(".num_other_version_container").show();
+				$(this).blur();
+			}
+			else
+				$(".num_other_version_container").hide();
+		});
+	});
+})(jQuery);
+/*#EVAL{chr(93)}[(#EVAL{chr(93)})]>*/</script>
+<form method="post" action="#SELF"><div>
+	[(#ENV{_cfg_}|form_hidden)]
+	<ul>
+		<li class="editer_cle_api_geomap">
+			<label for="cle_api"><:geomap:cle:></label>
+			<p class="explications"><:geomap:explication_cle:></p>
+			<input type="text" name="cle_api" class="text" value="#ENV*{cle_api}" id="cle_api" />
+		</li>
+		<li class="editer_compacte_js_geomap">
+			<label for="compacte_js"><:geomap:compacte:></label>
+			<p class="explications"><:geomap:explication_compacte:></p>
+			<div class="choix">
+				<input type="radio" name="compacte_js" class="radio" value="non" id="compacte_js_non"[ (#ENV{compacte_js}|=={'non'}|?{'checked="checked"'})] />
+				<label for="compacte_js_non"><:geomap:non:></label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="compacte_js" class="radio" value="oui" id="compacte_js_oui"[ (#ENV{compacte_js}|=={'oui'}|?{'checked="checked"'})] />
+				<label for="compacte_js_oui"><:geomap:oui:></label>
+			</div>
+		</li>
+		<li class="editer_api_version_geomap">
+			<label><:geomap:api_version:></label>
+			<p class="explications"><:geomap:explication_api_version:></p>
+			<div class="choix">
+				<input type="radio" name="api_version" class="radio" value="2" id="current_version"[ (#ENV{api_version,2}|=={'2'}|?{'checked="checked"'})] />
+				<label for="current_version"><:geomap:current_version:></label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="api_version" class="radio" value="2.x" id="lastest_version"[ (#ENV{api_version}|=={'2.x'}|?{'checked="checked"'})] />
+				<label for="lastest_version"><:geomap:lastest_version:></label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="api_version" class="radio" value="2.s" id="stable_version"[ (#ENV{api_version}|=={'2.s'}|?{'checked="checked"'})] />
+				<label for="stable_version"><:geomap:stable_version:></label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="api_version" class="radio" value="2." id="other_version"[ (#ENV{api_version}|match{'^2\.\d+'}|?{'checked="checked"'})] />
+				<label for="other_version"><:geomap:other_version:></label>
+				<div style="display:[(#ENV{api_version}|match{'^2\.\d+'}|?{'block','none'})]" class="num_other_version_container">
+					<input type="text" name="num_other_version" class="text" value="#ENV*{num_other_version}" id="num_other_version" />
+				</div>
+			</div>
+		</li>
+		<li class="editer_map_type_geomap">
+			<label><:geomap:map_type:></label>
+			<p class="explications"><:geomap:explication_map_type:></p>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_NORMAL_MAP" id="current_version"[ (#ENV{map_type}|=={'G_NORMAL_MAP'}|?{'checked="checked"'})] />
+				<label for="normal">normal</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_SATELLITE_MAP" id="current_version"[ (#ENV{map_type}|=={'G_SATELLITE_MAP'}|?{'checked="checked"'})] />
+				<label for="satellite">satellite</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_HYBRID_MAP" id="current_version"[ (#ENV{map_type}|=={'G_HYBRID_MAP'}|?{'checked="checked"'})] />
+				<label for="hybrid">hybrid</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_PHYSICAL_MAP" id="current_version"[ (#ENV{map_type}|=={'G_PHYSICAL_MAP'}|?{'checked="checked"'})] />
+				<label for="physical">physical</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_MOON_ELEVATION_MAP" id="current_version"[ (#ENV{map_type}|=={'G_MOON_ELEVATION_MAP'}|?{'checked="checked"'})] />
+				<label for="moon">moon elevation</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_MOON_VISIBLE_MAP" id="current_version"[ (#ENV{map_type}|=={'G_MOON_VISIBLE_MAP'}|?{'checked="checked"'})] />
+				<label for="moon_visible">moon visible</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_MARS_ELEVATION_MAP" id="current_version"[ (#ENV{map_type}|=={'G_MARS_ELEVATION_MAP'}|?{'checked="checked"'})] />
+				<label for="mars">mars elevation</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_MARS_VISIBLE_MAP" id="current_version"[ (#ENV{map_type}|=={'G_MARS_VISIBLE_MAP'}|?{'checked="checked"'})] />
+				<label for="mars_visible">mars visible</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_MARS_INFRARED_MAP" id="current_version"[ (#ENV{map_type}|=={'G_MARS_INFRARED_MAP'}|?{'checked="checked"'})] />
+				<label for="mars_visible">mars infrared</label>
+			</div>					
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_SKY_VISIBLE_MAP" id="current_version"[ (#ENV{map_type}|=={'G_SKY_VISIBLE_MAP'}|?{'checked="checked"'})] />
+				<label for="sky">sky</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_type" class="radio" value="G_SATELLITE_3D_MAP" id="current_version"[ (#ENV{map_type}|=={'G_SATELLITE_3D_MAP'}|?{'checked="checked"'})] />
+				<label for="satellite 3D">satellite 3D</label>
+			</div>										
+		</li>
+		<li class="editer_map_control_geomap">
+			<label><:geomap:map_control:></label>
+			<p class="explications"><:geomap:explication_map_control:></p>
+			<div class="choix">
+				<input type="radio" name="map_control" class="radio" value="custom" id="current_version"[ (#ENV{map_control}|=={'custom'}|?{'checked="checked"'})] />
+				<label for="custom">custom</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_control" class="radio" value="large" id="current_version"[ (#ENV{map_control}|=={'large'}|?{'checked="checked"'})] />
+				<label for="large">large</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="map_control" class="radio" value="small" id="current_version"[ (#ENV{map_control}|=={'small'}|?{'checked="checked"'})] />
+				<label for="small">small</label>
+			</div>									
+		</li>
+		<li class="editer_control_type_geomap">
+			<label><:geomap:control_type:></label>
+			<p class="explications"><:geomap:explication_control_type:></p>
+			<div class="choix">
+				<input type="radio" name="control_type" class="radio" value="oui" id="current_version"[ (#ENV{control_type}|=={'oui'}|?{'checked="checked"'})] />
+				<label for="oui">oui</label>
+			</div>
+			<div class="choix">
+				<input type="radio" name="control_type" class="radio" value="non" id="current_version"[ (#ENV{control_type}|=={'non'}|?{'checked="checked"'})] />
+				<label for="non">non</label>
+			</div>								
+		</li>	
+		<li class="editer_latitude_geomap">
+			<label for="latitude"><:geomap:latitude:></label>
+			<input type="text" name="latitude" class="text" value="#ENV*{latitude,0.0}" id="latitude" />
+		</li>
+		<li class="editer_longitude_geomap">
+			<label for="longitude"><:geomap:longitude:></label>
+			<input type="text" name="longitude" class="text" value="#ENV*{longitude,0.0}" id="longitude" />
+		</li>
+		<li class="editer_zoom_geomap">
+			<label for="zoom"><:geomap:zoom:></label>
+			<input type="text" name="zoom" class="text" value="#ENV*{zoom,0}" id="zoom" />
+		</li>
+		<li class="editer_custom_control_geomap">
+			<label><:geomap:pages_public:></label>
+			<p class="explications"><:geomap:explication_custom_control:></p>
+			<div class="choix">
+				<input type="checkbox" name="custom_control" class="checkbox" value="non" id="custom_control"[ (#ENV{custom_control}|=={non}|?{'checked="checked"'})] />
+				<label for="custom_control"><:geomap:desactiver_custom_control:></label>
+			</div>
+		</li>
+	</ul>
+	<p class="boutons">
+		<input type="submit" name="_cfg_ok" class="submit" value="<:valider:>" />
+		<input type="submit" name="_cfg_delete" class="submit" value="<:effacer:>" />
+	</p>
+</div></form>
+</div>
+#CFG_ARBO{geomap}

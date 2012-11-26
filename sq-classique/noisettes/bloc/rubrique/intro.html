@@ -1,0 +1,80 @@
+[(#REM)Chapeau / intro rubrique : Bloc Intro : titre + logo + descriptif
+-id_rubrique
+]
+
+<BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
+
+<!-- ------------------- titre et logo ------------------- -->
+
+<div id="titre">
+	[(#TEXTE|=={''}|oui)
+		[(#SESSION|non|ou{#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non})
+		[<a href="[(#LOGO_RUBRIQUE_NORMAL||extraire_attribut{src})]" class="thickbox">(#LOGO_RUBRIQUE_NORMAL|right||image_reduire{120,80}|inserer_attribut{'class','photo_intro thickbox'}|inserer_attribut{'style','padding: 10px;'})</a>]
+		]
+	]
+	<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur<BOUCLE_rub4(HIERARCHIE){id_rubrique}{tout}{0,1}><?php echo $id=#ID_RUBRIQUE-2;?></BOUCLE_rub4>.gif">
+	[<span class='#EDIT{titre}'>(#TITRE|supprimer_numero)</span>]
+	[(#REM)hack pour créer un espace pour rendre le lien de l'image cliquable]
+	[(#TEXTE|=={''}|oui)
+		[<br />(#LOGO_RUBRIQUE_NORMAL||image_reduire{100,80}|inserer_attribut{'class','photo_intro thickbox'}|inserer_attribut{'style','display: none;'})]
+	]
+</div>
+
+<!-- ------------------- bloc intro ------------------- -->
+
+	[(#SESSION|oui|et{#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui})
+		<div id="bloc_intro">
+		[(#LOGO_RUBRIQUE_NORMAL|!={''}|non)
+			<img src="<?php echo $logo_auteurs; ?>" class="photo_intro" style="float: left;" />
+		]
+		[<a href="[(#LOGO_RUBRIQUE_NORMAL||extraire_attribut{src})]" class="thickbox">(#LOGO_RUBRIQUE_NORMAL|left||image_reduire{100,80}|inserer_attribut{'class','photo_intro thickbox'})</a>]
+		[<div class="#EDIT{texte}">(#TEXTE|nl2br|sinon{'Descriptif à venir...'})</div>]
+		</div><div id="bloc_intro_b"></div>
+	]
+	[(#SESSION|non|ou{#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non})
+		[<div id="bloc_intro">
+		[<a href="[(#LOGO_RUBRIQUE_NORMAL||extraire_attribut{src})]" class="thickbox">(#LOGO_RUBRIQUE_NORMAL|left||image_reduire{100,80}|inserer_attribut{'class','photo_intro thickbox'})</a>]
+		<div >(#TEXTE|nl2br)</div>
+		</div><div id="bloc_intro_b"></div>]
+	]
+
+
+[(#REM)Modifications si auteur autorisé]
+	<?php
+		include_spip('inc/autoriser');
+		
+		if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'rubrique', #ID_RUBRIQUE))) 
+		{
+		include_spip('inc/securiser_action');
+		$logo_auteurs="[(#LOGO_SITE_SPIP||extraire_attribut{src})]";
+		?>
+		<INCLURE{fond=noisettes/bloc/js/accordeon}{nom=bloc_option_logo_#ID_RUBRIQUE}>
+		<div id="bloc_option_logo_#ID_RUBRIQUE">
+		<ul ><li><a class="hac lien_ajouter" title="modifier le logo"><img src='#CHEMIN{images/logo-plus2-15.png}' >&nbsp;&nbsp;modifier le logo </a>
+			<ul style="display: none;"><li>
+			<?php 
+					$hash1 = $GLOBALS['auteur_session']['id_rubrique'].$GLOBALS['auteur_session']['pass'];
+					$action="iconifier";
+					$redirect="[(#SELF|html_entity_decode)]";
+
+					<BOUCLE_logo(RUBRIQUES){id_rubrique}{logo}>
+					</BOUCLE_logo>
+						echo "<div style='padding: 10px; position: relative; color: gray;'>Supprimer le logo : ";
+						$arg="#ID_RUBRIQUE-[(#LOGO_RUBRIQUE_NORMAL|fichier)]";
+						echo "<a href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' class='supprimer_couleur' >Supprimer</a>";
+						echo "</div>";
+					</B_logo>
+						echo "<div style='padding: 0px 0px 0px 0px; position: relative; color: gray;'>Charger un nouveau logo : ";
+						$att=" method='post' enctype='multipart/form-data' class='form_upload_icon'";
+						$mode="<input name='image' type='file' class='forml spip_xx-small' size='15' /><input name='sousaction1' type='submit' value='T&eacute;l&eacute;charger' class='fondo spip_xx-small' /><input type='hidden' name='iframe_redirect' value='#URL_SITE_SPIP%2Fecrire%2F%3Fexec%3Diconifier%26type%3Did_article%26id_rubrique%3D#ID_RUBRIQUE%26script%3Drubriques' />";
+						$arg="#ID_RUBRIQUE+rubon#ID_RUBRIQUE";							
+						echo securiser_action_auteur($action, $arg, $redirect, $mode, $att);
+						echo "</div>";
+					<//B_logo>
+			?>
+			<br /><br />
+			</li></ul></li></ul></div><br />
+		
+			<?php } ?>		
+
+</BOUCLE_principale>		

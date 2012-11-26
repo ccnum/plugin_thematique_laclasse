@@ -1,0 +1,11 @@
+#CACHE{10*24*3600}
+[(#REM)Génération de l'action avec authentification préalable
+Paramètres :
+- type : type d'action à générer
+]
+
+[(#SESSION|oui)
+	[(#TYPE|=={update_coord_gis}|oui)
+		<INCLURE{fond=action/update_coord_gis}{env}>
+	]
+]

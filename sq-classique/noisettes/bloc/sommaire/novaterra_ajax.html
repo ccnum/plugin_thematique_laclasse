@@ -1,0 +1,52 @@
+<!--<div class="dipity_embed" style="width:700px"><iframe width="700" height="500" src="http://www.dipity.com/novaterra/personal/embed_map?"></iframe></div>-->
+[(#REM)Tests ajax]
+	<style type="text/css">
+		/*
+		body { margin:0 auto 0 auto; color:#000; font-family:Georgia, "Times New Roman", Times, serif; font-size:16px; background-color:#666666; }
+		.page { margin:100px auto 0 auto; width:750px;}
+		*/
+		/*MENU START*/
+		#menu_sommaire  { position: absolute; list-style:none; margin:0px; padding:0px; z-index: 1000; top: 30px; right: 30px;}
+
+		#menu_sommaire li { list-style:none; display:inline; }
+		li.active a { background-color:#FFF;color:#000; }
+
+		#menu_sommaire li a,#menu li a:link { float:left; background-color:#3c3c3c; margin-right:5px; padding:7px; color:#FFFFFF; text-decoration:none; width:6em; text-align:center;}
+		#menu_sommaire li a:visited { }
+		#menu_sommaire li a:hover { background-color:#327cc8 }
+		#menu_sommaire li a:active { background-color:#FFF;color:#000; }
+		/* MENU END*/
+
+		#bloc_animhome2 {clear:both; background-color:#FFFFFF; }
+		.content {background-color:#FFF; padding:10px; height:300px; margin:0px; }
+
+		#loading { clear:both; background:url(#CHEMIN{images/wait.gif}) center top no-repeat; text-align:center;padding:33px 0px 0px 0px; font-size:12px;display:none; font-family:Verdana, Arial, Helvetica, sans-serif; }
+	</style>
+	<script>
+	  // When the document loads do everything inside here ...
+		 $(document).ready(function(){
+		 //$('.content').load('boo.php');	//by default initally load text from boo.php
+			 $('#menu_sommaire a').click(function() { //start function when any link is clicked
+ 				$(".content").slideUp("slow");
+				 var content_show = $(this).attr("title"); //retrieve title of link so we can compare with php file
+					$.ajax({
+					method: "get",url: "spip.php?page=sommaire_bloc",data: "type="+content_show,
+					beforeSend: function(){$("#loading").show("fast");}, //show loading just when link is clicked
+					complete: function(){ $("#loading").hide("fast");}, //stop showing loading when the process is complete
+					success: function(html){ //so, if data is retrieved, store it in html
+					$(".content").show("slow"); //animation
+					$(".content").html(html); //show the html inside .content div
+					}
+				}); //close $.ajax(
+			 }); //close click(
+		 }); //close $(
+	</script>
+	<ul id="menu_sommaire">
+		<li id="map"><a href="#" title="map">Carte</a></li>
+		<li id="timeline"><a href="#" title="timeline" >Timeline</a></li>
+		<li id="encyclopedie"><a href="#" title="encyclopedie">Encyclopédie</a></li>
+	</ul>
+	<div id="bloc_animhome2">
+		<div id="loading">LOADING</div>
+		<div class="content">[(#MODELE{carte_gis}{width=930px}{height=650px}{id_secteur=3}{attente=1}{icon_size=40})]</div>
+	</div>

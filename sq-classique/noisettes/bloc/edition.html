@@ -1,0 +1,104 @@
+#CACHE{0}
+
+[(#REM)Bloc d'affichage des rubriques de la famille
+Parametres :
+-id_secteur ou id_webnapperon : détermine la branche de la famille
+-id_rubrique : la rubrique de travail en cours (thematique)
+-id_rubrique_carte : la rubrique de la carte en cours
+-id_document ou id_article ou id_syndic : le contenu en cours
+
+Pour les formulaire_editer : si on veut que ça ouvre de nouveau le formulaire, mettre #SELF
+autrement mettre #URL
+]
+
+<style>
+	/* .fleche_edition	{	background-image:url(#DOSSIER_SQUELETTE/images/fleche_#EDITION.png); } */
+
+	[(#EDITION|=={article}|oui) 
+		[(#REM).formulaire_spip { background-color:#00d4ee; }
+		.rubriques ul li { background-color:#eee; }]
+		.formulaire_spip { width: 60%; margin-left:2%; }
+		.fleche_edition { background-position:5% 0; display: block; }
+		#navigation1 { opacity: 1; } 
+		#navigation2 { opacity: 0.4; }
+		#navigation3 { opacity: 0.4; }
+	]
+	[(#EDITION|=={badge}|oui) 
+		[(#REM).formulaire_spip { background-color:#f99825; }
+		.rubriques ul li { background-color:#fff3ae; }]
+		.formulaire_spip { width: 65%; margin-left: 5%; }
+		.fleche_edition { background-position:30% 0; display: block; }
+		#navigation1 { opacity: 0.4; } 
+		#navigation2 { opacity: 1; }
+		#navigation3 { opacity: 0.4; }	
+	]
+	[(#EDITION|match{contenu|actions}|oui)	
+		[(#REM).formulaire_spip { background-color:#76ee00; } 
+		.rubriques ul li { background-color:#e4ffb5; }]
+		.formulaire_spip { width: 65%; margin-left: 30%; }
+		.fleche_edition { background-position:75% 0; display: block; }
+		#navigation1 { opacity: 0.4; } 
+		#navigation2 { opacity: 0.4; }
+		#navigation3 { opacity: 1; }
+	]
+	
+	[(#EDITION|match{webnapperon|ajout_auteur|auteur}|oui)	
+		[(#REM).formulaire_spip { background-color:#76ee00; } 
+		.rubriques ul li { background-color:#e4ffb5; }]
+		.formulaire_spip { width: 85%; margin-left: 5%; }
+		.fleche_edition { background-position:90% 0; display: block; }
+		#navigation1 { opacity: 0.4; } 
+		#navigation2 { opacity: 0.4; }
+		#navigation3 { opacity: 0.4; }
+	]
+	
+	
+	[(#EDITION|=={-1}|oui)
+		.fleche_edition { display: none; }
+	]		
+
+	
+</style>
+
+[(#REM)--------- LIEN -------------]
+	<BOUCLE_restreint(POUR){tableau #SESSION{restreint}}>
+	[(#AUTORISER{modifier,rubrique,#VALEUR}|oui)
+		<!--#VALEUR-->
+	]
+	</BOUCLE_restreint>
+	<BOUCLE_rub_aut(rubriques auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}{0,1}>
+	[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
+		<a href="[(#URL_ACTION_AUTEUR{editer_article,nan,[(#SELF|parametre_url{edition,article})]}
+					|parametre_url{id_parent,#ID_RUBRIQUE}
+					|parametre_url{statut,publie}
+					|parametre_url{id_article,new}				
+					|parametre_url{titre,Nouveau contenu}
+					|parametre_url{id_secteur,#ID_SECTEUR}
+					)]" class="image_principale lien_ajouter" title="publier" >
+		<!--<a href="[(#SELF|parametre_url{edition,article}|parametre_url{id_parent,#ID_RUBRIQUE})]" class="ajax image_principale lien_ajouter" title="publier" >-->
+			<img src='[(#CHEMIN{images/logo-plus2-15.png})]' >&nbsp;&nbsp;Publier dans : [(#TITRE)]
+		</a>
+	]
+	</BOUCLE_rub_aut>
+
+[(#REM)--------- BULLE -------------]
+	<div id="edition_contenu" class="menu rubriques">
+		<!--<div><h2>EDITION</h2></div>-->
+		<div class="fleche_edition"></div>
+
+
+		[(#REM)--------- TEXTE (ID_ARTICLE) -------------]
+		#ID_ARTICLE
+		a<BOUCLE_edition_article(ARTICLES){id_article}{tout}{statut?}>
+			  b[(#AUTORISER{modifier, article, #ID_ARTICLE})
+			 c  #FORMULAIRE_EDITER_ARTICLE{#ID_ARTICLE, #ID_RUBRIQUE, #SELF}
+			  ]
+		</BOUCLE_edition_article>
+
+		[(#EDITION|=={article}|oui)
+			[(#AUTORISER{modifier, rubrique, #ID_PARENT})
+			[(#FORMULAIRE_EDITER_ARTICLE{new,[(#ID_PARENT)],[(#SELF|parametre_url{id_article,#ID_ARTICLE})]})]
+			]
+		]
+
+	</div>

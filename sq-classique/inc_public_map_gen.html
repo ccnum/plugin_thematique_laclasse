@@ -1,0 +1,99 @@
+[(#REM)Partie générique de la carte google
+Paramètres :
+-id_carte_gis
+-latit
+-lonxit
+-zoom
+-type
+-control
+-control_type
+]
+	[(#REM)Id carte]
+		#SET{id_carte_gis,#ENV{id_carte_gis,''}}
+	[(#REM)Centre et coordonnées]
+		[(#REM)Centre et coordonnes de l'article passe en parametre, sinon celles de la sur la rubrique ]
+		<BOUCLE_centrer_article(GIS){id_article}{0,1}>
+			[(#ENV{latit}|non)
+				#SET{latitude,#LAT}]
+			[(#ENV{lonxit}|non)
+				#SET{lonxitude,#LONX}]
+			[(#ENV{zoom}|non)
+				#SET{zoommapa,#ZOOM}]
+		</BOUCLE_centrer_article>
+			<BOUCLE_centrer_rubrique(GIS){id_rubrique}{0,1}>
+				[(#ENV{latit}|non)
+					//alert ("#LAT");
+					#SET{latitude,#LAT}]
+				[(#ENV{lonxit}|non)
+					#SET{lonxitude,#LONX}]
+				[(#ENV{zoom}|non)
+					#SET{zoommapa,#ZOOM}]
+			</BOUCLE_centrer_rubrique>
+		<//B_centrer_article>
+
+		[(#REM) Sinon centrer sur les coordonnees passees en parametre ou sur celle par defaut ]
+		[(#GET{latitude}|non)
+			#SET{latitude,#ENV{lat,#ENV{latit,#CONFIG**{geomap/latitude,0}}}}]
+		[(#GET{lonxitude}|non)
+			#SET{lonxitude,#ENV{lonx,#ENV{lonxit,#CONFIG**{geomap/longitude,0}}}}]
+		[(#GET{zoommapa}|non)
+			#SET{zoommapa, #ENV{zoom,#CONFIG**{geomap/zoom,0}}]
+	
+	[(#REM)Controles]
+		[(#SET{control,#ENV{control,#CONFIG**{geomap/map_control,'small'}}})]
+		[(#SET{control_type,#ENV{control_type,#CONFIG**{geomap/control_type,'oui'}}})]		
+
+	[(#REM)Type de carte]
+		[(#SET{type,#CONFIG**{geomap/map_type,G_NORMAL_MAP}})]
+		[(#ENV{type}|=={'satellite'}|?{#SET{type,G_SATELLITE_MAP},''})]
+		[(#ENV{type}|=={'carte'}|?{#SET{type,G_NORMAL_MAP},''})]
+		[(#ENV{type}|=={'hybride'}|?{#SET{type,G_HYBRID_MAP},''})]
+		[(#ENV{type}|=={'physique'}|?{#SET{type,G_PHYSICAL_MAP},''})]
+		[(#ENV{type}|=={'moon'}|?{#SET{type,G_MOON_ELEVATION_MAP},''})]
+		[(#ENV{type}|=={'mars'}|?{#SET{type,G_MARS_ELEVATION_MAP},''})]
+		[(#ENV{type}|=={'sky'}|?{#SET{type,G_SKY_VISIBLE_MAP},''})]
+		[(#ENV{type}|=={'satellite_3D'}|?{#SET{type,G_SATELLITE_3D_MAP},''})]
+		
+	[(#REM)Création carte]
+		// facelo mapa
+		map[(#GET{id_carte_gis})] = new GMap2(document.getElementById("map[(#GET{id_carte_gis})]"));
+		map[(#GET{id_carte_gis})].getContainer().style.overflow='hidden';
+		map[(#GET{id_carte_gis})].setCenter(new GLatLng(#GET{latitude}, #GET{lonxitude}), #GET{zoommapa}, #GET{type});
+		centermap[(#GET{id_carte_gis})] = map[(#GET{id_carte_gis})].getCenter();
+		
+	[(#REM)Création controles]
+		[(#GET{control}|=={'custom'}|?{' '})
+			[(#GET{control_type}|!={'non'}|?{' '})
+			map[(#GET{id_carte_gis})].addControl(new mapTypeControl());
+			]
+		]
+		[(#GET{control}|=={'custom'}|?{' '})
+			[(#ENV{control_zoom}|!={'non'}|?{' '})
+			map[(#GET{id_carte_gis})].addControl(new mapZoomControl());
+			]
+		]
+		[(#GET{control}|=={'custom'}|?{' '})
+			[(#ENV{control_move}|!={'non'}|?{' '})
+			map[(#GET{id_carte_gis})].addControl(new mapMoveControl());
+			]
+		]
+		[(#GET{control}|=={'small'}|?{map[(#GET{id_carte_gis})].addControl(new GSmallMapControl());})]
+		[(#GET{control}|=={'small'}|?{' '})
+			[(#GET{control_type}|!={'non'}|?{' '})
+			map[(#GET{id_carte_gis})].addControl(new GMapTypeControl());
+			]
+		]
+		[(#GET{control}|=={'large'}|?{map[(#GET{id_carte_gis})].addControl(new GLargeMapControl());})]
+		[(#GET{control}|=={'large'}|?{' '})
+			[(#GET{control_type}|!={'non'}|?{' '})
+			map[(#GET{id_carte_gis})].addControl(new GMapTypeControl());
+			]
+		]
+		[(#ENV{rounded}|=={'true'}|?{map[(#GET{id_carte_gis})].addControl(new cornerControl());})]
+		
+	[(#REM)Création controles souris]		
+		map[(#GET{id_carte_gis})].enableDoubleClickZoom();
+		map[(#GET{id_carte_gis})].enableContinuousZoom();
+		[(#ENV{zoom_molette}|!={'non'}|oui)	map[(#GET{id_carte_gis})].enableScrollWheelZoom();	]
+		[(#ENV{drag_map}|=={'non'}|oui)	map[(#GET{id_carte_gis})].disableDragging();	]
+		
