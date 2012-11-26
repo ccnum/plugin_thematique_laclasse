@@ -1,0 +1,40 @@
+#CACHE{0}<?xml version="1.0"[ encoding="(#CHARSET)"]?>
+[(#HTTP_HEADER{Content-type: text/xml[; charset=(#CHARSET)]})]
+<rss version="2.0"	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:content="http://purl.org/rss/1.0/modules/content/" >
+
+<channel>
+	<title>[(#NOM_SITE_SPIP|texte_backend)]-forum</title>
+	<link>#URL_SITE_SPIP/</link>
+	<description>[(#DESCRIPTIF_SITE_SPIP|supprimer_tags|texte_backend)]</description>
+	<language>#LANG</language>
+	<generator>SPIP - www.spip.net</generator>
+
+[	<image>
+		<title>[(#NOM_SITE_SPIP|texte_backend)]</title>
+		<url>(#LOGO_SITE_SPIP||extraire_attribut{src}|url_absolue|texte_backend)</url>
+		<link>#URL_SITE_SPIP/</link>
+		[<height>(#LOGO_SITE_SPIP||extraire_attribut{height})</height>]
+		[<width>(#LOGO_SITE_SPIP||extraire_attribut{width})</width>]
+	</image>
+]
+
+	<BOUCLE_tres_recents(FORUMS){par date} {inverse} {0,10}>
+
+		<item>
+			<title>[(#TITRE|supprimer_numero|texte_backend)][ / (#NOM_SITE_SPIP|texte_backend)]</title>
+			<BOUCLE_article(ARTICLES){id_article=#ID_OBJET}>
+			<link>[(#URL_ARTICLE|url_absolue)]</link>
+			[<guid isPermaLink="true">(#URL_ARTICLE|url_absolue)</guid>]
+			</BOUCLE_article>
+			[<dc:date>(#DATE|date_iso)</dc:date>]
+			<dc:format>text/html</dc:format>
+			[<dc:language>(#LANG)</dc:language>]
+			[<dc:creator>(#NOM|supprimer_tags|texte_backend)</dc:creator>]
+			<description>[(#TEXTE|texte_backend)]</description>
+		</item>
+
+	</BOUCLE_tres_recents>
+
+</channel>
+
+</rss>
