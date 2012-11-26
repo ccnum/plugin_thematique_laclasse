@@ -1,0 +1,11 @@
+<BOUCLE_articles_recherche(ARTICLES){titre_mot=laclasse.com}{lang ?}{branche ?}{id_mot ?}{recherche}{par points}{0,10}{doublons}>
+	<INCLURE{fond=inc-rss-item}{id_article}>
+</BOUCLE_articles_recherche>
+
+<BOUCLE_branche_mot(RUBRIQUES){titre_mot=laclasse.com}>
+	<BOUCLE_branche_mot2(RUBRIQUES){branche}>
+		<BOUCLE_art(ARTICLES){id_rubrique}{lang ?}{id_mot ?}{recherche}{par points}{doublons}>
+			<INCLURE{fond=inc-rss-item}{id_article}>
+		</BOUCLE_art>
+	</BOUCLE_branche_mot2>
+</BOUCLE_branche_mot>

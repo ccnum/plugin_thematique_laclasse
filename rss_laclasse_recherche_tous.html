@@ -1,0 +1,46 @@
+#CACHE{24*3600}<?xml version="1.0" encoding="utf-8"?>
+[(#HTTP_HEADER{Content-type: text/xml[; charset=(#CHARSET)]})]
+[(#REM)Meta flux de recherche sur tous les sites thématiques de laclasse pour inclusion dans laclasse]
+<rss version="2.0"	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:content="http://purl.org/rss/1.0/modules/content/" >
+
+<channel>
+	<title>thematiques.laclasse.com-laclasse-recherche</title>
+	<link>http://www.laclasse.com/</link>
+	<description></description>
+	<language>fr</language>
+	<generator>SPIP - www.spip.net</generator>
+
+	<image>
+		<title>www.laclasse.com</title>
+		<url>http://www.laclasse.com/v2/images/logo_ecouteur.gif</url>
+		<link>http://www.laclasse.com/</link>
+		<height>121</height>
+		<width>105</width>
+	</image>
+
+<?php
+
+$url = "http://maisondeladanse.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=#ENV{recherche}";
+echo (file_get_contents($url,FALSE,NULL));
+$url = "http://cluemo.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=#ENV{recherche}";
+echo (file_get_contents($url,FALSE,NULL));
+$url = "http://bd.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=#ENV{recherche}";
+echo (file_get_contents($url,FALSE,NULL));
+$url = "http://ledechetmatiere.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=#ENV{recherche}";
+echo (file_get_contents($url,FALSE,NULL));
+$url = "http://etudiantsvoyageurs.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=#ENV{recherche}";
+echo (file_get_contents($url,FALSE,NULL));
+$url = "http://cine.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=#ENV{recherche}";
+echo (file_get_contents($url,FALSE,NULL));
+
+/*
+define ('URL', 'http://maisondeladanse.laclasse.com/spip.php?page=rss_laclasse_recherche_part&recherche=afrique');
+print_r(http_parse_message(http_get(URL, array('redirect' => 3))));
+*/
+
+
+?>
+
+</channel>
+
+</rss>
