@@ -18,22 +18,22 @@
 	[(#EVAL{_affichage}|=={classique}|non)
 		[(#REM)Ajouter des images]
 		[(#SESSION{statut}|oui)
-			<div class="sous-colonne"><a href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" class="profil"><strong>[(#SESSION{nom})]</strong></a></div>
+			<div class="sous-colonne nettoyeur"><a href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" class="profil"><strong>[(#SESSION{nom})]</strong></a></div>
 			<div class="sous-colonne"><a href="<?php echo $url_logout; ?>" class="ajax">Se déconnecter</a></div>
 			[(#ADMIN|=={0}|oui)<div class="sous-colonne"><a href="ecrire" class="ajax0">Espace privé</a></div>]
 			[(#RESTREINT|oui)
-				<div class="sous-colonne nettoyeur" style="width: 70px;"><strong>en tant que</strong></div>
+				<div class="sous-colonne nettoyeur"><strong>en tant que</strong></div>
 				[(#REM) <div class="sous-colonne"><a href="[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ENV{restreint}})]" class="ajax image_principale" title="Accéder">Paramétrer</a></div> ]
 			]
 			[(#RESTREINT|non)
 				<div class="sous-colonne nettoyeur" ><strong>en tant que</strong></div>
 				[(#REM) <div class="sous-colonne"></div> ]
 			]
-			<div class="sous-colonne sous-colonne2" id="choix_rubrique_admin"><INCLURE{fond=noisettes/inc/choix_rubrique_admin}{restreint}{admin}></div>
+			<div class="sous-colonne" id="choix_rubrique_admin"><INCLURE{fond=noisettes/inc/choix_rubrique_admin}{restreint}{admin}></div>
 			<INCLURE{fond=noisettes/js/marqueurs}>
 		]
 		[(#SESSION{statut}|non)
-			<div class="sous-colonne"><strong><a href="#" onClick="show_connexion();">Se connecter</a></strong></div>
+			<div class="sous-colonne nettoyeur"><strong><a href="#" onClick="show_connexion();">Se connecter</a></strong></div>
 			<div class="sous-colonne"><a href="<?php echo $url_inscription; ?>">S'inscrire</a></div>
 			<div class="sous-colonne"><a href="<?php echo $url_pass_perdu; ?>">Mot de passe perdu</a></div>
 			[(#FORMULAIRE_LOGIN)]

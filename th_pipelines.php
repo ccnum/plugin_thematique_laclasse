@@ -2,6 +2,7 @@
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
 //Pre_boucles
+//Retourne les articles et articles syndiqués en lien avec l'année scolaire
 	function th_pre_boucle($boucle){
 		$affichage = _affichage;
 		

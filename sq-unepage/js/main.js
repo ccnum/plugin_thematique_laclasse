@@ -27,12 +27,10 @@ function init(){
 		    g_article_blog_index = 0;
 		    g_articles_evenement = [];
 		    g_article_evenement_index = 0;
-			g_bouton_plus = new bouton();
+			/*g_bouton_plus = new bouton();*/
 			g_couleur_blog = '';
 		  	g_duration_def = 800;
-		  	g_action = false;
-		  	g_action_mois = false;
-		  	g_action_reponses = false;		  	
+			stop_action ();
       	
       	// chargement du projet -> c'est parti
 			projet_load(g_u_xml+"projet");
@@ -113,21 +111,26 @@ function init_view(){
 				var expires = new Date();
 				expires.setDate(expires.getDate()+30);
 				document.cookie = "visited=true; expires="+expires.toUTCString();
-				$('.presentation').colorbox({width:'900px',height: '600px',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false, open: true});
+				//$('.presentation').colorbox({width:'900px',height: '600px',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false, open: true});
 			}			
 		});
 	}
 	
 	//Listener popups
 		$().ready(function(){
-			$('.presentation').colorbox({width:'900px',height: '600px',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
-			$('.profil').colorbox({width:'900px',height: '600px'});
+			$('.presentation').colorbox({width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
+			$('.profil').colorbox({width:'80%',height: '80%'});
+			$(window).resize(function(){
+     			resizenow();
+			});
 		});		
-}
+	}
+
 
 ////////////////////////////////////////////////////////////////
 // update
 ////////////////////////////////////////////////////////////////
+
 function update(){
 	// update projet
 		g_projet.update(g_zone, g_consignes, g_articles_blog, g_articles_evenement, g_mousex, g_mousey, g_mousedown, g_couleur_blog);
@@ -161,8 +164,10 @@ function mouse_move(evenement){
 	g_mousex = evenement.clientX-(window.innerWidth-g_zone.clientWidth)/2;
 	g_mousey = evenement.clientY-20;
 	//Pour gérer le mouseover sur la barre de mois : hack temporaire pour ne pas utiliser deux canvas
-		if (g_mousey > g_projet.hauteur-80) g_action_mois = true;
-		else g_action_mois = false;
+		if (g_mousey > g_projet.hauteur-80) 
+			activate_action();
+		else 
+			g_action_mois = false;
 }
 
 
@@ -194,8 +199,11 @@ function projet_load(fichier){
 			var couleur_1erplan2 = xmldoc.getElementsByTagName("couleur_1erplan2")[0].childNodes[0].nodeValue;
 			var couleur_1erplan3 = xmldoc.getElementsByTagName("couleur_1erplan3")[0].childNodes[0].nodeValue;
 			g_couleur_blog = xmldoc.getElementsByTagName("couleur_blog")[0].childNodes[0].nodeValue;			
-			var largeur = parseFloat(xmldoc.getElementsByTagName("largeur")[0].childNodes[0].nodeValue);
-			var hauteur = parseFloat(xmldoc.getElementsByTagName("hauteur")[0].childNodes[0].nodeValue);
+			//var largeur = parseFloat(xmldoc.getElementsByTagName("largeur")[0].childNodes[0].nodeValue);
+			//var hauteur = parseFloat(xmldoc.getElementsByTagName("hauteur")[0].childNodes[0].nodeValue);
+			var largeur = largeur_zone();
+			var hauteur = hauteur_zone();
+
 			var fps = parseFloat(xmldoc.getElementsByTagName("fps")[0].childNodes[0].nodeValue);
 			var zoom_consignes = xmldoc.getElementsByTagName("zoom_consignes")[0].childNodes[0].nodeValue;
 			var liste_y_consignes = xmldoc.getElementsByTagName("seq_posy_consignes")[0].childNodes[0].nodeValue;
@@ -394,8 +402,11 @@ function consignes_load(fichier){
 
 					//Positionnement en hauteur
 						var reponse_y = parseFloat(xml_reponses[j].getElementsByTagName("y")[0].childNodes[0].nodeValue);
-						if (reponse_y == 0) reponse_y = ((liste_y[j]+1)*hauteur_max_reponses);
-						reponse_y = reponse_y + nouvelle_consigne.hauteur + 10;
+						if ((reponse_y === 0)||(reponse_y > 0.8)||(reponse_y < -0.2)) {
+							reponse_y = (liste_y[j])/(xml_reponses.length);
+						}
+						reponse_y = (liste_y[j])/(xml_reponses.length+5)+0.12;
+
 
 					//Création bloc
 						var nouvelle_reponse = new reponse();
@@ -544,211 +555,11 @@ function evenements_load(fichier){
 			////////////////////////////////////////////////////////////////
 			// chargement xmls terminé -> démarrage de l'application
 			////////////////////////////////////////////////////////////////
-			// init : à bouger
-				g_bouton_plus.init(g_projet, g_zone,0);			
 			// boucle infinie pour la màj de l'application
 				setInterval(update, 1000/g_projet.fps);
 			// init la vue à l'ouverture selon les arguments dans l'url
 				init_view();
 		}
-	}
-}
-
-
-////////////////////////////////////////////////////////////////
-// consigne_ouvre
-////////////////////////////////////////////////////////////////
-function consigne_ouvre(numero){
-	var consigne_deja_select = 0;
-	for (i=0; i<g_consignes.length;i++){
-		if (i != numero){
-			if (g_consignes[i].select == true){
-				consigne_deja_select++;
-			}
-		}
-	}
-
-	//Si aucune autre consigne n'est déjà ouverte on l'ouvre
-		if (consigne_deja_select == 0){
-			g_consignes[numero].ouvre(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
-		}
-}
-
-////////////////////////////////////////////////////////////////
-// consigne_ferme
-////////////////////////////////////////////////////////////////
-function consigne_ferme(numero){
-	g_consignes[numero].ferme(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
-}
-
-////////////////////////////////////////////////////////////////
-// consigne_click
-////////////////////////////////////////////////////////////////
-function consigne_click(id_consigne){
-	hide_popups();
-	var url = g_projet.url_popup_consigne+"&id_article="+id_consigne;
-	popup(url);	
-}
-
-////////////////////////////////////////////////////////////////
-// reponse_click
-////////////////////////////////////////////////////////////////
-function reponse_click(id_consigne, id_reponse){
-	hide_popups();
-	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
-	popup(url);
-}
-
-////////////////////////////////////////////////////////////////
-// ajoutreponse_click
-////////////////////////////////////////////////////////////////
-function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
-
-	hide_popups();
-	var url = g_projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
-	popup(url);
-	//alert(numero);
-	if (numero!=undefined) g_consignes[numero].div_reponse_plus.style.visibility = "hidden";
-
-}
-
-////////////////////////////////////////////////////////////////
-// article_blog_click
-////////////////////////////////////////////////////////////////
-function article_blog_click(id_objet,type_objet){
-	hide_popups();	
-	var url = g_projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
-	popup(url);
-}
-
-////////////////////////////////////////////////////////////////
-// article_evenement_click
-////////////////////////////////////////////////////////////////
-function article_evenement_click(id_objet,type_objet){
-	hide_popups();
-	var url = g_projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
-	popup(url);
-}
-
-
-////////////////////////////////////////////////////////////////
-// article_ressource_click
-////////////////////////////////////////////////////////////////
-function article_ressource_click(id_objet,type_objet){
-	hide_popups();
-	var url = g_projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
-	popup(url);
-}
-
-////////////////////////////////////////////////////////////////
-// ressources_click
-////////////////////////////////////////////////////////////////
-function ressources_click(){
-	hide_popups();
-	var url = g_projet.url_popup_ressources;
-	popup(url);	
-}
-
-////////////////////////////////////////////////////////////////
-// classes_click
-////////////////////////////////////////////////////////////////
-function classes_click(){
-	hide_popups();
-	var url = g_projet.url_popup_classes;
-	popup(url);
-}
-
-////////////////////////////////////////////////////////////////
-// chat_click
-////////////////////////////////////////////////////////////////
-function chat_click(type){
-	var url = g_projet.url_popup_chat;
-	if (type==2) url = g_projet.url_popup_chat2;
-	if (url.match("target=blank"))
-	{
-		window.open(url);
-	}
-	else
-	if (url.match("<"))
-	{
-		hide_popups();
-		popup_html(url);	
-	}	
-	else
-	{
-		hide_popups();
-		popup(url);
-	}
-}
-
-////////////////////////////////////////////////////////////////
-// reponse_ajouter_click
-////////////////////////////////////////////////////////////////
-function reponse_ajouter_click(){
-	hide_popups();
-	var url = g_projet.url_popup_reponseajout;
-	popup(url);
-}
-
-
-////////////////////////////////////////////////////////////////
-// hide_popups
-////////////////////////////////////////////////////////////////
-function hide_popups(){
-	g_action = false;
-}
-
-////////////////////////////////////////////////////////////////
-// hide_buttons
-////////////////////////////////////////////////////////////////
-function hide_buttons(){
-	g_bouton_plus.div_base.style.visibility = "hidden";
-	reponse_plus2 = document.getElementById("reponse_plus2");
-	if (reponse_plus2 != null) reponse_plus2.style.visibility = "hidden";
-}
-
-////////////////////////////////////////////////////////////////
-// show_buttons
-////////////////////////////////////////////////////////////////
-function show_buttons(){
-	g_bouton_plus.div_base.style.visibility = "visible";
-	reponse_plus2 = document.getElementById("reponse_plus2");
-	if (reponse_plus2 != null) reponse_plus2.style.visibility = "visible";
-}
-
-
-////////////////////////////////////////////////////////////////
-// showhide_travaux
-////////////////////////////////////////////////////////////////
-function showhide_travaux(mode){
-	if (mode==undefined) mode = '';
-	if ((g_hide_travaux == false)||(mode=='hide')){
-		for (i=0; i<g_consignes.length;i++){
-			$(g_consignes[i].div_base).fadeTo(2000,0.1);
-			//g_consignes[i].cache_questionscommentaires();
-			if (g_consignes[i].select == true){
-				$(g_consignes[i].div_home).fadeOut('slow');
-				$(g_consignes[i].div_reponse_plus).fadeOut('slow');
-				for (j=0; j<g_consignes[i].reponses.length;j++){
-					$(g_consignes[i].reponses[j].div_base).fadeOut('slow');
-				}
-			}
-		}
-		g_hide_travaux = true;
-	}else{
-		for (i=0; i<g_consignes.length;i++){
-			$(g_consignes[i].div_base).fadeTo('slow',1);
-			//g_consignes[i].montre_questionscommentaires();
-			if (g_consignes[i].select == true){
-					$(g_consignes[i].div_home).fadeIn('slow');
-					$(g_consignes[i].div_reponse_plus).fadeIn('slow');
-					g_consignes[i].cache_questionscommentaires();
-					for (j=0; j<g_consignes[i].reponses.length;j++){
-						$(g_consignes[i].reponses[j].div_base).fadeIn('slow');
-					}
-			}
-		}
-		g_hide_travaux = false;
 	}
 }
 

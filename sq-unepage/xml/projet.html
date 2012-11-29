@@ -16,10 +16,10 @@
 		
 		<image_fond>
 			<BOUCLE_rub(RUBRIQUES){titre_mot=images_background}{titre IN #ANNEE_SCOLAIRE,Images,Background,Images Background,Contenu Editorial}{par hasard}{0,1}{tout}>
-				<BOUCLE_images(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1000}|image_recadre{900,550,center}|extraire_attribut{src})]})]</BOUCLE_images>
+				<BOUCLE_images(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1024}|extraire_attribut{src})]})]</BOUCLE_images>
 			</BOUCLE_rub>
 				<BOUCLE_rub1(RUBRIQUES){titre_mot=images_background}{par hasard}{0,1}{tout}>
-					<BOUCLE_images1(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1000}|image_recadre{900,550,center}|extraire_attribut{src})]})]</BOUCLE_images1>
+					<BOUCLE_images1(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1024}|extraire_attribut{src})]})]</BOUCLE_images1>
 				</BOUCLE_rub1>
 			<//B_rub>
 			[(#GET{url}|non)[(#SET{url,[(#CHEMIN{img/fond_#NOM_SITE_SPIP.png}|sinon{#CHEMIN{img/fond.png}})]})]]
@@ -42,7 +42,9 @@
 		<url_popup_blog>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=article</url_popup_blog>
 		<url_popup_evenement>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=article_evt</url_popup_evenement>
 		<url_popup_ressources>spip.php?page=rubrique&amp;id_rubrique=7&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource</url_popup_ressources>
-		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=3&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource</url_popup_classes>
+		
+		[(#SET{id_rub,[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]})]
+		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=#GET{id_rub}&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource</url_popup_classes>
 		<url_popup_chat>
 			[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
 				spip.php?page=groupe_mot&amp;id_groupe=5&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressource
@@ -73,10 +75,11 @@
 		</url_popup_chat>
 		<url_popup_chat2>
 			[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui)
-				[(#SESSION{nom}|oui)
+				[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
+				[(#GET{admin}|>={0}|oui)
 					https://docs.google.com/drawings/d/1XNN89gz1qaVkV1BBwztvQNJuFetv3y-fXtrwbFGyEPM/edit?target=blank
 				]
-				[(#SESSION{nom}|non)
+				[(#GET{admin}|>={0}|non)
 					[(#VAL{<img src="https://docs.google.com/drawings/pub?id=1XNN89gz1qaVkV1BBwztvQNJuFetv3y-fXtrwbFGyEPM&w=880&h=630">}|htmlspecialchars)]
 				]
 			]

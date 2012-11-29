@@ -8,7 +8,7 @@
 	
 	<div id="bloc_article">
 			<div id="bloc_texte">]
-				[(#FORMULAIRE_FORUM{'spip.php?page=article&amp;mode='#ENV{mode_popup}'&amp;id_article='#ID_ARTICLE})]
+				[(#FORMULAIRE_FORUM{'spip.php?page=article&amp;mode='#ENV{mode_popup}'&amp;id_article='#VAL{id_article}|_request})]
 			[</div>
 		</div>
 	</div>

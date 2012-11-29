@@ -258,7 +258,7 @@ function projet(){
 	
 	// méthode changezoompos
 	this.changezoompos = function(nombre_jours_vus_dest, x_dest, y_dest){
-		g_action = true;
+		activate_action();
 		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
 		this.x_dest = x_dest/(this.largeur/(this.nombre_jours_vus_dest-this.nombre_jours_vus));
 		this.y_dest = y_dest;
@@ -266,7 +266,7 @@ function projet(){
 	
 	// méthode changepos
 	this.changepos = function(nombre_jours_vus_dest, x_dest, y_dest){
-		g_action = true;		
+		activate_action();
 		this.mois_select = Math.round(((this.largeur_mois/2))/this.largeur_mois)-1;
 		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
 		this.x_dest = x_dest;
@@ -285,7 +285,7 @@ function projet(){
 				//consignes[i].div_titre.setAttribute("onClick","consigne_ouvre("+consignes[i].numero+");");
 				//consignes[i].div_titre.innerHTML = "<div onMouseOut=\"this.style.color='"+this.couleur_base_texte+"';\" onMouseOver=\"this.style.color='"+this.couleur_1erplan3+"';\" style='white-space:nowrap;' onClick=\"consigne_ouvre("+consignes[i].numero+");\"><font style='font-size:"+consignes[i].taille_titre+"px;line-height:"+(consignes[i].taille_titre-2)+"px;'><b>"+consignes[i].titre+"</b></font><font style='font-size:10px;'><br/>"+consignes[i].date_texte+"</font></div>";
 				consignes[i].div_base.style.opacity = "1";
-				consignes[i].div_home.style.visibility = "hidden";
+				//consignes[i].div_home.style.visibility = "hidden";
 				consignes[i].div_reponse_plus.style.visibility = "hidden";
 				consignes[i].select = false;
 				consignes[i].div_base.style.cursor = "pointer";
@@ -303,7 +303,7 @@ function projet(){
 					$(articles_evenement[i].div_base).fadeIn(3000);
 					//articles_evenement[i].div_base.style.visibility = "visible";
 			}
-			show_buttons();
+			//show_buttons();
 		}
 	
 	// méthode drawline

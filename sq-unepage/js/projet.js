@@ -12,7 +12,6 @@ function projet(){
 	var liste_cy_consignes, liste_y_blogs, liste_y_evenements;
 	var url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_classes, url_popup_chat, url_popup_chat2;
 	var div_base, div_barre, div_base_context, div_mois;
-
 	
 	// méthode init
 	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_classes, url_popup_chat, url_popup_chat2){
@@ -25,8 +24,6 @@ function projet(){
 			this.yy = 0;
 			this.y_dest = 0;
 			this.dy = 0;
-			this.largeur = largeur;
-			this.hauteur = hauteur;
 			this.fps = fps;
 			this.frame = -1;
 			this.calcdate(date_debut, date_fin);
@@ -61,8 +58,15 @@ function projet(){
 			}
 			this.div_base = document.createElement("canvas");
 			this.div_base.setAttribute("id","canvas_projet");
+
+		//	Tailles		
+			this.largeur = largeur;
+			this.hauteur = hauteur;
 			this.div_base.width = largeur;
-			this.div_base.height = hauteur;
+			this.div_base.height = hauteur;			
+			//resizenow();
+
+		// Canvas
 			canvas.appendChild(this.div_base);
 
 		//Contexte de rendu générique
@@ -123,9 +127,9 @@ function projet(){
 					if (consignes[i].div_reponse_plus.style.visibility == 'visible')
 					{
 						consignes[i].div_reponse_plus.style.left = consignes[i].largeur+10+"px";
-						consignes[i].div_home.style.left = consignes[i].largeur+55+"px";
+						//consignes[i].div_home.style.left = consignes[i].largeur+55+"px";
 					}
-					else consignes[i].div_home.style.left = consignes[i].largeur+10+"px";
+					//else consignes[i].div_home.style.left = consignes[i].largeur+10+"px";
 					for (j=0; j<consignes[i].reponses.length;j++){
 						consignes[i].reponses[j].hauteur = $(consignes[i].reponses[j].div_base).outerHeight();
 					}
@@ -238,20 +242,20 @@ function projet(){
 							this.drawline(this.div_base_context, this.xx+(this.x_date*ratio)-8, this.hauteur-20, this.xx+consignes[i].x*ratio, this.yy+consignes[i].y+consignes[i].hauteur, color, '3', opacity);
 						//réponses si consigne ouverte
 							if (consignes[i].select == true)
-							for (j=0; j<consignes[i].reponses.length;j++){
-								//$(this.reponses[j].div_base).fadeTo(0,0).fadeTo(2000,1).css('visibility','visible');
-								var color = $('#reponse'+consignes[i].reponses[j].id).css('background-color');
-								var opacity = $(consignes[i].reponses[j].div_base).css('opacity');
-								this.drawline(this.div_base_context, this.xx+consignes[i].x*ratio+consignes[i].largeur, this.yy+consignes[i].y, this.xx+consignes[i].x*ratio+consignes[i].reponses[j].x, this.yy+consignes[i].y-consignes[i].reponses[j].y+consignes[i].reponses[j].hauteur, color, '1.5', opacity);
-							}
+								for (j=0; j<consignes[i].reponses.length;j++){
+									//$(this.reponses[j].div_base).fadeTo(0,0).fadeTo(2000,1).css('visibility','visible');
+									var color = $('#reponse'+consignes[i].reponses[j].id).css('background-color');
+									var opacity = $(consignes[i].reponses[j].div_base).css('opacity');
+									this.drawline(this.div_base_context, this.xx+consignes[i].x*ratio+consignes[i].largeur, this.yy+consignes[i].y, this.xx+consignes[i].x*ratio+consignes[i].reponses[j].x, this.yy+consignes[i].y-(consignes[i].reponses[j].y*g_projet.hauteur)+consignes[i].reponses[j].hauteur, color, '1.5', opacity);
+								}
 					}
-			}
-
 		// frame
 			this.frame++;
-			if (this.frame > this.fps/2){
-				this.frame = 0;
+			if (this.frame > this.fps*10)
+			{
+				stop_action ();
 			}
+		}			
 	
 	}
 
@@ -267,6 +271,7 @@ function projet(){
 	// méthode changezoompos
 	this.changezoompos = function(nombre_jours_vus_dest, x_dest, y_dest){
 		g_action = true;
+		g_projet.frame = 0;
 		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
 		this.x_dest = x_dest/(this.largeur/(this.nombre_jours_vus_dest-this.nombre_jours_vus));
 		this.y_dest = y_dest;
@@ -274,7 +279,8 @@ function projet(){
 	
 	// méthode changepos
 	this.changepos = function(nombre_jours_vus_dest, x_dest, y_dest){
-		g_action = true;		
+		g_action = true;
+		g_projet.frame = 0;			
 		this.mois_select = Math.round(((this.largeur_mois/2))/this.largeur_mois)-1;
 		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
 		this.x_dest = x_dest;
@@ -288,18 +294,18 @@ function projet(){
 			this.mois_rollover = -1;
 			// dé-fade toutes les consignes
 			for (i=0; i<consignes.length;i++){
-				consignes[i].montre_questionscommentaires();
 				//consignes[i].div_titre.removeAttribute("onClick");
 				//consignes[i].div_titre.setAttribute("onClick","consigne_ouvre("+consignes[i].numero+");");
 				//consignes[i].div_titre.innerHTML = "<div onMouseOut=\"this.style.color='"+this.couleur_base_texte+"';\" onMouseOver=\"this.style.color='"+this.couleur_1erplan3+"';\" style='white-space:nowrap;' onClick=\"consigne_ouvre("+consignes[i].numero+");\"><font style='font-size:"+consignes[i].taille_titre+"px;line-height:"+(consignes[i].taille_titre-2)+"px;'><b>"+consignes[i].titre+"</b></font><font style='font-size:10px;'><br/>"+consignes[i].date_texte+"</font></div>";
-				consignes[i].div_base.style.opacity = "1";
-				consignes[i].div_home.style.visibility = "hidden";
+				//consignes[i].div_home.style.visibility = "hidden";
 				//consignes[i].div_reponse_plus.style.visibility = "hidden";
-				consignes[i].select = false;
-				consignes[i].div_base.style.cursor = "pointer";
+				$(consignes[i].div_base).stop(true).fadeTo(0,1).css('visibility','visible');
 				for (j=0; j<consignes[i].reponses.length;j++){
-					consignes[i].reponses[j].div_base.style.visibility = "hidden";
+					$(consignes[i].reponses[j].div_base).stop(true).fadeTo(0,0).css('visibility','hidden');
 				}
+				consignes[i].montre_questionscommentaires();
+				consignes[i].div_base.style.cursor = "pointer";
+				consignes[i].select = false;
 			}
 			// affiche tous les articles de blog
 				for (i=0; i<articles_blog.length;i++){
@@ -311,11 +317,9 @@ function projet(){
 					$(articles_evenement[i].div_base).fadeIn(3000);
 					//articles_evenement[i].div_base.style.visibility = "visible";
 			}
-			show_buttons();
+			//show_buttons();
 		}
 
-
-	
 	// méthode drawline
 		this.drawline = function(context, from_x, from_y, dest_x, dest_y, color, width, opacity){
 			rgb = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);

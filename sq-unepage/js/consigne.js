@@ -78,6 +78,7 @@ function consigne(){
 			this.div_base.appendChild(this.div_reponse_plus);
 							
 		// bouton retour vue générale
+			/*
 			this.div_home = document.createElement("div");
 			this.div_home.style.position = "absolute";
 			this.div_home.style.left = this.largeur+10+"px";
@@ -85,7 +86,8 @@ function consigne(){
 			this.div_home.style.visibility = "hidden";
 			this.div_home.innerHTML = "<div style='position:absolute;z-index:1;' onClick='consigne_ferme("+this.numero+");'><img src='"+g_u_chemin+"img/maison.png' title='retour à la vue générale' ></div>";
 			this.div_base.appendChild(this.div_home);
-		
+			*/
+
 		// prepare le tableau de réponse
 			this.reponses = [];
 
@@ -100,6 +102,7 @@ function consigne(){
 					//if ($(this.select).val() == true)	{
 						y_parent = $(this).parent().parent().height();
 						yy = ui.offset.top / y_parent;
+						//alert(ui.offset.top+' '+y_parent+' '+yy);
 						$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
 						//$(this).attr("onClick","consigne_ouvre("+$(this.numero).val()+")");
 					//}
@@ -111,7 +114,7 @@ function consigne(){
 		this.ajouter_reponse_plus = function(){
 		if ((g_u_id_restreint > 0)&&(g_u_type_restreint != '')&&(g_u_type_restreint == 'reponse')){
 			this.div_reponse_plus.style.visibility = "visible";
-			this.div_home.style.left = this.largeur+50+"px";
+			//this.div_home.style.left = this.largeur+50+"px";
 		}
 	}
 	
@@ -149,7 +152,7 @@ function consigne(){
 
 	// méthode ouvre
 		this.ouvre = function(projet, consignes, articles_blog, articles_evenement){
-			hide_buttons();
+			//hide_buttons();
 			//Si ce n'est pas le cas on ouvre la vue
 				if (this.select == false){
 					var y_dest = (projet.hauteur-this.hauteur-50)-this.y;
@@ -158,19 +161,19 @@ function consigne(){
 						if (projet.mois_select >= 0){
 							var x_dest = (projet.x+10)/(projet.largeur/(projet.nombre_jours_vus_dest-projet.nombre_jours_vus))-this.x+10/(projet.largeur/(projet.nombre_jours_vus));
 							projet.changepos(projet.nombre_jours_vus, x_dest, y_dest);
-							this.div_home.style.visibility = "visible";
+							//this.div_home.style.visibility = "visible";
 							//this.div_reponse_plus.style.visibility = "visible";
 						}
 					// sinon on ouvre la vue consigne
 						else{
 							projet.changepos(this.nombre_jours_max, -this.x+10/(projet.largeur/this.nombre_jours_max), y_dest);
-							this.div_home.style.visibility = "visible";
+							//this.div_home.style.visibility = "visible";
 							//this.div_reponse_plus.style.visibility = "visible";
 						}
 					// fade tous les consignes
 						for (i=0; i<consignes.length;i++){
 							if (this!=consignes[i]) {
-							$(consignes[i].div_base).fadeTo(2000,0.0);
+							$(consignes[i].div_base).stop(true).fadeTo(2000,0);
 							//consignes[i].div_base.style.opacity = "0.25";
 							consignes[i].div_base.style.cursor = "default";
 							consignes[i].div_titre.removeAttribute("onClick");
@@ -180,7 +183,7 @@ function consigne(){
 						}
 					// on ouvre les réponses
 						for (i=0; i<this.reponses.length;i++){
-							$(this.reponses[i].div_base).fadeTo(0,0).fadeTo(2000,1).css('visibility','visible');
+							$(this.reponses[i].div_base).stop(true).fadeTo(2000,1).css('visibility','visible');
 						}
 						this.div_base.style.opacity = "1";
 						this.div_base.style.cursor = "pointer";
@@ -201,10 +204,13 @@ function consigne(){
 				}
 			//Si la vue est déjà ouverte on ouvre la popup
 				else{
-					g_action = false;
-					consigne_click(this.id);
-					this.select = true;
+					if (vue=='timeline') {
+						stop_action ();
+						consigne_click(this.id);
+						this.select = true;
+					}
 				}
 		}
 	
 }
+

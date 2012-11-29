@@ -10,7 +10,6 @@
 <body class="page_plan">
 <div id="page">
 	
-	
 	[(#REM) Le plan de site ci-dessous est a adapter selon les besoins. En particulier, on n'aura pas necessairement besoin de tous les elements (sous-rubriques, articles, breves et sites) ]
     <div id="conteneur">
     <div id="contenu">
@@ -22,9 +21,13 @@
             <h1><:plan_site:></h1>
         </div>
         
-        <BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}{tout}>
+        <BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}{tout} {si #SESSION{login}|match{vincent|leroy}|oui}>
         
-        <h2><span class="#EDIT{titre}">#TITRE</span></h2>
+        <h2>
+            <span class="#EDIT{id_rubrique}" style="color: red;" title="#ID_RUBRIQUE">#ID_RUBRIQUE | </span>
+            <span class="#EDIT{titre}" title="#ID_RUBRIQUE">#TITRE</span>
+            <span class="#EDIT{id_rubrique_lien}" style="color: green;"> | id_rubrique_liee :  #ID_RUBRIQUE_LIEN</span>
+        </h2>
         
         [(#REM) Articles et sous-rubriques ]
         <B_articles_racine>
@@ -40,7 +43,11 @@
         <ul>
             <BOUCLE_rubriques(RUBRIQUES) {id_parent} {par titre}{tout}>
             <li>
-                <strong><span class="#EDIT{titre}">#TITRE</span></strong>
+                <strong>
+                    <span class="#EDIT{id_rubrique}" style="color: red;" title="#ID_RUBRIQUE">#ID_RUBRIQUE | </span>
+                    <span class="#EDIT{titre}" title="#ID_RUBRIQUE">#TITRE</span>
+                    <span class="#EDIT{id_rubrique_lien}" style="color: green;"> | id_rubrique_liee :  #ID_RUBRIQUE_LIEN</span>
+                </strong>
                 
                 <B_articles>
                 <ul>

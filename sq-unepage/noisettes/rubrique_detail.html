@@ -33,8 +33,8 @@
 				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
 					<ul class="popup_titre"><span class="titre">Modifier</span>
 						<li>le logo : <span class="photo #EDIT{logo}">[(#MODELE{logo_carre}{id_rubrique}{taille=20})]</span></li>
-						<li>le nom de la classe : <span class="#EDIT{titre}">[(#TITRE|supprimer_numero)]</span></li>
-						<li>le descriptif de la classe : <span class="spip #EDIT{texte}">[(#TEXTE|sinon{Double-cliquer pour compléter le descriptif de ma classe - #TITRE.})</span>]</li>
+						<li>le nom du groupe de travail : <span class="#EDIT{titre}">[(#TITRE|supprimer_numero)]</span></li>
+						<li>le descriptif du groupe de travail : <span class="spip #EDIT{texte}">[(#TEXTE|sinon{Double-cliquer pour compléter le descriptif de ma classe - #TITRE.})</span>]</li>
 					</ul>
 				]
 				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non)

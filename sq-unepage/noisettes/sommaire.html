@@ -1,3 +1,4 @@
+#CACHE{48*3600}
 [(#REM)Page principale - Pour vue de détail forcée à l'ouverture :
 -#ENV{type_objet} : consigne, reponse, article, article_evt, ressource
 -#ENV{id_objet} : id_objet
@@ -9,160 +10,134 @@ et/ou
 <div id="global">
 
 	<INCLURE{fond=noisettes/inc/no_ie6}>
-	<div id="zone">
-		<!--<div id='fermer' class='bouton_fermer' style='right: 20px; top: 20px;'><a href='#'><img src='#CHEMIN{img/fermer.png}"></a></div>-->
+
+	[(#VUE|=={classe}|non)]
+
+	<div id="menu_haut" class="zone-menu ">
+		<INCLURE{fond=noisettes/menu_haut}{env}>
 	</div>
-	<!--[if IE]><script src="#CHEMIN{js/_excanvas.js}"></script><![endif]-->
 
-	<script language="Javascript">
-		[(#REM)Variables globales JS]
-			var g_u_chemin = "[(#ENV{chemin})]";
-			var g_u_xml = "spip.php?page=xml&annee_scolaire=#ENV{annee_scolaire}&mode=";
-			var g_u_admin = [(#ENV{admin})];
-			var g_u_id_restreint = [(#ENV{restreint}|sinon{0})];
-			var g_u_type_restreint = '[(#ENV{type_restreint})]';
-			var g_u_classe_select = [(#ENV{restreint}|sinon{0})];
-			var g_u_img_blog = "[(#CHEMIN{#ENV{chemin}/img/blog_grand_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/blog_grand.png}|image_reduire{98}|extraire_attribut{src})]";
-			var g_u_img_evt = "[(#CHEMIN{#ENV{chemin}/img/evenement_grand_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/evenement_grand.png}|image_reduire{150,94}|extraire_attribut{src})]";			
-			var g_u_mode_popup = '#ENV{mode_popup}'
-			
-		[(#REM)Vue forcée à l ouverture]
-			var g_u_date = '[(#ENV{vue_date,0})]';
-			var g_u_type_popup = '[(#ENV{type_objet,0})]';
-			var g_u_type_objet = '[(#ENV{page})]';
-			var g_u_id_objet = '[(#ENV{id_objet,0})]';
+	<div id="zone" class="zone_timeline zone" [(#VUE|=={classe}|oui) style="display:none;"]>
+		<INCLURE{fond=noisettes/timeline}{env}>
+	</div>
+
+	<div id="zone_classe" class="zone_classe zone" [(#VUE|=={classe}|oui) style="display:block;"]>
+		<INCLURE{fond=noisettes/isotope}{env}>
+	</div>
+
+	<div id="menu_bas" class="clearfix combo-filters zone-menu">
 		
-	</script>
-	<script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>				
-	<script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>
-	<script type="application/javascript" src="#CHEMIN{js/classe.js}"></script>
-	<script type="application/javascript" src="#CHEMIN{js/consigne.js}"></script>
-	<script type="application/javascript" src="#CHEMIN{js/reponse.js}"></script>
-	<script type="application/javascript" src="#CHEMIN{js/bouton.js}"></script>	
-	<script type="application/javascript" src="#CHEMIN{js/article_blog.js}"></script>
-	<script type="application/javascript" src="#CHEMIN{js/article_evenement.js}"></script>
-	<script type="application/javascript" src="#CHEMIN{js/main.js}"></script>
-
-	<div id="zone_bas">
-
 		[(#REM)Col 1]
-			<div id="col1">
-				<div class="titre3">
-				
-				[(#NOM_SITE_SPIP|=={design.laclasse.com}|non)
-				<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>[(#NOM_SITE_SPIP|replace{.laclasse.com, })]</strong></a><a href="http://www.laclasse.com" title="http://www.laclasse.com">.laclasse.com</a>
-				]
+			<!--<h3 class="first">Général</h3>-->
 
-				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui)
-					[(#SESSION{login}|oui)
-						[(#SESSION{pgp}|=={cybercolleges42}|oui)
-						<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>design</strong></a><a href="http://www.cybercolleges42.fr" title="http://www.cybercolleges42.fr">.cybercolleges42.fr</a>
-						]
-						[(#SESSION{pgp}|=={cybercolleges42}|non)
-						<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>design</strong></a><a href="http://www.laclasse.com" title="http://www.laclasse.com">.laclasse.com</a>
-						]
-					]
-					[(#SESSION{login}|non)
-						<a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>Atelier design</strong></a>
-					]
-				]
-
-				</div>
-				<div class="sous-colonne">
-					<a id="presentation" class="presentation" rel="presentation" href="#CHEMIN{img/presentation/01.png}" title="1. Des artistes et des scientifiques entrent dans laclasse.com">Le projet</a>
-					<div class="cache">
-						<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
-						<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
-						<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
-						<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
-						<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
-						<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
-						<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
-					</div>
-				</div>
-				<div class="sous-colonne"><a href='#CHEMIN{img/modeemploi.pdf}'>Besoin d'aide ?</a></div>
-
-				<div class="sous-colonne" id="annee_scolaire">
-					<form name="annee_scolaire">
-					<select onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire.annee_scolaire.value)" name="annee_scolaire">
-						<option value=''>Année scolaire</option>
-						<option value=''>----------------</option>
-						<BOUCLE_vieux(ARTICLES){par date}{date!=0000}{0,1}{tout}>
-						[(#DATE|annee|afficher_options_date{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
-						</BOUCLE_vieux>
-					</select>
-					</form>
-				</div>
-				<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}>
-			</div>
-		
-		[(#REM)Col 2]
-			<div class="gauche">
-				<img src="#CHEMIN{img/filet.png}">
+		[(#REM)Vues]
+			<div id="menu-vues" class="option-combo col">
+				<h3>Vues</h3>
+			    <ul class="filter clearfix option-set vue">
+					[(#MODELE{logo_menu}{valeur=timeline}{class=selected}{title=Vue Ligne de temps})]
+					[(#MODELE{logo_menu}{valeur=classe}{title=Vue Classes})]
+			    </ul>
 			</div>
 
-			<div id="col2">
-				<!--<div id="travaux">
-					<img src="#CHEMIN{img/reponse_petit.png}">&nbsp;<a href="#" onClick="showhide_travaux();">Masquer les consignes et travaux des élèves</a>
-				</div>-->
-				<div id="blog">
-					#SET{blog,le blog projet}
-					[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,le journal du capitaine et le novamag} ]
-					[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,les actualités littéraires} ]
-					[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,le blog du potager} ]
-					[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,le blog de Flavie Jones} ]
-					[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,les actualités} ]
-					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/blog_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/blog_petit.png})]})]
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="showhide_articles_blog();">Afficher #GET{blog}</a>
+		[(#REM)Ressources]
+		    <div id="menu-ressources" class="option-combo col">
+				<h3>Ressources</h3>
+		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
+					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=showhide_travaux('show');}{title=Toutes les ressources})]
+						#SET{blog,Le blog du projet}
+						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
+						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
+						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
+						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
+						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
+						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
+					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=show_articles_blog();}{title=#GET{blog}})]
+					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=show_articles_evenement();}{title=Le blog pédagogique})]
+					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=ressources_click();}{title=L'espace ressource})]
+					[(#MODELE{logo_menu}{valeur=agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=agora_click();})]					
+					[(#MODELE{logo_menu}{valeur=ressource_classes}{filter=.ressource_classes}{title=Les classes}{onclick=classes_click();})]
+					[(#MODELE{logo_menu}{valeur=consigne}{filter=.ressource_consignes}{onclick=showhide_travaux('show');}{title=Les consignes})]
+					[(#MODELE{logo_menu}{valeur=reponse}{filter=.ressource_reponses}{title=Les réponses des classes})]
+					<BOUCLE_j(DATA){liste tout,blog,evenement,ressource,consigne,reponse}>
+		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
+					</BOUCLE_j>
+				</ul>
+		    </div>
+
+		[(#REM)Consignes]
+			<div id="menu-consignes" class="option-combo col">
+				<h3>Consignes</h3>
+				<ul class="filter clearfix option-set" data-filter-group="consigne">
+					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les consignes}{onclick=g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);})]
+				  #SET{num,0}
+
+					<BOUCLE_consignes0(RUBRIQUES mots mots_liens){mots.titre=consignes}{rubriques.id_rubrique=mots_liens.id_objet}>
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consigne[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_ouvre([(#GET{num})]);}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#SET{num,[(#GET{num}|plus{1})]})]
+					</BOUCLE_consignes0>						
+					<BOUCLE_consignes(ARTICLES mots_liens rubriques){rubriques.id_rubrique=mots_liens.id_objet}{mots_liens.id_mot=2}{tout}>
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consigne[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_ouvre([(#GET{num})]);}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#SET{num,[(#GET{num}|plus{1})]})]
+					</BOUCLE_consignes>
+
+				  <BOUCLE_r4(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
+				    <BOUCLE_a4(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consigne[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_ouvre([(#GET{num})]);}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#SET{num,[(#GET{num}|plus{1})]})]
+				    </BOUCLE_a4>
+				  </BOUCLE_r4>
+				</ul>
+			</div>
+
+		[(#REM)Classes]
+			<div id="menu-classes" class="option-combo col" >
+				<h3>Classes</h3>
+	      		<ul class="filter clearfix option-set" data-filter-group="classe">
+			        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les classes})]
+			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}>
+			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
+			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+			            </BOUCLE_a3>
+			              [(#MODELE{logo_menu}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_reponse[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]}{onclick=classes_click([(#ID_RUBRIQUE)]);})]
+			            </B_a3>
+			            <//B_a3>
+			          </BOUCLE_c3>
+			          </BOUCLE_r3>
+				</ul>
+			</div>
+
+		<div id="menu-classe" [(#VUE|=={classe}|non) style="display:none;"]>
+
+			[(#REM)Médias]
+				<div id="menu-medias" class="option-combo col">
+					<h3>Médias</h3>
+					<ul class="filter clearfix option-set ressource" data-filter-group="media">
+				        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Tous les médias})]
+						[(#MODELE{logo_menu}{valeur=texte}{filter=.texte}{title=Les textes})]
+						[(#MODELE{logo_menu}{valeur=image}{filter=.image}{title=Les images})]
+						[(#MODELE{logo_menu}{valeur=son}{filter=.son}{title=Les sons})]
+						[(#MODELE{logo_menu}{valeur=video}{filter=.video}{title=Les vidéos})]
+						[(#MODELE{logo_menu}{valeur=autre}{filter=.autre}{title=Les documents})]
+					</ul>
 				</div>
 
-				<div id="evenements">
-					[(#ADMIN|>={0}|oui)
-						#SET{blog,le blog pédagogique}
-						[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/evenement_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/evenement_petit.png})]})]
-						<img src="#GET{img}">&nbsp;<a href="#" onClick="showhide_articles_evenement();">Afficher #GET{blog}</a>
-					]				
+			[(#REM)Tri]
+				<div id="menu-tris" class="option-combo col">
+					<h3>Tri</h3>
+					<ul id="sort-by" class="option-set clearfix" data-option-key="sortBy">
+						[(#MODELE{logo_menu}{valeur=date}{option=date}{title=Par date}{class=selected})]
+						[(#MODELE{logo_menu}{valeur=notation}{option=notation}{title=Par notation})]
+					</ul>
+					<ul id="sort-direction" class="option-set clearfix" data-option-key="sortAscending">
+						[(#MODELE{logo_menu}{valeur=descendant}{option=false}{title=Descendant}{class=selected})]				        
+						[(#MODELE{logo_menu}{valeur=ascendant}{option=true}{title=Ascendant})]
+					</ul>
 				</div>
 
-				<div id="forum">
-					[(#NOM_SITE_SPIP|match{miam|aqueduc|novaterra|design}|et{#SESSION{login}|oui}|oui)
-						#SET{blog,Discuter avec les intervenants}					
-						[(#NOM_SITE_SPIP|match{novaterra}|oui)#SET{blog,Guichet du savoir intergalactique}]
-						[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_chat_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_chat_petit.png})]})]
-						<img src="#GET{img}">&nbsp;<a href="spip.php?page=rubrique&id_rubrique=33&mode=ajax&type_objet=ressource" class="profil">#GET{blog}</a>
-					]
-				</div>
-			</div>
-		
-		[(#REM)Col 3]
-			<div style="float:left;">
-				<img src="#CHEMIN{img/filet.png}">
-			</div>
-		
-			<div id="col3">
-				<div id="documents">
-					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_ressources_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_ressources_petit.png})]})]
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="ressources_click();">Ouvrir les ressources documentaires</a><br>
-				</div>
-				<div id="classes">
-					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_classes_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_classes_petit.png})]})]
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="classes_click();">Ouvrir les classes</a><br>
-				</div>		
-				<div id="chat">
-					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_doc_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_doc_petit.png})]})]
-					[(#NOM_SITE_SPIP|match{novaterra}|oui)
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click();">Ouvrir l'encyclopédie</a><br>
-					]
-					[(#NOM_SITE_SPIP|match{miam}|oui)
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click();">Tableau des saisons</a><br>
-					]
-				</div>
-				<div id="chat2">
-					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_doc2_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_doc2_petit.png})]})]
-					[(#NOM_SITE_SPIP|match{miam}|oui)
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click(2);">Carte du projet</a><br>					
-					]
-				</div>				
-			</div>
+		</div>
+
 	</div>
+
 </div>
+
+<script type="application/javascript" src="#CHEMIN{js/controleurs-affichage.js}"></script>

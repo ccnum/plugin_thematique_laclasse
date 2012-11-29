@@ -2,7 +2,16 @@
 #CACHE{10*24*3600}
 [(#REM)Acces directs aux blocs ajax
 Paramètres :
-- mode : page
+- mode : fonction ajax
+- page : vue (page)
 ]
 
-<INCLURE{fond=noisettes/ajax/#MODE}{env}>
+[(#REM)
+	[(#MODE|match{timeline|classe}|oui)
+	<INCLURE{fond=noisettes/#MODE}{env}>
+	]
+]
+
+[(#MODE|match{timeline|classe}|non)
+	<INCLURE{fond=noisettes/ajax/#MODE}{env}>
+]

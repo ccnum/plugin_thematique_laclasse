@@ -23,6 +23,8 @@
 						$().ready(function(){
 						$('#ajax#ID_ARTICLE').click(function() {
 							$('div#ressources_droite').addClass('chargement');
+							$('#menug li a.selected').removeClass('selected');
+							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
 							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
 								$('div#ressources_droite').removeClass('chargement');	
@@ -40,6 +42,8 @@
 						$().ready(function(){
 						$('#ajax#ID_ARTICLE').click(function() {
 							$('div#ressources_droite').addClass('chargement');
+							$('#menug li a.selected').removeClass('selected');
+							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
 							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
 								$('div#ressources_droite').removeClass('chargement');	
@@ -60,6 +64,8 @@
 						$().ready(function(){
 						$('#ajax_rub_#ID_RUBRIQUE').click(function() {
 							$('div#ressources_droite').addClass('chargement');
+							$('#menug li a.selected').removeClass('selected');
+							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
 							$('#ressources_droite').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
 								$('div#ressources_droite').removeClass('chargement');
@@ -92,6 +98,8 @@
 										$().ready(function(){
 										$('#ajax#ID_ARTICLE').click(function() {
 											$('div#ressources_droite').addClass('chargement');
+											$('#menug li a.selected').removeClass('selected');
+											$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
 											$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 											, {limit: 25}, function(){ 
 												$('div#ressources_droite').removeClass('chargement');	
@@ -106,6 +114,8 @@
 								<script type="text/javascript">
 									$().ready(function(){
 									$('#ajax#ID_ARTICLE').click(function() {
+										$('#menug li a.selected').removeClass('selected');
+										$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
 										$('div#ressources_droite').addClass('chargement');
 										$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
@@ -122,6 +132,8 @@
 								<script type="text/javascript">
 								$().ready(function(){
 								$('#ajax#ID_ARTICLE').click(function() {
+								$('#menug li a.selected').removeClass('selected');
+								$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');									
 									$('div#ressources_droite').addClass('chargement');
 									$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 									, {limit: 25}, function(){ 
@@ -143,26 +155,30 @@
 							[(#REM)Articles syndic]
 							<BOUCLE_syndic_articles(SYNDIC_ARTICLES) {id_syndic} {tout} {par titre} {doublons}>
 								
-								[(#TAGS0|oui)
+								[(#TAGS|oui)
 									[(#SET{dest,[(#TAGS|extraire_attribut{href})]})]
 									<script type="text/javascript">
 									$().ready(function(){
 									$('#ajax#ID_SYNDIC_ARTICLE').click(function() {
+										$('#menug li a.selected').removeClass('selected');
+										$('#ajax_rub_#ID_SYNDIC').addClass('selected');										
 										$('div#ressources_droite').addClass('chargement');
-										$('#ressources_droite').load('[(#URL_ARTICLE|replace{&amp;,&})]'
+										$('#ressources_droite').load('[(#URL_PAGE{syndic_article}|parametre_url{id_syndic_article,#ID_SYNDIC_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
-											$('div#ressources_droite').removeClass('chargement');
-											$('#ressources_droite').show('slow');
+											$('div#ressources_droite').removeClass('chargement');	
+											$('#ressources_droite').show('slow'); 		
 											});					
-									});});						
+									});});		
 									</script>
 									<li><a id="ajax#ID_SYNDIC_ARTICLE" href="#GET{dest}" class="">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
 								]
 								[(#TAGS|non)
-								]									
+																	
 									<script type="text/javascript">
 									$().ready(function(){
 									$('#ajax#ID_SYNDIC_ARTICLE').click(function() {
+										$('#menug li a.selected').removeClass('selected');
+										$('#ajax_rub_#ID_SYNDIC').addClass('selected');										
 										$('div#ressources_droite').addClass('chargement');
 										$('#ressources_droite').load('[(#URL_PAGE{syndic_article}|parametre_url{id_syndic_article,#ID_SYNDIC_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
@@ -172,7 +188,7 @@
 									});});						
 									</script>
 									<li><a id="ajax#ID_SYNDIC_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
-					
+								]
 							</BOUCLE_syndic_articles>
 						</ul>
 					</li>
@@ -184,11 +200,27 @@
 			</div>
 			
 	[(#REM)Pour ouverture directe si id_article ou publier présent]
-		[(#ID_ARTICLE|oui)
+		<BOUCLE_rubart(ARTICLES){id_article}>
 			<script type="text/javascript">
 			$().ready(function(){
+				$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
 				$('div#ressources_droite').addClass('chargement');
 				$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+				, {limit: 25}, function(){ 
+					$('div#ressources_droite').removeClass('chargement');
+					$('#ressources_droite').show('slow');
+					});					
+			});						
+			</script>
+		</BOUCLE_rubart>
+
+		[(#ID_RUBRIQUE_OUVRE|oui)
+			<script type="text/javascript">
+			$().ready(function(){
+				$('#menug li a.selected').removeClass('selected');
+				$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
+				$('div#ressources_droite').addClass('chargement');
+				$('#ressources_droite').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE_OUVRE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
 					$('div#ressources_droite').removeClass('chargement');
 					$('#ressources_droite').show('slow'); 		
@@ -199,6 +231,8 @@
 		[(#TYPE_OBJET|=={reponse}|oui)
 			<script type="text/javascript">
 			$().ready(function(){
+				$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
+				$('div#ressources_droite').addClass('chargement');				
 				$('div#ressources_droite').addClass('chargement');
 				$('#ressources_droite').load('[(#URL_PAGE{publier}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|parametre_url{type_objet,#TYPE_OBJET}|parametre_url{id_consigne,#ID_CONSIGNE}|html_entity_decode)]'
 				, {limit: 25}, function(){ 

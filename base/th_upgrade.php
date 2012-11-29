@@ -10,21 +10,30 @@ function th_upgrade($nom_meta_base_version,$version_cible){
 	
 	// On traite le cas de la premiere version de th sans version_base
 	if ((!isset($GLOBALS['meta'][$nom_meta_base_version])) && th_existe())
-		$current_version = "2.1";
+		$current_version = "2.0";
 		
 	if (isset($GLOBALS['meta'][$nom_meta_base_version]))
 		$current_version = $GLOBALS['meta'][$nom_meta_base_version];
-	
+
+	if (($current_version=="2.0")||($current_version=="2.1")||($current_version=="2.2")||($current_version=="2.3"))
+	{
+		//Creation de nouvelles tables ou de nouveaux champs
+			include_spip('base/th_install');
+			maj_tables(array('spip_articles'));
+			maj_tables(array('spip_syndic_articles'));
+			maj_tables(array('spip_rubriques'));
+			spip_log('ok maj','thematiques');
+	}
+
 	if ($current_version=="0.0") 
 	{
 		//Creation de nouvelles tables ou de nouveaux champs
 			include_spip('base/th_install');
-			//creer_base();
 			maj_tables(array('spip_articles'));
-			maj_tables(array('spip_syndic_articles'));			
+			maj_tables(array('spip_syndic_articles'));
+			maj_tables(array('spip_rubriques'));
 
 		//Creation mots clefs
-
 			//Groupe Contenus
 				if (!$id_groupe = sql_getfetsel("id_groupe", "spip_groupes_mots", "titre='Contenus'"))
 				{
@@ -98,7 +107,6 @@ function th_upgrade($nom_meta_base_version,$version_cible){
 			sql_alter("TABLE spip_syndic CHANGE resume resume VARCHAR(3) DEFAULT 'non'");
 
 		//Meta
-			//ecrire_meta('nom_site','Webnapperon');
 			ecrire_meta('articles_mots','oui');
 			ecrire_meta('activer_sites','oui');
 			ecrire_meta('activer_syndic','oui');
@@ -117,15 +125,9 @@ function th_upgrade($nom_meta_base_version,$version_cible){
 			//ecrire_meta('gd_formats_read','gif,jpg,png');
 			//ecrire_meta('image_process','gd2');
 			//ecrire_meta('max_taille_vignettes','9000000');
-			
-		}
-	if ($current_version=="2.0") 
-	{
-			//Creation de nouvelles tables ou de nouveaux champs
-				include_spip('base/th_install');
-			//creer_base();
-				maj_tables(array('spip_syndic_articles'));
 	}
+
+	
 		ecrire_meta($nom_meta_base_version,$version_cible);
 		ecrire_metas();
 }

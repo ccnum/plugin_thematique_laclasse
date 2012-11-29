@@ -12,15 +12,19 @@
 	define('_cookie_rubrique','laclasse_rubrique_admin');
 	define('_cookie_annee_scolaire','laclasse_annee_scolaire');
 
+	//Ces variables ne sont plus utilisées à vérifier
 	//Tailles
 	define('_taille_img',50);
-	define('_hauteur',550);
-	define('_largeur',900);
+	define('_hauteur',800);
+	define('_largeur',1500);
 	//Type d'affichage des popups : detail (iframe), ajax (modalbox sans iframe)
 	define('_mode_popup','detail');
-	
-	$annee_scolaire = 2012;
-	
+	//Fin vérification
+
+	$annee_scolaire = 2013;
+	define('_annee_cours',$annee_scolaire);
+
+	//Qualifie les médias pour les tris	
 	$GLOBALS['ext_audio']='mp3|ogg|wav';
 	$GLOBALS['ext_video']='avi|mpg|flv|mp4|mov';
 	$GLOBALS['ext_photo']='jpg|png|gif';
@@ -35,16 +39,17 @@
 /*	DOSSIER_SQUELETTE FONCTION DU COOKIE														*/
 /************************************************************************************/
 
-	if ($_COOKIE[_cookie_affichage]=='classique')
+	/*
+		if ($_COOKIE[_cookie_affichage]=='classique')
 		{
 		$GLOBALS['dossier_squelettes'] = _DIR_PLUGIN_TH."sq-classique".":"._DIR_PLUGIN_TH;
 		define('_affichage','classique');
 		}
-		else {
 		//$GLOBALS['dossier_squelettes'] = _DIR_PLUGIN_TH."sq-unepage".":"._DIR_PLUGIN_TH.":"._DIR_PLUGIN_TH."sq-classique";
-		$GLOBALS['dossier_squelettes'] = _DIR_PLUGIN_TH."sq-unepage".":"._DIR_PLUGIN_TH;		
-		define('_affichage','unepage');		
-		}
+	*/
+	
+	$GLOBALS['dossier_squelettes'] = _DIR_PLUGIN_TH."sq-unepage".":"._DIR_PLUGIN_TH;
+	define('_affichage','unepage');		
 
 
 /************************************************************************************/
@@ -89,14 +94,17 @@
 	//define('_EXTRAIRE_LIENS',',^$,');
 
 // Limiter la longueur des messages de forum
-	define('_FORUM_LONGUEUR_MAXI', 1500);
+	define('_FORUM_LONGUEUR_MAXI', 3000);
 
 // Limiter la taille des images uploadees
-	define('_LOGO_MAX_WIDTH',2000) ;
-	define('_LOGO_MAX_HEIGHT',2000) ;
-	define('_IMG_MAX_WIDTH',2200) ;
-	define('_IMG_MAX_HEIGHT',2000) ;
+	define('_LOGO_MAX_WIDTH',3000) ;
+	define('_LOGO_MAX_HEIGHT',3000) ;
+	define('_IMG_MAX_WIDTH',3000) ;
+	define('_IMG_MAX_HEIGHT',3000) ;
 	define('_IMG_MAX_SIZE',2024);
 	// define('_DOC_MAX_SIZE', 0);
+
+// AutoBR
+	define('_AUTOBR', '');
 
 ?>

@@ -18,33 +18,6 @@ var g_bouton_plus, g_couleur_blog;
 var g_duration_def;
 var g_action, g_action_mois, g_action_reponses;
 
-////////////////////////////////////////////////////////////////
-// Fonctions d'affichage
-////////////////////////////////////////////////////////////////
-function popup(url){
-	if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
-	$().colorbox({width:'900px',height: '700px', iframe: iframe, returnFocus: false, href:url, scrolling: true});
-}
-function popup_html(url){
-    if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
-    $().colorbox({width:'840px',height: '700px', html:url});
-}
-////////////////////////////////////////////////////////////////
-// Cookies
-////////////////////////////////////////////////////////////////
-function reload_cookie(url,cookie_nom,cookie_valeur) {	
-	//alert (cookie_valeur);
-	document.cookie = cookie_nom + "=" + escape(cookie_valeur);
-	reload(url);
-}
-
-function reload(url) {
-	if (url == 'self')	{
-		location.reload( true );
-		window.location.reload();
-	}
-	else window.location.href = url;
-}
 
 ////////////////////////////////////////////////////////////////
 // Couleurs

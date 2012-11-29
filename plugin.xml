@@ -3,8 +3,8 @@
 	<nom>Thematiques</nom>
 	<auteur>Patrick Vincent</auteur>
 	<licence>GNU/GPL</licence>
-	<version>2.1</version>
-	<version_base>2.1</version_base>
+	<version>2.3</version>
+	<version_base>2.3.1</version_base>
 	<description>Un plugin pour l'installation simplifiée des thematiques de [laclasse.com->http://www.laclasse.com]
 	</description>
 	<lien>http://www.laclasse.com</lien> <!-- URI de documentation -->

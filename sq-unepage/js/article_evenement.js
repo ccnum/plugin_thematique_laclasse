@@ -50,7 +50,7 @@ function article_evenement(){
 			axis: "y" ,
 			start: function(event,ui){
 					$(this).children('div').children('div').removeAttr("onClick");
-					g_action = false;
+					stop_action ();
 				},
 			stop: function(event,ui) {
 				y_parent = $(this).parent().height();
@@ -72,93 +72,3 @@ function article_evenement(){
 	}
 }
 
-
-////////////////////////////////////////////////////////////////
-// showhide_articles_evenement
-////////////////////////////////////////////////////////////////
-
-function show_one_article_evenement(numero,duration){
-	for (j=0; j<g_articles_evenement.length;j++){
-		$(g_articles_evenement[j].img).stop(true);
-		$(g_articles_evenement[j].div_texte).stop(true);
-		if (j != numero) hide_article_evenement(j,1,duration);
-		if (j == numero) show_article_evenement(j,1,duration);
-	}
-	for (j=0; j<g_articles_blog.length;j++) {
-		$(g_articles_blog[j].img).stop(true);
-		$(g_articles_blog[j].div_texte).stop(true);
-		hide_article_blog(j,1,duration);
-		}
-}
-
-function hide_article_evenement(i,delay,duration){
-	if (duration == undefined) duration = g_duration_def;
-	var th = g_articles_evenement[i];
-	var i = i;
-	$(th.div_texte).delay(delay).hide(duration/100, function() {
-		if (th.left == -1) th.left = $(th.img).position().left;
-		if (th.top == -1) th.top = $(th.img).position().top;		
-		var w = 150;
-		var h = 94;
-		if (th.left == 0) th.left = w/4;
-		if (th.top == 0) th.top = h/3;
-		var ll = w/3 + "px";
-		var tt = h/3 + "px";
-		$(th.div_base).css('z-index','90');		
-		$(th.img).animate({opacity: 0.2, width:ll, height:tt, top:th.top, left:th.left},duration,"easeInOutBack",function(){
-			if ($('.article_evenement:visible').length == 0) {
-				$('#evenements a').html($('#evenements a').html().replace("Masquer", "Afficher"));
-				g_hide_articles_evenement = true;
-				//$('#evenements a').fadeTo('fast',1);
-			}
-		});
-	});
-}
-
-function show_article_evenement(i,delay,duration){
-	if (duration == undefined) duration = g_duration_def;
-	var th = g_articles_evenement[i];
-	var i = i;
-	$(th.div_base).css('z-index','200');	
-	$(th.img).delay(delay).animate({width:'150px', height:'94px', top:0, left:0, opacity: 1},duration, "easeInOutBack",function(){
-		$(th.div_texte).show(duration/1000,function(){
-			if ($('.article_evenement:visible').length == $('.article_evenement').length) {
-				$('#evenements a').html($('#evenements a').html().replace("Afficher", "Masquer"));
-				g_hide_articles_evenement = false;
-				//$('#evenements a').fadeTo('fast',1);
-			}
-		});
-	});
-}
-
-function showhide_articles_evenement(duration){
-	if (duration == undefined) duration = g_duration_def;
-	//$('#evenements a').fadeTo('fast',0);
-	if (g_hide_articles_evenement == false){
-			log("ferme evt");
-			$.each(g_articles_evenement, function(index, value) {
-			var delay = Math.random()*duration*0;
-			hide_article_evenement(index,delay,duration);	
-		});		
-		showhide_travaux('show');
-	}else{
-		log("ouvre evt");
-		showhide_travaux('hide');
-		hide_articles_blog();		
-		$.each(g_articles_evenement, function(index, value) {	
-			var delay = Math.random()*duration*0;
-			show_article_evenement(index,delay,duration);
-		});
-
-	}
-}
-
-function hide_articles_evenement(duration){
-	if (duration == undefined) duration = g_duration_def;
-	//$('#evenements a').fadeTo('fast',0);
-	//hide_articles_blog();
-	$.each(g_articles_evenement, function(index, value) {	
-			var delay = Math.random()*duration*0;
-			hide_article_evenement(index,0,duration);
-		});	
-}

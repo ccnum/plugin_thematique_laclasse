@@ -1,4 +1,4 @@
-#CACHE{0}
+#CACHE{0*3600}
 [(#REM)Canevas et variables globale > pas de cache. Paramètres pour le cache des inclusions :
 -restreint
 -annee_scolaire
@@ -15,7 +15,6 @@
 		#SET{mode_popup,#EVAL{_mode_popup}}
 
 	[(#SET{projet,[(#URL_PAGE{xml}|concat{&mode=projet}|url_absolue|copie_locale)]})]
-
 			#SET{largeur,#EVAL{_largeur}}
 			#SET{hauteur,#EVAL{_hauteur}}
 			#SET{couleur_base_texte,#000000}
@@ -25,7 +24,7 @@
 			[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
 		[(#REM)Id de la rubrique restreinte sélectionnée]
 			[(#SET{restreint,[(#INCLURE{fond=noisettes/fonction/admin,mode=restreint})]})]
-		[(#REM)Type de rubrique restreinte]
+		[(#REM)Type de rubrique restreinte: consigne, reponse, article, article_evt,ressource,classes]
 			[(#GET{restreint}|oui)
 				[(#SET{type_restreint,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique=#GET{restreint}})]})]
 			]
@@ -35,27 +34,31 @@
 [(#REM) ******************* AFFICHAGE ***************************** ]
 
 	<head>
-		<INCLURE{fond=noisettes/inc-head}{page}>
+		<INCLURE{fond=noisettes/inc-head}{env}>
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
 		<meta http-equiv="Expires" content="0" />
 		<link rel="stylesheet" type="text/css" href="[(#URL_PAGE{styles}|parametre_url{largeur,#GET{largeur}}|parametre_url{hauteur,#GET{hauteur}}|parametre_url{couleur_base_texte,#GET{couleur_base_texte}}|parametre_url{couleur_1erplan3,#GET{couleur_1erplan3}}|parametre_url{chemin,#DOSSIER_SQUELETTE}|parametre_url{type_objet,#TYPE_OBJET})]">
 	</head>
-
 	<body>
-		<INCLURE{fond=noisettes/#ENV{page}}
-		{admin=#GET{admin}}
-		{restreint=#GET{restreint}}
-		{mode_popup=#GET{mode_popup}}
-		{type_restreint=#GET{type_restreint}}
-		{type_auteur=#GET{type_auteur}}
-		{id_rubrique}
-		{id_article}
-		{annee_scolaire=#GET{annee_scolaire}}
-		{chemin=#DOSSIER_SQUELETTE/}
-		{page}
-		{env}
-		/>
+		[(#TYPE_OBJET|=={article_evt}|oui|et{#GET{admin}|<{0}|oui}|non)
+			<INCLURE{fond=noisettes/#ENV{page}}
+			{admin=#GET{admin}}
+			{restreint=#GET{restreint}}
+			{mode_popup=#GET{mode_popup}}
+			{type_restreint=#GET{type_restreint}}
+			{type_auteur=#GET{type_auteur}}
+			{id_rubrique}
+			{id_article}
+			{annee_scolaire=#GET{annee_scolaire}}
+			{chemin=#DOSSIER_SQUELETTE/}
+			{page}		
+			{env}
+			/>
+		]
+		[(#TYPE_OBJET|=={article_evt}|oui|et{#GET{admin}|<{0}|oui}|oui)
+			Vous devez être connecté pour accéder à cette ressource
+		]
 	</body>
 
 </html>

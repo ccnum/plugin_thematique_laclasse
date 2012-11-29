@@ -9,7 +9,6 @@ function bouton(){
 		
 	// méthode init
 	this.init = function(projet, canvas, type){
-
 		switch(type){
 			// bouton plus pour ajout d'article
 			case 0:

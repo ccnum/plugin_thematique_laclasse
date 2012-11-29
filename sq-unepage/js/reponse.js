@@ -22,10 +22,15 @@ function reponse(){
 			this.div_base = document.createElement("div");
 			this.div_base.style.position = "absolute";
 			this.div_base.style.left = this.x +"px";
-			this.div_base.style.top = -(this.y)+"px";
+			//this.div_base.style.top = -(this.y)+"px";
+			//y_parent = $(this).parent().parent().height();
+			//if ((this.y < 1)&&(this.y > 0)) alert(this.y*g_projet.hauteur);
+			this.div_base.style.top = -(this.y*g_projet.hauteur)+"px";
+			if (this.y > 1) alert (this.y);
+
 			this.div_base.style.cursor = "cursor";
 			this.div_base.style.visibility = "hidden";
-			this.div_base.setAttribute("class","reponse_haute");			
+			this.div_base.setAttribute("class","reponse_haute");
 			for (k=0;k<classes.length;k++){
 				if (classe_id == classes[k].id){
 					var nom_classe = classes[k].nom;
@@ -71,9 +76,9 @@ function reponse(){
 				},
 				stop: function(event,ui) {
 					//if ($(this.select).val() == true)	{
-						y_parent = $(this).parent().parent().height();
-						yy = ui.offset.top / y_parent;
-						yy = -ui.position.top-70;
+						yy = - (ui.position.top / g_projet.hauteur);
+						//alert(ui.offset.top+' '+ui.position.top+' '+yy);
+						//yy = -ui.position.top-70;
 						//alert (y_parent+':'+ui.offset.top+':'+ui.position.top+':'+yy);
 						$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
 						//$(this).attr("onClick","consigne_ouvre("+$(this.numero).val()+")");
@@ -82,23 +87,4 @@ function reponse(){
 			});
 	}
 
-}
-
-////////////////////////////////////////////////////////////////
-// showhide_reponses
-////////////////////////////////////////////////////////////////
-
-function show_reponse(index_consigne,index_reponse){
-	for (i=0; i<g_consignes[index_consigne].reponses.length;i++){
-		//log (i+' '+index_reponse);	
-		$(g_consignes[index_consigne].reponses[i].div_base).stop(true);
-		if (i != index_reponse) $(g_consignes[index_consigne].reponses[i].div_base).fadeTo(300,0.5);
-		if (i == index_reponse) $(g_consignes[index_consigne].reponses[i].div_base).fadeTo(300,1);		
-	}
-}
-function hide_reponse(index_consigne,index_reponse){
-	for (i=0; i<g_consignes[index_consigne].reponses.length;i++){
-		$(g_consignes[index_consigne].reponses[i].div_base).stop(true);	
-		$(g_consignes[index_consigne].reponses[i].div_base).fadeTo(300,1);
-	}
 }

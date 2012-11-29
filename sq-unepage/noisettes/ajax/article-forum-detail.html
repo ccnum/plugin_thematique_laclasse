@@ -3,7 +3,7 @@
 <B_Forums>
 <!-- Début Forum-->	
 	<ul class="forum">
-	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}>
+	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}{inverse}>
 			#SET{type_objet,#MODELE{type_objet}{id_auteur}}
 
 			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs]

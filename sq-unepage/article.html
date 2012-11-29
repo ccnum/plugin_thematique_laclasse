@@ -17,16 +17,28 @@
 	[(#ENV{mode}|non)
 		[(#GET{ref}|match{#URL_SITE_SPIP/ecrire}|oui) #SET{mode,complet} ]
 		[(#GET{ref}|match{#URL_SITE_SPIP}|non) #SET{mode,complet} ]
-		[(#GET{ref}|non) #SET{mode,complet} ]		
+		[(#GET{ref}|non) #SET{mode,complet} ]
 	]
 
 [(#REM)Page]
 	#SET{page,article}
 	[(#GET{type_objet}|match{ressource|classes}|oui)#SET{page,rubrique}]
-	[(#GET{mode}|=={ajax-detail}|oui)#SET{page,article}]	
+	[(#GET{mode}|=={ajax-detail}|oui)#SET{page,article}]
 
-[(#REM)Ouverture]	
-	[(#GET{mode}|=={detail}|oui)<INCLURE{fond=layout}{id_rubrique}{env}{page=#GET{page}}{type_objet=#GET{type_objet}}{id_article=#ID_ARTICLE} />]
+[(#REM)Ouverture]
+	<BOUCLE_rub1(RUBRIQUES){id_rubrique}{tout}>#SET{id_rubrique_lien,#ID_RUBRIQUE_LIEN}</BOUCLE_rub1>
+	<BOUCLE_lien(ARTICLES){id_consigne}{id_rubrique=#GET{id_rubrique_lien}}>#SET{art_lie,#ID_ARTICLE}</BOUCLE_lien>
+
+	[(#GET{mode}|=={detail}|oui)
+		<INCLURE{fond=layout}{id_rubrique}{env}{page=#GET{page}}{type_objet=#GET{type_objet}}{id_article=#ID_ARTICLE} />
+		[(#GET{art_lie}|oui)
+			<br />
+			<div class="separation_binome">Réponse binôme</div>
+			<div class="nettoyeur"></div>
+			[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
+			<INCLURE{fond=noisettes/article-brut}{type_objet=#GET{type_objet}}{id_article=#GET{art_lie}}{admin=#GET{admin}}{env} />
+		]
+	]
 	[(#GET{mode}|=={complet}|oui)<INCLURE{fond=layout}{id_rubrique}{env}{page=sommaire}{type_objet=#GET{type_objet}}{id_objet=#ID_ARTICLE} />]
 	[(#GET{mode}|match{ajax}|oui)
 		[(#REM)Type d'admin : 0 : total / autrement : nb de rubriques restreintes / -1 : pas admin]	

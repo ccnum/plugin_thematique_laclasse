@@ -1,7 +1,7 @@
 #CACHE{0}
 <B_rubrique>
 <datas>
-<BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{tout}>
+<BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
 	<BOUCLE_consigne(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 		<consigne>
 			<id>#ID_ARTICLE</id>
