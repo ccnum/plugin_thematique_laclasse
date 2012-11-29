@@ -67,7 +67,7 @@
 	[(#REM)Hack pour activer crayons pour les admins restreints avec Ajax]
 		<BOUCLE_restreint(CONDITION){si #GET{restreint}|oui}>
 			<div style="display: none;">
-				<BOUCLE_crayons1(RUBRIQUES auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
+				<BOUCLE_crayons1(RUBRIQUES auteurs){id_auteur=#SESSION{id_auteur}}{tout}>
 					<div class="#EDIT{titre}"></div><div class="#EDIT{texte}"></div>
 					<BOUCLE_crayons(ARTICLES){id_rubrique}{tout}><div class="#EDIT{titre}"></div><div class="#EDIT{texte}"></div></BOUCLE_crayons>
 				</BOUCLE_crayons1>

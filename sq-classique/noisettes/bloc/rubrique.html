@@ -195,7 +195,7 @@
 			[(#REM) Rubrique Normale ]							
 				[(#REM)S'agit il d'une rubrique administrée par un seul auteur dans travail en cours ?]
 				<BOUCLE_test5(RUBRIQUES){id_enfant}{titre_mot=travail_en_cours}{tout}>
-					<BOUCLE_admin(spip_auteurs_rubriques){id_rubrique=#ENV{id_rubrique}}>
+					<BOUCLE_admin(spip_auteurs){id_rubrique=#ENV{id_rubrique}}>
 						<BOUCLE_auteur(AUTEURS){id_auteur=#ID_AUTEUR}{statut='0minirezo'}{tout}>
 							<br /><INCLURE {fond=noisettes/bloc/rubrique/auteur}{id_auteur}{tout}{id_rubrique}{colone=droite}>
 						</BOUCLE_auteur>

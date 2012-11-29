@@ -7,7 +7,7 @@
 #SET{restreint0,#EVAL{$_COOKIE[_cookie_rubrique]}}
 #SET{admin,0}
 <B_rub_aut>
-<BOUCLE_rub_aut(RUBRIQUES auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
+<BOUCLE_rub_aut(RUBRIQUES auteurs){id_auteur=#SESSION{id_auteur}}{tout}>
 	[(#SET{restreint1,#ID_RUBRIQUE})]
 	[(#SET{admin,[(#GET{admin}|plus{1})]})]
 	<BOUCLE_rub4(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>

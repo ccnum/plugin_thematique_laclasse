@@ -48,7 +48,7 @@
 [(#REM)Séquences - MDLD]
 		<BOUCLE_site(MOTS){type=site}{titre=maisondeladanse.laclasse.com}>
 		</BOUCLE_site>
-			<BOUCLE_auteur(spip_auteurs_rubriques){id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}}{0,1}>
+			<BOUCLE_auteur(spip_auteurs){id_auteur=#EVAL{$GLOBALS['auteur_session']['id_auteur']}}{0,1}>
 				<INCLURE{fond=noisettes/bloc/rubrique/danses}{id_rubrique=#ID_RUBRIQUE}>
 			</BOUCLE_auteur>
 		</B_site>
