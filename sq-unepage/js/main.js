@@ -183,7 +183,7 @@ function projet_load(fichier){
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			var xmldoc0 = xmlhttp.responseText;
 			xmldoc0.async = false;
-			xmldoc0 = xmldoc0.replace('\n<?xml', '<?xml');
+			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
 			var date_debut = xmldoc.getElementsByTagName("date_debut")[0].childNodes[0].nodeValue;
@@ -242,7 +242,7 @@ function classes_load(fichier){
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			var xmldoc0 = xmlhttp.responseText;
 			xmldoc0.async = false;
-			xmldoc0 = xmldoc0.replace('\n<?xml', '<?xml');
+			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
 			var xml_classe = xmldoc.getElementsByTagName("classe");
@@ -277,7 +277,7 @@ function consignes_load(fichier){
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			var xmldoc0 = xmlhttp.responseText;
 			xmldoc0.async = false;
-			xmldoc0 = xmldoc0.replace('\n<?xml', '<?xml');
+			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
 			var xml_consigne = xmldoc.getElementsByTagName("consigne");
@@ -447,7 +447,7 @@ function blog_load(fichier){
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			var xmldoc0 = xmlhttp.responseText;
 			xmldoc0.async = false;
-			xmldoc0 = xmldoc0.replace('\n<?xml', '<?xml');
+			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
 			var xml_blog = xmldoc.getElementsByTagName("article");
@@ -506,7 +506,7 @@ function evenements_load(fichier){
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			var xmldoc0 = xmlhttp.responseText;
 			xmldoc0.async = false;
-			xmldoc0 = xmldoc0.replace('\n<?xml', '<?xml');
+			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
 			var xml_evenement = xmldoc.getElementsByTagName("article");
