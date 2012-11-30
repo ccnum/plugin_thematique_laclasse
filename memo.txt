@@ -1,9 +1,0 @@
-    - Installer une version de SPIP de la branche 3
-    - Décompacter les plugins contenus dans l'archive : http://www.erasme.org/libre/site-thematique-laclasse/plugins-spip.zip dans un répertoire plugins-dist à la racine du site
-    - A la première connexion au backoffice (/ecrire), les plugins modifient la structure de données et règlent les options nécessaires sur le CMS
-    - Il reste à créer les rubriques correspondant au projet souhaité avec les mots-clefs de contenus associés
-       - Travail des classes > travail_en_cours
-       - Consignes des intervenants > consignes
-       - Bibliothèque > ressources
-       - Blog public > blogs
-       - Blog privé > evenements
