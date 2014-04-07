@@ -1,0 +1,33 @@
+<!--<div id='fermer' class='bouton_fermer' style='right: 20px; top: 20px;'><a href='#'><img src='#CHEMIN{img/fermer.png}"></a></div>-->
+<!--[if IE]>
+	<script src="#CHEMIN{js/_excanvas.js}"></script>
+<![endif]-->
+
+<script language="Javascript">
+	[(#REM)Variables globales JS]
+		var g_u_chemin = "[(#ENV{chemin})]";
+		var g_u_xml = "spip.php?page=xml&annee_scolaire=#ENV{annee_scolaire}&mode=";
+		var g_u_admin = [(#ENV{admin})];
+		var g_u_id_restreint = [(#ENV{restreint}|sinon{0})];
+		var g_u_type_restreint = '[(#ENV{type_restreint})]';
+		var g_u_classe_select = [(#ENV{restreint}|sinon{0})];
+		var g_u_img_blog = "[(#CHEMIN{#ENV{chemin}/img/logo_blog_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_blog.png}|image_reduire{98}|extraire_attribut{src})]";
+		var g_u_img_evt = "[(#CHEMIN{#ENV{chemin}/img/logo_evenement_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_evenement.png}|image_reduire{150,94}|extraire_attribut{src})]";			
+		var g_u_mode_popup = '#ENV{mode_popup}'
+
+	[(#REM)Vue forcée à l ouverture]
+		var g_u_date = '[(#ENV{vue_date,0})]';
+		var g_u_type_popup = '[(#ENV{type_objet,0})]';
+		var g_u_type_objet = '[(#ENV{page})]';
+		var g_u_id_objet = '[(#ENV{id_objet,0})]';		
+</script>
+<script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/classe.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/consigne.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/reponse.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/bouton.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/article_blog.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/article_evenement.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/controleurs-timeline.js}"></script>
+<script type="application/javascript" src="#CHEMIN{js/main.js}"></script>

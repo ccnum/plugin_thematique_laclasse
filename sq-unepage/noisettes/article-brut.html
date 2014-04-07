@@ -1,0 +1,213 @@
+#CACHE{0}
+
+<BOUCLE_principale(ARTICLES){id_article}{doublons}>
+	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#ENV{type_objet})]">]
+
+	[(#REM) ---------------- entete publication ---------------- ]
+		#SET{type_objet,#TYPE_OBJET}
+		[(#TYPE_OBJET|=={reponse}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressource}]
+		<BOUCLE_auteur(auteurs_liens){id_rubrique}>
+		</BOUCLE_auteur>
+			[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet,consigne} ]
+		</B_auteur><//B_auteur>
+
+	
+	[(#REM) ---------------- titre & logo ---------------- ]
+		<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE}</BOUCLE_rub>
+		[(#GET{type_objet}|match{consigne|reponse|ressource|classes}|oui)
+			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+				<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
+				<div class="texte">
+					<div class="titre">[(#TITRE|supprimer_numero)]</div>
+					<div class="auteur_date">[(#GET{titre_parent}) - ][<span class="">(#DATE|affdate)</span>]</div>
+				</div>
+			</div>
+		]
+		[(#GET{type_objet}|match{article|article_evt}|oui)			
+			<div class="popup_titre">
+				<div class="titre">[(#TITRE|supprimer_numero)]</div>
+				<span class="date ">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
+				<span class="auteur">[ - (#LESAUTEURS)]</span>								
+			</div>
+		]
+
+		[(#REM) ---------------- entete publication ---------------- ]
+				<BOUCLE_nb_doc(DOCUMENTS) {id_article} {tout}>
+				</BOUCLE_nb_doc>
+					#SET{nb_doc,#TOTAL_BOUCLE}
+				</B_nb_doc>
+					#SET{nb_doc,0}
+				<//B_nb_doc>
+				
+
+	[(#REM) ---------------- bloc article ---------------- ]
+	<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+	
+	<div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
+			#FORMULAIRE_JAIME
+			<div class="nettoyeur0"></div>
+
+		[(#REM) ---------------- texte ---------------- ]
+			[(#REM)Champs personnalisés - Ledechetmatiere]
+				<BOUCLE_art_ldm(ARTICLES){id_article}{titre_mot IN objet,materiau,vocabulaire}>
+					<INCLURE{fond=noisettes/bloc/article/ledechetmatiere}{id_article}>
+				</BOUCLE_art_ldm>
+				
+			[(#REM)Texte]
+				[(#TEXTE|oui)
+					<div class="bloc_texte">
+						[[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) <p>ordinateur@novaterra:~$</p>]						
+						<span class="spip">(#TEXTE|liens_ouvrants|image_reduire{500})</span>]
+					</div>
+				]
+	 
+		[(#REM) ---------------- documents ---------------- ]
+
+			[(#REM)Documents joints]
+				<B_documents_joints1>
+					<div class="nettoyeur"></div>
+					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video} {id_article} {tout} {doublons}>
+						<div class="portfolio_grand">
+							<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+							[(#MODELE{audio, autostart=false, hauteur=200, largeur=200})]								
+							</a>
+						</div>
+					</BOUCLE_documents_joints1>
+				</B_documents_joints1>
+
+				<B_documents_joints2>
+					<div class="nettoyeur"></div>
+					<BOUCLE_documents_joints2(DOCUMENTS) {media IN image} {id_article} {tout} {doublons}>
+						<div class="portfolio_grand">
+							<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+							[(#EMBED_DOCUMENT||image_reduire{700,500}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+							</a>
+						</div>
+					</BOUCLE_documents_joints2>
+				</B_documents_joints2>
+
+				<B_documents_joints3>
+					<div class="nettoyeur"></div>
+					<BOUCLE_documents_joints3(DOCUMENTS) {id_article} {tout} {doublons}>
+						<div class="portfolio">
+							<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" style="text-decoration:none;">
+								[(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
+							</a>
+							[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+								[<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+							]
+							[(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+								[<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+							]
+						</div>
+					</BOUCLE_documents_joints3>
+				</B_documents_joints3>
+
+
+				<B_documents_joints>
+					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {tout} {doublons}>
+						<div class="portfolio">
+							[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{100}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000; padding: 30px; float: left; position: relative;'})</a>]
+						</div>
+					</BOUCLE_documents_joints>
+				</B_documents_joints>
+	
+			[(#REM)Commentaires]
+				<BOUCLE_forum(FORUMS){id_article}>
+				</BOUCLE_forum>
+					[(#GET{type_objet}|!={ressource0}|oui)
+					<div class="nettoyeur"></div>
+					<INCLURE{fond=noisettes/ajax/article-forum-detail}{id_article}{admin}>
+					<div class="introduction nettoyeur"></div>
+					]
+				</B_forum>
+
+		[(#REM) ---------------- Blocs complémentaires ---------------- ]
+			<div class="nettoyeur"><br /></div>
+
+			[(#REM)On exclut le cas où on est dans la zone ajax-detail d'une rubrique - Désactivé temporairement car c'est quand même utile pour les classes]
+				[(#MODE|=={ajax-detail}|et{#TYPE_OBJET|=={reponse}}|oui) #SET{blocs_cplt,non0}	]
+			
+			[(#REM)On exclut les consignes pour les enseignants]
+				[(#TYPE_AUTEUR|=={travail_en_cours}
+				|ou{#TYPE_AUTEUR|=={''}}
+				|et{#TYPE_OBJET|=={consigne}}|oui) 
+					#SET{blocs_forum,non}	
+				]
+
+			[(#ADMIN|=={0}|oui)
+				#SET{blocs_forum,oui}
+				#SET{blocs_cplt,oui}
+			]
+			[(#ADMIN|=={-2}|oui)
+				#SET{blocs_forum,non}
+			]
+			
+
+		[(#GET{blocs_cplt}|=={non}|non)
+
+			[(#REM)Mots-clefs]
+				[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+					[(#NOM_SITE_SPIP|match{novaterra.laclasse.com}|oui)
+						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_motsclefs-#ID_ARTICLE}>
+						<div class="bloc_option_doc nettoyeur">
+							<a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter" title="Lien d'ouverture directe" href="#">
+								<img src="[(#CHEMIN{img/logo_editer_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Ajouter à l'encyclopédie
+							</a>
+							<div class="nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc">
+								<INCLURE{fond=noisettes/inc/article-mot}{id_article}{id_groupe=5}{titre='Thématique'}>
+							</div>
+						</div>
+					]
+				]
+
+			[(#REM)Forum]
+				[(#GET{blocs_forum}|=={non}|non)
+					<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum-#ID_ARTICLE}>
+					<div class="bloc_option_doc nettoyeur">
+						<a id="bloc_option_forum-#ID_ARTICLE" class="hac liens_voir" title="commenter">
+							<img src="[(#CHEMIN{img/logo_aide_on_15.png}||image_reduire{15}|extraire_attribut{src})]" >
+							&nbsp;Commenter
+						</a>
+						<div class='nettoyeur cache bloc_option_forum'>
+							<INCLURE{fond=forum,id_article=#ID_ARTICLE,mode=ajax-detail}>
+						</div>
+					</div>
+				]				
+
+			[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
+				[(#GET{type_objet}|=={ressource}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
+				[(#GET{type_objet}|=={ressource}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
+	
+				[<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
+				<div class="bloc_option_doc nettoyeur">
+					<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
+						<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Permalien
+					</a>
+					<div class="cache">
+						<code>#URL_SITE_SPIP/(#GET{url})</code>
+					</div>
+				</div>
+				]
+
+				[(#REM)Liens sociaux]
+					[(#PLUGIN{SOCIALTAGS}|oui)
+					<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_reseaux-#ID_ARTICLE}>
+					<div class="bloc_option_doc nettoyeur">
+						<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
+							<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Réseaux sociaux
+						</a>
+						<div class="cache">
+							<div class="reseaux"></div>
+						</div>
+					</div>
+					]
+
+		]
+
+	</div>
+
+
+	[(#MODE|!={ajax-detail}|oui)</div>]
+
+</BOUCLE_principale>
