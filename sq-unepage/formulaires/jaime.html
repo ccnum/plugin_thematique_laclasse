@@ -1,0 +1,37 @@
+<!--formulaire_notation-->
+<BOUCLE_note(NOTATIONS_OBJETS){objet=(#ENV*{_objet}|objet_type)}{id_objet=#ENV*{_id_objet}}>
+#SET{note_ponderee,#NOTE_PONDEREE}
+#SET{total,#NOMBRE_VOTES}
+</BOUCLE_note>
+<div class="formulaire_notation formulaire_#FORM ajax">
+	[(#REM)
+	[(#NOTATION_ETOILE{[(#GET{note_ponderee})],[(#ENV*{_objet})][(#ENV*{_id_objet})]})]-->
+	]
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[(#ENV**{editable}|oui)
+	<form action="#SELF" method="post" id="#FORM[(#ENV*{_form_id})]">
+		#ACTION_FORMULAIRE{#SELF}
+		<div>
+			[(#REM) ne pas envoyer une variable commencant par id_ 
+			    sinon elle se retrouve dans l'url (fonctionnement normal de SPIP
+			    du coup, prefixe par notation_
+			]
+			<input type="hidden" name="notation_id_donnees" id="id_donnees[(#ENV*{_form_id})]" value="[(#ENV*{_id_objet})]" />
+			<input type="hidden" name="content" id="content[(#ENV*{_form_id})]" value="" />
+			[(#ENV{id_notation}|non)
+			<input type="submit" title="J'aime" class="submit jaime" name="jaime[(#ENV*{_form_id})]" value="<:notation:jaime|attribut_html:>"/>
+			][(#ENV{id_notation}|oui)
+			<input type="submit" title="Je n'aime plus" class="submit jaimeplus" name="retirer[(#ENV*{_form_id})]" value="<:notation:jaimeplus|attribut_html:>"/>
+			<!--<div class="dejavote"></div>-->
+			]
+		</div>
+	</form>
+	]
+	[(#ENV**{editable}|non)
+		<div class="submit jaimeplus"></div>
+	]
+
+	[<div class="[(#PLUGIN{bootstrap}|?{badge,note})]">(#GET{total})</div>]
+
+</div>
