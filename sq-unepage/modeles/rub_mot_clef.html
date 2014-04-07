@@ -1,0 +1,21 @@
+#HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
+#CACHE{0}
+[(#REM)Id rubrique correspondant au mot clef pour l'année scolaire choisie
+paramètre : titre_mot
+]
+#SET{id_rub,0}
+
+<BOUCLE_id0(RUBRIQUES){titre LIKE %(#EVAL{_annee_scolaire})%}{si #EVAL{_annee_scolaire}|=={#EVAL{_annee_cours}}|non}{par id_rubrique}{tout}>
+	<BOUCLE_id1(RUBRIQUES){titre_mot=#ENV{titre_mot}}{id_parent=#ID_RUBRIQUE}{par id_rubrique}{0,1}{tout}>
+		#SET{id_rub,#ID_RUBRIQUE}
+	</BOUCLE_id1>
+	<BOUCLE_id2(RUBRIQUES){titre_mot=#ENV{titre_mot}}{id_rubrique}{0,1}{par id_rubrique}{0,1}{tout}>
+		#SET{id_rub,#ID_RUBRIQUE}
+	</BOUCLE_id2>
+</BOUCLE_id0>
+
+<BOUCLE_idclasse1(RUBRIQUES){titre_mot=#ENV{titre_mot}}{si #GET{id_rub}|=={0}}{par id_rubrique}{0,1}{tout}>
+	#SET{id_rub,#ID_RUBRIQUE}
+</BOUCLE_idclasse1>
+
+#GET{id_rub}
