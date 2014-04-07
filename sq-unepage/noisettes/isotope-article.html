@@ -1,0 +1,61 @@
+<BOUCLE_principale(ARTICLES){id_article}>
+  #SET{logo,#MODELE{logo_carre}{id_rubrique}{taille=20}|image_alpha{20}|extraire_attribut{src}}
+  <BOUCLE_notation(NOTATIONS_OBJETS){id_objet=#ID_ARTICLE}{objet=article}>[(#SET{note,#NOMBRE_VOTES})]</BOUCLE_notation>[(#GET{texte})]
+  <div class="element big square [(#ENV{class_coul})] [(#ENV{class})] #ID_RUBRIQUE texte" date="[(#DATE|annee)][(#DATE|mois)][(#DATE|jour)]" notation="#GET{note,0}">
+      <div class="picto" style="background-image: url('#GET{logo}');"></div>
+      <a href="[(#URL_PAGE{article}|parametre_url{mode,detail}|parametre_url{type_objet,#ENV{type}}|parametre_url{id_consigne,#ID_CONSIGNE}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{vue,classe})]" title="[(#TITRE0|supprimer_numero)]" class="colorbox_isotope " type="#MIME_TYPE">
+        [(#SET{texte,[(#TEXTE|couper{80}|sinon{[(#TITRE|couper{80})]})]})]
+        <h3 class="symbol">#MOYENNE[(#GET{texte})]</h3>
+        <!--<p class="weight">(227)</p>-->
+      </a>
+      <h2 class="name"><img src="#GET{logo}" />[<span>(#TITRE|couper{30})</span>]</h2>
+  </div>
+
+  <BOUCLE_documents_joints1(DOCUMENTS) {media IN audio2} {id_article} {tout} {doublons}>
+    <div class="element big square [(#ENV{class_coul})] [(#ENV{class})] #ID_RUBRIQUE #MEDIA" date="[(#DATE|annee)][(#DATE|mois)][(#DATE|jour)]" notation="#GET{note,0}">
+      <div class="picto" style="background-image: url('#GET{logo}');"></div>
+        <!--[(#MODELE{audio, autostart=false, hauteur=150, largeur=150})]-->
+        [(#MODELE{audio2, autostart=false, hauteur=150, largeur=150})]
+        <!--[(#LOGO_DOCUMENT||image_gamma{254}||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]-->
+        <h2 class="name"><img src="#GET{logo}" />[<span>(#_principale:TITRE|couper{30})</span>]</h2>
+    </div>
+  </BOUCLE_documents_joints1>
+
+  <BOUCLE_documents_joints0(DOCUMENTS) {media IN video0} {id_article} {tout} {doublons}>
+    <div class="element big square [(#ENV{class_coul})] [(#ENV{class})] #ID_RUBRIQUE #MEDIA" date="[(#DATE|annee)][(#DATE|mois)][(#DATE|jour)]" notation="#GET{note,0}">
+      <div class="picto" style="background-image: url('#GET{logo}');"></div>
+        <p class="vignette">
+          [(#LOGO_DOCUMENT||image_gamma{254}||image_reduire{70}|inserer_attribut{style,'border:0px solid #000000;'})]
+        </p>
+        <h2 class="name"><img src="#GET{logo}" />[<span>(#_principale:TITRE|couper{30})</span>]</h2>
+      </div>
+  </BOUCLE_documents_joints0>
+
+  <BOUCLE_documents_joints2(DOCUMENTS) {extension IN png,jpg,gif} {id_article} {tout} {doublons}>
+    <div class="element big square [(#ENV{class_coul})] [(#ENV{class})] #ID_RUBRIQUE #MEDIA" date="[(#DATE|annee)][(#DATE|mois)][(#DATE|jour)]" notation="#GET{note,0}">
+      <div class="picto" style="background-image: url('#GET{logo}');"></div>
+        <!--<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="colorbox_isotope" type="#MIME_TYPE">
+        [(#EMBED_DOCUMENT||image_reduire{300}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+        </a>-->
+        <p class="vignette">
+        <a href="[(#URL_DOCUMENT|image_reduire{1500}|extraire_attribut{src})]" type="#MIME_TYPE" class="colorbox_isotope" style="text-decoration:none;" date="[(#DATE|annee)][(#DATE|mois)][(#DATE|jour)]" notation="#GET{note,0}">
+          [(#LOGO_DOCUMENT||image_nb||image_recadre{70,70,center}|inserer_attribut{style,'border:0px solid #000000;'})]
+        </a>
+        <h2 class="name"><img src="#GET{logo}" />[<span>(#_principale:TITRE|couper{30})</span>]</h2>
+      </p>
+    </div>
+  </BOUCLE_documents_joints2>
+
+  <BOUCLE_documents_joints3(DOCUMENTS) {id_article} {tout} {doublons}>
+    <div class="element big square [(#ENV{class_coul})] [(#ENV{class})] #ID_RUBRIQUE autre" date="[(#DATE|annee)][(#DATE|mois)][(#DATE|jour)]" notation="#GET{note,0}">
+      <div class="picto" style="background-image: url('#GET{logo}');"></div>
+          <p class="vignette">
+          <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" class="colorbox_isotope" style="text-decoration:none;">
+          [(#LOGO_DOCUMENT||image_reduire{64}||image_gamma{254}|inserer_attribut{style,'border:0px solid #000000;'})]
+          </a>
+          <h2 class="name"><img src="#GET{logo}" /><span>[(#TITRE|couper{30}|sinon{[(#_principale:TITRE|couper{30})]})]</span></h2>
+          </p>
+      </div>
+  </BOUCLE_documents_joints3>
+
+</BOUCLE_principale>

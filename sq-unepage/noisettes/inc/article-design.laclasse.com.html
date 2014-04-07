@@ -1,0 +1,47 @@
+[(#REM)Fiche Objet]
+[(#REM) on doit appliquer un filtre d'affichage au champ #CHAMP1 soit #CHAMP1|nl2br, soit #CHAMP1|nl2br, soit #CHAMP1|typo ]
+[(#REM) voir aussi modif plugins/crayons/action/crayons_store.php ligne 252 ]
+
+<BOUCLE_principale(ARTICLES){id_article}>
+
+[(#REM)2013 = Consigne1]
+	[(#ENV{id_consigne}|=={204}|oui)
+		<div id="bloc_texte">
+			<br />
+			<h3 style="display:inline;">Qu’avez-vous comme objets dans votre sac à dos ?</h3>
+			<p class="spip_cadre #EDIT{champ1}">[(#CHAMP1|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Que pouvez-vous partager pendant la récréation ?</h3>
+			<p class="spip_cadre #EDIT{champ2}">[(#CHAMP2|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Que pouvez-vous offrir pendant la récréation ?</h3>
+			<p class="spip_cadre #EDIT{champ3}">[(#CHAMP3|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Que pouvez-vous prêter pendant la récréation ?</h3>
+			<p class="spip_cadre #EDIT{champ4}">[(#CHAMP4|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Que pouvez-vous échanger pendant la récréation ?</h3>
+			<p class="spip_cadre #EDIT{champ5}">[(#CHAMP5|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Comment pouvez-vous aider des camarades pendant la récréation ?</h3>
+			<p class="spip_cadre #EDIT{champ6}">[(#CHAMP6|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Qu’y a t il comme lieux accessibles en récréation ? Quelles sont leurs fonctions ?</h3>
+			<p class="spip_cadre #EDIT{champ7}">[(#CHAMP7|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">De quoi avez-vous besoin pendant la récréation ?</h3>
+			<p class="spip_cadre #EDIT{champ8}">[(#CHAMP8|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Votre ville a t elle une spécialité ?</h3>
+			<p class="spip_cadre #EDIT{champ9}">[(#CHAMP9|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />																		
+			<h3 style="display:inline;">Avez-vous des idées de services ? Lesquels ?</h3>
+			<p class="spip_cadre #EDIT{champ10}">[(#CHAMP10|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">A quoi ressemblerait votre récréation de rêve? Faire un dessin commenté (utiliser le bouton "ajouter un document" ci-dessous). </h3>
+			<p class="spip_cadre #EDIT{champ11}">[(#CHAMP11|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+		</div>
+	]
+
+</BOUCLE_principale>
