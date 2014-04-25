@@ -13,4 +13,7 @@
 	<licence>GNU/GPL</licence>
 
 	<pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
+
+    <chemin path="./sq-unepage" />
+    <chemin path="" />	
 </paquet>
