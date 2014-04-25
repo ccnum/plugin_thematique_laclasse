@@ -11,8 +11,6 @@
 	<nom>Thematiques</nom>
 	<auteur>Patrick Vincent</auteur>
 	<licence>GNU/GPL</licence>
-	<description>Un plugin pour l'installation simplifiée des thematiques de [laclasse.com->http://www.laclasse.com]
-	</description>
 
 	<!-- Base -->
 	<install>base/th_upgrade.php</install>
