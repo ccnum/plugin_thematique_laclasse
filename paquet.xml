@@ -14,8 +14,6 @@
 	<description>Un plugin pour l'installation simplifiée des thematiques de [laclasse.com->http://www.laclasse.com]
 	</description>
 
-	<options>th_options.php</options>
-	<fonctions>th_fonctions.php</fonctions>
 	<!--
 	<pipeline>
 		<nom>pre_boucle</nom>
