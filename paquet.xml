@@ -12,6 +12,10 @@
 	<auteur>Patrick Vincent</auteur>
 	<licence>GNU/GPL</licence>
 
+    <necessite nom="notifications" />
+    <necessite nom="crayons" />
+    <necessite nom="cicas" />
+
 	<pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
 
     <chemin path="./sq-unepage" />
