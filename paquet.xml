@@ -1,12 +1,12 @@
 <paquet
     prefix="th"
     categorie="squelette"
-    version="2.3"
+    version="2.3.1"
     etat="dev"
     logo="th.png"
     schema="2.3.1"
     documentation="http://www.laclasse.com"
-    compatibilite="[2.1.0;["    
+    compatibilite="[3.0;["
 >
 	<nom>Thematiques</nom>
 	<auteur>Patrick Vincent</auteur>

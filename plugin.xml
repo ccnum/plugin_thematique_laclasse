@@ -59,7 +59,7 @@
 	-->	
 	<!--Ajout d'éléments dans l'espace privé-->	
 	
-	<necessite id="SPIP" version="[2.1.0;]" />
+	<necessite id="SPIP" version="[2.1.0;3.0[" />
 	
 		
 </plugin>
