@@ -15,9 +15,11 @@
     <necessite nom="notifications" />
     <necessite nom="crayons" />
     <necessite nom="cicas" />
+    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />
 
 	<pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
+	<pipeline nom="jqueryui_plugins" inclure="th_pipelines.php" />
 
-    <chemin path="./sq-unepage" />
+    <chemin path="./sq-unepage" type="public"/>
     <chemin path="" />	
 </paquet>
