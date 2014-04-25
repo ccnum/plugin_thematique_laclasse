@@ -12,7 +12,5 @@
 	<auteur>Patrick Vincent</auteur>
 	<licence>GNU/GPL</licence>
 
-	<!-- Base -->
-	<install>base/th_upgrade.php</install>
 	<pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
 </paquet>
