@@ -1,0 +1,62 @@
+<paquet
+    prefix="th"
+    categorie="squelette"
+    version="2.3"
+    etat="dev"
+    logo="th.png"
+    schema="2.3.1"
+    documentation="http://www.laclasse.com"
+    compatibilite="[2.1.0;["    
+>
+	<nom>Thematiques</nom>
+	<auteur>Patrick Vincent</auteur>
+	<licence>GNU/GPL</licence>
+	<description>Un plugin pour l'installation simplifiée des thematiques de [laclasse.com->http://www.laclasse.com]
+	</description>
+
+	<options>th_options.php</options>
+	<fonctions>th_fonctions.php</fonctions>
+	<!--
+	<pipeline>
+		<nom>pre_boucle</nom>
+		<inclure>th_pipelines.php</inclure>
+	</pipeline>	
+	-->
+	<!-- Base -->
+	<install>base/th_upgrade.php</install>
+	<pipeline>
+		<nom>declarer_tables_principales</nom>
+		<inclure>base/th_install.php</inclure>
+	</pipeline>
+	
+	<!-- Interface privée 	
+		<pipeline>
+			<nom>autoriser</nom>
+    		<inclure>th_autoriser.php</inclure>
+		</pipeline>
+	-->
+	<!-- Champs extra -->
+		<!-- Nécessaire 
+		<pipeline>
+		    <nom>pre_edition</nom>
+		    <inclure>th_pipelines.php</inclure>
+		</pipeline>
+		-->
+		<!-- Pas indispensable 	
+		<pipeline>
+		    <nom>editer_contenu_objet</nom>
+		    <inclure>th_pipelines.php</inclure>
+		</pipeline>    
+		<pipeline>
+		    <nom>afficher_contenu_objet</nom>
+		    <inclure>th_pipelines.php</inclure>
+		</pipeline>    
+		-->	
+	<!--Tâches périodiques cron
+		<pipeline>
+		    <nom>taches_generales_cron</nom>
+		    <inclure>th_pipelines.php</inclure>
+		</pipeline>
+	-->	
+	<!--Ajout d'éléments dans l'espace privé-->	
+</paquet>
