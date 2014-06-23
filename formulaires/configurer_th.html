@@ -1,0 +1,42 @@
+<div class="ajax formulaire_spip formulaire_configurer formulaire_#FORM formulaire_#FORM-#ENV{id,nouveau}">
+    <h3 class="titrem">Titre du formulaire</h3>
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV**{message_erreur})</p>]
+    [(#ENV{editable})
+        <form method='post' action='#ENV{action}'><div>
+            [(#REM) déclarer les hidden qui déclencheront le service du formulaire
+            paramêtre : url d'action ]
+            #ACTION_FORMULAIRE{#ENV{action}}
+            #SET{fl,th}
+            <fieldset>
+                <legend><:th:legend:></legend>
+                <p class="explication">Paramétres généraux</p>
+                <ul>
+                    #SET{name,site_parent_nom}#SET{obli,''}#SET{defaut,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+                    <li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+                        <label for="#GET{name}">[(#GET{fl}|concat{':label_',#GET{name}}|_T)]</label>
+                        [<span class='erreur_message'>(#GET{erreurs})</span>]
+                        <input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+                    </li>
+                    #SET{name,site_parent_url}#SET{obli,''}#SET{defaut,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+                    <li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+                        <label for="#GET{name}">[(#GET{fl}|concat{':label_',#GET{name}}|_T)]</label>
+                        [<span class='erreur_message'>(#GET{erreurs})</span>]
+                        <input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+                    </li>
+                </ul>
+            </fieldset>
+            [(#REM) ajouter les saisies supplémentaires : extra et autre, à cet endroit ]
+            <!--extra-->
+            <p class='boutons'><span class='image_loading'>&nbsp;</span>
+                <input type='submit' name="cancel" class='submit' value='<:bouton_annuler|attribut_html:>' />
+                <input type='submit' class='submit' value='<:bouton_enregistrer|attribut_html:>' />
+            </p>
+        </div></form>
+    ]
+    [(#ENV{editable}|non)
+        <p class='boutons'><span class='image_loading'>&nbsp;</span>
+            <input type='submit' name="cancel" class='submit' value='<:bouton_fermer|attribut_html:>' onclick="$.modalboxclose();return false;" />
+        </p>
+    ]
+</div>
