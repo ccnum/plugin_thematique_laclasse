@@ -1,39 +1,12 @@
 #CACHE{0}
 <ul class="option-combo col3 titre">
-	[(#REM)Titre]
-		[(#NOM_SITE_SPIP|=={design.laclasse.com}|non)
-			<li class="double">
-				<a href="[(#URL_SITE_SPIP)]" class="bloc1" title="Accueil"><strong>[(#NOM_SITE_SPIP|replace{.laclasse.com, })]</strong></a>
-			</li>
-			<li class="double">
-				<a class="bloc2" href="[(#NOM_SITE_SPIP|=={philo.laclasse.com}|non)http://www.laclasse.com][(#NOM_SITE_SPIP|=={philo.laclasse.com}|oui)[(#SESSION{login}|oui)http://www.laclasse.com/pls/education/!page.laclasse?rubrique=428&choix=105&p_env_id=688][(#SESSION{login}|non)http://museedesconfluences.blogs.laclasse.com/]]" target="_blank" title="http://www.laclasse.com">.laclasse.com</a>
-			</li>
-		]
-		[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui)
-			[(#SESSION{login}|oui)
-				[(#SESSION{pgp}|=={cybercolleges42}|oui)
-				<li class="double">
-					<a href="[(#URL_SITE_SPIP)]" class="bloc1" title="Accueil"><strong>design</strong></a>
-				</li>
-				<li class="double">
-					<a href="http://www.cybercolleges42.fr" title="http://www.cybercolleges42.fr" class="bloc2">.cybercolleges42.fr</a>
-				</li>
-				]
-				[(#SESSION{pgp}|=={cybercolleges42}|non)
-				<li class="double">
-					<a href="[(#URL_SITE_SPIP)]" class="bloc1" title="Accueil"><strong>design</strong></a>
-				</li>
-				<li class="double">
-					<a href="http://www.laclasse.com" title="http://www.laclasse.com" class="bloc2">.laclasse.com</a>
-				</li>
-				]
-			]
-			[(#SESSION{login}|non)
-				<li class="double">
-					<a href="[(#URL_SITE_SPIP)]" class="bloc1" title="Accueil"><strong>Atelier design</strong></a>
-				</li>
-			]
-		]
+    [(#REM)Titre]
+    <li class="double">
+        <a href="[(#URL_SITE_SPIP)]" class="bloc1" title="Accueil"><strong>[(#NOM_SITE_SPIP)]</strong></a>
+    </li>
+    <li class="double">
+        <a class="bloc2" href="[(#CONFIG{th/site_ent_url})]" target="_blank" title="#CONFIG{th/site_parent_url}">#CONFIG{th/site_ent_nom}</a>
+    </li>
 </ul>
 <ul class="option-combo col3">
 	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
