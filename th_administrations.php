@@ -33,14 +33,59 @@ function th_upgrade($nom_meta_base_version, $version_cible){
 		//array('ecrire_meta','max_taille_vignettes','9000000');        
 	);
 
-	include_spip('base/upgrade');
-	maj_plugin($nom_meta_base_version, $version_cible, $maj);
+    $maj['2.3.3'] = array(
+        array('th_configurer_site'),
+    );
+
+    include_spip('base/upgrade');
+    maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
 
 function th_vider_tables($nom_meta_base_version) {
 	effacer_meta($nom_meta_base_version);
 }
 
+
+function th_configurer_site() {
+
+    $nom_site_spip = lire_config('nom_site');
+    $site_ent_url = "";
+    $site_ent_nom = "";
+
+    switch ($nom_site_spip) {
+        case "philo.laclasse.com" :
+            $nom_site_spip = "philo";
+            $site_ent_url = "http://museedesconfluences.blogs.laclasse.com";
+            $site_ent_nom = ".laclasse.com";
+            /*
+            if login
+                http://www.laclasse.com/pls/education/!page.laclasse?rubrique=428&choix=105&p_env_id=688
+            */
+        break;
+
+        case "design.laclasse.com" :
+            $nom_site_spip = "design";
+            $site_ent_url = "Atelier design";
+            $site_ent_nom = $url_site_spip;
+            /*
+                if login & pgp = cybercolleges42
+                    $site_parent_url = http://www.cybercolleges42.fr
+                    $site_parent_nom = ".cybercolleges42.fr"
+                if login
+                    $site_parent_nom = ".laclasse.com"
+                    $site_parent_url = http://www.laclasse.com
+            */
+
+        break;
+        default :
+            $site_ent_url = lire_config('th/site_parent_url');
+            $site_ent_nom = lire_config('th/site_ent_nom');
+    }
+
+    ecrire_config('th/site_ent_url',$site_ent_url);
+    ecrire_config('th/site_ent_nom',$site_ent_nom);
+    ecrire_config('nom_site',$nom_site_spip);
+}
 
 
 function th_ajouter_mots_clef() {
