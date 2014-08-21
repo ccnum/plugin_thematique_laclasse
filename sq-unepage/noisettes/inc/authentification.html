@@ -18,7 +18,7 @@
 [(#REM)Mire authentification]
 	[(#REM)Ajouter des images]
 		[(#SESSION{statut}|oui)
-			a<ul class="option-combo droite">
+			<ul class="option-combo droite">
 				<li class=""><a class="ajax logo_menu-connecter profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;"></a></li>
 				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><strong>[(#SESSION{nom}|couper{10})]</strong></a></li>
 				<!--[(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui)<li class="sous-colonne"><a href="ecrire" class="ajax0  logo_menu-prive" title="Espace privé"></a></li>]-->
@@ -35,7 +35,7 @@
 			</ul>
 		]
 	[(#SESSION{statut}|non)
-		b<ul class="option-combo">
+		<ul class="option-combo">
 			<li class=""></li>
 		</ul>
 		<ul class="option-combo col3 droite">

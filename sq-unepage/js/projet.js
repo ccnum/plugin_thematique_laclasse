@@ -146,7 +146,8 @@ function projet(){
 
 					if (this.image_fond.src){
 						this.div_base_context.drawImage(this.image_fond, 0, 0, this.largeur, this.hauteur);
-					}else{
+					}
+					else{
 						this.div_base_context.fillStyle = this.couleur_fond;
 						this.div_base_context.fillRect(0, 0, this.largeur, this.hauteur);
 					}
@@ -163,11 +164,20 @@ function projet(){
 					this.yy = this.y;
 
 				// zone interactive barre mois
-					this.div_base_context.fillStyle = "#eee";
 					this.x_barre = 0;
 					this.largeur_barre = (this.nombre_jours_vus)*this.largeur;
+					this.div_base_context.fillStyle = "rgba(192, 192, 192, 1)";
+
+					if (this.frame == -1)
+					{
+						log (this.div_base_context.fillStyle);
+						log (this.x_barre);
+						log (this.hauteur-20);
+						log (this.largeur_barre);
+					}
 					this.div_base_context.fillRect(this.x_barre, this.hauteur-20, this.largeur_barre, 20);
-			
+
+
 					if (this.mois_select >= 0){
 						this.div_base_context.fillStyle = this.couleur_1erplan2;
 						this.div_base_context.fillRect(this.xx+this.mois_select*this.xx, this.hauteur-20, this.largeur_mois, 20);
