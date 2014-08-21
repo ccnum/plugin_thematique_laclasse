@@ -22,6 +22,6 @@
     <pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
     <pipeline nom="jqueryui_plugins" inclure="th_pipelines.php" />
 
-    <chemin path="./sq-unepage" type="public"/>
+    <chemin path="./sq-unepage" />
     <chemin path="" />
 </paquet>
