@@ -164,32 +164,23 @@ function projet(){
 					this.yy = this.y;
 
 				// zone interactive barre mois
+					this.div_base_context.fillStyle = "#eee";
 					this.x_barre = 0;
 					this.largeur_barre = (this.nombre_jours_vus)*this.largeur;
-					this.div_base_context.fillStyle = "rgba(192, 192, 192, 1)";
-
-					if (this.frame == -1)
-					{
-						log (this.div_base_context.fillStyle);
-						log (this.x_barre);
-						log (this.hauteur-20);
-						log (this.largeur_barre);
-					}
-					this.div_base_context.fillRect(this.x_barre, this.hauteur-20, this.largeur_barre, 20);
-
+					this.div_base_context.fillRect(this.x_barre, this.hauteur-45, this.largeur_barre, 20);
 
 					if (this.mois_select >= 0){
 						this.div_base_context.fillStyle = this.couleur_1erplan2;
-						this.div_base_context.fillRect(this.xx+this.mois_select*this.xx, this.hauteur-20, this.largeur_mois, 20);
+						this.div_base_context.fillRect(this.xx+this.mois_select*this.xx, this.hauteur-45, this.largeur_mois, 20);
 					}
 					this.div_base_context.fillStyle = this.couleur_1erplan2;
 					this.mois_rollover = -1;
 
-					if ((y > this.hauteur-35)&&(y < this.hauteur-15)){
+					if ((y > this.hauteur-20)&&(y < this.hauteur)){
 						this.div_base.style.cursor = "pointer";
 						this.mois_rollover = Math.round((x-this.xx-(this.largeur_mois/2))/this.largeur_mois);
 						if (this.mois_rollover >= 0 && this.mois_rollover < this.nombre_mois){
-							this.div_base_context.fillRect(this.mois_rollover*this.largeur_mois+this.xx, this.hauteur-20, this.largeur_mois, 20);
+							this.div_base_context.fillRect(this.mois_rollover*this.largeur_mois+this.xx, this.hauteur-45, this.largeur_mois, 20);
 						}
 					}
 
@@ -207,7 +198,7 @@ function projet(){
 							}else{
 								texte += "-";
 							}
-							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-28, this.hauteur-15);
+							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-28, this.hauteur-42);
 						}else{
 							var texte = g_nom_mois[mois]+" ";
 							if (this.mois_select == -1){
@@ -215,7 +206,7 @@ function projet(){
 							}else{
 								texte += "-";
 							}
-							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-14, this.hauteur-15);
+							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-14, this.hauteur-42);
 						}
 						if (i > 0){
 							this.drawline(this.div_base_context, x+this.xx, 0, x+this.xx, this.hauteur, "#eee", 0.5);
@@ -249,7 +240,7 @@ function projet(){
 							this.get_x_date(consignes[i].date);
 							var color = $('#consigne'+consignes[i].id).css('background-color');
 							var opacity = $(consignes[i].div_base).css('opacity');
-							this.drawline(this.div_base_context, this.xx+(this.x_date*ratio)-8, this.hauteur-20, this.xx+consignes[i].x*ratio, this.yy+consignes[i].y+consignes[i].hauteur, color, '3', opacity);
+							this.drawline(this.div_base_context, this.xx+(this.x_date*ratio)-8, this.hauteur-45, this.xx+consignes[i].x*ratio, this.yy+consignes[i].y+consignes[i].hauteur, color, '3', opacity);
 						//réponses si consigne ouverte
 							if (consignes[i].select == true)
 								for (j=0; j<consignes[i].reponses.length;j++){
