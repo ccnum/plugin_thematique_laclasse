@@ -18,34 +18,24 @@
 [(#REM)Mire authentification]
 	[(#REM)Ajouter des images]
 		[(#SESSION{statut}|oui)
-			<ul class="option-combo droite">
-				<li class=""><a class="ajax logo_menu-connecter profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;"></a></li>
-				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><strong>[(#SESSION{nom}|couper{10})]</strong></a></li>
-				<!--[(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui)<li class="sous-colonne"><a href="ecrire" class="ajax0  logo_menu-prive" title="Espace privé"></a></li>]-->
-				<li class=""><a class="ajax logo_menu-deconnecter" href="<?php echo $url_logout; ?>" title="Se déconnecter"></a></li>
-			</ul>
-			<ul class="option-combo">
-				<li class=""><a class="logo_menu-profil-publication noir" onclick="classes_click([(#RESTREINT)]);" title="Profil de publication"></a></li>
+				<li class="double">vous publiez en tant que</li>				
+				<!--<li class=""><a class="logo_menu-profil-publication noir" onclick="classes_click([(#RESTREINT)]);" title="Profil de publication"></a></li>-->
 				<INCLURE{fond=noisettes/inc/choix_rubrique_admin}{restreint}{admin}>
 				[(#RESTREINT|!={0}|oui|et{#RESTREINT|!={''}}|et{#TYPE_RESTREINT|!={''}}|et{#TYPE_RESTREINT|!={reponse}|oui}|oui)
 				<li><a title="publier un nouvel article" class="logo_menu-ecrire" onClick='ajoutreponse_click(0, #RESTREINT);' >
 					<div id='reponse_plus2' class='bouton_article_plus' ></div>
 				</a></li>
 				]
-			</ul>
+
+				<li class="bordure_gauche"><a class="ajax logo_menu-connecter profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;"></a></li>
+				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><strong>[(#SESSION{nom}|couper{10})]</strong></a></li>
+				<!--[(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui)<li class="sous-colonne"><a href="ecrire" class="ajax0  logo_menu-prive" title="Espace privé"></a></li>]-->
+				<li class=""><a class="ajax logo_menu-deconnecter" href="<?php echo $url_logout; ?>" title="Se déconnecter"></a></li>
 		]
 	[(#SESSION{statut}|non)
-		<ul class="option-combo">
 			<li class=""></li>
-		</ul>
-		<ul class="option-combo col3 droite">
 			<li class="nettoyeur0"><strong><a href="[(#PLUGIN{CICAS}|oui|?{'?url=spip.php%3Fpage%3Dsommaire&cicas=oui','?page=login&url=.%2F'})]" onClick="show_connexion();" class="logo_menu-connecter" title="Se connecter"></a></strong></li>
 			<li class=""><a href="<?php echo $url_inscription; ?>" class="logo_menu-inscription" title="S'inscrire"></a></li>
 			<li class=""><a href="<?php echo $url_pass_perdu; ?>" class="logo_menu-mdpperdu" title="Mot de passe perdu"></a></li>
 			[(#FORMULAIRE_LOGIN)]
-		</ul>
 	]
-
-[(#REM)Initialisations dont crayons]
-<INCLURE{fond=noisettes/js/marqueurs}>
-<BOUCLE_auteur(AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}><div class="#EDIT{nom} cache">#NOM</div></BOUCLE_auteur>

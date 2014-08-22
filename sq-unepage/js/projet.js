@@ -167,11 +167,11 @@ function projet(){
 					this.div_base_context.fillStyle = "#eee";
 					this.x_barre = 0;
 					this.largeur_barre = (this.nombre_jours_vus)*this.largeur;
-					this.div_base_context.fillRect(this.x_barre, this.hauteur-45, this.largeur_barre, 20);
+					this.div_base_context.fillRect(this.x_barre, this.hauteur-44, this.largeur_barre, 20);
 
 					if (this.mois_select >= 0){
 						this.div_base_context.fillStyle = this.couleur_1erplan2;
-						this.div_base_context.fillRect(this.xx+this.mois_select*this.xx, this.hauteur-45, this.largeur_mois, 20);
+						this.div_base_context.fillRect(this.xx+this.mois_select*this.xx, this.hauteur-44, this.largeur_mois, 20);
 					}
 					this.div_base_context.fillStyle = this.couleur_1erplan2;
 					this.mois_rollover = -1;
@@ -180,7 +180,7 @@ function projet(){
 						this.div_base.style.cursor = "pointer";
 						this.mois_rollover = Math.round((x-this.xx-(this.largeur_mois/2))/this.largeur_mois);
 						if (this.mois_rollover >= 0 && this.mois_rollover < this.nombre_mois){
-							this.div_base_context.fillRect(this.mois_rollover*this.largeur_mois+this.xx, this.hauteur-45, this.largeur_mois, 20);
+							this.div_base_context.fillRect(this.mois_rollover*this.largeur_mois+this.xx, this.hauteur-44, this.largeur_mois, 20);
 						}
 					}
 
@@ -240,7 +240,7 @@ function projet(){
 							this.get_x_date(consignes[i].date);
 							var color = $('#consigne'+consignes[i].id).css('background-color');
 							var opacity = $(consignes[i].div_base).css('opacity');
-							this.drawline(this.div_base_context, this.xx+(this.x_date*ratio)-8, this.hauteur-45, this.xx+consignes[i].x*ratio, this.yy+consignes[i].y+consignes[i].hauteur, color, '3', opacity);
+							this.drawline(this.div_base_context, this.xx+(this.x_date*ratio)-8, this.hauteur-44, this.xx+consignes[i].x*ratio, this.yy+consignes[i].y+consignes[i].hauteur, color, '3', opacity);
 						//réponses si consigne ouverte
 							if (consignes[i].select == true)
 								for (j=0; j<consignes[i].reponses.length;j++){

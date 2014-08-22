@@ -165,12 +165,14 @@ body{
 
 #menu_haut {
 	margin: 0.5% 1% 0 1%;
-	/*width: 100%;*/
 	height: 25px;
 	line-height: 25px;
 	padding: 0px;
 	background-color: transparent;
-	border-bottom:2px solid #000; 
+	color: #GET{gris_fonce};
+	width: initial;
+	/*width: 100%;
+	border-bottom:2px solid #000; */
 	}
 
 #zone_bas{
@@ -242,7 +244,7 @@ a:hover{
 .p45 {width: 43%; }
 
 .fin	{ font-weight: normal; }
-.gras	{ font-weight: bold; }
+.gras, .titre	{ font-weight: bold; }
 .petit {font-size: 0.94em;}
 #lien_public:hover, #lien_prive:hover { cursor: pointer; }
 
@@ -443,51 +445,54 @@ a.col2:hover{
 	width: 93px;
 }
 
-.zone-menu li a, .zone-menu select, .zone-menu option{
-  color: #fff;
-  display: block;
-  /*font-weight: bold;
-  padding: 0.4em 0.5em;*/
-  text-align: center;
-  border: 0px solid #fff;
-  background-position:center;
-  background-repeat:no-repeat;
-  background-color: #GET{gris_clair};
-  cursor: pointer;
+.zone-menu .bordure_gauche {
+	border-left: 1px solid #GET{gris_fonce};
+}
+
+.zone-menu .bordure_droite {
+	border-right: 1px solid #GET{gris_fonce};
+}
+
+.zone-menu, .zone-menu li a, .zone-menu select, .zone-menu option {
   height: 100%;
   width: 100%;
   margin: 0px auto;
   font-size: #GET{font-size1};
   vertical-align: middle;
   font-weight: bold;
+  text-align: center;
+}
+
+.zone-menu li a, .zone-menu select, .zone-menu option{
+  display: block;
+  border: 0px solid #fff;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-color: #GET{gris_clair};
+  cursor: pointer;
+  color: #fff;  
 }
 
 #menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
 	background-color: transparent;
 	/*border-right: 1px solid #000;*/
-	color: #000;
+	color: #GET{gris_fonce};
 }
 
 #menu_haut.zone-menu li a:hover, #menu_haut.zone-menu select:hover  {
-	background-color: #000;
+	/*background-color: #000;*/
+	background-color: #GET{gris_fonce};	
 	color: #fff;
 }
 #menu_haut.zone-menu select option:hover, #menu_haut.zone-menu option  {
 	background-color: #fff;
-	color: #000;
+	color: #GET{gris_fonce};
 }
 
 #menu_haut.zone-menu .col2.droite {
 	border-left: 1px solid	#fff;
 }
 
-.zone-menu select, .zone-menu option, .zone-menu #menu_haut li a  {
-	/*color: #fff;
-	font-weight: bold;
-	font-size: #GET{font-size1};
-	background-color: #fff;
-	border: 1px solid #000;*/
-}
 
 .zone-menu li a:hover {
 	background-color: #GET{gris_fonce};
@@ -545,11 +550,11 @@ a.col2:hover{
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img/logo_voir.png}} ]
-	[(#SET{img,#GET{file}|image_gamma{0}|image_reduire{15}|extraire_attribut{src}})]
+	[(#SET{img,#GET{file}|image_gamma{122}|image_reduire{15}|extraire_attribut{src}})]
 	[(#SET{img2,#GET{file}|image_gamma{255}|image_reduire{15}|extraire_attribut{src}})]
 	[(#SET{col1,[(#GET{file}|couleur_extraire)]})]
-	#SET{col,#GET{gris_fonce}}
 	#SET{col,#000}
+	#SET{col,#GET{gris_fonce}}	
 	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]{background-image: url(#GET{img});}
 	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]:hover{background-color: #GET{col};background-image: url(#GET{img2});}
 	[(#VALEUR|=={ecrire}|oui)
@@ -589,26 +594,24 @@ a.col2:hover{
 	margin: 10px 5px 0px 4px;
 }
 
-.zone-menu .titre a{
-}
-
-#menu_haut.zone-menu .titre a.bloc1 {
+#menu_haut.zone-menu .bloc1 a {
 	font-size: #GET{font-size1}px;
 	background-color: #000;
 	color: #fff;
 }
 
-#menu_haut.zone-menu .titre a.bloc2 {
+#menu_haut.zone-menu .bloc2 a {
 	font-size: #GET{font-size1}px;
-	color: #000;
+	color: #GET{gris_fonce};
 	/*border-top: 2px #000 solid;*/
 }
 
-#menu_haut.zone-menu .titre a.bloc2:hover {
+#menu_haut.zone-menu .bloc2 a:hover {
 	font-size: #GET{font-size1}px;
 	color: #fff;
 	/*border-top: 2px #000 solid;*/
 }
+
 
 @media screen and (max-width: 1280px) {
 	.zone-menu h3 { font-size: #GET{font-size1_bas}px; }
@@ -901,11 +904,6 @@ div.socialtags {
 	color:black;
 }
 
-.consigne .titre
-{
-	font-weight:bold;
-}
-
 .consigne .titre_taille1 {
 	font-size:16px;
 }
@@ -1133,7 +1131,6 @@ div.socialtags {
 }
 
 .popup .fiche_titre .titre {
-	font-weight:bold;
 	font-size:24px;
 	line-height:24px;
 }
@@ -1163,13 +1160,11 @@ div.socialtags {
 }
 
 .popup .intervention .titre {
-	font-weight:bold;
 	font-size:12px;
 }
 
 
 .popup .popup_titre .titre, .popup_titre .titre {
-	font-weight:bold;
 	font-size:24px;
 	line-height:24px;
 	color: #00a5db;
@@ -1291,7 +1286,7 @@ a.liens_forum:hover { }
 
 /* --- Menu --- */
 #ressources_gauche .ui-state-active {
-	color:#999;
+	color: #GET{gris_fonce};
 }
 
 #ressources_gauche li {
@@ -1483,11 +1478,6 @@ line-height:1.5;
 
 .bloc_article.sans-serif p { font-family: '#GET{font}' , Arial, Helvetica, "Liberation Sans", FreeSans, sans-serif; }
 
-/*#titre, .titre{
-	padding-left: 0px;
-	padding-top: 0px;
-	margin-bottom:20px;
-}*/
 
 .introduction{
 	padding-top: 10px;
@@ -1514,12 +1504,9 @@ ul.forum ul.forum {
 }
 
 
-li a {
+li a, li a:hover {
 	text-decoration:none;
 	/*font-size:11px;*/
-}
-li a:hover {
-	text-decoration:none;
 }
 
 #bloc_option_doc, .bloc_option_doc {

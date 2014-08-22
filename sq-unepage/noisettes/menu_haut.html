@@ -1,26 +1,13 @@
 #CACHE{0}
-<ul class="option-combo col3 titre">
+<ul class="option-combo titre">
     [(#REM)Titre]
-    <li class="double">
-        <a href="[(#URL_SITE_SPIP)]" class="bloc1" title="Accueil"><strong>[(#NOM_SITE_SPIP)]</strong></a>
+    <li class="double bloc1">
+        <a href="[(#URL_SITE_SPIP)]" title="Accueil"><strong>[(#NOM_SITE_SPIP)]</strong></a>
     </li>
-    <li class="double">
-        <a class="bloc2" href="[(#CONFIG{th/site_ent_url})]" target="_blank" title="#CONFIG{th/site_parent_url}">#CONFIG{th/site_ent_nom}</a>
+    <li class="double bloc2">
+        <a href="[(#CONFIG{th/site_ent_url})]" target="_blank" title="#CONFIG{th/site_parent_url}">#CONFIG{th/site_ent_nom}</a>
     </li>
-</ul>
-<ul class="option-combo col3">
-	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
-	<div class="cache">
-		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
-	</div>
-	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
-
+	<li class="double bordure_gauche">année scolaire</li>
 	<a id="annee_scolaire" title="Choisir l'année scolaire">
 		<form name="annee_scolaire">
 		<select onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire.annee_scolaire.value)" name="annee_scolaire">
@@ -34,4 +21,23 @@
 	</a>
 </ul>
 
-<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>
+<ul class="option-combo droite titre">
+	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>
+
+	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
+	<div class="cache">
+		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
+	</div>
+	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
+</ul>
+
+
+[(#REM)Initialisations dont crayons]
+<INCLURE{fond=noisettes/js/marqueurs}>
+<BOUCLE_auteur(AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}><div class="#EDIT{nom} cache">#NOM</div></BOUCLE_auteur>
