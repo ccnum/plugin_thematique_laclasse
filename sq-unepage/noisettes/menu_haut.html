@@ -10,7 +10,7 @@
 	<li class="double bordure_gauche">année scolaire</li>
 	<a id="annee_scolaire" title="Choisir l'année scolaire">
 		<form name="annee_scolaire">
-		<select onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire.annee_scolaire.value)" name="annee_scolaire">
+		<select class="custom-select" onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire.annee_scolaire.value)" name="annee_scolaire">
 			<option value=''>Année scolaire</option>
 			<option value=''>----------------</option>
 			<BOUCLE_vieux(ARTICLES){par date}{date!=0000}{0,1}{tout}>
@@ -20,6 +20,17 @@
 		</form>
 	</a>
 </ul>
+
+<script type="application/javascript">
+    $(document).ready(function(){
+        $(".custom-select").each(function(){
+            $(this).wrap("<span class='select-wrapper'></span>");
+            $(this).after("<span class='holder'></span>");
+        var selectedOption = $(this).find(":selected").text();
+        $(this).next(".holder").text(selectedOption);
+        });
+    })
+</script>
 
 <ul class="option-combo droite titre">
 	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>

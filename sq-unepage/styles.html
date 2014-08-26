@@ -43,6 +43,7 @@
 /* --------- Variables ----------- */
 #SET{gris_clair,#ccc}
 #SET{gris_fonce,#999}
+#SET{color_menu_hover,#fc0078}
 
 
 /* ---------------------------------------------------------------- */
@@ -358,56 +359,9 @@ a:hover{
 /* ------------------------ SOMMAIRE ------------------------------ */
 /* ---------------------------------------------------------------- */
 
-/* --------- Zone gauche --------- */
+/* --------- MENU --------- */
 
-.zone-menu h3 {
-	color: #FFF;
-	background-color: #GET{gris_clair};
-	padding: 3px;
-	text-align: center;
-	clear: both;
-	margin: 0px 0px 4px 0px;
-	font-size: #GET{font-size1}px;
-	/*margin-top: 8%;
-	width: 100%;
-	border-radius: 5px 5px 0px 0px;*/
-}
-
-.zone-menu h3.first {
-	margin-top: 4%;
-}
-
-.col {
-	float: left;
-	padding: 10px 6px 0px 0px;
-	/*width: 15%;
-	line-height: #GET{line-height1}px;
-	clear: both;
-	margin-top: 10px;*/
-}
-
-.col2 {
-	float: left;
-	padding: 0px 0px 0px 0px;
-	border-right: 1px solid #000;
-	font-weight: bold;
-	/*width: 15%;
-	line-height: #GET{line-height1}px;
-	clear: both;
-	margin-top: 10px;*/
-}
-a.col2:hover{
-	color: #fff;
-}
-
-/* 35*n - 4 */
-#SET{lar_col,35}
-#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
-#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
-#menu-consignes {width: [(#GET{lar_col}|mult{8}|moins{4})]px;}
-#menu-classes {width: [(#GET{lar_col}|mult{10}|moins{4})]px;}
-#menu-medias {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
-#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
+/* Styles généraux */
 
 .zone-menu .option-combo {
 	display: inline-block;
@@ -430,36 +384,21 @@ a.col2:hover{
 	width: 31px;
 }
 
-#menu_haut.zone-menu .option-combo li, #menu_haut.zone-menu .option-combo form  {
-	height: 25px;
-	margin-bottom: 0px;
+.zone-menu li a:hover {
+	background-color: #GET{gris_fonce};
 }
 
-#menu_bas.zone-menu .option-combo li, #menu_bas.zone-menu .option-combo form  {
-	height: 31px;
-	line-height: 31px;
-	margin:0px 4px 4px 0px;
+.zone-menu li a.selected  {
+	cursor: default;
+	border: 0px solid #fff;
 }
 
-.zone-menu .option-combo form, .zone-menu .option-combo li.double  {
-	width: 93px;
-}
-
-.zone-menu .bordure_gauche {
-	border-left: 1px solid #GET{gris_fonce};
-}
-
-.zone-menu .bordure_droite {
-	border-right: 1px solid #GET{gris_fonce};
-}
-
-.zone-menu, .zone-menu li a, .zone-menu select, .zone-menu option {
+.zone-menu, .zone-menu li a {
   height: 100%;
   width: 100%;
   margin: 0px auto;
   font-size: #GET{font-size1};
   vertical-align: middle;
-  font-weight: bold;
   text-align: center;
 }
 
@@ -473,20 +412,78 @@ a.col2:hover{
   color: #fff;  
 }
 
+/* Menu Bas */
+
+/* 35*n - 4 */
+#SET{lar_col,35}
+#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
+#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
+#menu-consignes {width: [(#GET{lar_col}|mult{8}|moins{4})]px;}
+#menu-classes {width: [(#GET{lar_col}|mult{10}|moins{4})]px;}
+#menu-medias {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
+#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
+
+#menu_bas.zone-menu .option-combo li, #menu_bas.zone-menu .option-combo form  {
+	height: 31px;
+	line-height: 31px;
+	margin:0px 4px 4px 0px;
+}
+
+#menu_bas.zone-menu h3 {
+	color: #FFF;
+	background-color: #GET{gris_clair};
+	padding: 3px;
+	text-align: center;
+	clear: both;
+	margin: 0px 0px 4px 0px;
+	font-size: #GET{font-size1}px;
+	/*margin-top: 8%;
+	width: 100%;
+	border-radius: 5px 5px 0px 0px;*/
+}
+
+#menu_bas.zone-menu h3.first {
+	margin-top: 4%;
+}
+
+#menu_bas .col {
+	float: left;
+	padding: 10px 6px 0px 0px;
+}
+
+/* Menu Haut */
+
+#menu_haut.zone-menu .option-combo li, #menu_haut.zone-menu .option-combo form {
+	height: 25px;
+	margin-bottom: 0px;
+}
+
+.zone-menu .option-combo li.double  {
+	width: 93px;
+}
+
+.zone-menu .option-combo form, .zone-menu .option-combo li.triple  {
+	width: 150px;
+}
+
+#menu_haut.zone-menu .bordure_gauche {
+	border-left: 1px solid #GET{gris_fonce};
+}
+
+#menu_haut.zone-menu .bordure_droite {
+	border-right: 1px solid #GET{gris_fonce};
+}
+
 #menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
 	background-color: transparent;
 	/*border-right: 1px solid #000;*/
 	color: #GET{gris_fonce};
+	overflow: hidden;
 }
 
-#menu_haut.zone-menu li a:hover, #menu_haut.zone-menu select:hover  {
-	/*background-color: #000;*/
-	background-color: #GET{gris_fonce};	
+#menu_haut.zone-menu li a:hover  {
+	background-color: #GET{color_menu_hover};	
 	color: #fff;
-}
-#menu_haut.zone-menu select option:hover, #menu_haut.zone-menu option  {
-	background-color: #fff;
-	color: #GET{gris_fonce};
 }
 
 #menu_haut.zone-menu .col2.droite {
@@ -494,14 +491,7 @@ a.col2:hover{
 }
 
 
-.zone-menu li a:hover {
-	background-color: #GET{gris_fonce};
-}
-
-.zone-menu li a.selected  {
-	cursor: default;
-	border: 0px solid #fff;
-}
+/*Surcharges mode 1024*/
 
 @media screen and (max-width: 1280px) {
 	.zone-menu h3 { font-size: #GET{font-size1_bas}px; padding: 2px;}
@@ -532,6 +522,7 @@ a.col2:hover{
 	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 }
 
+/* Pictos bas */
 <BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consigne,reponse,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
@@ -545,6 +536,7 @@ a.col2:hover{
 	#menu_bas.zone-menu li a.[logo_menu-(#VALEUR)]:hover, .zone-menu li a.[logo_menu-(#VALEUR)].selected{background-color: #GET{col};}
 </BOUCLE_vue>
 
+/* Pictos haut */
 <BOUCLE_vue2(DATA){liste aide,presentation,deconnecter,connecter,prive,ecrire,mdpperdu,inscription,profil-publication}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
@@ -554,7 +546,7 @@ a.col2:hover{
 	[(#SET{img2,#GET{file}|image_gamma{255}|image_reduire{15}|extraire_attribut{src}})]
 	[(#SET{col1,[(#GET{file}|couleur_extraire)]})]
 	#SET{col,#000}
-	#SET{col,#GET{gris_fonce}}	
+	#SET{col,#GET{color_menu_hover}}	
 	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]{background-image: url(#GET{img});}
 	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]:hover{background-color: #GET{col};background-image: url(#GET{img2});}
 	[(#VALEUR|=={ecrire}|oui)
@@ -562,20 +554,47 @@ a.col2:hover{
 	]
 </BOUCLE_vue2>
 
+/*Select*/
+	.select-wrapper{
+		float: left;
+		display: inline-block;
+		border: 0px solid #GET{color_menu_hover};
+		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right transparent;
+		cursor: pointer;
+	}
+	.select-wrapper, .select-wrapper select{
+		height: 26px;
+		line-height: 26px;
+		color: #000;
+	}
+	.select-wrapper:hover{
+		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right center;
+		color: #GET{color_menu_hover};
+	}
+	.select-wrapper .holder{
+		display: block;
+		margin: 0 35px 0 5px;
+		white-space: nowrap;
+		overflow: hidden;
+		cursor: pointer;
+		position: relative;
+		z-index: -1;
+	}
+	.select-wrapper select{
+		margin: 0;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
 
-.zone-menu .option-combo li:last-child a {
-  /*
-  border-radius: 0 7px 7px 0;
-  */
-}
-.zone-menu .option-combo h2,
-.zone-menu .option-combo h4 {
-  line-height: 34px;
-  margin-bottom: 0;
-  margin-right: 5px;
-  display: inline-block;
-  vertical-align: top;
-}
 
 /* --------- Classes --------- */
 
@@ -608,6 +627,7 @@ a.col2:hover{
 
 #menu_haut.zone-menu .bloc2 a:hover {
 	font-size: #GET{font-size1}px;
+	background-color: #GET{gris_fonce};
 	color: #fff;
 	/*border-top: 2px #000 solid;*/
 }

@@ -4,36 +4,36 @@ var g_loaded = false;
 // init
 ////////////////////////////////////////////////////////////////
 function init(){
-        // init le document
-		    g_zone = document.getElementById("zone");
-		    g_zone.onmousedown = mouse_down;
-		    g_zone.onmouseup = mouse_up;
-		    g_zone.onmousemove = mouse_move;
-		    g_projet = new projet();
+// init le document
+    g_zone = document.getElementById("zone");
+    g_zone.onmousedown = mouse_down;
+    g_zone.onmouseup = mouse_up;
+    g_zone.onmousemove = mouse_move;
+    g_projet = new projet();
 
-        // init les globales
-		    g_frame = 0;
-		    g_click_reponse = false;
-		    g_hide_travaux = false;
-		    g_hide_articles_blog = false;
-		    g_hide_articles_evenement = false;
-		    g_classes = [];
-		    g_classe_index = 0;
-		    g_consignes = [];
-		    g_consigne_index = 0;
-		    g_reponses = [];
-		    g_reponse_index = 0;
-		    g_articles_blog = [];
-		    g_article_blog_index = 0;
-		    g_articles_evenement = [];
-		    g_article_evenement_index = 0;
-			/*g_bouton_plus = new bouton();*/
-			g_couleur_blog = '';
-		  	g_duration_def = 800;
-			stop_action ();
-      	
-      	// chargement du projet -> c'est parti
-			projet_load(g_u_xml+"projet");
+// init les globales
+    g_frame = 0;
+    g_click_reponse = false;
+    g_hide_travaux = false;
+    g_hide_articles_blog = false;
+    g_hide_articles_evenement = false;
+    g_classes = [];
+    g_classe_index = 0;
+    g_consignes = [];
+    g_consigne_index = 0;
+    g_reponses = [];
+    g_reponse_index = 0;
+    g_articles_blog = [];
+    g_article_blog_index = 0;
+    g_articles_evenement = [];
+    g_article_evenement_index = 0;
+	/*g_bouton_plus = new bouton();*/
+	g_couleur_blog = '';
+  	g_duration_def = 800;
+	stop_action ();
+	
+	// chargement du projet -> c'est parti
+	projet_load(g_u_xml+"projet");
 }
 
 ////////////////////////////////////////////////////////////////

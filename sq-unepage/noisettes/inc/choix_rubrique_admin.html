@@ -22,7 +22,8 @@
 ]
 
 [(#REM) Admin restreint]
-	<B_rub_aut2>[(#GET{affiche}|=={oui}|oui)<form id="choix_rubrique_admin" name="rubrique_admin"><select onchange="reload_cookie('','[(#EVAL{_cookie_rubrique})]',document.rubrique_admin.rubrique_admin.value)" name="rubrique_admin" [title="(#GET{titre}|attribut_html)"]><option>Profil de publication</option>)]
+	<B_rub_aut2>[(#GET{affiche}|=={oui}|oui)<form id="choix_rubrique_admin" name="rubrique_admin">
+	<select class="custom-select" onchange="reload_cookie('','[(#EVAL{_cookie_rubrique})]',document.rubrique_admin.rubrique_admin.value)" name="rubrique_admin" [title="(#GET{titre}|attribut_html)"]><option>Profil de publication</option>)]
 	<BOUCLE_rub_aut2(rubriques auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
 		[(#GET{affiche}|=={oui}|oui)<option value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" [(#ID_RUBRIQUE|=={#ENV{restreint}}|oui) selected ]>[(#TITRE|supprimer_numero|couper{18})]</option>)]
 		<BOUCLE_rub4(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
@@ -31,7 +32,8 @@
 	</BOUCLE_rub_aut2></select></form>
 	</B_rub_aut2>
 		[(#REM) Admin complet]
-		<B_rub2>[(#GET{affiche}|=={oui}|oui)<form name="rubrique_admin"><select onchange="reload_cookie('','[(#EVAL{_cookie_rubrique})]',document.rubrique_admin.rubrique_admin.value)" name="rubrique_admin" [title="(#GET{titre}|attribut_html)"]><option>Profil de publication</option>)]
+		<B_rub2>[(#GET{affiche}|=={oui}|oui)<form name="rubrique_admin">
+		<select class="custom-select" onchange="reload_cookie('','[(#EVAL{_cookie_rubrique})]',document.rubrique_admin.rubrique_admin.value)" name="rubrique_admin" [title="(#GET{titre}|attribut_html)"]><option>Profil de publication</option>)]
 		<BOUCLE_rub2(RUBRIQUES){id_parent=0}{par num titre}{tout}>
 			[(#GET{affiche}|=={oui}|oui)<option value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" [(#ID_RUBRIQUE|=={#ENV{restreint}}|oui) selected ]>[(#TITRE|supprimer_numero|couper{18})]</option> )]
 				<BOUCLE_rub3(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>

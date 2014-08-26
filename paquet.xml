@@ -16,6 +16,8 @@
     <necessite nom="crayons" />
     <necessite nom="cicas" />
     <necessite nom="jqueryui" compatibilite="[1.8.21;[" />
+    
+    <utilise nom="notations" />
 
     <menu nom="configurer_th" titre="th:configurer_th" parent="menu_squelette"/>
 
