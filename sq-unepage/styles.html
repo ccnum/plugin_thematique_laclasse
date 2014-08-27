@@ -74,8 +74,8 @@ background-clip:padding-box;
 -ms-border-radius:0;
 -o-border-radius:0;
 border-radius:0;
-padding-top: 2px;
-
+padding: 0px;
+margin: 0px;
 /*
 text-align: center;
 line-height: 1em;
@@ -386,6 +386,7 @@ a:hover{
 
 .zone-menu li a:hover {
 	background-color: #GET{gris_fonce};
+	color: #fff;
 }
 
 .zone-menu li a.selected  {
@@ -394,23 +395,127 @@ a:hover{
 }
 
 .zone-menu, .zone-menu li a {
-  height: 100%;
-  width: 100%;
-  margin: 0px auto;
-  font-size: #GET{font-size1};
-  vertical-align: middle;
-  text-align: center;
+	height: 100%;
+	width: 100%;
+	margin: 0px auto;
+	font-size: #GET{font-size1};
+	vertical-align: middle;
+	text-align: center;
 }
 
 .zone-menu li a, .zone-menu select, .zone-menu option{
-  display: block;
-  border: 0px solid #fff;
-  background-position:center;
-  background-repeat:no-repeat;
-  background-color: #GET{gris_clair};
-  cursor: pointer;
-  color: #fff;  
+	display: block;
+	border: 0px solid #fff;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-color: #GET{gris_clair};
+	cursor: pointer;
+	color: #fff;  
 }
+
+/* Menu Haut */
+#menu_haut {
+	font-size: #GET{font-size1}px;
+}
+
+#menu_haut.zone-menu .bloc1 a {
+	background-color: #000;
+	color: #fff;
+	font-weight: bold;
+}
+
+#menu_haut.zone-menu .bloc2 a {
+	color: #GET{gris_fonce};
+	font-weight: bold;
+	/*border-top: 2px #000 solid;*/
+}
+
+#menu_haut.zone-menu .bloc2 a:hover {
+	color: #fff;
+	background-color: #GET{color_menu_hover};
+	/*border-top: 2px #000 solid;*/
+}
+
+#menu_haut.zone-menu .option-combo li, #menu_haut.zone-menu .option-combo form {
+	height: 25px;
+	margin-bottom: 0px;
+}
+
+#menu_haut.zone-menu .option-combo li.double  {
+	width: 93px;
+}
+
+#menu_haut.zone-menu .option-combo form, .zone-menu .option-combo li.triple  {
+	width: 150px;
+}
+
+#menu_haut.zone-menu .bordure_gauche {
+	border-left: 1px solid #GET{gris_fonce};
+}
+
+#menu_haut.zone-menu .bordure_droite {
+	border-right: 1px solid #GET{gris_fonce};
+}
+
+#menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
+	background-color: transparent;
+	/*border-right: 1px solid #000;*/
+	color: #GET{gris_fonce};
+	overflow: hidden;
+}
+
+#menu_haut.zone-menu li a:hover  {
+	background-color: #GET{color_menu_hover};	
+	color: #fff;
+}
+
+#menu_haut.zone-menu .col2.droite {
+	border-left: 1px solid	#fff;
+}
+
+
+/*Select*/
+	.select-wrapper{
+		float: left;
+		display: inline-block;
+		border: 0px solid #fff;
+		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right transparent;
+		cursor: pointer;
+		margin: 0px;
+		padding: 0px;
+	}
+	.select-wrapper, .select-wrapper select{
+		color: #000;
+	}
+	.select-wrapper:hover{
+		color: #ffffff;
+		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right center #GET{color_menu_hover};
+		border: 0px solid #GET{color_menu_hover};
+	}
+	.select-wrapper .holder{
+		display: block;
+		margin: 0 35px 0 5px;
+		white-space: nowrap;
+		overflow: hidden;
+		cursor: pointer;
+		position: relative;
+		z-index: -1;
+	}
+	.select-wrapper select{
+		margin: 0;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
+
 
 /* Menu Bas */
 
@@ -451,43 +556,8 @@ a:hover{
 	padding: 10px 6px 0px 0px;
 }
 
-/* Menu Haut */
-
-#menu_haut.zone-menu .option-combo li, #menu_haut.zone-menu .option-combo form {
-	height: 25px;
-	margin-bottom: 0px;
-}
-
-.zone-menu .option-combo li.double  {
-	width: 93px;
-}
-
-.zone-menu .option-combo form, .zone-menu .option-combo li.triple  {
-	width: 150px;
-}
-
-#menu_haut.zone-menu .bordure_gauche {
-	border-left: 1px solid #GET{gris_fonce};
-}
-
-#menu_haut.zone-menu .bordure_droite {
-	border-right: 1px solid #GET{gris_fonce};
-}
-
-#menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
-	background-color: transparent;
-	/*border-right: 1px solid #000;*/
-	color: #GET{gris_fonce};
-	overflow: hidden;
-}
-
-#menu_haut.zone-menu li a:hover  {
-	background-color: #GET{color_menu_hover};	
-	color: #fff;
-}
-
-#menu_haut.zone-menu .col2.droite {
-	border-left: 1px solid	#fff;
+#zone_bas, #zone_bas a, .zone-menu, .zone-menu a{
+	font-size: #GET{font-size1_bas}px;
 }
 
 
@@ -510,6 +580,12 @@ a:hover{
 
 	.zone-menu .option-combo form, .zone-menu .option-combo li.double  {
 		width: 91px;
+	}
+
+	.zone-menu h3 { font-size: #GET{font-size1_bas}px; }
+	.zone-menu .titre3, .zone-menu .titre3 a{
+	font-size:#GET{font-size2}px;
+	line-height:#GET{font-size2}px;
 	}
 
 	/* 30*n - 3 */
@@ -554,121 +630,28 @@ a:hover{
 	]
 </BOUCLE_vue2>
 
-/*Select*/
-	.select-wrapper{
-		float: left;
-		display: inline-block;
-		border: 0px solid #GET{color_menu_hover};
-		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right transparent;
-		cursor: pointer;
-	}
-	.select-wrapper, .select-wrapper select{
-		height: 26px;
-		line-height: 26px;
-		color: #000;
-	}
-	.select-wrapper:hover{
-		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right center;
-		color: #GET{color_menu_hover};
-	}
-	.select-wrapper .holder{
-		display: block;
-		margin: 0 35px 0 5px;
-		white-space: nowrap;
-		overflow: hidden;
-		cursor: pointer;
-		position: relative;
-		z-index: -1;
-	}
-	.select-wrapper select{
-		margin: 0;
-		position: absolute;
-		z-index: 2;            
-		cursor: pointer;
-		outline: none;
-		opacity: 0;
-		/* CSS hacks for older browsers */
-		_noFocusLine: expression(this.hideFocus=true); 
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-		-khtml-opacity: 0;
-		-moz-opacity: 0;
-	}
 
 
 /* --------- Classes --------- */
-
-#zone_bas, #zone_bas a, .zone-menu, .zone-menu a{
-	font-size: #GET{font-size1_bas}px;
-}
-
-.titre3, .titre3 a, .titre3 a:hover, #zone_bas .titre3, #zone_bas .titre3 a,
-.zone-menu .titre3, .zone-menu .titre3 a{
-	font-size: #GET{font-size2}px;
-	line-height: #GET{font-size2}px;
-	/*margin-bottom: 5px;*/
-}
-
-.zone-menu .titre3 {
-	margin: 10px 5px 0px 4px;
-}
-
-#menu_haut.zone-menu .bloc1 a {
-	font-size: #GET{font-size1}px;
-	background-color: #000;
-	color: #fff;
-}
-
-#menu_haut.zone-menu .bloc2 a {
-	font-size: #GET{font-size1}px;
-	color: #GET{gris_fonce};
-	/*border-top: 2px #000 solid;*/
-}
-
-#menu_haut.zone-menu .bloc2 a:hover {
-	font-size: #GET{font-size1}px;
-	background-color: #GET{gris_fonce};
-	color: #fff;
-	/*border-top: 2px #000 solid;*/
-}
-
-
-@media screen and (max-width: 1280px) {
-	.zone-menu h3 { font-size: #GET{font-size1_bas}px; }
-	.zone-menu .titre3, .zone-menu .titre3 a{
-	font-size:#GET{font-size2}px;
-	line-height:#GET{font-size2}px;
-	}
-}
 
 .titre2{
 	font-size:#GET{font-size2}px;
 	line-height:#GET{font-size2}px;
 }
 
+/*
 div.sous-colonne{
 	float: left;
 	width: 33%;
 	text-align: left;
-	/*overflow: hidden;
-	line-height: 27px;*/
 	height: 30px;
 	overflow: hidden;
-	/*margin-top: [(#GET{line-height1}|div{3})]px;
-	margin-bottom: [(#GET{line-height1}|div{3})]px;	
-	margin-right: #GET{line-height1}px;
-	margin-bottom: #GET{line-height1}px;	
-	margin-left: 3px;
-	padding-left: 3px;
-	height: 25px;
-	vertical-align: middle;
-	line-height: 25px;*/
 }
 
 div.sous-colonne2{
 	width: [(#GET{largeur_souscol}|mult{2})]px;
 }
-
+*/
 
 .consigne_reponses{
 	width: 26px;
