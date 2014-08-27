@@ -473,35 +473,26 @@ a:hover{
 	border-left: 1px solid	#fff;
 }
 
-
 /*Select*/
 	.select-wrapper{
 		float: left;
 		display: inline-block;
 		border: 0px solid #fff;
-		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right transparent;
+		background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
 		cursor: pointer;
 		margin: 0px;
 		padding: 0px;
 	}
-	.select-wrapper, .select-wrapper select{
-		color: #000;
-	}
-	.select-wrapper:hover{
-		color: #ffffff;
-		background: url(#CHEMIN{img/arrow_select.png}) no-repeat right center #GET{color_menu_hover};
-		border: 0px solid #GET{color_menu_hover};
-	}
 	.select-wrapper .holder{
 		display: block;
-		margin: 0 35px 0 5px;
+		margin: 0 25px 0 5px;
 		white-space: nowrap;
 		overflow: hidden;
 		cursor: pointer;
 		position: relative;
-		z-index: -1;
+		z-index: 3;
 	}
-	.select-wrapper select{
+	.select-wrapper select, .select-wrapper option{
 		margin: 0;
 		position: absolute;
 		z-index: 2;            
@@ -514,6 +505,19 @@ a:hover{
 		filter: alpha(opacity=0);
 		-khtml-opacity: 0;
 		-moz-opacity: 0;
+	}
+
+	.select-wrapper .holder{
+		color: #000;
+	}
+
+	.select-wrapper:hover, .select-wrapper select:hover, .select-wrapper:hover .holder{
+		color: #fff;
+		background-color: #GET{color_menu_hover};
+	}	
+	.select-wrapper:hover{
+		background: url(#CHEMIN{img/arrow_select_blanc.png}) no-repeat 95% 50%  #GET{color_menu_hover};
+		border: 0px solid #GET{color_menu_hover};
 	}
 
 

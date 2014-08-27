@@ -30,7 +30,7 @@
 				<!--<li class="bordure_gauche"><a class="ajax logo_menu-connecter profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;"></a></li>
 				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><div class="titre noir">[(#SESSION{nom}|couper{10})]</div></a></li>
 				-->
-				<li class="double bordure_gauche"><a class="ajax profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;" ><div class="titre noir">[(#SESSION{nom}|couper{10})]</div></a></li>
+				<li class="double bordure_gauche"><a class="ajax profil noir titre" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;" >[(#SESSION{nom}|couper{10})]</a></li>
 	
 				<!--[(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui)<li class="sous-colonne"><a href="ecrire" class="ajax0  logo_menu-prive" title="Espace privé"></a></li>]-->
 				<li class=""><a class="ajax logo_menu-deconnecter" href="<?php echo $url_logout; ?>" title="Se déconnecter"></a></li>
