@@ -76,6 +76,7 @@ background-clip:padding-box;
 border-radius:0;
 padding: 0px;
 margin: 0px;
+border: 0px;
 /*
 text-align: center;
 line-height: 1em;
@@ -363,39 +364,14 @@ a:hover{
 
 /* Zone-menu */
 
-.zone-menu li, #menu_haut.zone-menu li.logo, .zone-menu form  {
+.zone-menu li, .zone-menu form  {
 	float: left;
 	display: block;
-	width: 31px;
 }
 
-.zone-menu li a:hover {
-	background-color: #GET{gris_fonce};
-	color: #fff;
-}
-
-.zone-menu li a.selected  {
-	cursor: default;
-	border: 0px solid #fff;
-}
-
-.zone-menu, .zone-menu li a {
-	height: 100%;
-	width: 100%;
-	margin: 0px auto;
-	font-size: #GET{font-size1};
-	vertical-align: middle;
-	text-align: center;
-}
-
-.zone-menu li a, .zone-menu select, .zone-menu option{
-	display: block;
-	border: 0px solid #fff;
-	background-position:center;
-	background-repeat:no-repeat;
-	background-color: #GET{gris_clair};
-	cursor: pointer;
-	color: #fff;  
+.zone-menu li a:hover, .zone-menu li a {
+	background-color: inherit;
+	color: inherit;
 }
 
 /* Menu Haut */
@@ -408,44 +384,40 @@ a:hover{
 	height: 25px;
 	margin-bottom: 0px;
 	width: initial;
-	padding: 0px 10px 0px 10px;
-}
-
-#menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
-	background-color: transparent;
-	/*border-right: 1px solid #000;*/
+	background-color: #fff;
 	color: #GET{gris_fonce};
 	overflow: hidden;
 }
 
-#menu_haut.zone-menu li a:hover  {
+#menu_haut.zone-menu li {
+	padding: 0px 15px 0px 15px;
+}
+
+#menu_haut.zone-menu form {
+	padding: 0px;
+}
+
+#menu_haut.zone-menu li a:hover, #menu_haut.zone-menu form:hover {
 	background-color: #GET{color_menu_hover};	
 	color: #fff;
 }
 
-#menu_haut.zone-menu .bloc1 a {
+#menu_haut.zone-menu li.bloc1 {
 	background-color: #000;
 	color: #fff;
 	font-weight: bold;
 }
 
-#menu_haut.zone-menu .bloc2 a {
+#menu_haut.zone-menu li.bloc2 {
 	color: #GET{gris_fonce};
 	font-weight: bold;
 	/*border-top: 2px #000 solid;*/
 }
 
-#menu_haut.zone-menu .bloc2 a:hover {
+#menu_haut.zone-menu li.bloc2:hover {
 	color: #fff;
 	background-color: #GET{color_menu_hover};
 	/*border-top: 2px #000 solid;*/
-}
-
-
-#menu_haut.zone-menu li.double  {
-}
-
-#menu_haut.zone-menu form, .zone-menu li.triple  {
 }
 
 #menu_haut.zone-menu .bordure_gauche {
@@ -456,57 +428,73 @@ a:hover{
 	border-right: 1px solid #GET{gris_fonce};
 }
 
-
-
 #menu_haut.zone-menu .col2.droite {
 	border-left: 1px solid	#fff;
 }
 
 /*Select*/
-	.select-wrapper{
-		display: inline-block;
-		border: 0px solid #fff;
-		background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
-		cursor: pointer;
-		margin: 0px;
-		padding: 0px;
-	}
-	.select-wrapper .holder{
-		display: block;
-		margin: 0 35px 0 20px;
-		white-space: nowrap;
-		overflow: hidden;
-		cursor: pointer;
-		position: relative;
-		z-index: 3;
-	}
-	.select-wrapper select, .select-wrapper option{
-		margin: 0;
-		position: absolute;
-		z-index: 2;            
-		cursor: pointer;
-		outline: none;
-		opacity: 0;
-		/* CSS hacks for older browsers */
-		_noFocusLine: expression(this.hideFocus=true); 
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-		-khtml-opacity: 0;
-		-moz-opacity: 0;
-	}
+#menu_haut.zone-menu select {
+	color: #fff;
+	background-color: #GET{color_menu_hover};
+  border-width: 0;
+}
 
-	.select-wrapper .holder{
-		color: #000;
-	}
+.select-wrapper{
+	display: inline-block;
+	background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
+	cursor: pointer;
+	margin-top: 0px;
+	padding: 0px;
+}
+.select-wrapper .holder{
+	display: block;
+	margin: 0 35px 0 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
+.select-wrapper select{
+	height: 25px;
+	margin: 0;
+	position: absolute;
+	z-index: 2;            
+	cursor: pointer;
+	outline: none;
+	opacity: 0;
+	/* CSS hacks for older browsers */
+	_noFocusLine: expression(this.hideFocus=true); 
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+}
 
-	.select-wrapper:hover, .select-wrapper select:hover, .select-wrapper:hover .holder{
-		color: #fff;
-		background-color: #GET{color_menu_hover};
-	}	
-	.select-wrapper:hover{
-		background: url(#CHEMIN{img/arrow_select_blanc.png}) no-repeat 95% 50%  #GET{color_menu_hover};
-		border: 0px solid #GET{color_menu_hover};
-	}
+.select-wrapper option {
+	background-color: #fff;
+	color: #GET{color_menu_hover};
+	border: 0px;
+	font-size: #GET{font-size1}px;
+	font-weight: bold;
+}
+.select-wrapper option:hover {
+	color: #fff;
+	background-color: #GET{color_menu_hover};
+}
+
+.select-wrapper .holder{
+	color: #000;
+}
+
+.select-wrapper select:hover, .select-wrapper:hover .holder{
+	color: #fff;
+	background-color: #GET{color_menu_hover};
+}	
+.select-wrapper:hover{
+	background: url(#CHEMIN{img/arrow_select_blanc.png}) no-repeat 95% 50%  #GET{color_menu_hover};
+	border: 0px solid #GET{color_menu_hover};
+}
 
 
 /* Menu Bas */
@@ -518,14 +506,13 @@ a:hover{
 	float: left;
 }
 
-/* 35*n - 4 */
-#SET{lar_col,35}
-#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
-#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
-#menu-consignes {width: [(#GET{lar_col}|mult{8}|moins{4})]px;}
-#menu-classes {width: [(#GET{lar_col}|mult{10}|moins{4})]px;}
-#menu-medias {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
-#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
+#SET{lar_col,35} /* 35*n - 4 */
+	#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
+	#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
+	#menu-consignes {width: [(#GET{lar_col}|mult{8}|moins{4})]px;}
+	#menu-classes {width: [(#GET{lar_col}|mult{10}|moins{4})]px;}
+	#menu-medias {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
+	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
 
 #menu_bas.zone-menu li, #menu_bas.zone-menu form {
 	height: 31px;
@@ -587,8 +574,7 @@ a:hover{
 	line-height:#GET{font-size2}px;
 	}
 
-	/* 30*n - 3 */
-	#SET{lar_col,30}
+	#SET{lar_col,30} 	/* 30*n - 3 */
 	#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 	#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{3})]px;}
 	#menu-consignes {width: [(#GET{lar_col}|mult{7}|moins{3})]px;}
@@ -597,7 +583,38 @@ a:hover{
 	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 }
 
-/* Pictos bas */
+/* Logos */
+
+#menu_bas.zone-menu li.logo, #menu_haut.zone-menu li.logo {
+	background-color: #GET{gris_clair};
+	cursor: pointer;
+	width: 31px;
+	padding: 0px;
+}
+
+#menu_bas.zone-menu li.logo a, #menu_haut.zone-menu li.logo a {
+	height: 100%;
+	width: 100%;
+	margin: 0px auto;
+	font-size: #GET{font-size1};
+	vertical-align: middle;
+	text-align: center;
+	display: block;
+	background-position:center;
+	background-repeat:no-repeat;
+	color: #fff;
+}
+
+.zone-menu li.logo a:hover {
+	background-color: #GET{gris_fonce};
+	color: #fff;
+}
+
+.zone-menu li.logo a.selected  {
+	cursor: default;
+	border: 0px solid #fff;
+}
+
 <BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consigne,reponse,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
@@ -622,14 +639,12 @@ a:hover{
 	[(#SET{col1,[(#GET{file}|couleur_extraire)]})]
 	#SET{col,#000}
 	#SET{col,#GET{color_menu_hover}}	
-	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]{background-image: url(#GET{img});}
+	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]{background-color: #fff; background-image: url(#GET{img});}
 	#menu_haut.zone-menu li a.[logo_menu-(#VALEUR)]:hover{background-color: #GET{col};background-image: url(#GET{img2});}
 	[(#VALEUR|=={ecrire}|oui)
 		.zone-menu li a.[logo_menu-(#VALEUR)], .zone-menu li a.[logo_menu-(#VALEUR)]:hover{background-color: [#(#GET{col1};)]}
 	]
 </BOUCLE_vue2>
-
-
 
 /* --------- Classes --------- */
 
@@ -742,12 +757,6 @@ div.sous-colonne2{
 .classe_select{
 	height:0px;
 	margin:0 0 10px 0;
-}
-
-
-#zone_bas archive_select, #zone_bas option, #zone_bas select, .zone-menu select  {
-	/*width: #GET{largeur_souscol};
-	width: 80%;*/
 }
 
 #connexion input {

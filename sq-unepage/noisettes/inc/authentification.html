@@ -28,16 +28,15 @@
 				]
 
 				<!--<li class="bordure_gauche"><a class="ajax_menu-connecter profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;"></a></li>
-				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><div class="titre noir">[(#SESSION{nom}|couper{10})]</div></a></li>
-				-->
-				<li class="double bordure_gauche"><a class="ajax profil noir titre" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;" >[(#SESSION{nom}|couper{10})]</a></li>
-	
+				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><div class="titre noir">[(#SESSION{nom}|couper{10})]</div></a></li>-->
+				<li class="bloc2 bordure_gauche"><a class="ajax profil noir titre" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;" >[(#SESSION{nom}|couper{10})]</a></li>
+
 				<!--[(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui)<li class="sous-colonne"><a href="ecrire" class="ajax0 _menu-prive" title="Espace privé"></a></li>]-->
-				<li class="logo"><a class="ajax_menu-deconnecter" href="<?php echo $url_logout; ?>" title="Se déconnecter"></a></li>
+				<li class="logo"><a class="ajax logo_menu-deconnecter" href="<?php echo $url_logout; ?>" title="Se déconnecter"></a></li>
 		]
 	[(#SESSION{statut}|non)
 			<li class=""></li>
-			<li class="nettoyeur0"><a href="[(#PLUGIN{CICAS}|oui|?{'?url=spip.php%3Fpage%3Dsommaire&cicas=oui','?page=login&url=.%2F'})]" onClick="show_connexion();" class="logo_menu-connecter" title="Se connecter"></a></li>
+			<li class="logo"><a href="[(#PLUGIN{CICAS}|oui|?{'?url=spip.php%3Fpage%3Dsommaire&cicas=oui','?page=login&url=.%2F'})]" onClick="show_connexion();" class="logo_menu-connecter" title="Se connecter"></a></li>
 			<li class="logo"><a href="<?php echo $url_inscription; ?>" class="logo_menu-inscription" title="S'inscrire"></a></li>
 			<li class="logo"><a href="<?php echo $url_pass_perdu; ?>" class="logo_menu-mdpperdu" title="Mot de passe perdu"></a></li>
 			[(#FORMULAIRE_LOGIN)]
