@@ -31,7 +31,7 @@ et/ou
 			<!--<h3 class="first">Général</h3>-->
 
 		[(#REM)Vues]
-			<div id="menu-vues" class="option-combo col">
+			<div id="menu-vues" class="col">
 				<h3>Vues</h3>
 			    <ul class="filter clearfix option-set vue">
 					[(#MODELE{logo_menu}{valeur=timeline}{class=selected}{title=Vue Ligne de temps})]
@@ -40,7 +40,7 @@ et/ou
 			</div>
 
 		[(#REM)Ressources]
-		    <div id="menu-ressources" class="option-combo col">
+		    <div id="menu-ressources" class="col">
 				<h3>Ressources</h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
 					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=showhide_travaux('show');}{title=Toutes les ressources})]
@@ -65,7 +65,7 @@ et/ou
 		    </div>
 
 		[(#REM)Consignes]
-			<div id="menu-consignes" class="option-combo col">
+			<div id="menu-consignes" class="col">
 				<h3>Consignes</h3>
 				<ul class="filter clearfix option-set" data-filter-group="consigne">
 					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les consignes}{onclick=g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);})]
@@ -90,7 +90,7 @@ et/ou
 			</div>
 
 		[(#REM)Classes]
-			<div id="menu-classes" class="option-combo col" >
+			<div id="menu-classes" class="col" >
 				<h3>Classes</h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
 			        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les classes})]
@@ -109,7 +109,7 @@ et/ou
 		<div id="menu-classe" [(#VUE|=={classe}|non) style="display:none;"]>
 
 			[(#REM)Médias]
-				<div id="menu-medias" class="option-combo col">
+				<div id="menu-medias" class="col">
 					<h3>Médias</h3>
 					<ul class="filter clearfix option-set ressource" data-filter-group="media">
 				        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Tous les médias})]
@@ -122,7 +122,7 @@ et/ou
 				</div>
 
 			[(#REM)Tri]
-				<div id="menu-tris" class="option-combo col">
+				<div id="menu-tris" class="col">
 					<h3>Tri</h3>
 					<ul id="sort-by" class="option-set clearfix" data-option-key="sortBy">
 						[(#MODELE{logo_menu}{valeur=date}{option=date}{title=Par date}{class=selected})]

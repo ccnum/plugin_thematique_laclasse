@@ -361,24 +361,9 @@ a:hover{
 
 /* --------- MENU --------- */
 
-/* Styles généraux */
+/* Zone-menu */
 
-.zone-menu .option-combo {
-	display: inline-block;
-	list-style: none outside none;
-	margin: 0px;
-	float: left;
-}
-
-.zone-menu .option-combo.droite {
-	float: right;
-}
-
-.zone-menu .option-combo ul {
-	width: 110%;
-}
-
-.zone-menu .option-combo li, .zone-menu .option-combo form  {
+.zone-menu li, #menu_haut.zone-menu li.logo, .zone-menu form  {
 	float: left;
 	display: block;
 	width: 31px;
@@ -416,6 +401,26 @@ a:hover{
 /* Menu Haut */
 #menu_haut {
 	font-size: #GET{font-size1}px;
+	width: initial;
+}
+
+#menu_haut.zone-menu li, #menu_haut.zone-menu form {
+	height: 25px;
+	margin-bottom: 0px;
+	width: initial;
+	padding: 0px 10px 0px 10px;
+}
+
+#menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
+	background-color: transparent;
+	/*border-right: 1px solid #000;*/
+	color: #GET{gris_fonce};
+	overflow: hidden;
+}
+
+#menu_haut.zone-menu li a:hover  {
+	background-color: #GET{color_menu_hover};	
+	color: #fff;
 }
 
 #menu_haut.zone-menu .bloc1 a {
@@ -436,17 +441,11 @@ a:hover{
 	/*border-top: 2px #000 solid;*/
 }
 
-#menu_haut.zone-menu .option-combo li, #menu_haut.zone-menu .option-combo form {
-	height: 25px;
-	margin-bottom: 0px;
+
+#menu_haut.zone-menu li.double  {
 }
 
-#menu_haut.zone-menu .option-combo li.double  {
-	width: 93px;
-}
-
-#menu_haut.zone-menu .option-combo form, .zone-menu .option-combo li.triple  {
-	width: 150px;
+#menu_haut.zone-menu form, .zone-menu li.triple  {
 }
 
 #menu_haut.zone-menu .bordure_gauche {
@@ -457,17 +456,7 @@ a:hover{
 	border-right: 1px solid #GET{gris_fonce};
 }
 
-#menu_haut.zone-menu li a, #menu_haut.zone-menu select, #menu_haut.zone-menu option{
-	background-color: transparent;
-	/*border-right: 1px solid #000;*/
-	color: #GET{gris_fonce};
-	overflow: hidden;
-}
 
-#menu_haut.zone-menu li a:hover  {
-	background-color: #GET{color_menu_hover};	
-	color: #fff;
-}
 
 #menu_haut.zone-menu .col2.droite {
 	border-left: 1px solid	#fff;
@@ -475,7 +464,6 @@ a:hover{
 
 /*Select*/
 	.select-wrapper{
-		float: left;
 		display: inline-block;
 		border: 0px solid #fff;
 		background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
@@ -485,7 +473,7 @@ a:hover{
 	}
 	.select-wrapper .holder{
 		display: block;
-		margin: 0 25px 0 5px;
+		margin: 0 35px 0 20px;
 		white-space: nowrap;
 		overflow: hidden;
 		cursor: pointer;
@@ -522,6 +510,13 @@ a:hover{
 
 
 /* Menu Bas */
+#menu_bas.zone-menu ul {
+	width: 110%;
+	display: inline-block;
+	list-style: none outside none;
+	margin: 0px;
+	float: left;
+}
 
 /* 35*n - 4 */
 #SET{lar_col,35}
@@ -532,7 +527,7 @@ a:hover{
 #menu-medias {width: [(#GET{lar_col}|mult{6}|moins{4})]px;}
 #menu-tris {width: [(#GET{lar_col}|mult{2}|moins{4})]px;}
 
-#menu_bas.zone-menu .option-combo li, #menu_bas.zone-menu .option-combo form  {
+#menu_bas.zone-menu li, #menu_bas.zone-menu form {
 	height: 31px;
 	line-height: 31px;
 	margin:0px 4px 4px 0px;
@@ -560,7 +555,7 @@ a:hover{
 	padding: 10px 6px 0px 0px;
 }
 
-#zone_bas, #zone_bas a, .zone-menu, .zone-menu a{
+#zone_bas, #zone_bas a {
 	font-size: #GET{font-size1_bas}px;
 }
 
@@ -569,20 +564,20 @@ a:hover{
 
 @media screen and (max-width: 1280px) {
 	.zone-menu h3 { font-size: #GET{font-size1_bas}px; padding: 2px;}
-	/*.zone-menu .option-combo ul#sort-direction li { float: right; margin: 0px 0px 4px 4px; }*/
-	#menu_bas.zone-menu .option-combo li, #menu_bas.zone-menu .option-combo form  {
+	/*.zone-menu ul#sort-direction li { float: right; margin: 0px 0px 4px 4px; }*/
+	#menu_bas.zone-menu li, #menu_bas.zone-menu form  {
 		width: 27px;
 		height: 27px;
 		margin:0px 3px 3px 0px;
 		line-height: 27px;
 	}
 
-	#menu_haut, #menu_haut.zone-menu .option-combo li, #menu_haut.zone-menu .option-combo form {
+	#menu_haut, #menu_haut.zone-menu li, #menu_haut.zone-menu form {
 		height: 22px;
 		line-height: 22px;
 	}
 
-	.zone-menu .option-combo form, .zone-menu .option-combo li.double  {
+	.zone-menu form, .zone-menu li.double  {
 		width: 91px;
 	}
 
