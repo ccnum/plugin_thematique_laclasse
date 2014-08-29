@@ -1,43 +1,22 @@
 #CACHE{0*3600}
-[(#REM)Variables]
-<?php
-	$url_logout = "spip.php?action=logout&logout=[(#SESSION{login})]&url=[(#URL_SITE_SPIP)]";
-	$url_login = "spip.php?page=login&url=spip%2Ephp%3Fpage%3Dsommaire";
-	$url_publier = "spip.php?page=login&url=spip%2Ephp";		
-	$url_inscription = "http://www.laclasse.com/pls/education/!page.laclasse?contexte=INSCRIPTION&rubrique=0";
-	//$url_pass_perdu = "spip.php?page=spip_pass";
-	$url_pass_perdu = "http://www.laclasse.com/pls/public/!page.laclasse?contexte=QUESTION&rubrique=0";
-	[(#REM)
-		[(#SESSION{pgp}|=={cybercolleges42}|oui)
-		$url_logout = "spip.php?action=logout&logout=[(#SESSION{login})]&url=https://cas.cybercolleges42.fr/logout?service=http%3A%2F%2Fwww.cybercolleges42.fr%2Flogout";
-		]
-	]
-?>
-
 <BOUCLE_restreint(RUBRIQUES){id_rubrique=#RESTREINT}>#SET{titre,#TITRE}</BOUCLE_restreint>
 [(#REM)Mire authentification]
 	[(#REM)Ajouter des images]
 		[(#SESSION{statut}|oui)
 				<li class="triple">vous publiez en tant que</li>				
-				<!--<li class=""><a class="logo_menu-profil-publication noir" onclick="classes_click([(#RESTREINT)]);" title="Profil de publication"></a></li>-->
-				<INCLURE{fond=noisettes/inc/choix_rubrique_admin}{restreint}{admin}>
+				<INCLURE{fond=noisettes/inc/choix_rubrique_admin2}{restreint}{admin}>
 				[(#RESTREINT|!={0}|oui|et{#RESTREINT|!={''}}|et{#TYPE_RESTREINT|!={''}}|et{#TYPE_RESTREINT|!={reponse}|oui}|oui)
 				<li class="logo"><a title="publier un nouvel article" class="logo_menu-ecrire" onClick='ajoutreponse_click(0, #RESTREINT);' >
 					<div id='reponse_plus2' class='bouton_article_plus' ></div>
 				</a></li>
 				]
-
-				<!--<li class="bordure_gauche"><a class="ajax_menu-connecter profil noir" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;"></a></li>
-				<li class="double"><a class="" [(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui) href="ecrire" title="Espace privé"] ><div class="titre noir">[(#SESSION{nom}|couper{10})]</div></a></li>-->
 				<li class="bloc2 bordure_gauche"><a class="ajax profil noir titre" href="spip.php?page=auteur_editer&id_auteur=[(#SESSION{id_auteur})]" title="&nbsp; Profil d'auteur &nbsp;" >[(#SESSION{nom}|couper{10})]</a></li>
-
-				<!--[(#ADMIN|=={0}|oui|ou{#SESSION{login}|=={ltartar}|oui}|oui)<li class="sous-colonne"><a href="ecrire" class="ajax0 _menu-prive" title="Espace privé"></a></li>]-->
-				<li class="logo"><a class="ajax logo_menu-deconnecter" href="<?php echo $url_logout; ?>" title="Se déconnecter"></a></li>
+				<li class="logo"><a class="ajax logo_menu-deconnecter" href="[(#URL_LOGOUT{#URL_SITE_SPIP})]" title="Se déconnecter"></a></li>
 		]
 	[(#SESSION{statut}|non)
-			<li class=""></li>
-			<li class="logo"><a href="[(#PLUGIN{CICAS}|oui|?{'?url=spip.php%3Fpage%3Dsommaire&cicas=oui','?page=login&url=.%2F'})]" onClick="show_connexion();" class="logo_menu-connecter" title="Se connecter"></a></li>
-			<li class="logo"><a href="<?php echo $url_inscription; ?>" class="logo_menu-inscription" title="S'inscrire"></a></li>
-			<li class="logo"><a href="<?php echo $url_pass_perdu; ?>" class="logo_menu-mdpperdu" title="Mot de passe perdu"></a></li>
-			[(#FORMULAIRE_LOGIN)]
+		<li class=""></li>
+		<li class="logo"><a href="[(#PLUGIN{CICAS}|oui|?{'?url=spip.php%3Fpage%3Dsommaire&cicas=oui','?page=login&url=.%2F'})]" onClick="show_connexion();" class="logo_menu-connecter" title="Se connecter"></a></li>
+		<li class="logo"><a href="[(#CONFIG{cicas/urlinscription}|sinon{http://www.laclasse.com/pls/education/!page.laclasse?contexte=INSCRIPTION&rubrique=0})]" class="logo_menu-inscription" title="S'inscrire"></a></li>
+		<li class="logo"><a href="http://www.laclasse.com/pls/public/!page.laclasse?contexte=QUESTION&rubrique=0" class="logo_menu-mdpperdu" title="Mot de passe perdu"></a></li>
+		[(#FORMULAIRE_LOGIN)]
 	]

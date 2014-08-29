@@ -35,6 +35,24 @@
 
 $().ready(function(){
 
+    //Select
+      /*$(".custom-select").each(function(){
+        $(this).wrap("<span class='select-wrapper'></span>");
+        $(this).after("<span class='holder'></span>");
+        var selectedOption = $(this).find(":selected").text();
+        $(this).next(".holder").text(selectedOption);
+      })*/
+
+      $('div[name=annee_scolaire] input[type=radio]').change( function() {
+        var valeur = $('div[name=annee_scolaire] input[type=radio]:checked').val()
+        reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',valeur)
+      });
+
+      $('div[name=rubrique_admin] input[type=radio]').change( function() {
+        var valeur = $('div[name=rubrique_admin] input[type=radio]:checked').val()
+        reload_cookie('','[(#EVAL{_cookie_rubrique})]',valeur)
+      });
+      
     //Tooltip 
       $("#menu_bas ul a").tooltip({
           position: {
@@ -146,7 +164,7 @@ $().ready(function(){
 ////////////////////////////////////////////////////////////////
 // Cookies
 ////////////////////////////////////////////////////////////////
-function reload_cookie(url,cookie_nom,cookie_valeur) {  
+function reload_cookie(url,cookie_nom,cookie_valeur) {
   //alert (cookie_valeur);
   document.cookie = cookie_nom + "=" + escape(cookie_valeur);
   reload(url);
