@@ -43,6 +43,11 @@ function th_upgrade($nom_meta_base_version, $version_cible){
 
     cextras_api_upgrade(th_declarer_champs_extras(), $maj['2.3.4']);
 
+    $maj['2.3.5'] = array(
+        array('sql_update','spip_auteurs',array('ent_statut' => 'bio')),
+        array('sql_update','spip_auteurs',array('ent' => 'pgp'))
+    );
+
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
