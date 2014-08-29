@@ -9,6 +9,7 @@ function th_declarer_champs_extras($champs = array()) {
         'label' => _T('th:ent'),
         'sql' => "varchar(255) NOT NULL DEFAULT ''",
         'defaut' => '',// Valeur par défaut
+        'disable' => 'disable',
         'restrictions'=>array('voir' => array('auteur' => ''),//Tout le monde peut voir
         'modifier' => array('auteur' => 'webmestre')),//Seuls les webmestres peuvent modifier
         ),
