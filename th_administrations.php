@@ -2,6 +2,9 @@
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
+include_spip('inc/cextras');
+include_spip('base/th_cextras');
+
 function th_upgrade($nom_meta_base_version, $version_cible){
 
 	$maj = array();
@@ -32,10 +35,13 @@ function th_upgrade($nom_meta_base_version, $version_cible){
 		//array('ecrire_meta','image_process','gd2');
 		//array('ecrire_meta','max_taille_vignettes','9000000');        
 	);
+    cextras_api_upgrade(th_declarer_champs_extras(), $maj['create']);
 
     $maj['2.3.3'] = array(
         array('th_configurer_site'),
     );
+
+    cextras_api_upgrade(th_declarer_champs_extras(), $maj['2.3.4']);
 
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
