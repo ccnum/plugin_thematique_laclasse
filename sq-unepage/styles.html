@@ -432,55 +432,47 @@ a:hover{
 	border-left: 1px solid	#fff;
 }
 
-/*Select v2 */
-.custom-select2 {
+
+/* Select */
+.select {
   height: 25px;
   line-height: 25px;
-  width: 100px;
+  width: 130px;
   position: relative;
   float: left;
   z-index: 5000;
+  margin-right: 10px;
+ }
+
+.select,
+.select div {
+  border-bottom: 1px solid #ccc;
+  background: #f5f5f5;
+  color: #bbb;
 }
-.custom-select2,
-.custom-select2 div {
-  border-bottom: 0px solid #ccc;
-  color: #000;
-  font-weight: bold;
-}
-.custom-select2 div { 
+.select div { 
   width: 100%;
   border-width: 0;
 }
-.custom-select2:hover div {
-  border-width: 0px;
-  color:  #000;
-  background-color: #fff;
+.select:hover div {
+  border-width: 1px; 
   position: absolute;
   z-index: 4;
   top: 30px;
 }
-.custom-select2:after {
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid #bbb;
-  content: '';
-  height: 0;
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  width: 0;
-  z-index: 3;
-}
-.custom-select2 label {
+
+.select label {
   height: 0;
   display: block;
   padding: 0 10px; 
-  word-wrap: normal;
+  word-wrap: break-word
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  font-weight: normal;
 }
-.custom-select2 input {
+
+.select input {
   max-height: 0;
   max-width: 0;
   filter:alpha(opacity=0);
@@ -489,24 +481,128 @@ a:hover{
   cursor: pointer;
   position: absolute;
   z-index: 2;
-  color: #GET{color_menu_hover};
-  background-color: #fff;   
 }
-.custom-select2 input:checked + label{ 
-	height: 25px;
-	color: #000;
-	background-color: #fff;
+.select input.first + label { 
+	height: 30px; 
+	font-weight: bold;
 }
-.custom-select2:hover input {
-  color : #GET{color_menu_hover};
-  background-color: #fff; 
+
+.select:hover input {
   min-height: 30px;
   min-width: 100%;
   height: 30px;
   width: 100%;
 }
-/* Change to ".custom-select2:hover div label" if you want to hide first option after select */
-.custom-select2:hover label {
+/*Déplie le carroussel*/
+.select:hover label {
+  height: 30px;
+  line-height: 30px; 
+  background-color: #fff;
+  -ms-transition:.25s ease-in-out;
+  -moz-transition:.25s ease-in-out;
+  -o-transition:.25s ease-in-out;
+  -webkit-transition:.25s ease-in-out;
+  transition:.25s ease-in-out;
+}
+.select input:hover + label, .select:hover input.first + label {
+	color: #fff; 
+	background-color: #GET{color_menu_hover};
+}
+
+/* Arrow */
+.select:after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #aaa;
+  content: '';
+  height: 0;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 0;
+  z-index: 3;
+}
+.select:hover:after { 
+	border-top-color: #fff;
+}
+
+
+
+/*Select v2 */
+.select2 {
+  height: 25px;
+  line-height: 25px;
+  width: 100px;
+  position: relative;
+  float: left;
+  z-index: 5000;
+}
+.select2,
+.select2 div {
+  border-bottom: 0px solid #ccc;
+  color: #000;
+  font-weight: bold;
+}
+.select2 div { 
+  width: 100%;
+  border-width: 0;
+}
+.select2:hover div {
+  border-width: 0px;
+  color:  #000;
+  background-color: #fff;
+  position: absolute;
+  z-index: 4;
+  top: 30px;
+}
+.select2:after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #000;
+  content: '';
+  height: 0;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  width: 0;
+  z-index: 3;
+}
+
+.select2 label {
+	height: 0px;
+  display: block;
+  padding: 0 10px; 
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.select2 input {
+  max-height: 0;
+  max-width: 0;
+  filter:alpha(opacity=0);
+  -moz-opacity: 0;
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  z-index: 2000;
+  color: #GET{color_menu_hover};
+  background-color: #fff;   
+}
+
+.select2 input.first + label { 
+  height: 25px;
+}
+
+.select2:hover input {
+  color : #GET{color_menu_hover};
+  background-color: #fff; 
+  min-height: 25px;
+  min-width: 100%;
+  height: 25px;
+  width: 100%;
+}
+.select2:hover label {
   height: 25px;
   line-height: 25px; 
   -ms-transition:.25s ease-in-out;
@@ -516,10 +612,9 @@ a:hover{
   transition:.25s ease-in-out;
 }
 
-.custom-select2:hover:after { /*border-top-color: #0f87e4;*/ }
-.custom-select2 input:hover + label, 
-.custom-select2:hover input:checked + label { color: #fff; background-color: #GET{color_menu_hover}; }
-.custom-select2 input:hover + label { color: #fff;   background-color: #GET{color_menu_hover}; }
+.select2 input:hover + label, 
+.select2:hover input:checked + label { color: #fff; background-color: #GET{color_menu_hover}; }
+.select2 input:hover + label { color: #fff;   background-color: #GET{color_menu_hover}; }
 
 /*Select
 #menu_haut.zone-menu select {
@@ -528,7 +623,7 @@ a:hover{
 	border-width: 0;
 }
 
-.select-wrapper{
+.select2-wrapper{
 	display: inline-block;
 	background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
 	cursor: pointer;
@@ -1659,3 +1754,5 @@ ul#forum, .lien_forum {
 
 .markItUp .markItUpHeader {display: none;
 }
+
+

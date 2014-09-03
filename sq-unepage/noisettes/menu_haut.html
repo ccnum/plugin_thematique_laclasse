@@ -22,8 +22,8 @@
 	</a>
 	-->
 </ul>
-<div name="annee_scolaire" class="custom-select2">
-	<input type="radio" name="action" value="#ENV{annee_scolaire}" checked><label>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
+<div class="select" name="annee_scolaire">
+	<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
     <div>
 		<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
 			[(#DATE|annee|afficher_options_date2{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
@@ -31,6 +31,21 @@
 	</div>
 </div>
 
+<script>
+$().ready(function(){
+      $('div[name=annee_scolaire] input[type=radio]').change( function() {
+        var valeur = $('div[name=annee_scolaire] input[type=radio]:checked').val()
+        alert (valeur);
+        reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',valeur)
+      });
+
+      $('div[name=rubrique_admin] input[type=radio]').change( function() {
+        var valeur = $('div[name=rubrique_admin] input[type=radio]:checked').val()
+        reload_cookie('','[(#EVAL{_cookie_rubrique})]',valeur)
+      });
+
+});
+</script>
 
 <ul class=" droite titre">
 	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>

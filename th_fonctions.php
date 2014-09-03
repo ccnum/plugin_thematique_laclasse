@@ -31,7 +31,7 @@ function afficher_options_date2($annee,$mois,$annee_scolaire)
     for ($i=$annee_actuelle;$i>=$annee;$i--) 
   {
     $j=$i+1;
-    $texte .= "<input type='radio' name='action' value='$i'><label>$i/$j</label>";
+    $texte .= "<input type='radio' value='$i'><label>$i/$j</label>";
   }
   return $texte;
 }
