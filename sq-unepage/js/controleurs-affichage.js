@@ -7,7 +7,9 @@
 // Controleurs affichage
 ////////////////////////////////////////////////////////////////
     function logo_menu_change_couleur(val){
-        $(val).parent().parent().parent().children("h3").css('background-color',$(val).css('background-color'));
+        var color = $(val).css('background-color');
+        //alert (color);
+        $(val).parent().parent().parent().children("h3").css('background-color',color);
       }
 
     function isotope_ressources_ferme_tout(){
@@ -103,17 +105,15 @@ $().ready(function(){
     //Fermeture du canvas
       $("#canvas_projet").click(function(){
         //alert ('ok');
-        //g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);      
+        //g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
       });
 
     //Initialisation des logos-menus
-      $("#menu_bas li a.selected").each(function (){ logo_menu_change_couleur(this); });
+      $("#menu_bas li.logo a.selected").each(function (){ logo_menu_change_couleur(this); });
       $('#menu_bas a[data-filter-value=".ressource_consignes"]').parent().stop().fadeOut(1000);
       $('#menu_bas a[data-filter-value=".ressource_reponses"]').parent().stop().fadeOut(1000);
 
-
   });
-
 
 ////////////////////////////////////////////////////////////////
 // Colorbox
