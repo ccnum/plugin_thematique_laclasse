@@ -35,7 +35,6 @@
 $().ready(function(){
       $('div[name=annee_scolaire] input[type=radio]').change( function() {
         var valeur = $('div[name=annee_scolaire] input[type=radio]:checked').val()
-        alert (valeur);
         reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',valeur)
       });
 

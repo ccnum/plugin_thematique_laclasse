@@ -24,15 +24,15 @@
 [(#REM) Admin restreint]
 	<B_rub_aut2>[(#GET{affiche}|=={oui}|oui)
 	<div id="choix_rubrique_admin" name="rubrique_admin" class="select">
-	<input type="radio" value="#ENV{restreint}" class="first"><label>[(#GET{titre}|supprimer_numero|couper{18})]</label>
+	<input type="radio" value="#ENV{restreint}" class="first"><label>[(#GET{titre}|supprimer_numero|couper{20})]</label>
 	]
 	
 	<BOUCLE_rub_aut2(rubriques auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
 		[(#GET{affiche}|=={oui}|oui)
-		<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]"><label>[(#TITRE|supprimer_numero|couper{18})]</label>
+		<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]"><label>[(#TITRE|supprimer_numero|couper{20})]</label>
 		]
 		<BOUCLE_rub4(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
-			[(#GET{affiche}|=={oui}|oui)<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" [(#ID_RUBRIQUE|=={#ENV{restreint}}|oui) selected ]><label>[(#TITRE|supprimer_numero|couper{18})]</label>
+			[(#GET{affiche}|=={oui}|oui)<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" [(#ID_RUBRIQUE|=={#ENV{restreint}}|oui) selected ]><label>[(#TITRE|supprimer_numero|couper{20})]</label>
 			]
 		</BOUCLE_rub4>
 	</BOUCLE_rub_aut2>
@@ -41,15 +41,15 @@
 		[(#REM) Admin complet]
 		<B_rub2>[(#GET{affiche}|=={oui}|oui)
 		<div id="choix_rubrique_admin" name="rubrique_admin" class="select">
-		<input type="radio" value="#ENV{restreint}" class="first"><label>[(#GET{titre}|supprimer_numero|couper{18})]</label>
+		<input type="radio" value="#ENV{restreint}" class="first"><label>[(#GET{titre}|supprimer_numero|couper{20})]</label>
 		]
 		<BOUCLE_rub2(RUBRIQUES){id_parent=0}{par num titre}{tout}>
 			[(#GET{affiche}|=={oui}|oui)
-			<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]"><label>[(#TITRE|supprimer_numero|couper{18})]</label> 
+			<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]"><label>[(#TITRE|supprimer_numero|couper{20})]</label> 
 			]
 				<BOUCLE_rub3(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
 					[(#GET{affiche}|=={oui}|oui)
-					<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" ><label>[(#TITRE|supprimer_numero|couper{18})]</label>
+					<input type="radio" value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" ><label>[(#TITRE|supprimer_numero|couper{20})]</label>
 					]
 				</BOUCLE_rub3>
 		</BOUCLE_rub2></div>

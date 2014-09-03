@@ -432,16 +432,19 @@ a:hover{
 	border-left: 1px solid	#fff;
 }
 
-
 /* Select */
 .select {
   height: 25px;
   line-height: 25px;
-  width: 130px;
   position: relative;
   float: left;
   z-index: 5000;
   margin-right: 10px;
+  width: 110px;
+ }
+
+ #choix_rubrique_admin.select {
+ 	width: 150px;
  }
 
 .select,
@@ -527,95 +530,6 @@ a:hover{
 }
 
 
-
-/*Select v2 */
-.select2 {
-  height: 25px;
-  line-height: 25px;
-  width: 100px;
-  position: relative;
-  float: left;
-  z-index: 5000;
-}
-.select2,
-.select2 div {
-  border-bottom: 0px solid #ccc;
-  color: #000;
-  font-weight: bold;
-}
-.select2 div { 
-  width: 100%;
-  border-width: 0;
-}
-.select2:hover div {
-  border-width: 0px;
-  color:  #000;
-  background-color: #fff;
-  position: absolute;
-  z-index: 4;
-  top: 30px;
-}
-.select2:after {
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid #000;
-  content: '';
-  height: 0;
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  width: 0;
-  z-index: 3;
-}
-
-.select2 label {
-	height: 0px;
-  display: block;
-  padding: 0 10px; 
-  word-wrap: normal;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.select2 input {
-  max-height: 0;
-  max-width: 0;
-  filter:alpha(opacity=0);
-  -moz-opacity: 0;
-  opacity: 0;
-  cursor: pointer;
-  position: absolute;
-  z-index: 2000;
-  color: #GET{color_menu_hover};
-  background-color: #fff;   
-}
-
-.select2 input.first + label { 
-  height: 25px;
-}
-
-.select2:hover input {
-  color : #GET{color_menu_hover};
-  background-color: #fff; 
-  min-height: 25px;
-  min-width: 100%;
-  height: 25px;
-  width: 100%;
-}
-.select2:hover label {
-  height: 25px;
-  line-height: 25px; 
-  -ms-transition:.25s ease-in-out;
-  -moz-transition:.25s ease-in-out;
-  -o-transition:.25s ease-in-out;
-  -webkit-transition:.25s ease-in-out;
-  transition:.25s ease-in-out;
-}
-
-.select2 input:hover + label, 
-.select2:hover input:checked + label { color: #fff; background-color: #GET{color_menu_hover}; }
-.select2 input:hover + label { color: #fff;   background-color: #GET{color_menu_hover}; }
-
 /*Select
 #menu_haut.zone-menu select {
 	color: #fff;
@@ -623,7 +537,7 @@ a:hover{
 	border-width: 0;
 }
 
-.select2-wrapper{
+.select-wrapper{
 	display: inline-block;
 	background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
 	cursor: pointer;
@@ -747,7 +661,7 @@ a:hover{
 		line-height: 22px;
 	}
 
-	.zone-menu form, .zone-menu li.double  {
+	.zone-menu form  {
 		width: 91px;
 	}
 
@@ -817,7 +731,7 @@ a:hover{
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img/logo_voir.png}} ]
-	[(#SET{img,#GET{file}|image_gamma{122}|image_reduire{15}|extraire_attribut{src}})]
+	[(#SET{img,#GET{file}|image_nb{330,330,330}image_reduire{15}|extraire_attribut{src}})]
 	[(#SET{img2,#GET{file}|image_gamma{255}|image_reduire{15}|extraire_attribut{src}})]
 	[(#SET{col1,[(#GET{file}|couleur_extraire)]})]
 	#SET{col,#000}
