@@ -5,7 +5,7 @@
         <a href="[(#URL_SITE_SPIP)]" title="Accueil">[(#NOM_SITE_SPIP)]</a>
     </li>
     <li class="double bloc2">
-        <a href="[(#CONFIG{th/site_ent_url})]" target="_blank" title="#CONFIG{th/site_parent_url}">#CONFIG{th/site_ent_nom}</a>
+        <a href="[(#CONFIG{th/site_ent_url}|sinon{http://www.laclasse.com})]" target="_blank" title="[(#CONFIG{th/site_ent_nom}|sinon{laclasse.com})]">[(#CONFIG{th/site_ent_nom}|sinon{laclasse.com})]</a>
     </li>
 	<li class="double bordure_gauche">année scolaire</li>
 	<!--	
@@ -21,15 +21,29 @@
 		</form>
 	</a>
 	-->
-</ul>
-<div class="select" name="annee_scolaire">
-	<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
-    <div>
-		<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
-			[(#DATE|annee|afficher_options_date2{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
-		</BOUCLE_date>
+	<div class="select" name="annee_scolaire">
+		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
+	    <div>
+			<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
+				[(#DATE|annee|afficher_options_date2{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
+			</BOUCLE_date>
+		</div>
 	</div>
-</div>
+
+	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
+	<div class="cache">
+		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
+		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
+	</div>
+	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
+</ul>
+
+
 
 <script>
 $().ready(function(){
@@ -46,20 +60,8 @@ $().ready(function(){
 });
 </script>
 
-<ul class=" droite titre">
+<ul class="droite titre">
 	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>
-
-	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
-	<div class="cache">
-		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
-	</div>
-	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
 </ul>
 
 
