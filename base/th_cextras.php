@@ -23,7 +23,7 @@ function th_declarer_champs_extras($champs = array()) {
         'defaut' => 'ELEVE',// Valeur par défaut
         'datas' => array('ADM' => 'ADM','ADM_ETB' => 'ADM_ETB','PROF' => 'PROF' ,'PARENT' => 'PARENT' ,'ELEVE' => 'ELEVE'),
         'restrictions'=>array('voir' => array('auteur' => ''),//Tout le monde peut voir
-        'modifier' => array('auteur' => 'webmestre')),//Seuls les webmestres peuvent modifier
+        'modifier' => array('auteur' => array('webmestre','0minirezo'))),//Seuls les webmestres peuvent modifier
         ),
     );
     return $champs;
