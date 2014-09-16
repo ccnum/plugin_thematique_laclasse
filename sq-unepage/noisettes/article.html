@@ -8,7 +8,7 @@
 			[(#TYPE_OBJET|=={reponse}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressource}]
 			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
 			</BOUCLE_auteur>
-				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet,consigne} ]
+				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet,consignes} ]
 			</B_auteur><//B_auteur>
 
 		[(#REM) ---------------- Hack temporaire ? ---------------- ]
@@ -18,7 +18,7 @@
 		
 		[(#REM) ---------------- titre & logo ---------------- ]
 			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE}</BOUCLE_rub>
-			[(#GET{type_objet}|match{consigne|reponse|ressource|classes}|oui)
+			[(#GET{type_objet}|match{consignes|reponse|ressource|classes}|oui)
 				<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
 					<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
 					<div class="texte">
@@ -87,7 +87,7 @@
 				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui|et{[(#ENV{type_objet}|=={reponse}|oui)]}|oui)
 					<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
 				]
-				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui|et{[(#ENV{type_objet}|=={consigne}|oui)]}|oui)
+				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui|et{[(#ENV{type_objet}|=={consignes}|oui)]}|oui)
 					<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_ARTICLE}{id_article}>
 				]
 		 
@@ -173,7 +173,7 @@
 				[(#REM)On exclut le forum sur les consignes pour les enseignants]
 					[(#TYPE_AUTEUR|=={travail_en_cours}
 					|ou{#TYPE_AUTEUR|=={''}}
-					|et{#TYPE_OBJET|=={consigne}}|oui) 
+					|et{#TYPE_OBJET|=={consignes}}|oui)
 						#SET{blocs_forum,non}	
 					]
 

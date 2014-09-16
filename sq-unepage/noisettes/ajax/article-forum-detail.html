@@ -7,8 +7,8 @@
 			#SET{type_objet,#MODELE{type_objet}{id_auteur}}
 
 			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs]
-			[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consigne} ]
-			[(#GET{type_objet}|=={ressource}|oui) #SET{type_objet,consigne} ]
+			[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]
+			[(#GET{type_objet}|=={ressource}|oui) #SET{type_objet,consignes} ]
 			<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
 				<div class="photo">
 					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
@@ -59,7 +59,7 @@
 				<ul class="forum">
 					<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
 						#SET{type_objet,#MODELE{type_objet}{id_auteur}}
-						[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consigne} ]						
+						[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]						
 						<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
 							<div class="photo">
 								[(#MODELE{logo_carre}{taille=40}{id_auteur})]

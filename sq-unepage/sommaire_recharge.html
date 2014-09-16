@@ -1,5 +1,5 @@
 [(#REM)Rechargement du projet depuis la popup
--type_objet : consigne, reponse, article, article_evt
+-type_objet : consignes, reponse, article, article_evt
 -id_xxx : id de l'objet à ouvrir le cas échéant
 ]
 
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="#CHEMIN{css/popup.css}">
 	<script type="application/javascript">
 		function RefreshParent(){
-			[(#TYPE_OBJET|=={consigne}|oui)#SET{objet,consignes}]
+			[(#TYPE_OBJET|=={consignes}|oui)#SET{objet,consignes}]
 			[(#TYPE_OBJET|=={reponse}|oui)#SET{objet,consignes}]
 			[(#TYPE_OBJET|=={article}|oui)#SET{objet,blog}]
 			[(#TYPE_OBJET|=={article_evt}|oui)#SET{objet,evenements}]

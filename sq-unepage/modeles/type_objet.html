@@ -1,7 +1,7 @@
 #HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
 #CACHE{0}
 [(#REM)Reversibilité du type d'article
-renvoie : consigne, reponse, article, article_evt,ressource,classes
+renvoie : consignes, reponse, article, article_evt,ressource,classes
 paramètre : id_article ou id_syndic_article ou id_auteur
 ]
 <BOUCLE_art(ARTICLES){id_article}>
@@ -48,7 +48,7 @@ paramètre : id_article ou id_syndic_article ou id_auteur
 </BOUCLE_principale_site_article>
 </BOUCLE_site>
 
-[(#GET{type}|=={consignes}|oui)consigne]
+[(#GET{type}|=={consignes}|oui)consignes]
 [(#GET{type}|=={blogs}|oui)article]
 [(#GET{type}|=={evenements}|oui)article_evt]
 [(#GET{type}|=={travail_en_cours}|oui)reponse]
