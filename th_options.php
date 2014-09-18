@@ -54,6 +54,15 @@
 /************************************************************************************/
 /*	REQUETES DANS LA FENETRE ACTIVE ANNEE_SCOLAIRE  : SURCHARGE DU PIPELINE PRE_BOUCLE */
 /************************************************************************************/
+	//Calcul de l'année scolaire en lien avec le dernier article en cours
+		include_spip('base/abstract_sql');
+		$date = sql_getfetsel("date", "spip_articles", "", "", "'date'  DESC");
+		if ($date != '')	
+		{
+			$annee_scolaire = substr($date,0,4);
+			if ($mois_scolaire = substr($date,5,2) > 9) $annee_scolaire++;
+		}
+
 	//Obligation de transmettre les paramètre par l'url pour tous les calculs xml
 	if ((isset($_GET['id_article']))&&(!$_GET['mode']=='detail')) 
 	$annee_scolaire=$annee_scolaire; /*calculer l'annee de l'article pour changement d'année en cours*/

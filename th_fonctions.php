@@ -28,7 +28,7 @@ function afficher_options_date2($annee,$mois,$annee_scolaire)
 {
   if (date('m')>=9) $annee_actuelle = date('Y'); else $annee_actuelle = date('Y')-1;
   if ($mois<9) $annee = $annee--; 
-    for ($i=$annee_actuelle;$i>=$annee;$i--) 
+  for ($i=$annee_actuelle;$i>=$annee;$i--) 
   {
     $j=$i+1;
     $texte .= "<input type='radio' value='$i'><label>$i/$j</label>";
