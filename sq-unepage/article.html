@@ -1,12 +1,12 @@
 <BOUCLE_principale_article(ARTICLES){id_article}>
-[(#REM)Type objet: consignes, reponse, article, evenements,ressources]
+[(#REM)Type objet: consignes, reponse, blogs, evenements,ressources]
 	[(#ENV{type_objet}|oui)
 		#SET{type_objet,#TYPE_OBJET}
 	]
 	[(#ENV{type_objet}|non)
 		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_article})]})]
 	]
-	[(#GET{type_objet}|match{article|evenements}|oui)#SET{pre,article_}]
+	[(#GET{type_objet}|match{blogs|evenements}|oui)#SET{pre,article_}]
 
 [(#REM)Mode d'ouverture]
 	#SET{mode,#EVAL{_mode_popup}}

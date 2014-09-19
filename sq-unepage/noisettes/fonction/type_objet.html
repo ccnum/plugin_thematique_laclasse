@@ -1,7 +1,7 @@
 #HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
 #CACHE{0}
 [(#REM)Reversibilité du type d'article pour passage paramètre js > vue joel
-renvoie : consignes, travail_en_cours, article, evenements,ressource,classes
+renvoie : consignes, travail_en_cours, blogs, evenements,ressource,classes
 paramètre : id_article ou id_syndic_article
 ]
 <BOUCLE_art(ARTICLES){id_article}>
@@ -33,7 +33,7 @@ paramètre : id_article ou id_syndic_article
 </BOUCLE_site>
 
 [(#GET{type}|=={consignes}|oui)consignes]
-[(#GET{type}|=={blogs}|oui)article]
+[(#GET{type}|=={blogs}|oui)blogs]
 [(#GET{type}|=={evenements}|oui)evenements]
 [(#GET{type}|=={travail_en_cours}|oui)travail_en_cours]
 [(#GET{type}|=={ressources}|oui)ressources]
