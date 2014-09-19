@@ -723,7 +723,7 @@ a:hover{
 	border: 0px solid #fff;
 }
 
-<BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consigne,article_evt,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes}>
+<BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consigne,article_evt,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes,reponse}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]

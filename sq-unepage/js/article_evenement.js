@@ -55,6 +55,7 @@ function article_evenement(){
 			stop: function(event,ui) {
 				y_parent = $(this).parent().height();
 				yy = ui.position.top / y_parent;
+				alert (type_objet);
 				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id_objet, type_objet:type_objet, X:0, Y:yy } );
 			}
 		});

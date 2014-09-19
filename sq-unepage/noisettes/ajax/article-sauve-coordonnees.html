@@ -6,7 +6,7 @@ X,Y
 ]
 
 [(#SESSION{statut}|=={0minirezo}|oui)
-	[(#TYPE_OBJET|match{blogs|syndic_article}|oui)
+	[(#TYPE_OBJET|match{article|syndic_article}|oui)
 		[(#AUTORISER{modifier, #TYPE_OBJET, #ID_OBJET}|oui)
 			<?php
 				$id_objet = #ID_OBJET;
