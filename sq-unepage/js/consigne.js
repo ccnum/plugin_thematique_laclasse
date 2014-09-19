@@ -49,7 +49,7 @@ function consigne(){
 			this.div_titre.setAttribute("id","consigne"+this.id);
 			var coul = ""+intervenant_id+"";
 			var coul = coul.substr(coul.length-1,1);			
-			this.div_titre.setAttribute("class","consigne couleur_texte_consigne couleur_consigne"+coul);
+			this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
 
 			this.taille_titre = 9+12*projet.zoom_consignes/(0.3*nombre_reponses+1);
 			this.div_titre.innerHTML  = "<div class=\"picto_nombre_reponses\">"+nombre_reponses+"</div> "+
