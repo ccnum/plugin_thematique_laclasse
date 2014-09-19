@@ -25,8 +25,13 @@
 		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
 	    <div>
 			<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
-				[(#DATE|annee|afficher_options_date2{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
+			#SET{date_debut,#DATE}
 			</BOUCLE_date>
+			<BOUCLE_datef(ARTICLES){!par date}{date!=0000}{0,1}{tout}>
+			#SET{date_fin,#DATE}
+			</BOUCLE_datef>
+			[(#GET{date_debut}|annee|afficher_options_date2{[(#GET{date_debut}|mois)],[(#GET{date_fin}|annee)],[(#GET{date_fin}|mois)]})]
+
 		</div>
 	</div>
 

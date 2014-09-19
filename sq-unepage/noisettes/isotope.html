@@ -2,11 +2,11 @@
 
     <BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{tout}>
       <BOUCLE_art(ARTICLES){branche}{par date}{inverse}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{0,20}>
-            [(#SET{couleur,couleur_consigne[(#ID_RUBRIQUE|nb2col)]})]
+            [(#SET{couleur,couleur_consignes[(#ID_RUBRIQUE|nb2col)]})]
             [(#SET{class,ressource_consignes consigne_#ID_ARTICLE})]
             <INCLURE{fond=noisettes/isotope-article}{id_article}{class_coul=#GET{couleur}}{class=#GET{class}}{type_objet=consignes}>
             <BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}>
-              [(#SET{couleur,couleur_reponse[(#ID_RUBRIQUE|nb2col)]})]
+              [(#SET{couleur,couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]})]
               [(#SET{class,ressource_reponses consigne_[(#_art:ID_ARTICLE)]})]
               <INCLURE{fond=noisettes/isotope-article}{id_article}{class_coul=#GET{couleur}}{class=#GET{class}}{type_objet=travail_en_cours}>
             </BOUCLE_reponse>

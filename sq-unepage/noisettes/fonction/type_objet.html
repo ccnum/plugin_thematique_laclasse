@@ -32,8 +32,4 @@ paramètre : id_article ou id_syndic_article
 </BOUCLE_principale_site_article>
 </BOUCLE_site>
 
-[(#GET{type}|=={consignes}|oui)consignes]
-[(#GET{type}|=={blogs}|oui)blogs]
-[(#GET{type}|=={evenements}|oui)evenements]
-[(#GET{type}|=={travail_en_cours}|oui)travail_en_cours]
-[(#GET{type}|=={ressources}|oui)ressources]
+#GET{type}

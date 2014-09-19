@@ -50,7 +50,7 @@ function reponse(){
 			this.div_texte.setAttribute("id","reponse"+this.id);
 			var coul = ""+classe_id+"";
 			var coul = coul.substr(coul.length-1,1);
-			this.div_texte.setAttribute("class","reponse couleur_texte_reponse couleur_reponse"+coul);
+			this.div_texte.setAttribute("class","reponse couleur_texte_travail_en_cours couleur_travail_en_cours"+coul);
 			
 			//this.taille_titre = 9+12*projet.zoom_consignes/(0.3*nombre_reponses+1);
 			this.div_texte.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div> "+

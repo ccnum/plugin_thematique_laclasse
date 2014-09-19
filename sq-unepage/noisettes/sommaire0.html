@@ -123,7 +123,7 @@
 			          <BOUCLE_c1(RUBRIQUES){id_parent}{tout}>
 			            <BOUCLE_a1(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 			            </BOUCLE_a1>
-			              <li><a href="#filter-classe-#ID_RUBRIQUE" data-filter-value=".#ID_RUBRIQUE" title="[(#_c1:TITRE)]" class="blanc couleur_reponse[(#ID_RUBRIQUE|nb2col)]">[(#_c1:TITRE|couper{2})]</a></li>
+			              <li><a href="#filter-classe-#ID_RUBRIQUE" data-filter-value=".#ID_RUBRIQUE" title="[(#_c1:TITRE)]" class="blanc couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">[(#_c1:TITRE|couper{2})]</a></li>
 			            </B_a1>
 			            <//B_a1>
 			          </BOUCLE_c1>

@@ -56,8 +56,8 @@
 /************************************************************************************/
 	//Calcul de l'année scolaire en lien avec le dernier article en cours
 		include_spip('base/abstract_sql');
-		$date = sql_getfetsel("date", "spip_articles", "", "", "'date'  DESC");
-		if ($date != '')	
+		$date = sql_getfetsel("maj", "spip_articles", "", "", "'maj' ASC");
+		if ($date != '')
 		{
 			$annee_scolaire = substr($date,0,4);
 			if ($mois_scolaire = substr($date,5,2) > 9) $annee_scolaire++;
