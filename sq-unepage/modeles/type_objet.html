@@ -2,7 +2,7 @@
 #CACHE{0}
 [(#REM)Reversibilité du type d'article
 renvoie : consignes, travail_en_cours, blogs, evenements,ressources,classes
-paramètre : id_article ou id_syndic_article ou id_auteur
+paramètre : id_article ou id_syndic_article ou id_auteur ou id_rubrique
 ]
 <BOUCLE_art(ARTICLES){id_article}>
 <BOUCLE_hie_art(HIERARCHIE){id_article}>
@@ -47,9 +47,4 @@ paramètre : id_article ou id_syndic_article ou id_auteur
 </BOUCLE_rub_site>
 </BOUCLE_principale_site_article>
 </BOUCLE_site>
-
-[(#GET{type}|=={consignes}|oui)consignes]
-[(#GET{type}|=={blogs}|oui)blogs]
-[(#GET{type}|=={evenements}|oui)evenements]
-[(#GET{type}|=={travail_en_cours}|oui)travail_en_cours]
-[(#GET{type}|=={ressources}|oui)ressources]
+#GET{type}

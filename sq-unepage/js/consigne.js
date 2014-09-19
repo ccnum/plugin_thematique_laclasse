@@ -112,7 +112,7 @@ function consigne(){
 
 	// bouton répondre à la consigne
 		this.ajouter_reponse_plus = function(){
-		if ((g_u_id_restreint > 0)&&(g_u_type_restreint != '')&&(g_u_type_restreint == 'reponse')){
+		if ((g_u_id_restreint > 0)&&(g_u_type_restreint != '')&&(g_u_type_restreint == 'travail_en_cours')){
 			this.div_reponse_plus.style.visibility = "visible";
 			//this.div_home.style.left = this.largeur+50+"px";
 		}

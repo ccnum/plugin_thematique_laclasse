@@ -71,7 +71,7 @@ function init_view(){
 	// ouverture au chargement d'un article, article événement, consigne ou réponse
 	if (g_u_id_objet != "0"){
 		// consigne
-		if (g_u_type_popup == "consigne"){
+		if (g_u_type_popup == "consignes"){
 			for (k=0; k<g_consignes.length;k++){
 				if (g_consignes[k].id == g_u_id_objet){
 					consigne_click(g_u_id_objet);
@@ -80,7 +80,8 @@ function init_view(){
 			}
 		}
 		// réponse
-			if (g_u_type_popup == "reponse"){
+			if (g_u_type_popup == "travail_en_cours"){
+				alert ('ok');
 				for (k=0; k<g_consignes.length;k++){
 					for (l=0; l<g_consignes[k].reponses.length;l++){
 						if (g_consignes[k].reponses[l].id == g_u_id_objet){
@@ -91,15 +92,15 @@ function init_view(){
 				}
 			}
 		// article de blog
-			if (g_u_type_popup == "article"){
+			if (g_u_type_popup == "blogs"){
 				article_blog_click(g_u_id_objet,"article");
 			}
 		// article d'événement
-			if (g_u_type_popup == "article_evt"){
+			if (g_u_type_popup == "evenements"){
 				article_evenement_click(g_u_id_objet,"article");
 			}
 		// ressource
-			if (g_u_type_popup == "ressource"){
+			if (g_u_type_popup == "ressources"){
 				article_ressource_click(g_u_id_objet,"article");
 			}
 	}

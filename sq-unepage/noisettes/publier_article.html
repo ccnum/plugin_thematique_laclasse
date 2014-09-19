@@ -19,11 +19,10 @@
 	
 			<div class="popup_titre">
 				<div class="titre">Publier
-					#SET{type_objet,#MODELE{type_objet}{id_rubrique}}
+					[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
 					[(#GET{type_objet}|=={travail_en_cours}|oui) une réponse]
 					[(#GET{type_objet}|=={travail_en_cours}|non) un nouvel article]
 				</div>
-
 				<div class="date" id="entete_publication" style="display: none;">
 					<br /><!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->
 					Etape 1 : Pour créer votre article, choisissez un titre et validez-le ci-dessous

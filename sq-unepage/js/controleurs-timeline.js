@@ -395,7 +395,7 @@ function agora_click(){
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
 		showhide_travaux('show');
-		popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressource','agora');		
+		popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressources','agora');		
 	}
 }
 
