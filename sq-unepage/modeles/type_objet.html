@@ -1,7 +1,7 @@
 #HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
 #CACHE{0}
 [(#REM)Reversibilité du type d'article
-renvoie : consignes, travail_en_cours, article, evenements,ressource,classes
+renvoie : consignes, travail_en_cours, article, evenements,ressources,classes
 paramètre : id_article ou id_syndic_article ou id_auteur
 ]
 <BOUCLE_art(ARTICLES){id_article}>
@@ -52,4 +52,4 @@ paramètre : id_article ou id_syndic_article ou id_auteur
 [(#GET{type}|=={blogs}|oui)article]
 [(#GET{type}|=={evenements}|oui)evenements]
 [(#GET{type}|=={travail_en_cours}|oui)travail_en_cours]
-[(#GET{type}|=={ressources}|oui)ressource]
+[(#GET{type}|=={ressources}|oui)ressources]

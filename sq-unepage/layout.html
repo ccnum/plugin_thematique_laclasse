@@ -24,7 +24,7 @@
 			[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
 		[(#REM)Id de la rubrique restreinte sélectionnée]
 			[(#SET{restreint,[(#INCLURE{fond=noisettes/fonction/admin,mode=restreint})]})]
-		[(#REM)Type de rubrique restreinte: consignes, travail_en_cours, article, evenements,ressource,classes]
+		[(#REM)Type de rubrique restreinte: consignes, travail_en_cours, article, evenements,ressources,classes]
 			[(#GET{restreint}|oui)
 				[(#SET{type_restreint,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique=#GET{restreint}})]})]
 			]

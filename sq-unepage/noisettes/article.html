@@ -5,7 +5,7 @@
 		
 		[(#REM) ---------------- entete publication ---------------- ]
 			#SET{type_objet,#TYPE_OBJET}
-			[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressource}]
+			[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressources}]
 			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
 			</BOUCLE_auteur>
 				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet,consignes} ]
@@ -18,7 +18,7 @@
 		
 		[(#REM) ---------------- titre & logo ---------------- ]
 			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE}</BOUCLE_rub>
-			[(#GET{type_objet}|match{consignes|travail_en_cours|ressource|classes}|oui)
+			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes}|oui)
 				<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
 					<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
 					<div class="texte">
@@ -247,8 +247,8 @@
 					]				
 
 				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
-					[(#GET{type_objet}|=={ressource}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
-					[(#GET{type_objet}|=={ressource}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
+					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
+					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
 					[<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
 					<div class="bloc_option_doc nettoyeur">
 						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">

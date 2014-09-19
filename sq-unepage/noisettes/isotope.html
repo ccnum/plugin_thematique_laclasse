@@ -19,7 +19,7 @@
           [(#SET{couleur,couleur_[(#_mot:TITRE)]})]
           [(#_mot:TITRE|=={blogs}|oui) #SET{type,article} ]
           [(#_mot:TITRE|=={evenements}|oui) #SET{type,evenements} ]
-          [(#_mot:TITRE|=={ressources}|oui) #SET{type,ressource} ]
+          [(#_mot:TITRE|=={ressources}|oui) #SET{type,ressources} ]
           <INCLURE{fond=noisettes/isotope-article}{id_article}{class_coul=#GET{couleur}}{class=ressource_#_mot:TITRE}{type_objet=#GET{type}}>
         </BOUCLE_art1>
       </BOUCLE_rubrique1>

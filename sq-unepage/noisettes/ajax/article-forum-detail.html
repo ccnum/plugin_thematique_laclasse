@@ -1,14 +1,14 @@
 #CACHE{24*3600}
 [<div class="lien_forum"><a class="lienss" href="(#PARAMETRES_FORUM|url_reponse_forum)">> <:repondre_article:></a></div>]
 <B_Forums>
-<!-- Début Forum-->	
+<!-- DÃ©but Forum-->
 	<ul class="forum">
 	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}{inverse}>
 			#SET{type_objet,#MODELE{type_objet}{id_auteur}}
 
 			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs]
 			[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]
-			[(#GET{type_objet}|=={ressource}|oui) #SET{type_objet,consignes} ]
+			[(#GET{type_objet}|=={ressources}|oui) #SET{type_objet,consignes} ]
 			<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
 				<div class="photo">
 					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
@@ -48,7 +48,7 @@
 							});
 						</script>
 						<a id="ajaxf1#ID_FORUM" class="hac liens_voir" title="afficher le forum">
-						<img src='[(#CHEMIN{img/logo_aide_on_15.png}||image_reduire{15}|extraire_attribut{src})]' >&nbsp;&nbsp;Répondre à ce message
+						<img src='[(#CHEMIN{img/logo_aide_on_15.png}||image_reduire{15}|extraire_attribut{src})]' >&nbsp;&nbsp;RÃ©pondre Ã  ce message
 						</a>
 						<div id="ajax_callback_forum_#ID_FORUM" class="bloc_texte" style='display: none;'></div>
 					</li></ul></div>
