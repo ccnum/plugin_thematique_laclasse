@@ -18,7 +18,7 @@
         <BOUCLE_art1(ARTICLES){branche}{par date}{inverse}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{0,20}>
           [(#SET{couleur,couleur_[(#_mot:TITRE)]})]
           [(#_mot:TITRE|=={blogs}|oui) #SET{type,article} ]
-          [(#_mot:TITRE|=={evenements}|oui) #SET{type,article_evt} ]
+          [(#_mot:TITRE|=={evenements}|oui) #SET{type,evenements} ]
           [(#_mot:TITRE|=={ressources}|oui) #SET{type,ressource} ]
           <INCLURE{fond=noisettes/isotope-article}{id_article}{class_coul=#GET{couleur}}{class=ressource_#_mot:TITRE}{type_objet=#GET{type}}>
         </BOUCLE_art1>

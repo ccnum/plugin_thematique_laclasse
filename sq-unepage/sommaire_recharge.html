@@ -1,5 +1,5 @@
 [(#REM)Rechargement du projet depuis la popup
--type_objet : consignes, travail_en_cours, article, article_evt
+-type_objet : consignes, travail_en_cours, article, evenements
 -id_xxx : id de l'objet à ouvrir le cas échéant
 ]
 
@@ -18,7 +18,7 @@
 			[(#TYPE_OBJET|=={consignes}|oui)#SET{objet,consignes}]
 			[(#TYPE_OBJET|=={travail_en_cours}|oui)#SET{objet,consignes}]
 			[(#TYPE_OBJET|=={article}|oui)#SET{objet,blog}]
-			[(#TYPE_OBJET|=={article_evt}|oui)#SET{objet,evenements}]
+			[(#TYPE_OBJET|=={evenements}|oui)#SET{objet,evenements}]
 			[(#GET{objet}|oui)
 				//window.parent.#GET{objet}_load("spip.php?page=xml&mode=#GET{objet}&annee_scolaire=#EVAL{_annee_scolaire}&var_mode=recalcul");
 			]

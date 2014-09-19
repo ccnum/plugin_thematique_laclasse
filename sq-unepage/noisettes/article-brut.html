@@ -23,7 +23,7 @@
 				</div>
 			</div>
 		]
-		[(#GET{type_objet}|match{article|article_evt}|oui)			
+		[(#GET{type_objet}|match{article|evenements}|oui)
 			<div class="popup_titre">
 				<div class="titre">[(#TITRE|supprimer_numero)]</div>
 				<span class="date ">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>

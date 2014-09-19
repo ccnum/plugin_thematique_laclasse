@@ -24,7 +24,7 @@
 			[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
 		[(#REM)Id de la rubrique restreinte sélectionnée]
 			[(#SET{restreint,[(#INCLURE{fond=noisettes/fonction/admin,mode=restreint})]})]
-		[(#REM)Type de rubrique restreinte: consignes, travail_en_cours, article, article_evt,ressource,classes]
+		[(#REM)Type de rubrique restreinte: consignes, travail_en_cours, article, evenements,ressource,classes]
 			[(#GET{restreint}|oui)
 				[(#SET{type_restreint,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique=#GET{restreint}})]})]
 			]
@@ -41,7 +41,7 @@
 		<link rel="stylesheet" type="text/css" href="[(#URL_PAGE{styles}|parametre_url{largeur,#GET{largeur}}|parametre_url{hauteur,#GET{hauteur}}|parametre_url{couleur_base_texte,#GET{couleur_base_texte}}|parametre_url{couleur_1erplan3,#GET{couleur_1erplan3}}|parametre_url{chemin,#DOSSIER_SQUELETTE}|parametre_url{type_objet,#TYPE_OBJET})]">
 	</head>
 	<body>
-		[(#TYPE_OBJET|=={article_evt}|oui|et{#GET{admin}|<{0}|oui}|non)
+		[(#TYPE_OBJET|=={evenements}|oui|et{#GET{admin}|<{0}|oui}|non)
 			<INCLURE{fond=noisettes/#ENV{page}}
 			{admin=#GET{admin}}
 			{restreint=#GET{restreint}}
@@ -56,7 +56,7 @@
 			{env}
 			/>
 		]
-		[(#TYPE_OBJET|=={article_evt}|oui|et{#GET{admin}|<{0}|oui}|oui)
+		[(#TYPE_OBJET|=={evenements}|oui|et{#GET{admin}|<{0}|oui}|oui)
 			Vous devez être connecté pour accéder à cette ressource
 		]
 	</body>

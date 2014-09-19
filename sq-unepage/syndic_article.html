@@ -1,5 +1,5 @@
 <BOUCLE_principale_article(SYNDIC_ARTICLES){id_syndic_article}>
-[(#REM)Type objet: consignes, travail_en_cours, article, article_evt,ressource]
+[(#REM)Type objet: consignes, travail_en_cours, article, evenements,ressource]
 	[(#ENV{type_objet}|oui)
 		#SET{type_objet,#TYPE_OBJET}
 	]
@@ -7,7 +7,7 @@
 		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_syndic_article})]})]
 
 	]
-	[(#GET{type_objet}|match{article|article_evt}|oui)#SET{pre,article_}]
+	[(#GET{type_objet}|match{article|evenements}|oui)#SET{pre,article_}]
 
 [(#REM)Mode]
 	#SET{mode,#EVAL{_mode_popup}}
