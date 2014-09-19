@@ -26,12 +26,12 @@ function afficher_options_date($annee,$mois,$annee_scolaire)
 
 function afficher_options_date2($anneed,$moisd,$anneef,$moisf)
 {
-  //echo $anneef;
-  if ($moisd<09) $anneed = $anneed--; 
-  if ($moisf<9) $anneef = $anneef--; 
-  //echo $anneef;
+  $moisd = intval($moisd);
+  $moisf = intval($moisf);
 
-  //echo $moisd." ".$moisf;
+  if ($moisd<9) $anneed = $anneed--; 
+  if ($moisf<=9) $anneef = $anneef--; 
+
   for ($i=$anneef ; $i>=$anneed ; $i--)
   {
     $j=$i+1;

@@ -81,12 +81,11 @@ function init_view(){
 		}
 		// réponse
 			if (g_u_type_popup == "travail_en_cours"){
-				alert ('ok');
 				for (k=0; k<g_consignes.length;k++){
 					for (l=0; l<g_consignes[k].reponses.length;l++){
 						if (g_consignes[k].reponses[l].id == g_u_id_objet){
 							reponse_click(g_consignes[k].id, g_u_id_objet);
-							consigne_ouvre(g_consignes[k].numero);							
+							consigne_ouvre(g_consignes[k].numero);
 						}
 					}
 				}

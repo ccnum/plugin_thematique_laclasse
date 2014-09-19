@@ -56,11 +56,12 @@
 /************************************************************************************/
 	//Calcul de l'année scolaire en lien avec le dernier article en cours
 		include_spip('base/abstract_sql');
-		$date = sql_getfetsel("maj", "spip_articles", "", "", "'maj' ASC");
+		$date = sql_getfetsel("date", "spip_articles", "date !=  '0000'", "", "'date' DESC");
 		if ($date != '')
 		{
 			$annee_scolaire = substr($date,0,4);
-			if ($mois_scolaire = substr($date,5,2) > 9) $annee_scolaire++;
+			$mois_scolaire = intval(substr($date,5,2));
+			if ($mois_scolaire < 9) $annee_scolaire--;
 		}
 
 	//Obligation de transmettre les paramètre par l'url pour tous les calculs xml
