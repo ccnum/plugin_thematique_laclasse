@@ -20,8 +20,8 @@
 			<div class="popup_titre">
 				<div class="titre">Publier
 					#SET{type_objet,#MODELE{type_objet}{id_rubrique}}
-					[(#GET{type_objet}|=={reponse}|oui) une réponse]
-					[(#GET{type_objet}|=={reponse}|non) un nouvel article]
+					[(#GET{type_objet}|=={travail_en_cours}|oui) une réponse]
+					[(#GET{type_objet}|=={travail_en_cours}|non) un nouvel article]
 				</div>
 
 				<div class="date" id="entete_publication" style="display: none;">

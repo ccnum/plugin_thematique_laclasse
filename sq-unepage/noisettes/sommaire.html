@@ -1,6 +1,6 @@
 #CACHE{48*3600}
 [(#REM)Page principale - Pour vue de détail forcée à l'ouverture :
--#ENV{type_objet} : consignes, reponse, article, article_evt, ressource
+-#ENV{type_objet} : consignes, travail_en_cours, article, article_evt, ressource
 -#ENV{id_objet} : id_objet
 et/ou
 -#ENV{vue_date} : 01/10/2011
@@ -58,7 +58,7 @@ et/ou
 					[(#MODELE{logo_menu}{valeur=ressource_classes}{filter=.ressource_classes}{title=Les classes}{onclick=classes_click();})]
 					[(#MODELE{logo_menu}{valeur=consigne}{filter=.ressource_consignes}{onclick=showhide_travaux('show');}{title=Les consignes})]
 					[(#MODELE{logo_menu}{valeur=reponse}{filter=.ressource_reponses}{title=Les réponses des classes})]
-					<BOUCLE_j(DATA){liste tout,blog,evenement,ressource,consignes,reponse}>
+					<BOUCLE_j(DATA){liste tout,blog,evenement,ressource,consignes,travail_en_cours}>
 		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
 					</BOUCLE_j>
 				</ul>

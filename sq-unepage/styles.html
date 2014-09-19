@@ -101,7 +101,7 @@ height: 1em;
 
 
 body{
-	/* [(#TYPE_OBJET|match{reponse|article|article_evt}|non)overflow: hidden;] */
+	/* [(#TYPE_OBJET|match{travail_en_cours|article|article_evt}|non)overflow: hidden;] */
 	background-color: transparent;
 	margin: 0px;
 	padding: 0px;
@@ -723,7 +723,7 @@ a:hover{
 	border: 0px solid #fff;
 }
 
-<BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consignes,reponse,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes}>
+<BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consignes,travail_en_cours,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]

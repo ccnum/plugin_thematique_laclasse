@@ -3,7 +3,7 @@
 		
 		[(#REM) ---------------- entete publication ---------------- ]
 		#SET{type_objet,#TYPE_OBJET}
-		[(#TYPE_OBJET|=={reponse}|et{#MODE|=={ajax}|oui})#SET{type_objet,ressource}]
+		[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax}|oui})#SET{type_objet,ressource}]
 		
 		[(#REM) ---------------- entete publication ---------------- ] 
 			

@@ -8,7 +8,7 @@
             <BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}>
               [(#SET{couleur,couleur_reponse[(#ID_RUBRIQUE|nb2col)]})]
               [(#SET{class,ressource_reponses consigne_[(#_art:ID_ARTICLE)]})]
-              <INCLURE{fond=noisettes/isotope-article}{id_article}{class_coul=#GET{couleur}}{class=#GET{class}}{type_objet=reponse}>
+              <INCLURE{fond=noisettes/isotope-article}{id_article}{class_coul=#GET{couleur}}{class=#GET{class}}{type_objet=travail_en_cours}>
             </BOUCLE_reponse>
       </BOUCLE_art>
     </BOUCLE_rubrique>

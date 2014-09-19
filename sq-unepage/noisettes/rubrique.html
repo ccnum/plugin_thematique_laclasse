@@ -7,7 +7,7 @@
 	<div id="ressources_gauche">
 		<div class="popup_titre">
 			[(#MODE|=={ajax}|non)<!--<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">-->]
-			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={reponse}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]		
+			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
 			<span class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</span>
 		</div>
 
@@ -228,7 +228,7 @@
 			});						
 			</script>
 		]
-		[(#TYPE_OBJET|=={reponse}|oui)
+		[(#TYPE_OBJET|=={travail_en_cours}|oui)
 			<script type="text/javascript">
 			$().ready(function(){
 				$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
