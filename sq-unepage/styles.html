@@ -125,7 +125,7 @@ body{
 	position:relative;
 	margin: 0px;
 	float: left;
-	margin: 0.5% 1% 0 1%;
+	margin: 0.4% 1% 0 1%;
 	/*margin: 10px 10px 10px 10px;
 	width: 82%;
 	width:#ENV{largeur}px;
@@ -144,7 +144,7 @@ body{
 	width:98%;
 	margin: 1% 1% 0 1%;
 	float: left;
-	height: 80%;
+	height: 80.2%;
 	/*width:#ENV{largeur}px;*/
 }
 
@@ -518,6 +518,7 @@ a:hover{
   -webkit-transition:.25s ease-in-out;
   transition:.25s ease-in-out;
 }
+
 .select input:hover + label, .select:hover input.first + label {
 	color: #fff; 
 	background-color: #GET{color_menu_hover};
@@ -540,70 +541,6 @@ a:hover{
 	border-top-color: #fff;
 }
 
-
-/*Select
-#menu_haut.zone-menu select {
-	color: #fff;
-	background-color: #fff;
-	border-width: 0;
-}
-
-.select-wrapper{
-	display: inline-block;
-	background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
-	cursor: pointer;
-	margin-top: 0px;
-	padding: 0px;
-}
-.select-wrapper .holder{
-	display: block;
-	margin: 0 35px 0 10px;
-	white-space: nowrap;
-	overflow: hidden;
-	cursor: pointer;
-	position: relative;
-	z-index: 1;
-}
-.select-wrapper select{
-	height: 25px;
-	margin: 0;
-	position: absolute;
-	z-index: 2;            
-	cursor: pointer;
-	outline: none;
-	opacity: 0;
-	_noFocusLine: expression(this.hideFocus=true); 
-	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
-	-khtml-opacity: 0;
-	-moz-opacity: 0;
-}
-
-.select-wrapper option {
-	background-color: #fff;
-	color: #GET{color_menu_hover};
-	border: 0px;
-	font-size: #GET{font-size1}px;
-	font-weight: bold;
-}
-.select-wrapper option:hover {
-	color: #fff;
-	background-color: #GET{color_menu_hover};
-}
-
-.select-wrapper .holder{
-	color: #000;
-}
-
-.select-wrapper select:hover, .select-wrapper:hover .holder{
-	color: #fff;
-	background-color: #GET{color_menu_hover};
-}	
-.select-wrapper:hover{
-	background: url(#CHEMIN{img/arrow_select_blanc.png}) no-repeat 95% 50%  #GET{color_menu_hover};
-	border: 0px solid #GET{color_menu_hover};
-}
-*/
 
 /* Menu Bas */
 #menu_bas.zone-menu ul {
@@ -647,48 +584,11 @@ a:hover{
 
 #menu_bas .col {
 	float: left;
-	padding: 10px 6px 0px 0px;
+	padding: 8px 6px 0px 0px;
 }
 
 #zone_bas, #zone_bas a {
 	font-size: #GET{font-size1_bas}px;
-}
-
-
-/*Surcharges mode 1024*/
-
-@media screen and (max-width: 1280px) {
-	.zone-menu h3 { font-size: #GET{font-size1_bas}px; padding: 2px;}
-	/*.zone-menu ul#sort-direction li { float: right; margin: 0px 0px 4px 4px; }*/
-	#menu_bas.zone-menu li, #menu_bas.zone-menu form  {
-		width: 27px;
-		height: 27px;
-		margin:0px 3px 3px 0px;
-		line-height: 27px;
-	}
-
-	#menu_haut, #menu_haut.zone-menu li, #menu_haut.zone-menu form {
-		height: 22px;
-		line-height: 22px;
-	}
-
-	.zone-menu form  {
-		width: 91px;
-	}
-
-	.zone-menu h3 { font-size: #GET{font-size1_bas}px; }
-	.zone-menu .titre3, .zone-menu .titre3 a{
-	font-size:#GET{font-size2}px;
-	line-height:#GET{font-size2}px;
-	}
-
-	#SET{lar_col,30} 	/* 30*n - 3 */
-	#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
-	#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{3})]px;}
-	#menu-consignes {width: [(#GET{lar_col}|mult{7}|moins{3})]px;}
-	#menu-classes {width: [(#GET{lar_col}|mult{8}|moins{3})]px;}
-	#menu-medias {width: [(#GET{lar_col}|mult{6}|moins{3})]px;}
-	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 }
 
 /* Logos */
@@ -753,6 +653,57 @@ a:hover{
 		.zone-menu li a.[logo_menu-(#VALEUR)], .zone-menu li a.[logo_menu-(#VALEUR)]:hover{background-color: [#(#GET{col1};)]}
 	]
 </BOUCLE_vue2>
+
+
+
+/*Surcharges mode 1024*/
+
+@media screen and (max-width: 1280px) {
+	.zone-menu h3 { font-size: #GET{font-size1_bas}px; padding: 2px;}
+	/*.zone-menu ul#sort-direction li { float: right; margin: 0px 0px 4px 4px; }*/
+	#menu_bas.zone-menu li, #menu_bas.zone-menu form  {
+		width: 27px;
+		height: 27px;
+		margin:0px 3px 3px 0px;
+		line-height: 27px;
+	}
+
+	#menu_bas.zone-menu li.logo, #menu_haut.zone-menu li.logo {
+		width: 27px;		
+	}
+
+	#menu_haut, #menu_haut.zone-menu li, #menu_haut.zone-menu form {
+		height: 22px;
+		line-height: 22px;
+	}
+	.select, .select:hover div, .select input.first + label, .select:hover input, .select:hover label {
+		height: 22px;
+		line-height: 22px;
+	}
+	.select:hover div {
+		top: 22px;
+	}
+
+	.zone-menu form  {
+		width: 91px;
+	}
+
+	.zone-menu .titre3, .zone-menu .titre3 a{
+	font-size:#GET{font-size2}px;
+	line-height:#GET{font-size2}px;
+	}
+
+	#SET{lar_col,30} 	/* 30*n - 3 */
+	#menu-vues {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
+	#menu-ressources {width: [(#GET{lar_col}|mult{6}|moins{3})]px;}
+	#menu-consignes {width: [(#GET{lar_col}|mult{7}|moins{3})]px;}
+	#menu-classes {width: [(#GET{lar_col}|mult{8}|moins{3})]px;}
+	#menu-medias {width: [(#GET{lar_col}|mult{6}|moins{3})]px;}
+	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
+
+
+}
+
 
 /* --------- Classes --------- */
 
@@ -1678,3 +1629,67 @@ ul#forum, .lien_forum {
 }
 
 
+
+/*Select
+#menu_haut.zone-menu select {
+	color: #fff;
+	background-color: #fff;
+	border-width: 0;
+}
+
+.select-wrapper{
+	display: inline-block;
+	background: url(#CHEMIN{img/arrow_select_noir.png}) no-repeat 95% 50% transparent;
+	cursor: pointer;
+	margin-top: 0px;
+	padding: 0px;
+}
+.select-wrapper .holder{
+	display: block;
+	margin: 0 35px 0 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
+.select-wrapper select{
+	height: 25px;
+	margin: 0;
+	position: absolute;
+	z-index: 2;            
+	cursor: pointer;
+	outline: none;
+	opacity: 0;
+	_noFocusLine: expression(this.hideFocus=true); 
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+}
+
+.select-wrapper option {
+	background-color: #fff;
+	color: #GET{color_menu_hover};
+	border: 0px;
+	font-size: #GET{font-size1}px;
+	font-weight: bold;
+}
+.select-wrapper option:hover {
+	color: #fff;
+	background-color: #GET{color_menu_hover};
+}
+
+.select-wrapper .holder{
+	color: #000;
+}
+
+.select-wrapper select:hover, .select-wrapper:hover .holder{
+	color: #fff;
+	background-color: #GET{color_menu_hover};
+}	
+.select-wrapper:hover{
+	background: url(#CHEMIN{img/arrow_select_blanc.png}) no-repeat 95% 50%  #GET{color_menu_hover};
+	border: 0px solid #GET{color_menu_hover};
+}
+*/

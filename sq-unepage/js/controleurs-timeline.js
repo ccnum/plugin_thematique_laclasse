@@ -9,7 +9,7 @@ function largeur_zone(){
 
 function hauteur_zone(){
     //return $(window).height()-40;
-    return $(window).height()*0.87;
+    return $(window).height()*0.873;
 }
 
 function resizenow() {
