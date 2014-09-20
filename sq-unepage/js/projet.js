@@ -180,7 +180,7 @@ function projet(){
 					this.div_base_context.fillStyle = this.couleur_1erplan2;
 					this.mois_rollover = -1;
 
-					if ((y > this.hauteur-20)&&(y < this.hauteur)){
+					if ((y > this.hauteur-30)&&(y < this.hauteur)){
 						this.div_base.style.cursor = "pointer";
 						this.mois_rollover = Math.round((x-this.xx-(this.largeur_mois/2))/this.largeur_mois);
 						if (this.mois_rollover >= 0 && this.mois_rollover < this.nombre_mois){
@@ -345,19 +345,20 @@ function projet(){
 		this.click = function(x, y, consignes, articles_blog, articles_evenement){
 			//alert (y);
 			if (y <= this.hauteur){
-				// barre des mois
-				if (y > this.hauteur-40 ){
-					if (this.mois_select == -1){
+				// un mois est actif
+				if (this.mois_select != -1)
+				{	
+					this.changevoittout(consignes, articles_blog, articles_evenement);
+				}
+				else
+					if (y > this.hauteur-40 ){
 						this.mois_select = Math.round((x-2+(this.largeur_mois/2))/this.largeur_mois)-1;
 						if (this.mois_select < this.nombre_mois/2){
 							this.changezoompos(90, (this.mois_select*this.largeur_mois), 0);
 						}else{
 							this.changezoompos(90, ((this.mois_select+1)*this.largeur_mois), 0);
 						}
-					}else{
-						this.changevoittout(consignes, articles_blog, articles_evenement);
 					}
-				}
 			}
 		}
 }
