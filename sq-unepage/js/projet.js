@@ -144,6 +144,9 @@ function projet(){
 				// prépare rendu
 					this.div_base.style.cursor = "default";
 
+					this.div_base_context.drawImage(this.image_fond, 0, 0, this.largeur, this.hauteur);
+
+					/*
 					if (this.image_fond.src){
 						this.div_base_context.drawImage(this.image_fond, 0, 0, this.largeur, this.hauteur);
 					}
@@ -151,6 +154,7 @@ function projet(){
 						this.div_base_context.fillStyle = this.couleur_fond;
 						this.div_base_context.fillRect(0, 0, this.largeur, this.hauteur);
 					}
+					*/
 		 		
 				// calcul precalcul zoom + position
 					this.largeur_mois = Math.round(this.largeur/this.nombre_mois)*(this.nombre_jours/this.nombre_jours_vus);
@@ -252,11 +256,12 @@ function projet(){
 					}
 		// frame
 			this.frame++;
+			//log(this.frame);
 			if (this.frame > this.fps*10)
 			{
 				stop_action ();
 			}
-		}			
+		}
 	
 	}
 

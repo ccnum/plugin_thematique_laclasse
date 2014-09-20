@@ -30,7 +30,7 @@ function init(){
 	/*g_bouton_plus = new bouton();*/
 	g_couleur_blog = '';
   	g_duration_def = 800;
-	stop_action ();
+	stop_action();
 	
 	// chargement du projet -> c'est parti
 	projet_load(g_u_xml+"projet");
@@ -116,16 +116,21 @@ function init_view(){
 		});
 	}
 	
-	//Listener popups
-		$().ready(function(){
-			$('.presentation').colorbox({width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
-			$('.profil').colorbox({width:'80%',height: '80%'});
-			$(window).resize(function(){
-     			resizenow();
-			});
-		});		
-	}
 
+	//Les listeners pour l'affichage timeline
+
+		$().ready(function(){
+			//Listener popups
+				$('.presentation').colorbox({width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
+				$('.profil').colorbox({width:'80%',height: '80%'});
+
+		    //Listeners de changements sur la fenêtre pour forcer les calculs d'affichage timeline
+	      		window.addEventListener("focus", function(event) { activate_action(); }, false);
+	     		window.addEventListener("onresize", function(event) { activate_action(); resizenow(); }, false);
+	      		window.addEventListener("blur", function(event) { stop_action(); }, false);
+		});	
+
+	}
 
 ////////////////////////////////////////////////////////////////
 // update

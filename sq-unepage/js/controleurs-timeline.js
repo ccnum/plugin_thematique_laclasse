@@ -23,20 +23,21 @@ function resizenow() {
     g_projet.div_base.height = browserheight;
     largeur = browserwidth;
     hauteur = browserheight;
-
     this.frame = 0;
 };
 
-function stop_action (){
+function stop_action(){
 	g_action = false;
 	g_action_mois = false;
 	g_projet.frame=0;
+	log('stop_action');
 }
 
-function activate_action (){
+function activate_action(){
 	g_action = true;
 	g_action_mois = false;
 	g_projet.frame=0;
+	log('activate_action');
 }
 
 ////////////////////////////////////////////////////////////////
