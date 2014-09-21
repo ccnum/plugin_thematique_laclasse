@@ -221,6 +221,7 @@ function projet_load(fichier){
 			var url_popup_blog = xmldoc.getElementsByTagName("url_popup_blog")[0].childNodes[0].nodeValue;
 			var url_popup_evenement = xmldoc.getElementsByTagName("url_popup_evenement")[0].childNodes[0].nodeValue;
 			var url_popup_ressources = xmldoc.getElementsByTagName("url_popup_ressources")[0].childNodes[0].nodeValue;
+			var url_popup_agora = xmldoc.getElementsByTagName("url_popup_agora")[0].childNodes[0].nodeValue;
 			var url_popup_classes = xmldoc.getElementsByTagName("url_popup_classes")[0].childNodes[0].nodeValue;
 			var url_popup_chat = xmldoc.getElementsByTagName("url_popup_chat")[0].childNodes[0].nodeValue;
 			var url_popup_chat2 = xmldoc.getElementsByTagName("url_popup_chat2")[0].childNodes[0].nodeValue;
@@ -231,7 +232,7 @@ function projet_load(fichier){
 				var image_fond = "";
 			}
 			// init le projet
-			g_projet.init(g_zone, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_classes, url_popup_chat, url_popup_chat2);
+			g_projet.init(g_zone, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2);
 			// lance le chargement des classses
 			//classes_load(g_u_chemin+"xml/classes.xml");
 			classes_load(g_u_xml+"classes");

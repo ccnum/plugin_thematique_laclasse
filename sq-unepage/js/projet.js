@@ -10,11 +10,11 @@ function projet(){
 	var largeur_mois, premier_mois, nombre_mois, mois_select, mois_rollover, premier_jour, nombre_jours, nombre_jours_vus, premiere_annee, date_debut, date_fin, aujourdhui;
 	var couleur_fond, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, couleur_blog, image_fond, zoom_consignes;
 	var liste_cy_consignes, liste_y_blogs, liste_y_evenements;
-	var url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_classes, url_popup_chat, url_popup_chat2;
+	var url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2;
 	var div_base, div_barre, div_base_context, div_mois;
 	
 	// méthode init
-	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_classes, url_popup_chat, url_popup_chat2){
+	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2){
 			this.x = 0;
 			this.xx = 0;
 			this.dzoom = 0;
@@ -83,6 +83,7 @@ function projet(){
 			this.url_popup_blog = url_popup_blog;
 			this.url_popup_evenement = url_popup_evenement;
 			this.url_popup_ressources = url_popup_ressources;
+			this.url_popup_agora = url_popup_agora;
 			this.url_popup_classes = url_popup_classes;		
 			this.url_popup_chat	= url_popup_chat;
 			this.url_popup_chat2 = url_popup_chat2;

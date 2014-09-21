@@ -48,6 +48,10 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('sql_update','spip_auteurs',array('ent' => 'pgp'))
     );
 
+    $maj['2.3.6'] = array(
+        array('th_ajouter_mots_clef'),
+    );
+
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
@@ -104,8 +108,7 @@ function th_ajouter_mots_clef() {
 
     //Creation mots clefs
     //Groupe Contenus
-    if (!$id_groupe = sql_getfetsel("id_groupe", "spip_groupes_mots", "titre='Contenus'"))
-    {
+    if (!$id_groupe = sql_getfetsel("id_groupe", "spip_groupes_mots", "titre='Contenus'")) {
         $id_groupe = sql_insertq('spip_groupes_mots', array(
         'titre'=>'Contenus',
         'unseul'=>'non',
@@ -128,10 +131,11 @@ function th_ajouter_mots_clef() {
         $id = sql_insertq('spip_mots', array('titre'=>'ressources','id_groupe'=>$id_groupe));
     if (!$id_mot = sql_getfetsel("id_mot", "spip_mots", "titre='images_background' AND id_groupe=$id_groupe")) 
         $id = sql_insertq('spip_mots', array('titre'=>'images_background','id_groupe'=>$id_groupe));				
+    if (!$id_mot = sql_getfetsel("id_mot", "spip_mots", "titre='agora' AND id_groupe=$id_groupe")) 
+        $id = sql_insertq('spip_mots', array('titre'=>'agora','id_groupe'=>$id_groupe));
 
     //Groupe Presentation_rubriques
-    if (!$id_groupe = sql_getfetsel("id_groupe", "spip_groupes_mots", "titre='Presentation' AND tables_liees LIKE '%rubriques%'"))
-    {
+    if (!$id_groupe = sql_getfetsel("id_groupe", "spip_groupes_mots", "titre='Presentation' AND tables_liees LIKE '%rubriques%'"))  {
         $id_groupe = sql_insertq('spip_groupes_mots', array(
             'titre'=>'Presentation',
             'unseul'=>'non',

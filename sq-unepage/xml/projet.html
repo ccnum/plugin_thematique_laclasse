@@ -41,11 +41,9 @@
 		<url_popup_reponseajout>spip.php?page=publier&amp;mode=#EVAL{_mode_popup}&amp;type_objet=travail_en_cours</url_popup_reponseajout>
 		<url_popup_blog>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=blogs</url_popup_blog>
 		<url_popup_evenement>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=evenements</url_popup_evenement>
-		[(#SET{id_rub,[(#MODELE{rub_mot_clef}{titre_mot=ressources})]})]
-		<url_popup_ressources>spip.php?page=rubrique&amp;id_rubrique=#GET{id_rub}&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_ressources>
-		
-		[(#SET{id_rub,[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]})]
-		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=#GET{id_rub}&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_classes>
+		<url_popup_ressources>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=ressources})]&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_ressources>
+		<url_popup_agora>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=agora})]&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_agora>
+		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_classes>
 		<url_popup_chat>
 			[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
 				spip.php?page=groupe_mot&amp;id_groupe=5&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources
