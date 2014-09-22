@@ -19,8 +19,8 @@ function th_declarer_champs_extras($champs = array()) {
         'options' => array(
         'nom' => 'ent_statut',
         'label' => _T('th:ent_statut'),
-        'sql' => "varchar(255) NOT NULL DEFAULT 'ELEVE'",
-        'defaut' => 'ELEVE',// Valeur par défaut
+        'sql' => "varchar(255) NOT NULL DEFAULT ''",
+        'defaut' => '',// Valeur par défaut
         'datas' => array('ADM' => 'ADM','ADM_ETB' => 'ADM_ETB','PROF' => 'PROF' ,'PARENT' => 'PARENT' ,'ELEVE' => 'ELEVE'),
         'restrictions'=>array('voir' => array('auteur' => ''),//Tout le monde peut voir
         'modifier' => array('auteur' => array('webmestre','0minirezo'))),//Seuls les webmestres peuvent modifier
