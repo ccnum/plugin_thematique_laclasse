@@ -345,6 +345,8 @@ function projet(){
 	// méthode click
 		this.click = function(x, y, consignes, articles_blog, articles_evenement){
 			//alert (y);
+		if (y > this.hauteur-40 ){
+
 			if (y <= this.hauteur){
 				// un mois est actif
 				if (this.mois_select != -1)
@@ -361,5 +363,7 @@ function projet(){
 						}
 					}
 			}
+
+		}			
 		}
 }
