@@ -150,7 +150,7 @@
 
 			[(#REM)Déroulé des sites syndiqués]
 				<BOUCLE_sites(SITES) {id_rubrique} {par nom_site}{tout} >
-					<li><a id="ajax_rub_#ID_SYNDIC" class="hac ajax [ (#EXPOSE)]">[<strong>(#NOM_SITE|supprimer_numero|couper{80})</strong>]</a>
+					<li><a id="ajax_rub_#ID_SYNDIC" [(#URL_SITE|match{thematiques.laclasse.com}|non)href="#URL_SITE" target="_blank"] class="hac ajax [ (#EXPOSE)]">[<strong>(#NOM_SITE|supprimer_numero|couper{80})</strong>]</a>
 						<ul>
 							[(#REM)Articles syndic]
 							<BOUCLE_syndic_articles(SYNDIC_ARTICLES) {id_syndic} {tout} {par titre} {doublons}>
