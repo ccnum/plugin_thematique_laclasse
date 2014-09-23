@@ -1505,7 +1505,8 @@ label em.aide, .formulaire_editer_article li.editer_parent, .markItUpButton10, .
 }
 
 /*#formulaire_forum { margin-top:5px; margin-bottom:15px; }*/
-#formulaire_forum .markItUpHeader ul, #formulaire_forum .retour, #formulaire_forum legend, #formulaire_forum fieldset p { display: none; }
+#formulaire_forum .markItUpHeader ul, #formulaire_forum .retour, #formulaire_forum fieldset p { }
+#formulaire_forum legend { display: none; }
 #formulaire_forum fieldset { border: 0px; padding: 0px; margin: 0px;}
 #formulaire_forum fieldset p.boutons { display: block;}
 
@@ -1568,6 +1569,13 @@ margin: 12px 0px;
 ul.forum {
 	margin-left: 3%;
 	margin-top: 30px;
+}
+#formulaire_forum ul.forum {
+	margin-left: 0px;
+	margin-top: 10px;
+}
+#formulaire_forum form:first-child {
+	border-bottom: 1px solid #ccc;
 }
 
 ul.forum ul.forum {
