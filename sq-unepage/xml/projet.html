@@ -23,8 +23,8 @@
 				</BOUCLE_rub1>
 			<//B_rub>
 			[(#GET{url}|non)[(#SET{url,[(#CHEMIN{img/fond_#NOM_SITE_SPIP.png}|sinon{#CHEMIN{img/fond.png}})]})]]
-			[(#REM)
-				[(#GET{url}|couleur_extraire|couleur_extreme{0.7}|=={000000}|oui)	[(#SET{url,[(#GET{url}|image_alpha{90}|extraire_attribut{src})]})]	]
+			[(#NOM_SITE_SPIP|match{zerogaspi}|oui)
+				[(#SET{url,[(#GET{url}|image_gamma{30}|extraire_attribut{src})]})]
 			]
 			#GET{url}
 		</image_fond>
