@@ -28,12 +28,16 @@ function afficher_options_date2($anneed,$moisd,$anneef,$moisf)
 {
   $moisd = intval($moisd);
   $moisf = intval($moisf);
+  $anneed = intval($anneed);
+  $anneef = intval($anneef);
 
-  if ($moisd<9) $anneed = $anneed--; 
-  if ($moisf<=9) $anneef = $anneef--; 
+  //echo $anneef." ".$moisf;
 
-  for ($i=$anneef ; $i>=$anneed ; $i--)
-  {
+  if ($moisd<9) $anneed = $anneed-1;
+  if ($moisf<9) $anneef = $anneef-1;
+  //echo $anneef." ".$moisf;
+
+  for ($i=$anneef ; $i>=$anneed ; $i--) {
     $j=$i+1;
     $texte .= "<input type='radio' value='$i'><label>$i/$j</label>";
   }

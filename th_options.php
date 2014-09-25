@@ -59,7 +59,7 @@
 		$date = sql_getfetsel("date", "spip_articles", "date !=  '0000'", "", "'date' DESC");
 		if ($date != '')
 		{
-			$annee_scolaire = substr($date,0,4);
+			$annee_scolaire = intval(substr($date,0,4));
 			$mois_scolaire = intval(substr($date,5,2));
 			if ($mois_scolaire < 9) $annee_scolaire--;
 		}
