@@ -93,68 +93,62 @@
 		 
 			[(#REM) ---------------- documents ---------------- ]
 				[(#REM)Documents joints]
-					<B_documents_joints1>
-						<div class="nettoyeur"></div>
-						<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
-                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
-                                        class='supprimer_couleur'
-                                        onClick='return confirmation("Etes vous sûr de vouloir supprimer ce document ?")'
-                                        title='supprimer ce document' >
-                                        <div class='action_supprimer'></div>
-                                    </a>]
-                                ]
+				<B_documents_joints1>
+					<div class="nettoyeur"></div>
+					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
+						<div class="portfolio_grand">
 
-                                [(#MEDIA|match{'audio|video'}|oui)
-                                <div class="portfolio_grand">
-								    [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
-                                </div>
-                                ]
+                        [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                            [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                class='supprimer_couleur'
+                                onClick='return confirmation("Etes vous sûr de vouloir supprimer ce document ?")'
+                                title='supprimer ce document' >
+                                <div class='action_supprimer'></div>
+                            </a>]
+                        ]
 
-                                [(#MEDIA|match{'image'}|oui)
-                                <div class="portfolio_grand">
-                                    <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                                    [(#EMBED_DOCUMENT||image_reduire{700,500}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
-                                    </a>
-                                </div>
-                                ]
+                        [(#MEDIA|match{'audio|video'}|oui)
+						    [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
+                        ]
 
-                                [(#MEDIA|match{'image|audio|video'}|non)
-                                <div class="portfolio">
-                                    <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" style="text-decoration:none;">
-                                        [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
-                                    </a>
-                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                        [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
-                                    ]
-                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                                        [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
-                                    ]
-                                </div>
-                                ]
-						</BOUCLE_documents_joints1>
+                        [(#MEDIA|match{'image'}|oui)
+                            <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+                            [(#EMBED_DOCUMENT||image_reduire{700,500}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+                            </a>
+                        ]
+                            [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                            [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+	                        ]
+	                        [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+	                            [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+	                        ]
+                        </div>
+
+					</BOUCLE_documents_joints1>
 
 					<B_documents_joints>
-						<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons d}>
-							<div class="portfolio">
-                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
-                                        class='supprimer_couleur'
-                                        onClick='return confirmation("Etes vous sûr de vouloir supprimer ce document ?")'
-                                        title='supprimer ce document' >
-                                        <div class='action_supprimer'></div>
-                                    </a>]
-                                ]
-								[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{100}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000; padding: 30px; float: left; position: relative;'})</a>]
-                                <br />
-                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                    [<span class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur">titre</span>})</span>]
-                                ]
-                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-									[<span class="spip_doc_titre">(#TITRE|supprimer_numero|couper{25})</span>]
-                                ]
-							</div>
-						</BOUCLE_documents_joints>
+					<div class="nettoyeur"></div>
+					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons d}>
+						 <div class="portfolio">
+                             [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+	                            [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+	                                class='supprimer_couleur'
+	                                onClick='return confirmation("Etes vous sûr de vouloir supprimer ce document ?")'
+	                                title='supprimer ce document' >
+	                                <div class='action_supprimer'></div>
+	                            </a>]
+	                        ]
+                            <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" style="text-decoration:none;">
+                                [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
+                            </a>
+                            [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                            [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+	                        ]
+	                        [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+	                            [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+	                        ]
+                        </div>
+					</BOUCLE_documents_joints>
 					</B_documents_joints>
 		
 				[(#REM)Commentaires]
