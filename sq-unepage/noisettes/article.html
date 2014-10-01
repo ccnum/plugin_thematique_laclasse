@@ -96,6 +96,15 @@
 					<B_documents_joints1>
 						<div class="nettoyeur"></div>
 						<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
+                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                        class='supprimer_couleur'
+                                        onClick='return confirmation("Etes vous sûr de vouloir supprimer ce document ?")'
+                                        title='supprimer ce document' >
+                                        <div class='action_supprimer'></div>
+                                    </a>]
+                                ]
+
                                 [(#MEDIA|match{'audio|video'}|oui)
                                 <div class="portfolio_grand">
 								    [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
