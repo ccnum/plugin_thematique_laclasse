@@ -136,9 +136,9 @@
 								<?php
 									if ((isset($GLOBALS['auteur_session']['nom']))&&(autoriser('modifier', 'article', #ID_ARTICLE)))
 										{
-											$action="documenter";
+											$action="dissocier_document";
 											$redirect="#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul";
-											$arg="-#ID_ARTICLE/article/#ID_DOCUMENT";
+											$arg="#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe";
 											$confirmation= attribut_html("Etes vous sûr de vouloir supprimer ce document ?");
 											echo "<a href='".securiser_action_auteur($action, $arg, $redirect, $mode=false, $att='')."' class='supprimer_couleur' onClick='return confirmation(\"$confirmation\")' title='supprimer ce document' ><div class='action_supprimer'></div></a>";
 										}
