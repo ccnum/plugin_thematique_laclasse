@@ -2,7 +2,7 @@
 <div class='spip_document_#ID_DOCUMENT spip_documents[ spip_documents_(#ENV{align})]'[
 	style='[(#ENV{align}|match{^(left|right)$}|oui)float:#ENV{align};] (#ENV{align,center}|=={center}|non)[width:(#ENV{largeur}|max{120})px]']>
 	[(#MEDIA|=={audio}|oui)
-	<audio controls> 
+	<audio controls > 
 	  <source src="#URL_DOCUMENT" />
 	  <p class="warning">Le format *.#MIME_TYPE n'est pas pris en charge par votre navigateur</p>
 	</audio>

@@ -16,10 +16,11 @@
     <necessite nom="crayons" />
     <necessite nom="cicas" />
     <necessite nom="socialtags" />
-    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />
+    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
+    <necessite nom="cextras" compatibilite="[3.0.5;[" />
     
     <utilise nom="notations" />
-    <necessite nom="cextras" compatibilite="[3.0.5;[" />
+    <utilise nom="medias" />
 
     <menu nom="configurer_th" titre="th:configurer_th" parent="menu_squelette"/>
 

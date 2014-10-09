@@ -23,7 +23,7 @@
 				</BOUCLE_rub1>
 			<//B_rub>
 			[(#GET{url}|non)[(#SET{url,[(#CHEMIN{img/fond_#NOM_SITE_SPIP.png}|sinon{#CHEMIN{img/fond.png}})]})]]
-			[(#NOM_SITE_SPIP|match{zerogaspi}|oui)
+			[(#NOM_SITE_SPIP|match{test}|oui)
 				[(#SET{url,[(#GET{url}|image_gamma{30}|extraire_attribut{src})]})]
 			]
 			#GET{url}
