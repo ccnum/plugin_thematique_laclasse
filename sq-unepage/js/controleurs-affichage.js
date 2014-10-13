@@ -129,7 +129,7 @@ $().ready(function(){
     {
 
         $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true, 
-        onClosed:function(){isotope_classes_ferme_tout(); }
+        onClosed:function(){isotope_classes_ferme_tout(); isotope_ressources_ferme_tout();}
         });
     }
     else
