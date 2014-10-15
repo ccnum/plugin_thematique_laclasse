@@ -100,7 +100,7 @@ height: 1em;
 }
 
 
-body{
+body {
 	/* [(#TYPE_OBJET|match{travail_en_cours|blogs|evenements}|non)overflow: hidden;] */
 	background-color: transparent;
 	margin: 0px;
@@ -1515,6 +1515,23 @@ label em.aide, .formulaire_editer_article li.editer_parent, .markItUpButton10, .
 #formulaire_forum legend { display: none; }
 #formulaire_forum fieldset { border: 0px; padding: 0px; margin: 0px;}
 #formulaire_forum fieldset p.boutons { display: block;}
+#formulaire_forum fieldset.qui { display: none; }
+
+ul.forum {
+	margin-left: 3%;
+	margin-top: 30px;
+}
+#formulaire_forum ul.forum {
+	margin-left: 0px;
+	margin-top: 10px;
+}
+#formulaire_forum form:first-child {
+	/*border-bottom: 1px solid #ccc;*/
+}
+
+ul.forum ul.forum {
+	margin-top: 10px;
+}
 
 /*Formulaire_joindre_document*/
 .formulaire_editer_document .titrem, .popup .editer_fichier_upload label, .formulaire_editer_document .sourceup, #joindre_mediatheque__new, #joindre_distant__new, #defaultsubmit__new {display:none; }
@@ -1571,23 +1588,6 @@ line-height:1.5;
 .bloc_texte p {
 margin: 12px 0px;
 }
-
-ul.forum {
-	margin-left: 3%;
-	margin-top: 30px;
-}
-#formulaire_forum ul.forum {
-	margin-left: 0px;
-	margin-top: 10px;
-}
-#formulaire_forum form:first-child {
-	border-bottom: 1px solid #ccc;
-}
-
-ul.forum ul.forum {
-	margin-top: 10px;
-}
-
 
 li a, li a:hover {
 	text-decoration:none;
