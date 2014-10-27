@@ -24,16 +24,11 @@ function th_upgrade($nom_meta_base_version, $version_cible){
 		array('ecrire_meta','articles_soustitre','oui'),
 		array('ecrire_meta','articles_surtitre','oui'),
 		array('ecrire_meta','articles_modif','oui'),
-		//array('ecrire_meta','articles_surtitre','oui');
 		array('ecrire_meta','documents_article','oui'),
 		array('ecrire_meta','documents_rubrique','oui'),
 		array('ecrire_meta','documents_article','oui'),
-		//array('ecrire_meta','accepter_inscriptions','oui');
-		//array('ecrire_meta','creer_preview','oui');
-		//array('ecrire_meta','gd_formats','gif,jpg,png');
-		//array('ecrire_meta','gd_formats_read','gif,jpg,png');
-		//array('ecrire_meta','image_process','gd2');
-		//array('ecrire_meta','max_taille_vignettes','9000000');        
+        array('th_configurer_meta'),
+        array('th_configurer_rubriques'),
 	);
     cextras_api_upgrade(th_declarer_champs_extras(), $maj['create']);
 
