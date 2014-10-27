@@ -4,7 +4,7 @@
 	<auteur>Patrick Vincent</auteur>
 	<licence>GNU/GPL</licence>
 	<version>2.4.0</version>
-	<version_base>2.3.12</version_base>
+	<version_base>2.3.13</version_base>
 	<description>Un plugin pour l'installation simplifiée des thematiques de [laclasse.com->http://www.laclasse.com]
 	</description>
 	<lien>http://www.laclasse.com</lien> <!-- URI de documentation -->
