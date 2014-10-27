@@ -52,7 +52,7 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_ajouter_mots_clef'),
     );
 
-    $maj['2.3.7'] = array(
+    $maj['2.3.8'] = array(
         array('th_configurer_meta'),
     );
 
@@ -72,6 +72,9 @@ function th_configurer_meta() {
     if (!preg_match('/spip\_rubriques/',$documents_objets))
         $documents_objets .= ",spip_rubriques";
     ecrire_meta('documents_objets',$documents_objets);
+
+    ecrire_meta('image_process','gd2','non');
+    ecrire_meta('formats_graphiques',lire_meta('gd_formats_read'),'non');
 }
 
 function th_configurer_site() {
