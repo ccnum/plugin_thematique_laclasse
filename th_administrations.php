@@ -52,7 +52,7 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_ajouter_mots_clef'),
     );
 
-    $maj['2.3.11'] = array(
+    $maj['2.3.12'] = array(
         array('th_configurer_meta'),
     );
 
@@ -85,6 +85,8 @@ function th_configurer_meta() {
 
     ecrire_meta('forums_publics','abo');
     ecrire_meta('formats_documents_forum','gif, jpg, png, mp3, pdf');
+
+    ecrire_meta('type_urls','simple');
 
 }
 
