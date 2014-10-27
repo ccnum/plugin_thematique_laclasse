@@ -4,7 +4,7 @@
     version="2.4.0"
     etat="dev"
     logo="th.png"
-    schema="2.3.9"
+    schema="2.3.10"
     documentation="http://www.laclasse.com"
     compatibilite="[3.0;["
 >
