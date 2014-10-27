@@ -56,6 +56,10 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_configurer_meta'),
     );
 
+    $maj['2.4.0'] = array(
+        array('th_configurer_rubriques'),
+    );
+
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
@@ -217,6 +221,45 @@ function th_ajouter_mots_clef() {
             'comite'=>'non',
             'forum'=>'non'
         ));
+    }
+}
+
+function  th_configurer_rubriques() {
+    $mots = array(
+        'travail_en_cours' => 'Travail des classes',
+        'consignes' => 'Consignes',
+        'ressources' => 'Bibliothèque',
+        'blogs' => 'Blog public',
+        'evenements' => 'Blog privé',
+        'images_background' => 'Contenu editorial'
+    );
+    foreach ($mots as $mot => $titre) {
+        $count = (int)sql_countsel(
+            'spip_rubriques as sr
+                LEFT JOIN spip_mots_liens as sml
+                    ON (sr.id_rubrique = sml.id_objet AND sml.objet = "rubrique")
+                LEFT JOIN spip_mots as sm
+                    ON (sml.id_mot = sm.id_mot)',
+            array(
+                'sm.titre = "'.$mot.'"',
+                'sr.id_parent = 0'
+            )
+        );
+
+        if ($count < 1) {
+            include_spip('action/editer_rubrique');
+            $id_rubrique = rubrique_inserer(0);
+            rubrique_modifier($id_rubrique, array('titre' => $titre));
+
+            $id_mot = (int)sql_getfetsel(
+                'id_mot',
+                'spip_mots',
+                'titre = "'.$mot.'"'
+            );
+
+            include_spip('action/editer_liens');
+            $res = objet_associer(array("mots"=>$id_mot),array("rubriques"=>$id_rubrique));
+        }
     }
 }
 
