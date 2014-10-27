@@ -52,7 +52,7 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_ajouter_mots_clef'),
     );
 
-    $maj['2.3.8'] = array(
+    $maj['2.3.9'] = array(
         array('th_configurer_meta'),
     );
 
@@ -75,6 +75,11 @@ function th_configurer_meta() {
 
     ecrire_meta('image_process','gd2','non');
     ecrire_meta('formats_graphiques',lire_meta('gd_formats_read'),'non');
+
+    ecrire_meta('auto_compress_http','oui');
+    ecrire_meta('auto_compress_js','oui');
+    ecrire_meta('auto_compress_closure','oui');
+    ecrire_meta('auto_compress_css','oui');
 }
 
 function th_configurer_site() {
