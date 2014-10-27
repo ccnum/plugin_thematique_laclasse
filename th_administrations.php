@@ -52,6 +52,10 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_ajouter_mots_clef'),
     );
 
+    $maj['2.3.7'] = array(
+        array('th_configurer_meta'),
+    );
+
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
@@ -60,6 +64,15 @@ function th_vider_tables($nom_meta_base_version) {
 	effacer_meta($nom_meta_base_version);
 }
 
+function th_configurer_meta() {
+
+    $documents_objets = lire_meta('documents_objets');
+    if (!preg_match('/spip\_articles/',$documents_objets))
+        $documents_objets .= ",spip_articles";
+    if (!preg_match('/spip\_rubriques/',$documents_objets))
+        $documents_objets .= ",spip_rubriques";
+    ecrire_meta('documents_objets',$documents_objets);
+}
 
 function th_configurer_site() {
 
