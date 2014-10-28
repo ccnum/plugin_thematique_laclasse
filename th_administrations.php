@@ -226,7 +226,8 @@ function  th_configurer_rubriques() {
         'ressources' => 'Bibliothèque',
         'blogs' => 'Blog public',
         'evenements' => 'Blog privé',
-        'images_background' => 'Contenu editorial'
+        'images_background' => 'Contenu éditorial',
+        'agora' => 'Discuter avec'
     );
     foreach ($mots as $mot => $titre) {
         $count = (int)sql_countsel(
