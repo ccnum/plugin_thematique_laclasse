@@ -24,16 +24,11 @@ function th_upgrade($nom_meta_base_version, $version_cible){
 		array('ecrire_meta','articles_soustitre','oui'),
 		array('ecrire_meta','articles_surtitre','oui'),
 		array('ecrire_meta','articles_modif','oui'),
-		//array('ecrire_meta','articles_surtitre','oui');
 		array('ecrire_meta','documents_article','oui'),
 		array('ecrire_meta','documents_rubrique','oui'),
 		array('ecrire_meta','documents_article','oui'),
-		//array('ecrire_meta','accepter_inscriptions','oui');
-		//array('ecrire_meta','creer_preview','oui');
-		//array('ecrire_meta','gd_formats','gif,jpg,png');
-		//array('ecrire_meta','gd_formats_read','gif,jpg,png');
-		//array('ecrire_meta','image_process','gd2');
-		//array('ecrire_meta','max_taille_vignettes','9000000');        
+        array('th_configurer_meta'),
+        array('th_configurer_rubriques'),
 	);
     cextras_api_upgrade(th_declarer_champs_extras(), $maj['create']);
 
@@ -52,12 +47,49 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_ajouter_mots_clef'),
     );
 
+    $maj['2.3.13'] = array(
+        array('th_configurer_meta'),
+    );
+
+    $maj['2.4.0'] = array(
+        array('th_configurer_rubriques'),
+    );
+
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
 
 function th_vider_tables($nom_meta_base_version) {
 	effacer_meta($nom_meta_base_version);
+}
+
+function th_configurer_meta() {
+
+    $documents_objets = lire_meta('documents_objets');
+    if (!preg_match('/spip\_articles/',$documents_objets))
+        $documents_objets .= ",spip_articles";
+    if (!preg_match('/spip\_rubriques/',$documents_objets))
+        $documents_objets .= ",spip_rubriques";
+    ecrire_meta('documents_objets',$documents_objets);
+
+    ecrire_meta('image_process','gd2','non');
+    ecrire_meta('formats_graphiques',lire_meta('gd_formats_read'),'non');
+
+    ecrire_meta('auto_compress_http','oui');
+    ecrire_meta('auto_compress_js','oui');
+    ecrire_meta('auto_compress_closure','oui');
+    ecrire_meta('auto_compress_css','oui');
+
+    ecrire_meta('accepter_visiteurs','oui');
+
+    ecrire_meta('forums_publics','abo');
+    ecrire_meta('formats_documents_forum','gif, jpg, png, mp3, pdf');
+
+    ecrire_meta('type_urls','simple');
+
+    include_spip('inc/config');
+    appliquer_modifs_config(true);
+
 }
 
 
@@ -184,6 +216,45 @@ function th_ajouter_mots_clef() {
             'comite'=>'non',
             'forum'=>'non'
         ));
+    }
+}
+
+function  th_configurer_rubriques() {
+    $mots = array(
+        'travail_en_cours' => 'Travail des classes',
+        'consignes' => 'Consignes',
+        'ressources' => 'Bibliothèque',
+        'blogs' => 'Blog public',
+        'evenements' => 'Blog privé',
+        'images_background' => 'Contenu editorial'
+    );
+    foreach ($mots as $mot => $titre) {
+        $count = (int)sql_countsel(
+            'spip_rubriques as sr
+                LEFT JOIN spip_mots_liens as sml
+                    ON (sr.id_rubrique = sml.id_objet AND sml.objet = "rubrique")
+                LEFT JOIN spip_mots as sm
+                    ON (sml.id_mot = sm.id_mot)',
+            array(
+                'sm.titre = "'.$mot.'"',
+                'sr.id_parent = 0'
+            )
+        );
+
+        if ($count < 1) {
+            include_spip('action/editer_rubrique');
+            $id_rubrique = rubrique_inserer(0);
+            rubrique_modifier($id_rubrique, array('titre' => $titre));
+
+            $id_mot = (int)sql_getfetsel(
+                'id_mot',
+                'spip_mots',
+                'titre = "'.$mot.'"'
+            );
+
+            include_spip('action/editer_liens');
+            $res = objet_associer(array("mots"=>$id_mot),array("rubriques"=>$id_rubrique));
+        }
     }
 }
 
