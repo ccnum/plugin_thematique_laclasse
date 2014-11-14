@@ -11,8 +11,9 @@ function th_declarer_tables_principales($tables_principales){
 		$tables_principales['spip_syndic_articles']['field']['X'] = "float NOT NULL";
 		$tables_principales['spip_syndic_articles']['field']['Y'] = "float NOT NULL";
 		$tables_principales['spip_rubriques']['field']['id_rubrique_lien'] = "bigint(21) NOT NULL";
-		
-		if ($GLOBALS['meta']['nom_site']=='design.laclasse.com')
+	
+	$nom = $GLOBALS['meta']['nom_site'];
+	if ( (strpos($nom,'design') !== FALSE)||(strpos($nom,'zerogaspi') !== FALSE) )
 		{
 			$tables_principales['spip_articles']['field']['champ1'] = "longtext NOT NULL"; 
 			$tables_principales['spip_articles']['field']['champ2'] = "longtext NOT NULL"; 
@@ -25,6 +26,7 @@ function th_declarer_tables_principales($tables_principales){
 			$tables_principales['spip_articles']['field']['champ9'] = "longtext NOT NULL"; 
 			$tables_principales['spip_articles']['field']['champ10'] = "longtext NOT NULL"; 
 			$tables_principales['spip_articles']['field']['champ11'] = "longtext NOT NULL"; 
+			$tables_principales['spip_articles']['field']['champ12'] = "longtext NOT NULL"; 			
 		}
 
 		return $tables_principales;

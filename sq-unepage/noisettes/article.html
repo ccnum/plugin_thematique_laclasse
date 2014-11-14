@@ -84,12 +84,8 @@
 				]
 
 			[(#REM) ---------------- Champs personnalisés ---------------- ]
-				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui|et{[(#ENV{type_objet}|=={travail_en_cours}|oui)]}|oui)
-					<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
-				]
-				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui|et{[(#ENV{type_objet}|=={consignes}|oui)]}|oui)
-					<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_ARTICLE}{id_article}>
-				]
+				<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
+
 		 
 			[(#REM) ---------------- documents ---------------- ]
 				[(#REM)Documents joints]

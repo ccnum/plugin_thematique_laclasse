@@ -1,11 +1,52 @@
 [(#REM)Fiche Objet]
 [(#REM) on doit appliquer un filtre d'affichage au champ #CHAMP1 soit #CHAMP1|nl2br, soit #CHAMP1|nl2br, soit #CHAMP1|typo ]
 [(#REM) voir aussi modif plugins/crayons/action/crayons_store.php ligne 252 ]
-
 <BOUCLE_principale(ARTICLES){id_article}>
 
 [(#REM)2013 = Consigne1]
-	[(#ENV{id_consigne}|=={204}|oui)
+	[(#NOM_SITE_SPIP|match{zerogaspi}|oui|et{[(#ID_CONSIGNE|=={51}|oui)]}|oui)
+		<div id="bloc_texte">
+			<br />
+			<h3 style="display:inline;">Qu’aimeriez-vous manger comme aliments à la cantine ?</h3>
+			<p class="spip_cadre #EDIT{champ1}">[(#CHAMP1|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Avez-vous des idées d’aliments, de recettes originales ?</h3>
+			<p class="spip_cadre #EDIT{champ2}">[(#CHAMP2|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Qu’est ce que vous ne mangez pas à la cantine et que vous mangez chez vous ?</h3>
+			<p class="spip_cadre #EDIT{champ3}">[(#CHAMP3|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Aujourd’hui avez vous mangez tout votre plateau repas ? Que n’avez-vous pas mangé ? Pourquoi ?</h3>
+			<p class="spip_cadre #EDIT{champ4}">[(#CHAMP4|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Aimez vous le design des plateaux repas de votre cantine ? Comment imaginez vous le plateau repas du futur ?</h3>
+			<p class="spip_cadre #EDIT{champ5}">[(#CHAMP5|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Quelle décoration aimeriez vous pour votre cantine du futur ?</h3>
+			<p class="spip_cadre #EDIT{champ6}">[(#CHAMP6|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Quel mobilier aimeriez vous pour votre cantine du futur ?</h3>
+			<p class="spip_cadre #EDIT{champ7}">[(#CHAMP7|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Aimez vous le design d’intérieur de votre cantine ? Comment imaginez vous l’architecture intérieure de la cantine du futur ?</h3>
+			<p class="spip_cadre #EDIT{champ8}">[(#CHAMP8|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Comment peut-on faire pour que les collégiens mangent tout ?</h3>
+			<p class="spip_cadre #EDIT{champ9}">[(#CHAMP9|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />																		
+			<h3 style="display:inline;">Comment peut-on présenter les aliments pour qu’ils soient plus attractifs ?</h3>
+			<p class="spip_cadre #EDIT{champ10}">[(#CHAMP10|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+			<h3 style="display:inline;">Comment peut-on faire réagir les collégiens pour qu’ils ne gaspillent pas ?</h3>
+			<p class="spip_cadre #EDIT{champ11}">[(#CHAMP11|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />			
+			<h3 style="display:inline;">Dessine soit le repas de tes rêves, soit le plateau repas de tes rêves, soit le mobilier pour manger de tes rêves,  soit le fonctionnement de la cantine de tes rêves, soit une façon de mesurer le gaspillage alimentaire en le rendant plus ludique. Utilises le bouton ajouter un document pour celà.</h3>
+			<p class="spip_cadre #EDIT{champ12}">[(#CHAMP11|nl2br|sinon{<br /><br /><br /><br />})]</p>
+			<br />
+		</div>
+	]
+
+[(#NOM_SITE_SPIP|match{design}|oui|et{[(#ID_CONSIGNE|=={204}|oui)]}|oui)
 		<div id="bloc_texte">
 			<br />
 			<h3 style="display:inline;">Qu’avez-vous comme objets dans votre sac à dos ?</h3>
