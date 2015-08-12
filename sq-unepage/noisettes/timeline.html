@@ -2,7 +2,8 @@
 <!--[if IE]>
 	<script src="#CHEMIN{js/_excanvas.js}"></script>
 <![endif]-->
-
+#ENV{type_objet}
+#ENV{id_objet}
 <script language="Javascript">
 	[(#REM)Variables globales JS]
 		var g_u_chemin = "[(#ENV{chemin})]";
@@ -19,7 +20,7 @@
 		var g_u_date = '[(#ENV{vue_date,0})]';
 		var g_u_type_popup = '[(#ENV{type_objet,0})]';
 		//var g_u_type_objet = '[(#ENV{page})]';
-		var g_u_id_objet = '[(#ENV{id_objet,0})]';		
+		var g_u_id_objet = '[(#ENV{id_objet,0})]';
 </script>
 <script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>

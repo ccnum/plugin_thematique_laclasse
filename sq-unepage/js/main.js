@@ -75,7 +75,7 @@ function init_view(){
 			for (k=0; k<g_consignes.length;k++){
 				if (g_consignes[k].id == g_u_id_objet){
 					consigne_click(g_u_id_objet);
-					consigne_ouvre(g_consignes[k].numero);					
+					consigne_ouvre(g_consignes[k].numero);
 				}
 			}
 		}

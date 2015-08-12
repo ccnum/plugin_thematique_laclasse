@@ -109,7 +109,7 @@
 
                         [(#MEDIA|match{'image'}|oui)
                             <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                            [(#EMBED_DOCUMENT||image_reduire{700,500}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+                            [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
                             </a>
                         ]
                             [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
