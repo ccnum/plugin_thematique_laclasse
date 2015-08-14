@@ -31,7 +31,6 @@
 			#SET{date_fin,#DATE}
 			</BOUCLE_datef>
 			[(#GET{date_debut}|annee|afficher_options_date2{[(#GET{date_debut}|mois)],[(#GET{date_fin}|annee)],[(#GET{date_fin}|mois)]})]
-
 		</div>
 	</div>
 
@@ -47,8 +46,6 @@
 	</div>
 	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
 </ul>
-
-
 
 <script>
 $().ready(function(){
@@ -68,7 +65,6 @@ $().ready(function(){
 <ul class="droite titre">
 	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>
 </ul>
-
 
 [(#REM)Initialisations dont crayons]
 <INCLURE{fond=noisettes/js/marqueurs}>
