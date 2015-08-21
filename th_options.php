@@ -21,7 +21,7 @@
 	define('_mode_popup','detail');
 	//Fin vérification
 
-	$annee_scolaire = 2014;
+	$annee_scolaire = 2015;
 	define('_annee_cours',$annee_scolaire);
 
 	//Qualifie les médias pour les tris	
