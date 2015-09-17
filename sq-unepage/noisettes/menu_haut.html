@@ -1,6 +1,13 @@
 #CACHE{0}
+#SET{color_menu_hover,#fc0078}
+
 <ul class="titre">
     [(#REM)Titre]
+    [(#SESSION{login}|=={pvincent}|oui)
+    <li class="logo">
+         <a href="[(#URL_SITE_SPIP)]" title="Accueil">[(#CHEMIN{img/pictos_noir/[(#NOM_SITE_SPIP)].png}|image_reduire{35})]</a>
+    </li>
+    ]
     <li class="double bloc1">
         <a href="[(#URL_SITE_SPIP)]" title="Accueil">[(#NOM_SITE_SPIP)]</a>
     </li>

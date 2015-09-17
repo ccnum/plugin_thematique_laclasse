@@ -114,6 +114,6 @@
 	// define('_DOC_MAX_SIZE', 0);
 
 // AutoBR
-	define('_AUTOBR', '');
+	//define('_AUTOBR', '');
 
 ?>

@@ -44,6 +44,7 @@
 #SET{gris_clair,#ccc}
 #SET{gris_fonce,#999}
 #SET{color_menu_hover,#fc0078}
+#SET{blanc,#fff}
 
 
 /* ---------------------------------------------------------------- */
@@ -487,8 +488,10 @@ a:hover{
 }
 
 .select input {
+  /*
   max-height: 0;
   max-width: 0;
+  */
   filter:alpha(opacity=0);
   -moz-opacity: 0;
   opacity: 0;
@@ -594,10 +597,15 @@ a:hover{
 /* Logos */
 
 #menu_bas.zone-menu li.logo, #menu_haut.zone-menu li.logo {
-	background-color: #GET{gris_clair};
 	cursor: pointer;
 	width: 31px;
 	padding: 0px;
+}
+#menu_bas.zone-menu li.logo {
+	background-color: #GET{gris_clair};
+}
+#menu_haut.zone-menu li.logo {
+	background-color: #GET{blanc};
 }
 
 #menu_bas.zone-menu li.logo a, #menu_haut.zone-menu li.logo a {
@@ -637,7 +645,7 @@ a:hover{
 </BOUCLE_vue>
 
 /* Pictos haut */
-<BOUCLE_vue2(DATA){liste aide,presentation,deconnecter,connecter,prive,ecrire,mdpperdu,inscription,profil-publication}>
+<BOUCLE_vue2(DATA){liste aide,presentation,deconnecter,connecter,connecter1,connecter2,prive,ecrire,mdpperdu,inscription,profil-publication}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]
