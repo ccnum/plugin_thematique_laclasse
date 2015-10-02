@@ -9,6 +9,8 @@ function largeur_zone(){
 
 function hauteur_zone(){
     //return $(window).height()-40;
+    //if($("#menu_bas").height())	return $(window).height() - $("#menu_bas").height() - $("#menu_haut").height();
+	//return $(window).height()*0.873;
     return $(window).height()*0.873;
 }
 

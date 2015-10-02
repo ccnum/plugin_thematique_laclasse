@@ -203,7 +203,7 @@ function projet(){
 							}else{
 								texte += "-";
 							}
-							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-28, this.hauteur-42);
+							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-28, this.hauteur-38);
 						}else{
 							var texte = g_nom_mois[mois]+" ";
 							if (this.mois_select == -1){
@@ -211,7 +211,7 @@ function projet(){
 							}else{
 								texte += "-";
 							}
-							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-14, this.hauteur-42);
+							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-14, this.hauteur-38);
 						}
 						if (i > 0){
 							this.drawline(this.div_base_context, x+this.xx, 0, x+this.xx, this.hauteur, "#eee", 0.5);

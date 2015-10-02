@@ -143,6 +143,9 @@
 				#SET{blocs_forum,non}
 			]
 			
+		<BOUCLE_rub_classe(RUBRIQUES){id_rubrique}{tout}>
+			#SET{donnees_classe,#TEXTE*}
+		</BOUCLE_rub_classe>
 
 		[(#GET{blocs_cplt}|=={non}|non)
 
@@ -190,19 +193,33 @@
 				</div>
 				]
 
-				[(#REM)Liens sociaux]
-					[(#PLUGIN{SOCIALTAGS}|oui)
-					<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_reseaux-#ID_ARTICLE}>
-					<div class="bloc_option_doc nettoyeur">
-						<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
-							<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Réseaux sociaux
-						</a>
-						<div class="cache">
-							<div class="reseaux"></div>
-						</div>
+			[(#REM)Liens sociaux]
+				[(#PLUGIN{SOCIALTAGS}|oui)
+				<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_reseaux-#ID_ARTICLE}>
+				<div class="bloc_option_doc nettoyeur">
+					<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
+						<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Réseaux sociaux
+					</a>
+					<div class="cache">
+						<div class="reseaux"></div>
 					</div>
-					]
+				</div>
+				]
 
+			[(#REM)Données de la classe ]
+				[(#GET{type_objet}|=={travail_en_cours}|oui
+				|et{#GET{donnees_classe}|=={''}|non}
+				|oui)
+				<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_donnees-#ID_ARTICLE}>
+				<div class="bloc_option_doc nettoyeur">
+					<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
+						<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Données de la classe
+					</a>
+					<div class="">
+						<div class="donnees_classe">#GET{donnees_classe}</div>
+					</div>
+				</div>
+				]
 		]
 
 	</div>

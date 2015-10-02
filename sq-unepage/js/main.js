@@ -126,7 +126,7 @@ function init_view(){
 
 		    //Listeners de changements sur la fenêtre pour forcer les calculs d'affichage timeline
 	      		window.addEventListener("focus", function(event) { activate_action(); }, false);
-	     		window.addEventListener("onresize", function(event) { activate_action(); resizenow(); }, false);
+	     		window.addEventListener("resize", function(event) { activate_action(); resizenow(); }, false);
 	      		window.addEventListener("blur", function(event) { stop_action(); }, false);
 		});	
 

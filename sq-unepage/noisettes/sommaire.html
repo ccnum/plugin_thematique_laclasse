@@ -94,11 +94,11 @@ et/ou
 				<h3>Classes</h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
 			        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les classes})]
-			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}>
+			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
 			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
 			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 			            </BOUCLE_a3>
-			              [(#MODELE{logo_menu}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]}{onclick=classes_click([(#ID_RUBRIQUE)]);})]
+							[(#MODELE{logo_menu}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]}{onclick=classes_click([(#ID_RUBRIQUE)]);})]
 			            </B_a3>
 			            <//B_a3>
 			          </BOUCLE_c3>
