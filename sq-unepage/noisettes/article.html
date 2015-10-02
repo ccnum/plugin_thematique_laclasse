@@ -8,7 +8,7 @@
 			[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressources}]
 			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
 			</BOUCLE_auteur>
-				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet,consignes} ]
+				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet0,consignes} ]
 			</B_auteur><//B_auteur>
 
 		[(#REM) ---------------- Hack temporaire ? ---------------- ]
@@ -177,6 +177,10 @@
 				[(#ADMIN|=={-2}|oui)
 					#SET{blocs_forum,non}
 				]
+
+				<BOUCLE_rub_classe(RUBRIQUES){id_rubrique}{tout}>
+					[(#SET{donnees_classe,[(#TEXTE*|liens_ouvrants)]})]
+				</BOUCLE_rub_classe>
 				
 				[(#REM)Ajouter un texte]
 					[(#GET{blocs_cplt}|=={non}|non)
@@ -237,7 +241,7 @@
 								<INCLURE{fond=forum,id_article,mode=ajax-detail}>
 							</div>
 						</div>
-					]				
+					]
 
 				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
 					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
@@ -264,6 +268,19 @@
 							<div class="reseaux"></div>
 						</div>
 					</div>
+					]
+
+				[(#REM)Données de la classe]
+					[(#GET{type_objet}|=={travail_en_cours}|oui)
+					[<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_donnees-#ID_ARTICLE}>
+					<div class="bloc_option_doc nettoyeur">
+						<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
+							<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Données de la classe
+						</a>
+						<div class=" ">
+							<div class="donnees_classe">(#GET{donnees_classe})</div>
+						</div>
+					</div>]
 					]
 
 				[(#REM)Bloc suppression]
