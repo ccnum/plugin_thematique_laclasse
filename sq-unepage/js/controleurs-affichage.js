@@ -48,8 +48,8 @@ $().ready(function(){
     //Tooltip 
       $("#menu_bas ul a").tooltip({
           position: {
-            my: "center top+20",
-            at: "center bottom",
+            my: "center bottom-4",
+            at: "center top",
             using: function( position, feedback ) {
               $( this ).css( position );
               $( "<div>" )
@@ -58,7 +58,7 @@ $().ready(function(){
                 .addClass( feedback.horizontal )
                 .appendTo( this );
             },
-            collision: "none",
+            collision: "fit",
           },
           show: {
             duration: 100,
