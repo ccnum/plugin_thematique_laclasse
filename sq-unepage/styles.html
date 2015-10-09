@@ -395,6 +395,10 @@ a:hover{
 	padding: 0px 15px 0px 15px;
 }
 
+#menu_haut.zone-menu li.bloc1 {
+	padding: 0px 15px 0px 5px;
+}
+
 #menu_haut.zone-menu form {
 	padding: 0px;
 }
@@ -597,16 +601,26 @@ a:hover{
 
 /* Logos */
 
-#menu_bas.zone-menu li.logo, #menu_haut.zone-menu li.logo {
+#menu_haut.zone-menu span.logo {
+  vertical-align: middle;
+  height: 24px;
+  display: inline-block;
+  margin-right:2px
+}
+
+#menu_haut.zone-menu span.logo img {
+	width: 32px;
+  height: auto;
+  margin-top: -4px;
+}
+
+#menu_bas.zone-menu li.logo {
 	cursor: pointer;
 	width: 31px;
 	padding: 0px;
 }
 #menu_bas.zone-menu li.logo {
 	background-color: #GET{gris_clair};
-}
-#menu_haut.zone-menu li.logo {
-	background-color: #GET{blanc};
 }
 
 #menu_bas.zone-menu li.logo a, #menu_haut.zone-menu li.logo a {
