@@ -120,9 +120,17 @@ $().ready(function(){
 ////////////////////////////////////////////////////////////////
   function popup(url,mode){
     if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
+    
+    console.log('mode : '+mode);
+    console.log('url : '+url);
+    
     if ((mode=='consigne0')||(mode=='reponse'))
     {
-       $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
+    //   $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
+       
+       $('#sidebar').load(url,function(){
+         console.log('loaded');
+       });
     }
     else 
     if (mode=='classes')

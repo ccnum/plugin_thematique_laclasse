@@ -214,7 +214,7 @@ function projet(){
 							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-14, this.hauteur-38);
 						}
 						if (i > 0){
-							this.drawline(this.div_base_context, x+this.xx, 0, x+this.xx, this.hauteur, "#eee", 0.5);
+							this.drawline(this.div_base_context, x+this.xx, 0, x+this.xx, this.hauteur, "rgb(50,50,50)", 0.5, 1);
 						}
 						mois++;
 						if (mois >= 12){
@@ -335,6 +335,7 @@ function projet(){
 			if (color != undefined) context.fillStyle = color;
 			if ((width > 1)&&(color != undefined)) context.strokeStyle = color; else context.strokeStyle = this.couleur_1erplan1;
 			//if (opacity != undefined)	log (color);
+			
 			context.beginPath();
 			context.moveTo(from_x, from_y);
 			context.lineTo(dest_x, dest_y);

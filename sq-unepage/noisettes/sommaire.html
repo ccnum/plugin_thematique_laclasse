@@ -24,6 +24,19 @@ et/ou
 	<div id="zone_classe" class="zone_classe zone" [(#VUE|=={classe}|oui) style="display:block;"]>
 		<INCLURE{fond=noisettes/isotope}{env}>
 	</div>
+	
+	<div id="sidebar" style="position:fixed;top:50px;right:30px;bottom:50px;width:450px;background:rgba(255,255,255,.95);z-index:1000000000000">
+    
+    Consignes :<br><br>
+    
+    [(#CONSIGNES|print)]
+    
+    <ul>
+      <BOUCLE_actualitesdd(DATA){source tableau, tout}>
+      	#VALEUR      
+      </BOUCLE_actualitesdd(DATA)>
+    </ul>
+  </div>
 
 	<div id="menu_bas" class="clearfix combo-filters zone-menu">
 		
