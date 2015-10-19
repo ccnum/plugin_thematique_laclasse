@@ -1,9 +1,18 @@
-////////////////////////////////////////////////////////////////
-// Fonctions d'affichage générales
-////////////////////////////////////////////////////////////////
-
+/* * * * * * * * * * * * * * * * * * * * * * * *
+ *  
+ *  controleurs-timeline.js
+ *
+ *  Fonctions d'affichage générales
+ *
+ */
+   
 function largeur_zone(){
     //return $(window).width()*0.82;
+    
+    return $(window).width()*0.98;
+    
+    /*
+  
     
   if ($('body').hasClass('hasSidebarOpen')) {
     return ($(window).width()-$('#sidebar').width())*0.98;
@@ -11,28 +20,35 @@ function largeur_zone(){
   } else {
     return $(window).width()*0.98;
   }
+  */
+  
+  // return 100;
 }
 
 function hauteur_zone(){
     //return $(window).height()-40;
     //if($("#menu_bas").height())	return $(window).height() - $("#menu_bas").height() - $("#menu_haut").height();
 	//return $(window).height()*0.873;
-    return $(window).height()*0.873;
+	
+	
+  return $(window).height()*0.873;
+    
+  //  return 100;
 }
 
 function resizenow() {
-    var browserwidth = largeur_zone();
-    var browserheight = hauteur_zone();
-    $('#zone').css('width', browserwidth).css('height', browserheight);
-    //$('#zone').css('left', ((browserwidth - $("#zone").width())/2)).css('top', ((browserheight - $("#zone").height())/2));
-    g_projet.largeur = browserwidth;
-    g_projet.hauteur = browserheight;
-    g_projet.div_base.width = browserwidth;
-    g_projet.div_base.height = browserheight;
-    largeur = browserwidth;
-    hauteur = browserheight;
-    this.frame = 0;
-};
+  var browserwidth = largeur_zone();
+  var browserheight = hauteur_zone();
+  $('#zone').css('width', browserwidth).css('height', browserheight);
+  //$('#zone').css('left', ((browserwidth - $("#zone").width())/2)).css('top', ((browserheight - $("#zone").height())/2));
+  g_projet.largeur = browserwidth;
+  g_projet.hauteur = browserheight;
+  g_projet.div_base.width = browserwidth;
+  g_projet.div_base.height = browserheight;
+  largeur = browserwidth;
+  hauteur = browserheight;
+  this.frame = 0;
+}
 
 function stop_action(){
 	g_action = false;

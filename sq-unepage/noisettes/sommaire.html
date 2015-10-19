@@ -16,6 +16,8 @@ et/ou
 	<div id="menu_haut" class="zone-menu ">
 		<INCLURE{fond=noisettes/menu_haut}{env}>
 	</div>
+	
+  <div id="timeline"></div>
 
 	<div id="zone" class="zone_timeline zone" [(#VUE|=={classe}|oui) style="display:none;"]>
 		<INCLURE{fond=noisettes/timeline}{env}>
@@ -28,14 +30,6 @@ et/ou
 	<div id="sidebar">
     
     Consignes :<br><br>
-    
-    [(#CONSIGNES|print)]
-    
-    <ul>
-      <BOUCLE_actualitesdd(DATA){source tableau, tout}>
-      	#VALEUR      
-      </BOUCLE_actualitesdd(DATA)>
-    </ul>
   </div>
 
 	<div id="menu_bas" class="clearfix combo-filters zone-menu">

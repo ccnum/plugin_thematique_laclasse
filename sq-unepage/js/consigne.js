@@ -30,11 +30,14 @@ function consigne(){
 		// base			
 			this.div_base = document.createElement("div");
 			this.div_base.style.position = "absolute";
-			this.div_base.style.left = "-1000px";
+			this.div_base.style.left = this.nombre_jours*g_projet.nombre_jours/100;
 			this.div_base.style.top = this.y+"px";
 			this.div_base.style.zIndex = 100;
 			this.div_base.style.cursor = "pointer";
-			canvas.appendChild(this.div_base);
+			
+			// canvas.appendChild(this.div_base);
+
+      g_projet.timeline.append(this.div_base);
 
 			for (k=0;k<classes.length;k++){
 				if (intervenant_id == classes[k].id){
@@ -60,14 +63,18 @@ function consigne(){
 				"<div class=\"auteur_date\">"+nom_classe+" - "+this.date_texte+"</div> "+
 				"</div>"+
 				"<div class=\"nettoyeur\"></div> ";
+				
 			this.div_base.appendChild(this.div_titre);	
+			
 
-		// calcul tailles consigne
+		  // Calcul des tailles des consignes
+		  
 			this.largeur = $(this.div_base).outerWidth();
 			this.hauteur = $(this.div_base).outerHeight();
 			log (this.titre+':'+this.largeur);
 			
-		//Préparation bouton réponse plus
+      // Préparation bouton réponse plus (crayon)
+		
 			this.div_reponse_plus = document.createElement("div");
 			this.div_reponse_plus.innerHTML = "<div style='position:absolute;z-index:1;'><img src='"+g_u_chemin+"img/reponse_plus.png' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");' title='répondre à la consigne' ></div>";
 			this.div_reponse_plus.style.position = "absolute";
@@ -75,6 +82,7 @@ function consigne(){
 			this.div_reponse_plus.style.cursor = "pointer";
 			this.div_reponse_plus.left = (this.largeur+10)+"px";
 			this.div_reponse_plus.style.top = (this.hauteur-25)+"px";
+			
 			this.div_base.appendChild(this.div_reponse_plus);
 							
 		// bouton retour vue générale

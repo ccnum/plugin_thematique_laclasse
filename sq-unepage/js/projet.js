@@ -1,9 +1,12 @@
-////////////////////////////////////////////////////////////////
-// classe de projet
-////////////////////////////////////////////////////////////////
+/* * * * * * * * * * * * * * * * * * * * * * * *
+ *  
+ *  CLASSE projet()
+ *
+ */
+ 
 function projet(){
 	
-	// membres
+	// Membres
 	var x, xx, x_dest, dx;
 	var y, yy, y_dest, dy;
 	var largeur, hauteur, fps, frame, dzoom, x_barre, largeur_barre;
@@ -12,8 +15,14 @@ function projet(){
 	var liste_cy_consignes, liste_y_blogs, liste_y_evenements;
 	var url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2;
 	var div_base, div_barre, div_base_context, div_mois;
+  var timeline;
 	
-	// méthode init
+  /* * * * * * * * * * * * * * * * * * * * * * * *
+   *  
+   *  MÉTHODE init()
+   *
+   */
+   
 	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2){
 			this.x = 0;
 			this.xx = 0;
@@ -33,25 +42,34 @@ function projet(){
 			this.couleur_1erplan2 = couleur_1erplan2;
 			this.couleur_1erplan3 = couleur_1erplan3;
 			this.zoom_consignes = zoom_consignes;
-		// liste y consignes
+			this.timeline = $('#timeline');
+		
+      // Liste y consignes
+      
 			var liste_y = liste_y_consignes.split(",");
 			this.liste_y_consignes = [];
 			for (i=0;i<liste_y.length;i++){
 				this.liste_y_consignes.push(parseFloat(liste_y[i]));
 			}
-		// liste y articles de blog
+		
+      // Liste y articles de blog
+      
 			var liste_y = liste_y_blogs.split(",");
 			this.liste_y_blogs = [];
 			for (i=0;i<liste_y.length;i++){
 				this.liste_y_blogs.push(parseFloat(liste_y[i]));
 			}
-		// liste y articles d'événement
+		
+      // Liste y articles d'événement
+      
 			var liste_y = liste_y_evenements.split(",");
 			this.liste_y_evenements = [];
 			for (i=0;i<liste_y.length;i++){
 				this.liste_y_evenements.push(parseFloat(liste_y[i]));
 			}
-		// Canvas général
+		
+      // Canvas général
+      
 			this.image_fond = new Image();
 			if (image_fond.length > 1){
 				this.image_fond.src = image_fond;
@@ -59,24 +77,27 @@ function projet(){
 			this.div_base = document.createElement("canvas");
 			this.div_base.setAttribute("id","canvas_projet");
 
-		//	Tailles		
+      // Tailles		
+      
 			this.largeur = largeur;
 			this.hauteur = hauteur;
 			this.div_base.width = largeur;
 			this.div_base.height = hauteur;			
 			//resizenow();
 
-		// Canvas
+      // Canvas
 			canvas.appendChild(this.div_base);
 
-		//Contexte de rendu générique
+      // Contexte de rendu générique
+      
 			this.div_base_context = this.div_base.getContext("2d");			
 			this.div_base_context.font = "10px sans-serif";
 	 		this.div_base_context.textBaseline = "top";
 			this.div_base_context.lineWidth = 0.5;
 			this.div_base_context.strokeStyle = this.couleur_1erplan1;
 
-		// urls
+      // Urls
+      
 			this.url_popup_consigne = url_popup_consigne;
 			this.url_popup_reponse = url_popup_reponse;
 			this.url_popup_reponseajout = url_popup_reponseajout;
@@ -89,7 +110,12 @@ function projet(){
 			this.url_popup_chat2 = url_popup_chat2;
 	}
 	
-	// méthode calcdate
+  /* * * * * * * * * * * * * * * * * * * * * * * *
+   *  
+   *  MÉTHODE calcdate()
+   *
+   */
+   
 	this.calcdate = function(date_debut, date_fin){
 		var jd1 = parseFloat(date_debut.substring(0, 2));
 		var md1 = parseFloat(date_debut.substring(3, 5));
@@ -370,8 +396,9 @@ function projet(){
   }
   
   this.init_timeline = function(){
-		
-    var timeline = $('<div id="timeline"></div>');
+    
+    // width, height, etc
+    
     var mois = this.premier_mois;
     var annee = this.premiere_annee;
 		
@@ -388,7 +415,7 @@ function projet(){
     	
     	$('<div/>', {
       	'class':'mois'
-    	}).appendTo(timeline);
+    	}).appendTo(this.timeline);
     	
     	mois++;
     	
@@ -398,7 +425,5 @@ function projet(){
     		mois = 0;
     	}
     }
-    
-    timeline.appendTo('#zone');
   }
 }
