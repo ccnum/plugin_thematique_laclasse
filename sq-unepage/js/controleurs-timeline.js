@@ -4,7 +4,13 @@
 
 function largeur_zone(){
     //return $(window).width()*0.82;
+    
+  if ($('body').hasClass('hasSidebarOpen')) {
+    return ($(window).width()-$('#sidebar').width())*0.98;
+    
+  } else {
     return $(window).width()*0.98;
+  }
 }
 
 function hauteur_zone(){

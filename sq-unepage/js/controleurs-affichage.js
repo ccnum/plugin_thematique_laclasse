@@ -127,36 +127,49 @@ $().ready(function(){
     if ((mode=='consigne0')||(mode=='reponse'))
     {
     //   $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
+       showSidebar();
        
        $('#sidebar').load(url,function(){
          console.log('loaded');
+         showSidebarCallback();
        });
     }
     else 
     if (mode=='classes')
     {
 
-        $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true, 
-        onClosed:function(){isotope_classes_ferme_tout(); isotope_ressources_ferme_tout();}
-        });
+       showSidebar();
+       
+        $('#sidebar').load(url,function(){
+         console.log('loaded');
+         showSidebarCallback();
+       });
     }
-    else
-      $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true,
-      onClosed:function(){isotope_ressources_ferme_tout();}
-      });
+    else {
+       showSidebar();
+       
+      $('#sidebar').load(url,function(){
+         console.log('loaded');
+         
+         showSidebarCallback();
+       });
+    }
   }
 
   function popup_html(url){
       if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
-      $().colorbox({width:'85%',height: '85%', html:url,
-          onClosed:function(){isotope_ressources_ferme_tout();isotope_classes_ferme_tout();}
-      });
+      
+       showSidebar();
+       
+       
+      $('#sidebar').load(url,function(){
+         console.log('loaded');
+         showSidebarCallback();
+       });
   }
 
   $().ready(function(){
-        $(".colorbox").colorbox({width:'85%',height: '85%', rel:'colorbox', iframe: true, returnFocus: false, scrolling: true,
-        onClosed:function(){isotope_ressources_ferme_tout();}
-        });       
+  // ?
   });
 
 ////////////////////////////////////////////////////////////////
@@ -174,4 +187,14 @@ function reload(url) {
     window.location.reload();
   }
   else window.location.href = url;
+}
+
+function showSidebar() {
+  
+  $('body').addClass('hasSidebarOpen');
+  $('#sidebar').addClass('show');
+  resizenow();
+}
+
+function showSidebarCallback() {
 }

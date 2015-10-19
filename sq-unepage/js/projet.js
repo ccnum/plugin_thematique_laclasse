@@ -188,6 +188,7 @@ function projet(){
 							this.div_base_context.fillRect(this.mois_rollover*this.largeur_mois+this.xx, this.hauteur-44, this.largeur_mois, 20);
 						}
 					}
+					
 
 				// fond : lignes + mois
 					var mois = this.premier_mois;
@@ -366,5 +367,38 @@ function projet(){
 			}
 
 		}			
-		}
+  }
+  
+  this.init_timeline = function(){
+		
+    var timeline = $('<div id="timeline"></div>');
+    var mois = this.premier_mois;
+    var annee = this.premiere_annee;
+		
+		// On parcourt chaque mois
+    for (i = 0; i < this.nombre_mois; i++) {
+      
+      // Si on entre dans une nouvelle année
+      if (mois == 0){
+    		var texte = g_nom_mois[mois]+" "+annee+" ";
+    		
+    	} else {
+    		var texte = g_nom_mois[mois]+" ";
+    	}
+    	
+    	$('<div/>', {
+      	'class':'mois'
+    	}).appendTo(timeline);
+    	
+    	mois++;
+    	
+      // Si on entre dans une nouvelle année
+    	if (mois >= 12){
+    		annee++;
+    		mois = 0;
+    	}
+    }
+    
+    timeline.appendTo('#zone');
+  }
 }
