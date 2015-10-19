@@ -233,7 +233,7 @@ function consignes_load(fichier){
         date.setMonth(parseFloat(date_texte.substring(3, 5))-1);
         date.setFullYear(parseFloat(date_texte.substring(6, 10)));
         var jour_consigne = parseFloat(Math.round((date)/(24*60*60*1000)));
-        var nombre_jours = jour_consigne-g_projet.premier_jour;
+        var nombre_jours = jour_consigne-g_projet.premier_jour; // Compte des jours avec le premier jour de la CCN comme 0
         
         xml_reponses = xml_consigne[i].getElementsByTagName("reponse");
         
@@ -326,7 +326,13 @@ function consignes_load(fichier){
         	date_reponse.setDate(parseFloat(date_texte_reponse.substring(0, 2)));
         	date_reponse.setMonth(parseFloat(date_texte_reponse.substring(3, 5))-1);
         	date_reponse.setFullYear(parseFloat(date_texte_reponse.substring(6, 10)));
+        	
+        //	console.log('date_reponse : '+date_reponse);
+        	
         	var nombre_jours_reponse = parseFloat(Math.round((date_reponse)/(24*60*60*1000)))-jour_consigne;
+        	
+        //	console.log('nombre_jours_reponse '+nombre_jours_reponse+' = parseFloat(Math.round((date_reponse)/(24*60*60*1000))) '+parseFloat(Math.round((date_reponse)/(24*60*60*1000)))+' - jour_consigne '+jour_consigne);
+        	
         	var nombre_commentaires_reponse = parseFloat(xml_reponses[j].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
         	
         	if (xml_reponses[j].getElementsByTagName("vignette")[0].childNodes[0]){
@@ -346,7 +352,7 @@ function consignes_load(fichier){
           // Initialise la réponse de la consigne
         	
         	var nouvelle_reponse = new reponse();
-        	nouvelle_reponse.init(g_projet, nouvelle_consigne, g_classes, g_reponse_index, id_reponse, classe_id_reponse, titre_reponse, date_texte_reponse, nombre_commentaires_reponse, nombre_jours_reponse, reponse_y, vignette, g_reponse_index1);
+        	nouvelle_reponse.init(g_projet, nouvelle_consigne, g_classes, g_reponse_index, id_reponse, classe_id_reponse, titre_reponse, date_texte_reponse, date_reponse, nombre_commentaires_reponse, nombre_jours_reponse, reponse_y, vignette, g_reponse_index1);
         	nouvelle_consigne.ajoutereponse(nouvelle_reponse);
         	
           // Sélection de la classe prime sur classe logguée
@@ -542,7 +548,7 @@ function evenements_load(fichier){
 			////////////////////////////////////////////////////////////////
 			
       // Boucle infinie pour la màj de l'application
-      setInterval(update, 1000/g_projet.fps);
+    //  setInterval(update, 1000/g_projet.fps);
       
       // Initialise la vue à l'ouverture selon les arguments dans l'url
       init_view();

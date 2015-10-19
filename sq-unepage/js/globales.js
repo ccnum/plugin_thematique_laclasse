@@ -52,26 +52,25 @@ function sleep(ms){
 // Load XML from a string
 ////////////////////////////////////////////////////////////////
 
-function GetBrowserType()
-{
-var bname = "browser";
-if (navigator.userAgent.indexOf("MSIE") != -1)
-{
- bname = "Internet Explorer";
-}
-else if (navigator.userAgent.indexOf("Opera") != -1)
-{
- bname = "Opera";
-}
-else if ((navigator.appName.indexOf("Netscape") != -1) || parseFloat(navigator.appVersion >= 3.0))
-{
- bname = "Netscape Navigator";
-}
-else
-{
- bname = "Unknown Browser";
-}
-return bname;
+function GetBrowserType() {
+  var bname = "browser";
+  if (navigator.userAgent.indexOf("MSIE") != -1) {
+    bname = "Internet Explorer";
+  }
+  
+  else if (navigator.userAgent.indexOf("Opera") != -1) {
+    bname = "Opera";
+  }
+  
+  else if ((navigator.appName.indexOf("Netscape") != -1) || parseFloat(navigator.appVersion >= 3.0)) {
+    bname = "Netscape Navigator";
+  }
+  
+  else {
+    bname = "Unknown Browser";
+  }
+  
+  return bname;
 }
 
 function LoadXMLString(xmlString)

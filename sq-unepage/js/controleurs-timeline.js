@@ -112,26 +112,31 @@ function showhide_travaux(mode){
 
 function consigne_ouvre(numero){
 	var consigne_deja_select = 0;
+	
 	for (i=0; i<g_consignes.length;i++){
-		if (i != numero) if (g_consignes[i].select == true) consigne_deja_select++;
+		if (i != numero) {
+  		if (g_consignes[i].select == true) {
+    		consigne_deja_select++;
+      }
+    }
 	}
-
-	//Si une autre consigne est déjà ouverte on ferme tout
-		if (consigne_deja_select != 0){
-			g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
-		}
-		//showhide_travaux('show');
-
-	//Puis on ouvre la consigne
-		g_consignes[numero].ouvre(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
-		
-	//Listener de fermeture
-		$("#canvas_projet").unbind().click(function(){
-			consigne_ferme(numero);
-		});
-	//Propagation isotope
-		var bouton = $(".filter a[onclick*='consigne_ouvre("+numero+")']");
-		isotope_filtre(bouton);
+	
+  if (consigne_deja_select != 0){
+  //	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+  }
+  
+  //Puis on ouvre la consigne
+  g_consignes[numero].ouvre(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
+  
+  // TO DO 
+  
+  //Listener de fermeture
+  g_projet.timeline.unbind().click(function(){
+  //	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+  });
+  //Propagation isotope
+  var bouton = $(".filter a[onclick*='consigne_ouvre("+numero+")']");
+  isotope_filtre(bouton);
 
 }
 

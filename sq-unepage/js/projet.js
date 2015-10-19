@@ -15,7 +15,7 @@ function projet(){
 	var liste_cy_consignes, liste_y_blogs, liste_y_evenements;
 	var url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2;
 	var div_base, div_barre, div_base_context, div_mois;
-  var timeline;
+  var timeline_parent, timeline, timeline_width;
 	
   /* * * * * * * * * * * * * * * * * * * * * * * *
    *  
@@ -42,7 +42,9 @@ function projet(){
 			this.couleur_1erplan2 = couleur_1erplan2;
 			this.couleur_1erplan3 = couleur_1erplan3;
 			this.zoom_consignes = zoom_consignes;
-			this.timeline = $('#timeline');
+			this.timeline_parent = $('#timeline');
+			this.timeline = $('#timeline_wrapin');
+			this.timeline_width = 100;
 		
       // Liste y consignes
       
@@ -266,7 +268,7 @@ function projet(){
 				// update les consignes
 					for (i=0;i<consignes.length;i++){
 						//Maj tailles et position
-							consignes[i].div_base.style.left = this.xx+consignes[i].x*ratio + "px";
+						//	consignes[i].div_base.style.left = this.xx+consignes[i].x*ratio + "px";
 							consignes[i].div_base.style.top = this.yy+consignes[i].y + "px";
 						//Connecteurs
 							this.get_x_date(consignes[i].date);
@@ -302,16 +304,12 @@ function projet(){
 		this.x_date = Math.round((date-this.date_debut)/(24*60*60*1000));
 	}
 
-	// méthode changezoompos
+	// Méthode changezoompos (deprecated)
 	this.changezoompos = function(nombre_jours_vus_dest, x_dest, y_dest){
-		g_action = true;
-		g_projet.frame = 0;
-		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
-		this.x_dest = x_dest/(this.largeur/(this.nombre_jours_vus_dest-this.nombre_jours_vus));
-		this.y_dest = y_dest;
+  	this.changepos(nombre_jours_vus_dest, x_dest, y_dest);
 	}
 	
-	// méthode changepos
+	// Méthode changepos
 	this.changepos = function(nombre_jours_vus_dest, x_dest, y_dest){
 		g_action = true;
 		g_projet.frame = 0;			
@@ -319,15 +317,26 @@ function projet(){
 		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
 		this.x_dest = x_dest;
 		this.y_dest = y_dest;
+		
+		console.log('changepos');
+		
+		this.update_timeline();
 	}
 
 	// méthode changevoittout
 		this.changevoittout = function(consignes, articles_blog, articles_evenement){
-			this.changezoompos(this.nombre_jours, 0, 0);
+  		
+		  console.log('changevoittout');
+		
+			this.changezoompos(g_projet.nombre_jours, 0, 0);
+			
 			this.mois_select = -1;
 			this.mois_rollover = -1;
+			
 			// dé-fade toutes les consignes
+			
 			for (i=0; i<consignes.length;i++){
+			
 				//consignes[i].div_titre.removeAttribute("onClick");
 				//consignes[i].div_titre.setAttribute("onClick","consigne_ouvre("+consignes[i].numero+");");
 				//consignes[i].div_titre.innerHTML = "<div onMouseOut=\"this.style.color='"+this.couleur_base_texte+"';\" onMouseOver=\"this.style.color='"+this.couleur_1erplan3+"';\" style='white-space:nowrap;' onClick=\"consigne_ouvre("+consignes[i].numero+");\"><font style='font-size:"+consignes[i].taille_titre+"px;line-height:"+(consignes[i].taille_titre-2)+"px;'><b>"+consignes[i].titre+"</b></font><font style='font-size:10px;'><br/>"+consignes[i].date_texte+"</font></div>";
@@ -352,6 +361,17 @@ function projet(){
 					//articles_evenement[i].div_base.style.visibility = "visible";
 			}
 			//show_buttons();
+			
+      this.update_timeline();
+		}
+		
+		
+		this.update_timeline = function() {
+  		this.timeline_width = (100/(this.nombre_jours_vus_dest*100/this.nombre_jours)*100);
+  		this.timeline.animate({
+    		'width':this.timeline_width+'%',
+    		'left':(-(this.x_dest*100/this.nombre_jours)*this.timeline_width/100)+'%'
+  		},2000,'swing');
 		}
 
 	// méthode drawline
@@ -415,7 +435,7 @@ function projet(){
     	
     	$('<div/>', {
       	'class':'mois'
-    	}).appendTo(this.timeline);
+    	}).css({'width':100/this.nombre_mois+'%'}).appendTo(this.timeline);
     	
     	mois++;
     	
