@@ -340,17 +340,13 @@ function consignes_load(fichier){
         		var vignette = "";
         	}
         
-          // Positionnement en hauteur
+          // Positionnement en hauteur (TO DO)
         	
         	var reponse_y = parseFloat(xml_reponses[j].getElementsByTagName("y")[0].childNodes[0].nodeValue);
         	if ((reponse_y === 0)||(reponse_y > 0.8)||(reponse_y < -0.2)) {
         		reponse_y = (liste_y[j])/(xml_reponses.length);
         	}
         	reponse_y = (liste_y[j])/(xml_reponses.length+5)+0.12;
-        	
-          reponse_y = liste_y[j];
-          
-          console.log(liste_y[j]);
         
           // Initialise la réponse de la consigne
         	
