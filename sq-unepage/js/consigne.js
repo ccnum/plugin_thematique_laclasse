@@ -213,8 +213,8 @@ function consigne(){
 		
 		var y_dest = 0;
 		
-		this.cache_questionscommentaires();
-	
+		this.cache_questionscommentaires();	
+		
 		projet.changepos(this.nombre_jours_max, this.x-3, y_dest);
 		
 		$('.consigne_haute').not('#consigne_haute'+this.id).addClass('hide');

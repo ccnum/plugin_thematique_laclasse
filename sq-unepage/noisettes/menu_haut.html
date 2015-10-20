@@ -1,53 +1,46 @@
 #CACHE{0}
 #SET{color_menu_hover,#fc0078}
 
-<ul class="titre">
+<ul id="menu_haut_titre" class="bloc_titre">
   [(#REM)Titre]
 
-  <li class="double bloc1">
-      <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{35})]</span>[(#NOM_SITE_SPIP)]</a>
-  </li>
-  <li class="double bloc2">
-      <a href="[(#CONFIG{th/site_ent_url}|sinon{http://www.laclasse.com})]" target="_blank" title="[(#CONFIG{th/site_ent_nom}|sinon{.laclasse.com})]">[(#CONFIG{th/site_ent_nom}|sinon{laclasse.com})]</a>
-  </li>
-	<!--<li class="double bordure_gauche">année scolaire</li>-->
+  <div id="menu_haut_titre_fixed">
+    <li class="double bloc1">
+        <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span>[(#NOM_SITE_SPIP)]</a>
+    </li>
+    <li class="double bloc2">
+        <a href="[(#CONFIG{th/site_ent_url}|sinon{http://www.laclasse.com})]" target="_blank" title="[(#CONFIG{th/site_ent_nom}|sinon{.laclasse.com})]">[(#CONFIG{th/site_ent_nom}|sinon{laclasse.com})]</a>
+    </li>
+  </div>
 	
-	<!--	
-	<a id="annee_scolaire" title="Choisir l'année scolaire">
-		<form name="annee_scolaire1">
-		<select class="custom-select" onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire.annee_scolaire.value)" name="annee_scolaire">
-			<option value=''>Année scolaire</option>
-			<option value=''>----------------</option>
-			<BOUCLE_vieux(ARTICLES){par date}{date!=0000}{0,1}{tout}>
-			[(#DATE|annee|afficher_options_date{[(#DATE|mois)],[(#ENV{annee_scolaire})]})]
-			</BOUCLE_vieux>
-		</select>
-		</form>
-	</a>
-	-->
-	<div class="select" name="annee_scolaire">
-		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
-	    <div>
-			<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
-			#SET{date_debut,#DATE}
-			</BOUCLE_date>
-			<BOUCLE_datef(ARTICLES){!par date}{date!=0000}{0,1}{tout}>
-			#SET{date_fin,#DATE}
-			</BOUCLE_datef>
-			[(#GET{date_debut}|annee|afficher_options_date2{[(#GET{date_debut}|mois)],[(#GET{date_fin}|annee)],[(#GET{date_fin}|mois)]})]
-		</div>
+	<div id="menu_haut_titre_more">
+  	<div class="select" name="annee_scolaire">
+  		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>année scolaire<br>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
+  	   
+  	   <div>
+  			<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
+  			#SET{date_debut,#DATE}
+  			</BOUCLE_date>
+  			<BOUCLE_datef(ARTICLES){!par date}{date!=0000}{0,1}{tout}>
+  			#SET{date_fin,#DATE}
+  			</BOUCLE_datef>
+  			[(#GET{date_debut}|annee|afficher_options_date2{[(#GET{date_debut}|mois)],[(#GET{date_fin}|annee)],[(#GET{date_fin}|mois)]})]
+  		</div>
+  	</div>
+  
+  	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
+  	<div class="cache">
+  		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
+  		<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
+  		<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
+  		<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
+  		<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
+  		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
+  		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
+  	</div>
+	
 	</div>
-
-	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
-	<div class="cache">
-		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
-		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
-	</div>
+	
 	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
 </ul>
 
@@ -66,7 +59,7 @@ $().ready(function(){
 });
 </script>
 
-<ul class="droite titre">
+<ul id="menu_haut_user" class="bloc_titre">
 	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>
 </ul>
 

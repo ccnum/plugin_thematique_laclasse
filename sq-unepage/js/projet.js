@@ -76,6 +76,7 @@ function projet(){
 		if (image_fond.length > 1){
 			this.timeline_parent.css({'background-image':'url('+image_fond+')'});
 		}
+		
 
     // Urls
     
@@ -307,6 +308,8 @@ function projet(){
 	  console.log('changevoittout');
 	
 		this.changezoompos(g_projet.nombre_jours, 0, 0);
+		
+		$('body').removeClass('hasSidebarOpen');
 		
 		this.mois_select = -1;
 		this.mois_rollover = -1;

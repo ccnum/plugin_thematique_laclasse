@@ -36,7 +36,13 @@
 //////////////////////////////////////////////////////////////// 
 
 $().ready(function(){
-
+  /*
+  $('#menu_haut_titre, #menu_haut_titre_more').on('mouseover',function(){
+    $('#menu_haut_titre_more').removeClass('hide');
+  }).on('mouseout',function(){
+    $('#menu_haut_titre_more').addClass('hide');
+  });
+*/
     //Select
       /*$(".custom-select").each(function(){
         $(this).wrap("<span class='select-wrapper'></span>");
