@@ -32,19 +32,12 @@ function reponse() {
 		
 		this.index = index;
 
-		// base			
+		// Base			
 
 		this.div_base = document.createElement("div");
 		this.div_base.style.position = "absolute";
 		this.div_base.style.left = (this.x_absolu/g_projet.nombre_jours*100)+'%';
-		
-		//this.div_base.style.top = -(this.y)+"px";
-		//y_parent = $(this).parent().parent().height();
-		//if ((this.y < 1)&&(this.y > 0)) alert(this.y*g_projet.hauteur);
-	//	this.div_base.style.top = -(this.y*g_projet.hauteur)+"px";
-	
 		this.div_base.style.top = (this.y)*100+"%";
-		if (this.y > 1) alert (this.y);
 
 		this.div_base.setAttribute("class","timeline_item reponse_haute reponse_haute_consigne_parent"+consigne.id+" hide");
 		
@@ -53,24 +46,21 @@ function reponse() {
 				var nom_classe = classes[k].nom;
 			}
 		}
-	//	consigne.div_base.appendChild(this.div_base);
+		
   	g_projet.timeline.append(this.div_base);
 
-	// texte
+    // Texte
+    
 		var date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1];
 		this.div_texte = document.createElement("div");
 		this.div_texte.onSelectStart = null;
-				
 		this.div_texte.setAttribute("onClick","reponse_click("+consigne.id+","+this.id+");");
-	//	$(this.div_base).mouseover(function(){	show_reponse(consigne.numero,index);	});
-	//	$(this.div_base).mouseleave(function(){ hide_reponse(consigne.numero,index);	});
-
 		this.div_texte.setAttribute("id","reponse"+this.id);
+		
 		var coul = ""+classe_id+"";
 		var coul = coul.substr(coul.length-1,1);
 		this.div_texte.setAttribute("class","reponse couleur_texte_travail_en_cours couleur_travail_en_cours"+coul);
 		
-		//this.taille_titre = 9+12*projet.zoom_consignes/(0.3*nombre_reponses+1);
 		this.div_texte.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div> "+
 			"<div class=\"photo\"><img src=\""+vignette+"\" /></div> "+
 			"<div class=\"texte\">"+
@@ -78,31 +68,31 @@ function reponse() {
 			"<div class=\"auteur_date\">"+nom_classe+" - "+date_texte+"</div> "+
 			"</div>"+
 			"<div class=\"nettoyeur\"></div> ";
+			
 		this.div_base.appendChild(this.div_texte);
 	
-	// calcul hauteur consigne
+    // Calcul de la hauteur de la consigne
 		this.largeur = $(this.div_base).outerWidth();
 		this.hauteur = $(this.div_base).outerHeight()+7;	
 
-	//draggable
-		if (g_u_admin==0)
-		$(this.div_base).draggable({
-			axis: "y" ,
-			start: function(event,ui){
-				//$(this).removeAttr("onClick");
-				$(this).children('div').removeAttr("onClick");					
-			},
-			stop: function(event,ui) {
-				//if ($(this.select).val() == true)	{
-					yy = - (ui.position.top / g_projet.hauteur);
-					//alert(ui.offset.top+' '+ui.position.top+' '+yy);
-					//yy = -ui.position.top-70;
-					//alert (y_parent+':'+ui.offset.top+':'+ui.position.top+':'+yy);
-					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
-					//$(this).attr("onClick","consigne_ouvre("+$(this.numero).val()+")");
-				//}
-			}
-		});
+    // Draggable
+	
+		if (g_u_admin==0) {
+  		$(this.div_base).draggable({
+  			axis: "y" ,
+  			start: function(event,ui){
+  				$(this).addClass('no_event');					
+  			},
+  			stop: function(event,ui) {
+  				yy = (ui.offset.top-g_projet.timeline_parent.offset().top)/g_projet.timeline_parent.height();
+  				
+  				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
+  				
+  				$(this).removeClass('no_event');		
+  				this.y = yy;
+  			}
+  		});
+		}
 	}
 
 }

@@ -275,9 +275,11 @@ function consignes_load(fichier){
         var nouvelle_consigne = new consigne();
         nouvelle_consigne.init(g_projet, g_zone, g_consigne_index, id, titre, date_texte, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, g_classes);
         
-        // nouvelle_consigne.y = (y*(g_projet.hauteur));
         
-        // Calcul du positionnement y intelligent des réponses
+        // // // // // // // // // // // // // // // // // //
+        
+        
+        // Calcul du positionnement y intelligent des réponses (TO DO)
         
         var liste_y = [];
         
@@ -286,10 +288,10 @@ function consignes_load(fichier){
         		var rd = Math.floor(Math.random()*xml_reponses.length);
         		liste_y.push(rd);
         	} else {
-        		for (k=0;k<15;k++){
+        		for (k = 0; k < 15; k++){
         			var meme = 0;
         			var rd = Math.floor(Math.random()*xml_reponses.length);
-        			for (l=0;l<j;l++){
+        			for (l = 0; l < j; l++){
         				if (rd == liste_y[l]){
         					meme++;
         				}
@@ -305,6 +307,8 @@ function consignes_load(fichier){
         if (liste_y.length < xml_reponses.length){
         	liste_y.push(liste_y[0]);
         }
+        
+        // TO DO
         
         var hauteur_utile_reponses = g_projet.hauteur-nouvelle_consigne.hauteur-140; 
         var hauteur_max_reponses = hauteur_utile_reponses/liste_y.length;
@@ -327,12 +331,7 @@ function consignes_load(fichier){
         	date_reponse.setMonth(parseFloat(date_texte_reponse.substring(3, 5))-1);
         	date_reponse.setFullYear(parseFloat(date_texte_reponse.substring(6, 10)));
         	
-        //	console.log('date_reponse : '+date_reponse);
-        	
-        	var nombre_jours_reponse = parseFloat(Math.round((date_reponse)/(24*60*60*1000)))-jour_consigne;
-        	
-        //	console.log('nombre_jours_reponse '+nombre_jours_reponse+' = parseFloat(Math.round((date_reponse)/(24*60*60*1000))) '+parseFloat(Math.round((date_reponse)/(24*60*60*1000)))+' - jour_consigne '+jour_consigne);
-        	
+        	var nombre_jours_reponse = parseFloat(Math.round((date_reponse)/(24*60*60*1000)))-jour_consigne;        	
         	var nombre_commentaires_reponse = parseFloat(xml_reponses[j].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
         	
         	if (xml_reponses[j].getElementsByTagName("vignette")[0].childNodes[0]){
@@ -348,6 +347,10 @@ function consignes_load(fichier){
         		reponse_y = (liste_y[j])/(xml_reponses.length);
         	}
         	reponse_y = (liste_y[j])/(xml_reponses.length+5)+0.12;
+        	
+          reponse_y = liste_y[j];
+          
+          console.log(liste_y[j]);
         
           // Initialise la réponse de la consigne
         	

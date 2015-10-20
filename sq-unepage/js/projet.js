@@ -24,97 +24,71 @@ function projet(){
    */
    
 	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2){
-			this.x = 0;
-			this.xx = 0;
-			this.dzoom = 0;
-			this.x_dest = 0;
-			this.dx = 0;
-			this.y = 0;
-			this.yy = 0;
-			this.y_dest = 0;
-			this.dy = 0;
-			this.fps = fps;
-			this.frame = -1;
-			this.calcdate(date_debut, date_fin);
-			this.couleur_fond = couleur_fond;
-			this.couleur_base_texte = couleur_base_texte;
-			this.couleur_1erplan1 = couleur_1erplan1;
-			this.couleur_1erplan2 = couleur_1erplan2;
-			this.couleur_1erplan3 = couleur_1erplan3;
-			this.zoom_consignes = zoom_consignes;
-			this.timeline_parent = $('#timeline');
-			this.timeline = $('#timeline_wrapin');
-			this.timeline_width = 100; // Pourcentage
-		
-      // Liste y consignes
-      
-			var liste_y = liste_y_consignes.split(",");
-			this.liste_y_consignes = [];
-			for (i=0;i<liste_y.length;i++){
-				this.liste_y_consignes.push(parseFloat(liste_y[i]));
-			}
-		
-      // Liste y articles de blog
-      
-			var liste_y = liste_y_blogs.split(",");
-			this.liste_y_blogs = [];
-			for (i=0;i<liste_y.length;i++){
-				this.liste_y_blogs.push(parseFloat(liste_y[i]));
-			}
-		
-      // Liste y articles d'événement
-      
-			var liste_y = liste_y_evenements.split(",");
-			this.liste_y_evenements = [];
-			for (i=0;i<liste_y.length;i++){
-				this.liste_y_evenements.push(parseFloat(liste_y[i]));
-			}
-		
-      // Canvas général
-      
-			this.image_fond = new Image();
-			if (image_fond.length > 1){
-			//	this.image_fond.src = image_fond;
-				this.timeline_parent.css({'background-image':'url('+image_fond+')'});
-			}
-			/*
-			this.div_base = document.createElement("canvas");
-			this.div_base.setAttribute("id","canvas_projet");
+		this.x = 0;
+		this.xx = 0;
+		this.dzoom = 0;
+		this.x_dest = 0;
+		this.dx = 0;
+		this.y = 0;
+		this.yy = 0;
+		this.y_dest = 0;
+		this.dy = 0;
+		this.fps = fps;
+		this.frame = -1;
+		this.calcdate(date_debut, date_fin);
+		this.couleur_fond = couleur_fond;
+		this.couleur_base_texte = couleur_base_texte;
+		this.couleur_1erplan1 = couleur_1erplan1;
+		this.couleur_1erplan2 = couleur_1erplan2;
+		this.couleur_1erplan3 = couleur_1erplan3;
+		this.zoom_consignes = zoom_consignes;
+		this.timeline_parent = $('#timeline');
+		this.timeline = $('#timeline_wrapin');
+		this.timeline_width = 100; // Pourcentage
+	
+    // Liste y consignes
+    
+		var liste_y = liste_y_consignes.split(",");
+		this.liste_y_consignes = [];
+		for (i=0;i<liste_y.length;i++){
+			this.liste_y_consignes.push(parseFloat(liste_y[i]));
+		}
+	
+    // Liste y articles de blog
+    
+		var liste_y = liste_y_blogs.split(",");
+		this.liste_y_blogs = [];
+		for (i=0;i<liste_y.length;i++){
+			this.liste_y_blogs.push(parseFloat(liste_y[i]));
+		}
+	
+    // Liste y articles d'événement
+    
+		var liste_y = liste_y_evenements.split(",");
+		this.liste_y_evenements = [];
+		for (i=0;i<liste_y.length;i++){
+			this.liste_y_evenements.push(parseFloat(liste_y[i]));
+		}
+	
+    // Canvas général
+    
+		this.image_fond = new Image();
+		if (image_fond.length > 1){
+			this.timeline_parent.css({'background-image':'url('+image_fond+')'});
+		}
 
-      // Tailles		
-      
-			this.largeur = largeur;
-			this.hauteur = hauteur;
-			this.div_base.width = largeur;
-			this.div_base.height = hauteur;			
-			*/
-			//resizenow();
-
-      // Canvas
-		//	canvas.appendChild(this.div_base);
-
-      // Contexte de rendu générique
-      
-      /*
-			this.div_base_context = this.div_base.getContext("2d");			
-			this.div_base_context.font = "10px sans-serif";
-	 		this.div_base_context.textBaseline = "top";
-			this.div_base_context.lineWidth = 0.5;
-			this.div_base_context.strokeStyle = this.couleur_1erplan1;
-			*/
-
-      // Urls
-      
-			this.url_popup_consigne = url_popup_consigne;
-			this.url_popup_reponse = url_popup_reponse;
-			this.url_popup_reponseajout = url_popup_reponseajout;
-			this.url_popup_blog = url_popup_blog;
-			this.url_popup_evenement = url_popup_evenement;
-			this.url_popup_ressources = url_popup_ressources;
-			this.url_popup_agora = url_popup_agora;
-			this.url_popup_classes = url_popup_classes;		
-			this.url_popup_chat	= url_popup_chat;
-			this.url_popup_chat2 = url_popup_chat2;
+    // Urls
+    
+		this.url_popup_consigne = url_popup_consigne;
+		this.url_popup_reponse = url_popup_reponse;
+		this.url_popup_reponseajout = url_popup_reponseajout;
+		this.url_popup_blog = url_popup_blog;
+		this.url_popup_evenement = url_popup_evenement;
+		this.url_popup_ressources = url_popup_ressources;
+		this.url_popup_agora = url_popup_agora;
+		this.url_popup_classes = url_popup_classes;		
+		this.url_popup_chat	= url_popup_chat;
+		this.url_popup_chat2 = url_popup_chat2;
 	}
 	
   /* * * * * * * * * * * * * * * * * * * * * * * *
@@ -328,85 +302,86 @@ function projet(){
 	}
 
 	// méthode changevoittout
-		this.changevoittout = function(consignes, articles_blog, articles_evenement){
-  		
-		  console.log('changevoittout');
+	this.changevoittout = function(consignes, articles_blog, articles_evenement){
 		
-			this.changezoompos(g_projet.nombre_jours, 0, 0);
-			
-			this.mois_select = -1;
-			this.mois_rollover = -1;
-			
-			for (i=0; i<consignes.length;i++){
-				consignes[i].montre_questionscommentaires();
-				consignes[i].select = false;				
-			}
-			
-  		$('.consigne_haute').removeClass('hide');
-  		$('.reponse_haute').addClass('hide');
-			
-			// affiche tous les articles de blog
-				for (i=0; i<articles_blog.length;i++){
-					$(articles_blog[i].div_base).fadeIn(3000);
-					//articles_blog[i].div_base.style.visibility = "visible";
-			}
-			// affiche tous les articles d'événement
-				for (i=0; i<articles_evenement.length;i++){
-					$(articles_evenement[i].div_base).fadeIn(3000);
-					//articles_evenement[i].div_base.style.visibility = "visible";
-			}
-			//show_buttons();
-			
-      this.update_timeline();
+	  console.log('changevoittout');
+	
+		this.changezoompos(g_projet.nombre_jours, 0, 0);
+		
+		this.mois_select = -1;
+		this.mois_rollover = -1;
+		
+		for (i=0; i<consignes.length;i++){
+			consignes[i].montre_questionscommentaires();
+			consignes[i].select = false;				
 		}
 		
+		$('.consigne_haute').removeClass('hide');
+		$('.reponse_haute').addClass('hide');
 		
-		this.update_timeline = function() {
-  		this.timeline_width = (100/(this.nombre_jours_vus_dest*100/this.nombre_jours)*100);
-  		this.timeline.css({
-    		'width':this.timeline_width+'%',
-    		'left':(-(this.x_dest*100/this.nombre_jours)*this.timeline_width/100)+'%'
-  		});
+		// affiche tous les articles de blog
+			for (i=0; i<articles_blog.length;i++){
+				$(articles_blog[i].div_base).fadeIn(3000);
+				//articles_blog[i].div_base.style.visibility = "visible";
 		}
+		// affiche tous les articles d'événement
+			for (i=0; i<articles_evenement.length;i++){
+				$(articles_evenement[i].div_base).fadeIn(3000);
+				//articles_evenement[i].div_base.style.visibility = "visible";
+		}
+		//show_buttons();
+		
+    this.update_timeline();
+	}
+	
+	
+	this.update_timeline = function() {
+		this.timeline_width = (100/(this.nombre_jours_vus_dest*100/this.nombre_jours)*100);
+		this.timeline.css({
+  		'width':this.timeline_width+'%',
+  		'left':(-(this.x_dest*100/this.nombre_jours)*this.timeline_width/100)+'%'
+		});
+	}
 
 	// méthode drawline
-		this.drawline = function(context, from_x, from_y, dest_x, dest_y, color, width, opacity){
-			rgb = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-			if (opacity != undefined)	color = "rgba("+rgb[1]+", "+rgb[2]+", "+rgb[3]+", " + opacity + ")";
-			if (width != undefined) context.lineWidth = width;
-			if (color != undefined) context.fillStyle = color;
-			if ((width > 1)&&(color != undefined)) context.strokeStyle = color; else context.strokeStyle = this.couleur_1erplan1;
-			//if (opacity != undefined)	log (color);
-			
-			context.beginPath();
-			context.moveTo(from_x, from_y);
-			context.lineTo(dest_x, dest_y);
-			context.closePath();
-			context.stroke();
-		}
+	this.drawline = function(context, from_x, from_y, dest_x, dest_y, color, width, opacity){
+		rgb = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+		if (opacity != undefined)	color = "rgba("+rgb[1]+", "+rgb[2]+", "+rgb[3]+", " + opacity + ")";
+		if (width != undefined) context.lineWidth = width;
+		if (color != undefined) context.fillStyle = color;
+		if ((width > 1)&&(color != undefined)) context.strokeStyle = color; else context.strokeStyle = this.couleur_1erplan1;
+		//if (opacity != undefined)	log (color);
+		
+		context.beginPath();
+		context.moveTo(from_x, from_y);
+		context.lineTo(dest_x, dest_y);
+		context.closePath();
+		context.stroke();
+	}
 
 	// méthode click
-		this.click = function(x, y, consignes, articles_blog, articles_evenement){
+  this.click = function(x, y, consignes, articles_blog, articles_evenement){
 			//alert (y);
 		if (y > this.hauteur-40 ){
 
 			if (y <= this.hauteur){
 				// un mois est actif
-				if (this.mois_select != -1)
-				{	
+				if (this.mois_select != -1) {	
 					this.changevoittout(consignes, articles_blog, articles_evenement);
 				}
-				else
+				else {
 					if (y > this.hauteur-40 ){
 						this.mois_select = Math.round((x-2+(this.largeur_mois/2))/this.largeur_mois)-1;
-						if (this.mois_select < this.nombre_mois/2){
-							this.changezoompos(90, (this.mois_select*this.largeur_mois), 0);
-						}else{
-							this.changezoompos(90, ((this.mois_select+1)*this.largeur_mois), 0);
-						}
-					}
+						
+  					if (this.mois_select < this.nombre_mois/2){
+  						this.changezoompos(90, (this.mois_select*this.largeur_mois), 0);
+            }
+            else {
+  						this.changezoompos(90, ((this.mois_select+1)*this.largeur_mois), 0);
+            }
+          }
+				}
 			}
-
 		}			
   }
   

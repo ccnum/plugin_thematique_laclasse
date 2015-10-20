@@ -36,9 +36,7 @@ function consigne(){
 			this.nombre_jours_max = nombre_jours;
 		}
 		
-		console.log('y : '+y);
-		
-		this.y = y*100; // Déclaré aussi au niveau du draggable
+		this.y = y; // Entre 0 et 1
 		this.image = image;
 		this.select = false;
 
@@ -49,14 +47,11 @@ function consigne(){
 		this.div_base.setAttribute('id','consigne_haute'+this.id);
 		this.div_base.style.position = "absolute";			
 		this.div_base.style.left = (this.x/g_projet.nombre_jours*100)+'%';
-		this.div_base.style.top = this.y+"%";
-	//	this.div_base.style.width = (this.x/g_projet.nombre_jours*100)+'%';
-		
-		// canvas.appendChild(this.div_base);
+		this.div_base.style.top = (this.y*100)+"%";
 
     g_projet.timeline.append(this.div_base);
 
-		for (k=0;k<classes.length;k++){
+		for (k = 0; k < classes.length; k++){
 			if (intervenant_id == classes[k].id){
 				var nom_classe = classes[k].nom;
 			}
@@ -100,19 +95,6 @@ function consigne(){
 		this.div_reponse_plus.style.top = (this.hauteur-25)+"px";
 		
 		this.div_base.appendChild(this.div_reponse_plus);
-						
-		/*
-  		
-    // Bouton retour vue générale
-    
-		this.div_home = document.createElement("div");
-		this.div_home.style.position = "absolute";
-		this.div_home.style.left = this.largeur+10+"px";
-		this.div_home.style.top = (this.hauteur-23)+"px";
-		this.div_home.style.visibility = "hidden";
-		this.div_home.innerHTML = "<div style='position:absolute;z-index:1;' onClick='consigne_ferme("+this.numero+");'><img src='"+g_u_chemin+"img/maison.png' title='retour à la vue générale' ></div>";
-		this.div_base.appendChild(this.div_home);
-		*/
 
     // Prépare le tableau de réponse
 		
@@ -121,7 +103,7 @@ function consigne(){
     // Draggable (admin)
 	
 		if (g_u_admin==0) {
-			$(this.div_titre).draggable({
+			$(this.div_base).draggable({
 				axis: "y" ,
 				start: function(event,ui){
 				//	$(this).removeAttr("onClick");
@@ -133,7 +115,9 @@ function consigne(){
 					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
 				  $(this).removeClass('no_event');
 					
-					this.y = yy*100;
+					this.y = yy;
+					
+					$(this).css({'top':(yy*100)+'%'});
 				}
 			});
 		}
@@ -224,7 +208,10 @@ function consigne(){
    
   this.ouvre = function(projet, consignes, articles_blog, articles_evenement){
 
-		var y_dest = (projet.hauteur-this.hauteur-50)-this.y; // deprecated
+  //  deprecated
+	//	var y_dest = (projet.hauteur-this.hauteur-50)-this.y; 
+		
+		var y_dest = 0;
 		
 		this.cache_questionscommentaires();
 	
