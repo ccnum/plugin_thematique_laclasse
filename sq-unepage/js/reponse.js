@@ -1,14 +1,24 @@
-////////////////////////////////////////////////////////////////
-// objet reponse
-////////////////////////////////////////////////////////////////
-function reponse(){
+/* * * * * * * * * * * * * * * * * * * * * * * *
+ *  
+ *  OBJET reponse()
+ *
+ */
+ 
+function reponse() {
 
-	// membres
+	// Membres
+	
 	var id, classe_id, titre, date, nombre_commentaires, x, y;
 	var div_base, div_texte, div_commentaires;
 
-	// méthode init
-	this.init = function(projet, consigne, classes, numero, id, classe_id, titre, date, date_date, nombre_commentaires, nombre_jours, y, vignette, index){
+	
+  /* * * * * * * * * * * * * * * * * * * * * * * *
+   *  
+   *  MÉTHODE init()
+   *
+   */
+ 
+  this.init = function(projet, consigne, classes, numero, id, classe_id, titre, date, date_date, nombre_commentaires, nombre_jours, y, vignette, index){
   	
 		this.id = id;
 		this.classe_id = classe_id;
@@ -20,12 +30,6 @@ function reponse(){
 		this.x_absolu = nombre_jours+consigne.x; // Le bloc réponse est relatif à la position x de la consigne
 		this.y = y;
 		
-		console.log(consigne);
-
-    console.log('this x : '+this.x);
-    console.log('this x_relatif : '+this.x_relatif);
-    console.log('consigne.x (donc son nombre de jours) : '+consigne.x);
-
 		this.index = index;
 
 		// base			
@@ -33,21 +37,24 @@ function reponse(){
 		this.div_base = document.createElement("div");
 		this.div_base.style.position = "absolute";
 		this.div_base.style.left = (this.x_absolu/g_projet.nombre_jours*100)+'%';
+		
 		//this.div_base.style.top = -(this.y)+"px";
 		//y_parent = $(this).parent().parent().height();
 		//if ((this.y < 1)&&(this.y > 0)) alert(this.y*g_projet.hauteur);
-		this.div_base.style.top = -(this.y*g_projet.hauteur)+"px";
+	//	this.div_base.style.top = -(this.y*g_projet.hauteur)+"px";
+	
+		this.div_base.style.top = (this.y)*100+"%";
 		if (this.y > 1) alert (this.y);
 
-		this.div_base.style.cursor = "cursor";
-		this.div_base.style.visibility = "visible"; // TO DO hidden
-		this.div_base.setAttribute("class","reponse_haute");
+		this.div_base.setAttribute("class","timeline_item reponse_haute reponse_haute"+consigne.id+" hide");
+		
 		for (k=0;k<classes.length;k++){
 			if (classe_id == classes[k].id){
 				var nom_classe = classes[k].nom;
 			}
 		}
-		consigne.div_base.appendChild(this.div_base);
+	//	consigne.div_base.appendChild(this.div_base);
+  	g_projet.timeline.append(this.div_base);
 
 	// texte
 		var date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1];
@@ -55,8 +62,8 @@ function reponse(){
 		this.div_texte.onSelectStart = null;
 				
 		this.div_texte.setAttribute("onClick","reponse_click("+consigne.id+","+this.id+");");
-		$(this.div_base).mouseover(function(){	show_reponse(consigne.numero,index);	});
-		$(this.div_base).mouseleave(function(){ hide_reponse(consigne.numero,index);	});
+	//	$(this.div_base).mouseover(function(){	show_reponse(consigne.numero,index);	});
+	//	$(this.div_base).mouseleave(function(){ hide_reponse(consigne.numero,index);	});
 
 		this.div_texte.setAttribute("id","reponse"+this.id);
 		var coul = ""+classe_id+"";

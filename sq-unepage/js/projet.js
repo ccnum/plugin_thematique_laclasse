@@ -44,7 +44,7 @@ function projet(){
 			this.zoom_consignes = zoom_consignes;
 			this.timeline_parent = $('#timeline');
 			this.timeline = $('#timeline_wrapin');
-			this.timeline_width = 100;
+			this.timeline_width = 100; // Pourcentage
 		
       // Liste y consignes
       
@@ -74,7 +74,8 @@ function projet(){
       
 			this.image_fond = new Image();
 			if (image_fond.length > 1){
-				this.image_fond.src = image_fond;
+			//	this.image_fond.src = image_fond;
+				this.timeline_parent.css({'background-image':'url('+image_fond+')'});
 			}
 			this.div_base = document.createElement("canvas");
 			this.div_base.setAttribute("id","canvas_projet");
@@ -88,7 +89,7 @@ function projet(){
 			//resizenow();
 
       // Canvas
-			canvas.appendChild(this.div_base);
+		//	canvas.appendChild(this.div_base);
 
       // Contexte de rendu générique
       
@@ -311,10 +312,15 @@ function projet(){
 	
 	// Méthode changepos
 	this.changepos = function(nombre_jours_vus_dest, x_dest, y_dest){
-		g_action = true;
-		g_projet.frame = 0;			
-		this.mois_select = Math.round(((this.largeur_mois/2))/this.largeur_mois)-1;
-		this.nombre_jours_vus_dest = nombre_jours_vus_dest;
+  	//	g_action = true;
+  	//	g_projet.frame = 0;			
+  	//	this.mois_select = Math.round(((this.largeur_mois/2))/this.largeur_mois)-1;
+
+	  // Pour que les blocs de la timeline ne soient pas tronqués à droite,
+    // on affiche la vue plus large
+	  var offset_bloc_width = 20;     
+		
+		this.nombre_jours_vus_dest = nombre_jours_vus_dest+offset_bloc_width;
 		this.x_dest = x_dest;
 		this.y_dest = y_dest;
 		
@@ -342,9 +348,9 @@ function projet(){
 				//consignes[i].div_titre.innerHTML = "<div onMouseOut=\"this.style.color='"+this.couleur_base_texte+"';\" onMouseOver=\"this.style.color='"+this.couleur_1erplan3+"';\" style='white-space:nowrap;' onClick=\"consigne_ouvre("+consignes[i].numero+");\"><font style='font-size:"+consignes[i].taille_titre+"px;line-height:"+(consignes[i].taille_titre-2)+"px;'><b>"+consignes[i].titre+"</b></font><font style='font-size:10px;'><br/>"+consignes[i].date_texte+"</font></div>";
 				//consignes[i].div_home.style.visibility = "hidden";
 				//consignes[i].div_reponse_plus.style.visibility = "hidden";
-				$(consignes[i].div_base).stop(true).fadeTo(0,1).css('visibility','visible');
+				$(consignes[i].div_base).fadeTo(0,1).css('visibility','visible');
 				for (j=0; j<consignes[i].reponses.length;j++){
-					$(consignes[i].reponses[j].div_base).stop(true).fadeTo(0,0).css('visibility','hidden');
+					$(consignes[i].reponses[j].div_base).fadeTo(0,0).css('visibility','hidden');
 				}
 				consignes[i].montre_questionscommentaires();
 				consignes[i].div_base.style.cursor = "pointer";

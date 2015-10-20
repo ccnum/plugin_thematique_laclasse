@@ -1755,12 +1755,13 @@ ul#forum, .lien_forum {
   position:absolute;
   top:35px;
   left:10px;
-  right:10px;
+  right:450px;
   bottom:80px;
-  background:gray;
+  background:#eee;
   font-size:0;
+  overflow:hidden;
   
-  z-index:10000000000
+  z-index:1000
 }
 
 #timeline_wrapin {
@@ -1769,7 +1770,7 @@ ul#forum, .lien_forum {
   left:0;
   width:100%;
   height:100%;  
-  z-index:1000000000;
+  z-index:900;
   
   /*
   -webkit-transition:all 2000ms ease;
@@ -1805,7 +1806,7 @@ ul#forum, .lien_forum {
   background:rgba(255,255,255,1);
   z-index:1000000000000;
   margin-right:-470px;
-  martin-top:-0.5%;
+  margin-top:-0.5%;
   
   -webkit-transition:all 300ms ease-out;
   -moz-transition:all 300ms ease-out;
@@ -1815,4 +1816,21 @@ ul#forum, .lien_forum {
 
 .hasSidebarOpen #sidebar {
   margin-right:0;
+}
+
+.timeline_item {
+  opacity:1;
+  pointer-events:auto;
+  cursor:pointer;
+  
+  -webkit-transition:opacity 1000ms ease;
+     -moz-transition:opacity 1000ms ease;
+       -o-transition:opacity 1000ms ease;
+          transition:opacity 1000ms ease;
+}
+
+.timeline_item.hide {
+  opacity:0;
+  pointer-events: none;
+  cursor:default;
 }
