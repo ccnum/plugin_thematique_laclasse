@@ -1,15 +1,15 @@
-\***************************************************************************/
- *  Copyright (c) 2005-2012                                                *
- *  Outil d'administration et d'animation des classes culturelles numériques liées à l'ENT Laclasse.com *
- *  Plugin pour SPIP3 *                  
- *  Concept : Erasme *
- *  Développement : Erasme - Trafik *  
- *  Produit par Erasme, centre d'innovation du Département du Rhône      *
- *                                                                         *
- *  Ce programme est un logiciel libre distribue sous licence AGPL : https://fr.wikipedia.org/wiki/GNU_Affero_General_Public_License     *
+ *
+ *  Copyright (c) 2005-2015                                                
+ *  Outil d'administration et d'animation des classes culturelles numériques liées à l'ENT Laclasse.com
+ *  Plugin pour SPIP3
+ *  Concept : Erasme
+ *  Développement : Erasme - Trafik  
+ *  Produit par Erasme, centre d'innovation du Département du Rhône
+ *                                                                 
+ *  Ce programme est un logiciel libre distribue sous licence AGPL : https://fr.wikipedia.org/wiki/GNU_Affero_General_Public_License  
  *  Vous pouvez l'utiliser, le distribuer et le modifier selon les termes de cette license.
- *  Pour plus de details voir le fichier LICENSE.txt ou l'aide en ligne : http://gitlab.erasme.org/plugin_thematique_laclasse *
-\***************************************************************************/
+ *  Pour plus de details voir le fichier LICENSE.txt ou l'aide en ligne : http://gitlab.erasme.org/plugin_thematique_laclasse
+ *
 
 
 INSTALLATION basique
