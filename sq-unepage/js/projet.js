@@ -77,6 +77,7 @@ function projet(){
 			//	this.image_fond.src = image_fond;
 				this.timeline_parent.css({'background-image':'url('+image_fond+')'});
 			}
+			/*
 			this.div_base = document.createElement("canvas");
 			this.div_base.setAttribute("id","canvas_projet");
 
@@ -86,6 +87,7 @@ function projet(){
 			this.hauteur = hauteur;
 			this.div_base.width = largeur;
 			this.div_base.height = hauteur;			
+			*/
 			//resizenow();
 
       // Canvas
@@ -93,11 +95,13 @@ function projet(){
 
       // Contexte de rendu générique
       
+      /*
 			this.div_base_context = this.div_base.getContext("2d");			
 			this.div_base_context.font = "10px sans-serif";
 	 		this.div_base_context.textBaseline = "top";
 			this.div_base_context.lineWidth = 0.5;
 			this.div_base_context.strokeStyle = this.couleur_1erplan1;
+			*/
 
       // Urls
       
@@ -149,6 +153,9 @@ function projet(){
 	// méthode update
 	this.update = function(canvas, consignes, articles_blog, articles_evenement, x, y, mousedown, couleur_blog){
 		//Initialisation de certains affichages - type document.ready
+		
+		/*
+		
 			if (this.frame == -1)
 			{
 				for (i=0;i<consignes.length;i++){
@@ -176,16 +183,7 @@ function projet(){
 
 					this.div_base_context.drawImage(this.image_fond, 0, 0, this.largeur, this.hauteur);
 
-					/*
-					if (this.image_fond.src){
-						this.div_base_context.drawImage(this.image_fond, 0, 0, this.largeur, this.hauteur);
-					}
-					else{
-						this.div_base_context.fillStyle = this.couleur_fond;
-						this.div_base_context.fillRect(0, 0, this.largeur, this.hauteur);
-					}
-					*/
-		 		
+					
 				// calcul precalcul zoom + position
 					this.largeur_mois = Math.round(this.largeur/this.nombre_mois)*(this.nombre_jours/this.nombre_jours_vus);
 					this.dzoom = (this.nombre_jours_vus_dest-this.nombre_jours_vus)/10;
@@ -293,7 +291,7 @@ function projet(){
 				stop_action ();
 			}
 		}
-	
+	*/
 	}
 
 	// méthode get_x_date
@@ -339,23 +337,14 @@ function projet(){
 			this.mois_select = -1;
 			this.mois_rollover = -1;
 			
-			// dé-fade toutes les consignes
-			
 			for (i=0; i<consignes.length;i++){
-			
-				//consignes[i].div_titre.removeAttribute("onClick");
-				//consignes[i].div_titre.setAttribute("onClick","consigne_ouvre("+consignes[i].numero+");");
-				//consignes[i].div_titre.innerHTML = "<div onMouseOut=\"this.style.color='"+this.couleur_base_texte+"';\" onMouseOver=\"this.style.color='"+this.couleur_1erplan3+"';\" style='white-space:nowrap;' onClick=\"consigne_ouvre("+consignes[i].numero+");\"><font style='font-size:"+consignes[i].taille_titre+"px;line-height:"+(consignes[i].taille_titre-2)+"px;'><b>"+consignes[i].titre+"</b></font><font style='font-size:10px;'><br/>"+consignes[i].date_texte+"</font></div>";
-				//consignes[i].div_home.style.visibility = "hidden";
-				//consignes[i].div_reponse_plus.style.visibility = "hidden";
-				$(consignes[i].div_base).fadeTo(0,1).css('visibility','visible');
-				for (j=0; j<consignes[i].reponses.length;j++){
-					$(consignes[i].reponses[j].div_base).fadeTo(0,0).css('visibility','hidden');
-				}
 				consignes[i].montre_questionscommentaires();
-				consignes[i].div_base.style.cursor = "pointer";
-				consignes[i].select = false;
+				consignes[i].select = false;				
 			}
+			
+  		$('.consigne_haute').removeClass('hide');
+  		$('.reponse_haute').addClass('hide');
+			
 			// affiche tous les articles de blog
 				for (i=0; i<articles_blog.length;i++){
 					$(articles_blog[i].div_base).fadeIn(3000);
@@ -374,10 +363,10 @@ function projet(){
 		
 		this.update_timeline = function() {
   		this.timeline_width = (100/(this.nombre_jours_vus_dest*100/this.nombre_jours)*100);
-  		this.timeline.animate({
+  		this.timeline.css({
     		'width':this.timeline_width+'%',
     		'left':(-(this.x_dest*100/this.nombre_jours)*this.timeline_width/100)+'%'
-  		},2000,'swing');
+  		});
 		}
 
 	// méthode drawline

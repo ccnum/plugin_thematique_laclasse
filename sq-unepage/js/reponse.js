@@ -46,7 +46,7 @@ function reponse() {
 		this.div_base.style.top = (this.y)*100+"%";
 		if (this.y > 1) alert (this.y);
 
-		this.div_base.setAttribute("class","timeline_item reponse_haute reponse_haute"+consigne.id+" hide");
+		this.div_base.setAttribute("class","timeline_item reponse_haute reponse_haute_consigne_parent"+consigne.id+" hide");
 		
 		for (k=0;k<classes.length;k++){
 			if (classe_id == classes[k].id){

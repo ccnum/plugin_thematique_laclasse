@@ -275,7 +275,7 @@ function consignes_load(fichier){
         var nouvelle_consigne = new consigne();
         nouvelle_consigne.init(g_projet, g_zone, g_consigne_index, id, titre, date_texte, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, g_classes);
         
-        nouvelle_consigne.y = (y*(g_projet.hauteur));
+        // nouvelle_consigne.y = (y*(g_projet.hauteur));
         
         // Calcul du positionnement y intelligent des réponses
         

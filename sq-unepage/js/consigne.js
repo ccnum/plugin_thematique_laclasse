@@ -35,20 +35,22 @@ function consigne(){
 		if (this.nombre_jours_max <= 0){
 			this.nombre_jours_max = nombre_jours;
 		}
-		this.y = y;
+		
+		console.log('y : '+y);
+		
+		this.y = y*100; // Déclaré aussi au niveau du draggable
 		this.image = image;
 		this.select = false;
 
     // Base
     			
 		this.div_base = document.createElement("div");
-		this.div_base.setAttribute('class','timeline_item consigne_haute consigne_haute'+this.id);
+		this.div_base.setAttribute('class','timeline_item consigne_haute');
+		this.div_base.setAttribute('id','consigne_haute'+this.id);
 		this.div_base.style.position = "absolute";			
 		this.div_base.style.left = (this.x/g_projet.nombre_jours*100)+'%';
-		this.div_base.style.top = this.y+"px";
+		this.div_base.style.top = this.y+"%";
 	//	this.div_base.style.width = (this.x/g_projet.nombre_jours*100)+'%';
-		this.div_base.style.zIndex = 100;
-		this.div_base.style.cursor = "pointer";
 		
 		// canvas.appendChild(this.div_base);
 
@@ -122,16 +124,16 @@ function consigne(){
 			$(this.div_titre).draggable({
 				axis: "y" ,
 				start: function(event,ui){
-					$(this).removeAttr("onClick");
+				//	$(this).removeAttr("onClick");
+				  $(this).addClass('no_event');
 				},
 				stop: function(event,ui) {
-					//if ($(this.select).val() == true)	{
-						y_parent = $(this).parent().parent().height();
-						yy = ui.offset.top / y_parent;
-						//alert(ui.offset.top+' '+y_parent+' '+yy);
-						$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
-						//$(this).attr("onClick","consigne_ouvre("+$(this.numero).val()+")");
-					//}
+  				yy = (ui.offset.top-g_projet.timeline_parent.offset().top)/g_projet.timeline_parent.height();
+					
+					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
+				  $(this).removeClass('no_event');
+					
+					this.y = yy*100;
 				}
 			});
 		}
@@ -228,13 +230,13 @@ function consigne(){
 	
 		projet.changepos(this.nombre_jours_max, this.x-3, y_dest);
 		
-		$('.consigne_haute').not('.consigne_haute'+this.id).addClass('hide');
-		$('.reponse_haute').not('.reponse_haute'+this.id).addClass('hide');
+		$('.consigne_haute').not('#consigne_haute'+this.id).addClass('hide');
+		$('.reponse_haute').not('.reponse_haute_consigne_parent'+this.id).addClass('hide');
     
     // On ouvre les réponses
 		
-		$('.consigne_haute'+this.id).removeClass('hide');
-		$('.reponse_haute'+this.id).removeClass('hide');
+		$('#consigne_haute'+this.id).removeClass('hide');
+		$('.reponse_haute_consigne_parent'+this.id).removeClass('hide');
 		
 		this.div_titre.removeAttribute("onClick");
 		this.div_titre.setAttribute("onClick","consigne_ouvre("+this.numero+");");

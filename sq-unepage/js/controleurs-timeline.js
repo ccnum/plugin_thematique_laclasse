@@ -37,6 +37,7 @@ function hauteur_zone(){
 }
 
 function resizenow() {
+  /*
   var browserwidth = largeur_zone();
   var browserheight = hauteur_zone();
   $('#zone').css('width', browserwidth).css('height', browserheight);
@@ -48,6 +49,7 @@ function resizenow() {
   largeur = browserwidth;
   hauteur = browserheight;
   this.frame = 0;
+  */
 }
 
 function stop_action(){
