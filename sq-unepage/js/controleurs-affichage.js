@@ -133,17 +133,14 @@ $().ready(function(){
     if ((mode=='consigne')||(mode=='reponse'))
     {
     //   $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
-       showSidebar();
-       
-       $('#sidebar_iframe').attr('src',url);
-       $('#sidebar_iframe').on('load',function(){
-         console.log('loaded');
-         showSidebarCallback();
-       });
+      loadSidebarContent(url);
+      showSidebar();
     }
     else 
     if (mode=='classes')
     {
+      loadSidebarContent(url);
+      showSidebar();
 /*
        showSidebar();
        
@@ -155,6 +152,8 @@ $().ready(function(){
        */
     }
     else {
+      loadSidebarContent(url);
+      showSidebar();
       /*
        showSidebar();
        
@@ -168,15 +167,8 @@ $().ready(function(){
   }
 
   function popup_html(url){
-      if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
-      
-       showSidebar();
-       
-       
-      $('#sidebar').load(url,function(){
-         console.log('loaded');
-         showSidebarCallback();
-       });
+      loadSidebarContent(url);
+      showSidebar();
   }
 
   $().ready(function(){
@@ -198,6 +190,15 @@ function reload(url) {
     window.location.reload();
   }
   else window.location.href = url;
+}
+
+function loadSidebarContent(url) {
+  // TO DO : loading
+  
+   $('#sidebar_iframe').attr('src',url);
+   $('#sidebar_iframe').on('load',function(){
+     showSidebarCallback();
+   });
 }
 
 function showSidebar() {

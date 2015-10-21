@@ -16,12 +16,23 @@
 					window.setTimeout(cache, 2000);
 				});
 			</script>
+			
+			[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
+			
+			[(#GET{type_objet}|=={travail_en_cours}|oui)
+			<div class="fiche_titre couleur_texte_[(#GET{type_objet})] couleur_[(#GET{type_objet})][(#MODELE{nb2col}{#ENV{id_article}})]">
+				<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
+				<div class="texte">
+					<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
+					<div class="auteur_date">[(#GET{titre_parent}) - ][<span class="#EDIT{date}">(#DATE|affdate)</span>]</div>
+				</div>
+			</div>
+			]
 	
 			<div class="popup_titre">
-				<div class="titre">Publier
-					[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
-					[(#GET{type_objet}|=={travail_en_cours}|oui) une réponse]
-					[(#GET{type_objet}|=={travail_en_cours}|non) un nouvel article]
+				<div class="titre">
+					[(#GET{type_objet}|=={travail_en_cours}|oui) Répondre à la consigne]
+					[(#GET{type_objet}|=={travail_en_cours}|non) Publier un nouvel article]
 				</div>
 				<div class="date" id="entete_publication" style="display: none;">
 					<br /><!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->

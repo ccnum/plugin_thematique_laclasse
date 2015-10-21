@@ -405,7 +405,7 @@ function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
 	hide_popups();
 	var url = g_projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
 	popup(url,'edition');
-	if (numero!=undefined) g_consignes[numero].div_reponse_plus.style.visibility = "hidden";
+	if (numero!=undefined) g_consignes[numero].div_reponse_plus.style.visibility = "hidden"; // TO DO ?
 }
 
 function reponse_ajouter_click(){

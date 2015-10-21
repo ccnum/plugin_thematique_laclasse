@@ -68,12 +68,20 @@ function consigne(){
 		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
 
 		this.taille_titre = 9+12*projet.zoom_consignes/(0.3*nombre_reponses+1);
-		this.div_titre.innerHTML  = "<div class=\"picto_nombre_reponses\">"+nombre_reponses+"</div> "+
-			"<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div> "+
+		
+		var reponses_puces = '';
+		
+		for (var j = 1;j <= nombre_reponses;j++) {
+  		reponses_puces += '<div class="reponse_puce"></div>';
+		}
+				
+		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div> "+
 			"<div class=\"photo\"><img src=\""+image+"\" /></div> "+
 			"<div class=\"texte\">"+
 			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
-			"<div class=\"auteur_date\">"+nom_classe+" - "+this.date_texte+"</div> "+
+			"<div class=\"auteur_date\">"+nom_classe+" - "+this.date_texte+""+
+			"<div class=\"picto_nombre_reponses\">"+reponses_puces+"</div>"+
+			"</div> "+
 			"</div>"+
 			"<div class=\"nettoyeur\"></div> ";
 			
@@ -87,12 +95,15 @@ function consigne(){
     // Préparation bouton réponse plus (crayon)
 	
 		this.div_reponse_plus = document.createElement("div");
-		this.div_reponse_plus.innerHTML = "<div style='position:absolute;z-index:1;'><img src='"+g_u_chemin+"img/reponse_plus.png' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");' title='répondre à la consigne' ></div>";
+		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne' > Répondre à la consigne</div>";
+		
+		/*
 		this.div_reponse_plus.style.position = "absolute";
 		this.div_reponse_plus.style.visibility = "hidden";
 		this.div_reponse_plus.style.cursor = "pointer";
 		this.div_reponse_plus.left = (this.largeur+10)+"px";
 		this.div_reponse_plus.style.top = (this.hauteur-25)+"px";
+    */
 		
 		this.div_base.appendChild(this.div_reponse_plus);
 
@@ -167,7 +178,7 @@ function consigne(){
    
 	this.montre_questionscommentaires = function(){
 		$("#consigne"+this.id+" .picto_nombre_commentaires").fadeIn('slow');
-		$("#consigne"+this.id+" .picto_nombre_reponses").fadeIn('slow');
+	//	$("#consigne"+this.id+" .picto_nombre_reponses").fadeIn('slow');
 		//$(this.div_titre).fadeIn('slow');
 		//$(this.div_titre).fadeIn('slow');
 	}
@@ -180,7 +191,7 @@ function consigne(){
  
   this.cache_questionscommentaires = function(){
 		$("#consigne"+this.id+" .picto_nombre_commentaires").fadeOut('slow');
-		$("#consigne"+this.id+" .picto_nombre_reponses").fadeOut('slow');
+	//	$("#consigne"+this.id+" .picto_nombre_reponses").fadeOut('slow');
 		//$(this.div_reponses_classe).fadeOut('slow');
 		//$(this.div_commentaires_classe).fadeOut('slow');
 	}

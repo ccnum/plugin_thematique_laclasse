@@ -97,5 +97,4 @@ function date_periode_nb($date_deb,$date_fin)
 	return count($tab);
 }
 
-
 ?>
