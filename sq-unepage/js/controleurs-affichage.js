@@ -48,7 +48,7 @@ $().ready(function(){
     //Tooltip 
       $("#menu_bas ul a").tooltip({
           position: {
-            my: "center bottom-4",
+            my: "center bottom-2",
             at: "center top",
             using: function( position, feedback ) {
               $( this ).css( position );
