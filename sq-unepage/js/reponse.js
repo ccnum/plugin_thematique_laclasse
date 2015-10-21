@@ -84,7 +84,7 @@ function reponse() {
   				$(this).addClass('no_event');					
   			},
   			stop: function(event,ui) {
-  				yy = (ui.offset.top-g_projet.timeline_parent.offset().top)/g_projet.timeline_parent.height();
+  				yy = (ui.offset.top-g_projet.timeline.offset().top)/g_projet.timeline.height();
   				
   				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
   				

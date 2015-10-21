@@ -23,9 +23,10 @@
 
 
 [(#REM) Admin restreint]
+
 	<B_rub_aut2>[(#GET{affiche}|=={oui}|oui)
 	<div id="choix_rubrique_admin" name="rubrique_admin" class="select">
-	<input type="radio" value="#ENV{restreint}" class="first"><label class="first_label">vous publiez en tant que <span>[(#GET{titre}|supprimer_numero|couper{30})]</span></label>
+	<input type="radio" value="#ENV{restreint}" class="first"><label class="first_label">vous publiez en tant que <span class="highlight">[(#GET{titre}|supprimer_numero|couper{30})]</span></label>
 	]
 	<BOUCLE_rub_aut2(rubriques auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
 		[(#GET{affiche}|=={oui}|oui)
@@ -38,10 +39,13 @@
 	</BOUCLE_rub_aut2>
 	</div>
 	</B_rub_aut2>
+	
+	
 		[(#REM) Admin complet]
+		
 		<B_rub2>[(#GET{affiche}|=={oui}|oui)
 		<div id="choix_rubrique_admin" name="rubrique_admin" class="select">
-		<input type="radio" value="#ENV{restreint}" class="first"><label class="first_label">vous publiez en tant que <span>[(#GET{titre}|supprimer_numero|couper{30})]</span></label>
+		<input type="radio" value="#ENV{restreint}" class="first"><label class="first_label">vous publiez en tant que <span class="highlight">[(#GET{titre}|supprimer_numero|couper{30})]</span></label>
 		]
 		<BOUCLE_rub2(RUBRIQUES){id_parent=0}{par num titre}{tout}>
 			[(#GET{affiche}|=={oui}|oui)

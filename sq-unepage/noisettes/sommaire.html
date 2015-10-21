@@ -32,8 +32,7 @@ et/ou
 	</div>
 	
 	<div id="sidebar">
-    
-    Consignes :<br><br>
+    <iframe id="sidebar_iframe"></iframe>
   </div>
 
 	<div id="menu_bas" class="clearfix combo-filters zone-menu">
@@ -42,8 +41,8 @@ et/ou
 			<!--<h3 class="first">Général</h3>-->
 
 		[(#REM)Vues]
-			<div id="menu-vues" class="col">
-				<h3>Vues</h3>
+			<div id="menu-vues" class="bloc_view col">
+				<h3><span>Vues</span></h3>
 			    <ul class="filter clearfix option-set vue">
 					[(#MODELE{logo_menu}{valeur=timeline}{class=selected}{title=Vue Ligne de temps})]
 					[(#MODELE{logo_menu}{valeur=classe}{title=Vue Classes})]
@@ -51,8 +50,8 @@ et/ou
 			</div>
 
 		[(#REM)Ressources]
-		    <div id="menu-ressources" class="col">
-				<h3>Ressources</h3>
+		    <div id="menu-ressources" class="bloc_view col">
+				<h3><span>Ressources</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
 					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=showhide_travaux('show');}{title=Toutes les ressources})]
 						#SET{blog,Le blog du projet}
@@ -76,8 +75,8 @@ et/ou
 		    </div>
 
 		[(#REM)Consignes]
-			<div id="menu-consignes" class="col">
-				<h3>Consignes</h3>
+			<div id="menu-consignes" class="bloc_view col">
+				<h3><span>Consignes</span></h3>
 				<ul class="filter clearfix option-set" data-filter-group="consigne">
 					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les consignes}{onclick=g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);})]
 				  #SET{num,0}
@@ -101,8 +100,8 @@ et/ou
 			</div>
 
 		[(#REM)Classes]
-			<div id="menu-classes" class="col" >
-				<h3>Classes</h3>
+			<div id="menu-classes" class="bloc_view col" >
+				<h3><span>Classes</span></h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
 			        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les classes})]
 			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
@@ -120,8 +119,8 @@ et/ou
 		<div id="menu-classe" [(#VUE|=={classe}|non) style="display:none;"]>
 
 			[(#REM)Médias]
-				<div id="menu-medias" class="col">
-					<h3>Médias</h3>
+				<div id="menu-medias" class="bloc_view col">
+					<h3><span>Médias</span></h3>
 					<ul class="filter clearfix option-set ressource" data-filter-group="media">
 				        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Tous les médias})]
 						[(#MODELE{logo_menu}{valeur=texte}{filter=.texte}{title=Les textes})]
@@ -133,8 +132,8 @@ et/ou
 				</div>
 
 			[(#REM)Tri]
-				<div id="menu-tris" class="col">
-					<h3>Tri</h3>
+				<div id="menu-tris" class="bloc_view col">
+					<h3><span>Tri</span></h3>
 					<ul id="sort-by" class="option-set clearfix" data-option-key="sortBy">
 						[(#MODELE{logo_menu}{valeur=date}{option=date}{title=Par date}{class=selected})]
 						[(#MODELE{logo_menu}{valeur=notation}{option=notation}{title=Par notation})]

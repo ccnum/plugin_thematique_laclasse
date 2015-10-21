@@ -15,7 +15,7 @@
 	
 	<div id="menu_haut_titre_more">
   	<div class="select" name="annee_scolaire">
-  		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label>année scolaire<br>#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</label>
+  		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label class="first_label"><span id="annee_scolaire_more">année scolaire </span><span class="highlight">#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</span></label>
   	   
   	   <div>
   			<BOUCLE_date(ARTICLES){par date}{date!=0000}{0,1}{tout}>
@@ -27,7 +27,7 @@
   			[(#GET{date_debut}|annee|afficher_options_date2{[(#GET{date_debut}|mois)],[(#GET{date_fin}|annee)],[(#GET{date_fin}|mois)]})]
   		</div>
   	</div>
-  
+  <!--
   	[(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
   	<div class="cache">
   		<a rel="presentation" class="presentation" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
@@ -38,7 +38,7 @@
   		<a rel="presentation" class="presentation" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
   		<a rel="presentation" class="presentation" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
   	</div>
-	
+	-->
 	</div>
 	
 	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
@@ -46,6 +46,12 @@
 
 <script>
 $().ready(function(){
+  console.log($('#menu_haut_titre').width());
+  
+      if ($('#menu_haut_titre').width() <= 185) {
+        $('#annee_scolaire_more').hide();
+      }
+  
       $('div[name=annee_scolaire] input[type=radio]').change( function() {
         var valeur = $('div[name=annee_scolaire] input[type=radio]:checked').val()
         reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',valeur)
@@ -62,6 +68,16 @@ $().ready(function(){
 <ul id="menu_haut_user" class="bloc_titre">
 	<INCLURE{fond=noisettes/inc/authentification}{admin=#ENV{admin}}{restreint=#ENV{restreint}}{type_restreint=#ENV{type_restreint}}>
 </ul>
+
+[(#RESTREINT|!={0}|oui|et{#RESTREINT|!={''}}|et{#TYPE_RESTREINT|!={''}}|et{#TYPE_RESTREINT|!={travail_en_cours}|oui}|oui)
+<ul id="menu_haut_publier_consigne" class="bloc_titre">
+  <li>
+    <a title="Publier un nouvel article" class="logo_menu-ecrire" onClick='ajoutreponse_click(0, #RESTREINT);' >
+      <div id='reponse_plus2' class='bouton_article_plus' ></div>
+    </a>
+  </li>
+</ul>
+]
 
 [(#REM)Initialisations dont crayons]
 <INCLURE{fond=noisettes/js/marqueurs}>

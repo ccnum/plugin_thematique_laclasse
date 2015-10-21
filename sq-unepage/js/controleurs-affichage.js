@@ -130,12 +130,13 @@ $().ready(function(){
     console.log('mode : '+mode);
     console.log('url : '+url);
     
-    if ((mode=='consigne0')||(mode=='reponse'))
+    if ((mode=='consigne')||(mode=='reponse'))
     {
     //   $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
        showSidebar();
        
-       $('#sidebar').load(url,function(){
+       $('#sidebar_iframe').attr('src',url);
+       $('#sidebar_iframe').on('load',function(){
          console.log('loaded');
          showSidebarCallback();
        });
@@ -143,15 +144,18 @@ $().ready(function(){
     else 
     if (mode=='classes')
     {
-
+/*
        showSidebar();
        
         $('#sidebar').load(url,function(){
          console.log('loaded');
          showSidebarCallback();
        });
+       
+       */
     }
     else {
+      /*
        showSidebar();
        
       $('#sidebar').load(url,function(){
@@ -159,6 +163,7 @@ $().ready(function(){
          
          showSidebarCallback();
        });
+       */
     }
   }
 
