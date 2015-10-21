@@ -9,7 +9,7 @@ function reponse() {
 	// Membres
 	
 	var id, classe_id, titre, date, nombre_commentaires, x, y;
-	var div_base, div_texte, div_commentaires;
+	var div_base, div_texte, div_commentaires, connecteur;
 
 	
   /* * * * * * * * * * * * * * * * * * * * * * * *
@@ -29,6 +29,7 @@ function reponse() {
 		this.x = nombre_jours;
 		this.x_absolu = nombre_jours+consigne.x; // Le bloc réponse est relatif à la position x de la consigne
 		this.y = y;
+		this.connecteur = connecteur;
 		
 		this.index = index;
 
@@ -40,6 +41,9 @@ function reponse() {
 		this.div_base.style.top = (this.y)*100+"%";
 
 		this.div_base.setAttribute("class","timeline_item reponse_haute reponse_haute_consigne_parent"+consigne.id+" hide");
+		this.div_base.setAttribute("id","reponse_haute"+this.id);
+		this.div_base.setAttribute("data-consigne-id",consigne.id);
+		this.div_base.setAttribute("data-reponse-id",this.id);
 		
 		for (k=0;k<classes.length;k++){
 			if (classe_id == classes[k].id){
@@ -70,6 +74,17 @@ function reponse() {
 			"<div class=\"nettoyeur\"></div> ";
 			
 		this.div_base.appendChild(this.div_texte);
+		
+		// connecteur_consigne_'+$(this).data('consigne-id')+'_reponse_'+$(this).data('reponse-id')
+		
+		this.connecteur = $('<div/>', {
+  		'id':'connecteur_consigne_'+consigne.id+'_reponse_'+this.id,
+  		'class':'connecteur_timeline',
+  		'data-consigne-id':consigne.id,
+  		'data-reponse-id':this.id
+		});
+		
+		g_projet.timeline_fixed.append(this.connecteur);
 	
     // Calcul de la hauteur de la consigne
 		this.largeur = $(this.div_base).outerWidth();

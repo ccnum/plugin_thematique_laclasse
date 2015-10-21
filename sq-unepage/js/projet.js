@@ -44,6 +44,7 @@ function projet(){
 		this.zoom_consignes = zoom_consignes;
 		this.timeline_parent = $('#timeline');
 		this.timeline_background = $('#timeline_background');
+		this.timeline_fixed = $('#timeline_fixed');
 		this.timeline = $('#timeline_wrapin');
 		this.timeline_width = 100; // Pourcentage
 	
@@ -300,6 +301,8 @@ function projet(){
 		
 		console.log('changepos');
 		
+		$('body').removeClass('highlightReponse');
+		
 		this.update_timeline();
 	}
 
@@ -310,7 +313,7 @@ function projet(){
 	
 		this.changezoompos(g_projet.nombre_jours, 0, 0);
 		
-		$('body').removeClass('hasSidebarOpen');
+		$('body').removeClass('hasSidebarOpen highlightReponse');
 		
 		this.mois_select = -1;
 		this.mois_rollover = -1;

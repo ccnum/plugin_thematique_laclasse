@@ -576,7 +576,21 @@ function init_view(){
   
   hide_articles_blog(g_duration_def);
   hide_articles_evenement(g_duration_def);
-	
+  
+	update_connecteurs();
+  
+  $('.reponse_haute').on('mouseover',function(){
+    $('body').addClass('hoveringReponse');
+    $(this).addClass('hover');
+  }).on('mouseleave',function(){
+    $('body').removeClass('hoveringReponse');
+    $(this).removeClass('hover');
+  }).on('click',function(){
+    $('body').addClass('highlightReponse');
+    $('.reponse_haute').removeClass('current_select');
+    $(this).addClass('current_select');
+  });
+  
 	// Zoom sur la date (TO DO)
 	
 	if (g_u_date != "0"){
@@ -722,6 +736,38 @@ function mouse_move(evenement){
   	activate_action();
   else 
   	g_action_mois = false;
+}
+
+function update_connecteurs() {
+
+  $('.connecteur_timeline').each(function(){
+    
+    var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id'));
+    var connecteur_reponse = $('#reponse_haute'+$(this).data('reponse-id'));
+    
+    var connecteur = $(this);
+    
+    var x1 = connecteur_consigne.offset().left;
+    var y1 = connecteur_consigne.offset().top;
+    var x2 = connecteur_reponse.offset().left;
+    var y2 = connecteur_reponse.offset().top;
+    
+    var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+    var transform = 'rotate('+angle+'deg)';
+    
+    connecteur.css({
+        'position': 'absolute',
+        'transform': transform,
+        'left': parseFloat(x1)+'px', 
+        'top': parseFloat(y1)+'px'
+      })
+      .width(parseFloat(length)+'px');
+    
+  });
+    
+    
+  
 }
 
 // C'est parti

@@ -45,22 +45,21 @@
 </ul>
 
 <script>
-$().ready(function(){
-  console.log($('#menu_haut_titre').width());
+$(function(){
   
-      if ($('#menu_haut_titre').width() <= 185) {
-        $('#annee_scolaire_more').hide();
-      }
-  
-      $('div[name=annee_scolaire] input[type=radio]').change( function() {
-        var valeur = $('div[name=annee_scolaire] input[type=radio]:checked').val()
-        reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',valeur)
-      });
+  if ($('#menu_haut_titre').width() <= 185) {
+    $('#annee_scolaire_more').hide();
+  }
 
-      $('div[name=rubrique_admin] input[type=radio]').change( function() {
-        var valeur = $('div[name=rubrique_admin] input[type=radio]:checked').val()
-        reload_cookie('','[(#EVAL{_cookie_rubrique})]',valeur)
-      });
+  $('div[name=annee_scolaire] input[type=radio]').change( function() {
+    var valeur = $('div[name=annee_scolaire] input[type=radio]:checked').val()
+    reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',valeur)
+  });
+
+  $('div[name=rubrique_admin] input[type=radio]').change( function() {
+    var valeur = $('div[name=rubrique_admin] input[type=radio]:checked').val()
+    reload_cookie('','[(#EVAL{_cookie_rubrique})]',valeur)
+  });
 
 });
 </script>

@@ -1071,6 +1071,14 @@ div.sous-colonne2{
 #pass_securise img {display: none;}
 
 /*--- Notations ---*/
+
+.formulaire_jaime_flottant {
+  margin-top: -42px;
+  z-index: 100;
+  position: absolute;
+  right: 40px;
+}
+
 .formulaire_notation {
 	position: relative;
 	float: right;
@@ -1078,20 +1086,37 @@ div.sous-colonne2{
 } 
 
 .formulaire_jaime form .submit.jaime,.formulaire_jaime form .submit.jaimeplus, .formulaire_jaime .dejavote, div.jaimeplus {
-	background-image: url([(#CHEMIN{img/logo_notation.png}|image_reduire{25}|extraire_attribut{src})]);
+	background-image: url([(#CHEMIN{img/logo_notation.svg}|image_reduire{25}|extraire_attribut{src})]);
 	background-position: center;
 	background-repeat: no-repeat;
-	width: 25px;
-	height: 25px;
+	background-size:25px auto;
+	width: 45px;
+	height: 45px;
 	color: transparent;
 	float: left;
+	background-color:#dedede;
+	border:none;
+	border-radius:50%;
+	cursor:pointer;
+	
+	-webkit-transition:all 100ms ease;
+	-moz-transition:all 100ms ease;
+	-o-transition:all 100ms ease;
+	transition:all 100ms ease;
+}
+
+.formulaire_jaime form .submit.jaime:hover,
+.formulaire_jaime form .submit.jaimeplus:hover,
+.formulaire_jaime .dejavote:hover,
+div.jaimeplus:hover {
+	background-color:#cdcdcd;
 }
 
 .formulaire_jaime form .submit.jaimeplus{
-	background-image: url([(#CHEMIN{img/logo_notation_bas.png}|image_reduire{25}|extraire_attribut{src})]);
+	background-image: url([(#CHEMIN{img/logo_notation_bas.svg}|image_reduire{25}|extraire_attribut{src})]);
 }
 .formulaire_jaime .dejavote, .formulaire_jaime form .submit.jaimeplus, div.jaimeplus {
-	background-image: url([(#CHEMIN{img/logo_notation.png}|image_gamma{200}|image_reduire{25}|extraire_attribut{src})]);
+	background-image: url([(#CHEMIN{img/logo_notation.svg}|image_gamma{200}|image_reduire{25}|extraire_attribut{src})]);
 }
 .formulaire_jaime form {
 	float: left;
@@ -1510,10 +1535,10 @@ div.donnees_classe {
 .popup {
 	font-size:11px;	
 	line-height:13px;
-	margin:20px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: 100%;
+	padding:0;
 }
 
 .popup a {
@@ -1534,28 +1559,59 @@ div.donnees_classe {
 
 /* Bloc de titre principal de la modalbox */
 .popup .fiche_titre {
-	margin: 0 5px 10px 0;
-	padding:10px;
-	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+	margin: -20px -20px 0 -20px;
+	padding:40px;
 	overflow:auto;
 	clear:both;
+	text-align:center;
+	border-radius:3px 3px 0 0;
 }
 
 .popup .fiche_titre .photo {
-	float:left;
-	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
-	margin-right:8px;
+	box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+	margin:0px auto 20px auto;
+	width:60px;
+	height:60px;
+	border-radius:3px;
+	overflow:hidden
+}
+
+.popup .fiche_titre .photo img {
+  width:100%;
+  height:auto;
 }
 
 .popup .fiche_titre .texte {
-	max-width:250px;
-	min-width:150px;
-	float:left;
+	
 }
 
 .popup .fiche_titre .titre {
 	font-size:24px;
 	line-height:24px;
+	color:white;
+}
+
+.popup .fiche_titre .auteur_date {
+  background:rgba(0,0,0,.06);
+  margin:20px -20px -40px;
+  padding:15px 20px;
+  color:rgba(255,255,255,.8);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+
+
+.popup .spip_documents {
+  background:#dedede;
+  text-align:center;
+  border-radius:3px;
+  max-width:100% !important;
+  box-sizing:border-box
+}
+
+.popup .spip_documents img {
+  max-width:100% !important;
 }
 
 
@@ -1895,7 +1951,7 @@ li.editer p.explication, .editer_pgp, .editer_bio, .editer_liens_sites, .saisie_
 }
 
 .bloc_article{
-	padding-top: 0px;
+	padding: 20px;
 	overflow-x: hidden;
 }
 
@@ -1931,6 +1987,9 @@ line-height:1.5;
 	margin-bottom:10px;
 	font-size:13px;
 	line-height:17px;
+	padding-top:0px;
+	padding-left:20px;
+	padding-right:20px;
 }
 
 .bloc_texte p {
@@ -1943,12 +2002,32 @@ li a, li a:hover {
 }
 
 #bloc_option_doc, .bloc_option_doc {
-	margin-bottom: 2px;
-	margin-top: 10px;
+	margin:0 -10px;
+	padding:0;
+	background:#dedede;
+	border-top:solid 1px #CACACA;
+}
+
+#bloc_option_doc > a, .bloc_option_doc > a {
+  display:block;
+  padding:20px 40px;
+  color:#444;
+	background:#dedede;
+	font-size:16px;
 }
 
 #bloc_option_doc p, .bloc_option_doc p {
 	margin: 0;
+}
+
+#bloc_option_doc .cache,
+.bloc_option_doc .cache {
+  padding:0 40px 20px 40px  
+}
+
+.popup code {
+  margin-left:0;
+  margin-right:0;
 }
 
 .bloc_option_top {
@@ -2108,6 +2187,14 @@ ul#forum, .lien_forum {
   transition:all 2000ms ease;
 }
 
+#timeline_fixed {
+  position:absolute;
+  top:-40px;
+  bottom:-80px;
+  left:0;
+  width:100%;
+}
+
 #timeline_background {
   position:absolute;
   top:-40px;
@@ -2117,7 +2204,7 @@ ul#forum, .lien_forum {
 }
 
 #timeline_wrapin .mois {
-  border-right:solid 1px #eee;
+  border-right:solid 1px rgba(255, 255, 255, 0.24);
   display:inline-block;
   height:100%;
   box-sizing:border-box;
@@ -2168,10 +2255,10 @@ ul#forum, .lien_forum {
   cursor:pointer;
   z-index:100; /* Minimum, surcharge par le JS */
   
-  -webkit-transition:opacity 1000ms ease;
-     -moz-transition:opacity 1000ms ease;
-       -o-transition:opacity 1000ms ease;
-          transition:opacity 1000ms ease;
+  -webkit-transition:opacity 500ms ease;
+     -moz-transition:opacity 500ms ease;
+       -o-transition:opacity 500ms ease;
+          transition:opacity 500ms ease;
 }
 
 .timeline_item.hide {
@@ -2262,4 +2349,43 @@ ul#forum, .lien_forum {
 	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 
 
+}
+/* TO DO */
+/*
+.popup ~ .crayon-html {
+  width:450px;
+}
+
+textarea.crayon-active,
+input.crayon-active {
+  border-radius:3px !important;
+  box-shadow:0 2px 7px rgba(0,0,0,.3) !important;
+  border:none !important;
+  width:100% !important;
+  padding:10px 20px !important;
+  background:white !important;
+  color:#444 !important;
+}
+*/
+
+.hoveringReponse .reponse_haute,
+.highlightReponse .reponse_haute,
+.hoveringReponse .reponse_haute.current_select {
+  opacity:.4;
+}
+
+.reponse_haute.hover,
+.hoveringReponse .reponse_haute.current_select.hover {
+  opacity:1;
+}
+
+.reponse_haute.current_select {
+  z-index:999;
+  opacity:1;
+}
+
+.connecteur_timeline{
+  transform-origin: 0 100%;
+  height: 3px; /* Line width of 3 */
+  background: #000; /* Black fill */
 }

@@ -253,6 +253,10 @@ function consigne(){
 			$(articles_evenement[i].div_base).hide();
 		}
 		
+		setTimeout(function(){
+  		update_connecteurs();
+		},2300);
+		
 		stop_action();
 		consigne_click(this.id);
 		this.select = true;
