@@ -9,11 +9,10 @@
 			<INCLURE{fond=noisettes/inc/choix_rubrique_admin2}{restreint}{admin}>
 		]
 	[(#SESSION{statut}|non)
-		<li class=""></li>
 		<!--<li class="logo"><a href="[(#PLUGIN{CICAS}|oui|?{'?page=sommaire&url=spip.php%3Fpage%3Dsommaire&cicas=oui&ent=1','?page=login&url=.%2F'})]" class="logo_menu-connecter" title="Se connecter à l'ENT"></a></li>-->
-		<li class="logo"><a href="[(#PLUGIN{CICAS}|oui|?{'?page=sommaire&url=spip.php%3Fpage%3Dsommaire&cicas=oui&ent=1','?page=login&url=.%2F'})]" class="logo_menu-connecter" title="Se connecter à laclasse v2"></a></li>
-		<li class="logo"><a href="[(#PLUGIN{CICAS}|oui|?{'?page=sommaire&url=spip.php%3Fpage%3Dsommaire&cicas=oui&ent=2','?page=login&url=.%2F'})]" class="logo_menu-connecter" title="Se connecter à laclasse v3"></a></li>
-		<li class="logo"><a href="[(#CONFIG{cicas/urlinscription}|sinon{http://www.laclasse.com/pls/education/!page.laclasse?rubrique=1378})]" class="logo_menu-inscription" title="S'inscrire"></a></li>
-		<li class="logo"><a href="http://www.laclasse.com/pls/public/!page.laclasse?contexte=QUESTION&rubrique=0" class="logo_menu-mdpperdu" title="Mot de passe perdu"></a></li>
+		<li class="logo logo_connexion first"><a href="[(#PLUGIN{CICAS}|oui|?{'?page=sommaire&url=spip.php%3Fpage%3Dsommaire&cicas=oui&ent=1','?page=login&url=.%2F'})]" class="logo_menu-connecter" title="Se connecter à laclasse v2"></a></li>
+		<li class="logo logo_connexion"><a href="[(#PLUGIN{CICAS}|oui|?{'?page=sommaire&url=spip.php%3Fpage%3Dsommaire&cicas=oui&ent=2','?page=login&url=.%2F'})]" class="logo_menu-connecter" title="Se connecter à laclasse v3"></a></li>
+		<li class="logo logo_connexion"><a href="[(#CONFIG{cicas/urlinscription}|sinon{http://www.laclasse.com/pls/education/!page.laclasse?rubrique=1378})]" class="logo_menu-inscription" title="S'inscrire"></a></li>
+		<li class="logo logo_connexion last"><a href="http://www.laclasse.com/pls/public/!page.laclasse?contexte=QUESTION&rubrique=0" class="logo_menu-mdpperdu" title="Mot de passe perdu"></a></li>
 		[(#FORMULAIRE_LOGIN)]
 	]

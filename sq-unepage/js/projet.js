@@ -43,6 +43,7 @@ function projet(){
 		this.couleur_1erplan3 = couleur_1erplan3;
 		this.zoom_consignes = zoom_consignes;
 		this.timeline_parent = $('#timeline');
+		this.timeline_background = $('#timeline_background');
 		this.timeline = $('#timeline_wrapin');
 		this.timeline_width = 100; // Pourcentage
 	
@@ -406,9 +407,19 @@ function projet(){
     		var texte = g_nom_mois[mois]+" ";
     	}
     	
-    	$('<div/>', {
+    	var mois_DOM = $('<div/>', {
       	'class':'mois'
-    	}).css({'width':100/this.nombre_mois+'%'}).appendTo(this.timeline);
+    	}).css({'width':100/this.nombre_mois+'%'});
+    	
+    	/*
+    	for (j = 1; j <= 30; j++) {
+      	$('<div/>', {
+        	'class':'jour'
+      	}).appendTo(mois_DOM);
+    	}
+    	*/
+    	
+    	mois_DOM.appendTo(this.timeline_background);
     	
     	mois++;
     	

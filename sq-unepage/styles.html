@@ -264,6 +264,12 @@ body {
   overflow:visible;
 }
 
+
+.logo_connexion {
+  width:35px !important;
+  height:35px
+}
+
 .bloc_view {
   width:auto !important;
 	height: 58px;
@@ -380,6 +386,15 @@ body {
 
 #menu_haut_titre .select label {
   padding:0 12px;
+}
+
+
+#menu_haut_user .logo_connexion.first {
+  border-radius:3px 0 0 3px;
+}
+
+#menu_haut_user .logo_connexion.last {
+  border-radius:0 3px 3px 0;
 }
 
 
@@ -2030,6 +2045,14 @@ ul#forum, .lien_forum {
   transition:all 2000ms ease;
 }
 
+#timeline_background {
+  position:absolute;
+  top:-40px;
+  bottom:-80px;
+  left:0;
+  width:100%;
+}
+
 #timeline_wrapin .mois {
   border-right:solid 1px #eee;
   display:inline-block;
@@ -2039,7 +2062,7 @@ ul#forum, .lien_forum {
 }
 
 #timeline_wrapin .mois:nth-child(even) {
-  background:rgba(255,255,255,.1);
+  background:rgba(0,0,0,.03);
 }
 
 #timeline_wrapin .mois:last-child() {
