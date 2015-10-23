@@ -1,18 +1,73 @@
-<B_rubrique>
+#SET{dans_archives,non}
+
 <datas>
-<BOUCLE_rubrique(RUBRIQUES){titre_mot==travail_en_cours}{tout}>
-<BOUCLE_classes(RUBRIQUES){id_parent}{tout}>
-	<classe>
-	<id>#ID_RUBRIQUE</id>
-	<nom>[(#TITRE|entites_html)]</nom>
-	</classe>
-</BOUCLE_classes>
-</BOUCLE_rubrique>
-<BOUCLE_rubrique2(RUBRIQUES){titre_mot IN consignes}{tout}>
-	<classe>
-	<id>#ID_RUBRIQUE</id>
-	<nom>[(#TITRE|entites_html)]</nom>
-	</classe>
-</BOUCLE_rubrique2>
+
+  <BOUCLE_archives(RUBRIQUES){titre==Archives$}{tout}>
+  
+    
+    #SET{titre_rubrique_archive,#EVAL{_annee_scolaire}}
+    
+    <BOUCLE_archives_annee(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre==^#GET{titre_rubrique_archive}}{tout}>
+    
+      #SET{dans_archives,oui}
+      
+      <BOUCLE_archives_annee_intervenants(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre==Consignes$}{tout}>
+        <BOUCLE_archives_annee_intervenants_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre_mot IN consignes}{tout}>
+        
+        	<intervenant>
+          	<id>#ID_RUBRIQUE</id>
+          	<nom>[(#TITRE|entites_html)]</nom>
+        	</intervenant>
+        	
+        </BOUCLE_archives_annee_intervenants_in>
+      </BOUCLE_archives_annee_intervenants>
+      
+      
+        <BOUCLE_archives_annee_classes(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre_mot==travail_en_cours}{tout}>
+          <BOUCLE_archives_annee_classes_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
+          
+          	<classe>
+            	<id>#ID_RUBRIQUE</id>
+            	<nom>[(#TITRE|entites_html)]</nom>
+          	</classe>
+          	
+          </BOUCLE_archives_annee_classes_in>
+        </BOUCLE_archives_annee_classes>
+        
+    
+    </BOUCLE_archives_annee>
+  </BOUCLE_archives>
+  
+  
+  
+  
+  <BOUCLE_intervenants(RUBRIQUES){racine}{titre==Consignes$}{tout}{si #GET{dans_archives}|=={non}|oui}>  
+  
+    <BOUCLE_intervenants_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
+  
+      [(#REM) CCN courant]
+  
+    	<intervenant>
+      	<id>#ID_RUBRIQUE</id>
+      	<nom>[(#TITRE|entites_html)]</nom>
+    	</intervenant>
+    	
+    </BOUCLE_intervenants_in>
+    
+  </BOUCLE_intervenants>
+  
+ 
+  <BOUCLE_classes(RUBRIQUES){racine}{titre_mot==travail_en_cours}{tout}{si #GET{dans_archives}|=={non}|oui}>
+    <BOUCLE_classes_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
+  
+      [(#REM) CCN courant]
+  
+    	<classe>
+      	<id>#ID_RUBRIQUE</id>
+      	<nom>[(#TITRE|entites_html)]</nom>
+    	</classe>
+    	
+    </BOUCLE_classes_in>
+  </BOUCLE_classes>
+
 </datas>
-</B_rubrique>

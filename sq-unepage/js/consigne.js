@@ -21,7 +21,7 @@ function consigne(){
    *
    */
  
-  this.init = function(projet, canvas, numero, id, titre, date, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, classes){
+  this.init = function(projet, canvas, numero, id, titre, date, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, classes, intervenants){
 		this.id = id;
 		this.intervenant_id = intervenant_id;
 		this.numero = numero;
@@ -51,9 +51,9 @@ function consigne(){
 
     g_projet.timeline.append(this.div_base);
 
-		for (k = 0; k < classes.length; k++){
-			if (intervenant_id == classes[k].id){
-				var nom_classe = classes[k].nom;
+		for (k = 0; k < intervenants.length; k++){
+			if (intervenant_id == intervenants[k].id){
+				var nom_intervenant = intervenants[k].nom;
 			}
 		}
 
@@ -74,12 +74,16 @@ function consigne(){
 		for (var j = 1;j <= nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce"></div>';
 		}
+		
+		for (var j = 1;j <= classes.length-nombre_reponses;j++) {
+  		reponses_puces += '<div class="reponse_puce disabled"></div>';
+		}
 				
 		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div> "+
 			"<div class=\"photo\"><img src=\""+image+"\" /></div> "+
 			"<div class=\"texte\">"+
 			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
-			"<div class=\"auteur_date\">"+nom_classe+" - "+this.date_texte+""+
+			"<div class=\"auteur_date\">"+nom_intervenant+" - "+this.date_texte+""+
 			"<div class=\"picto_nombre_reponses\">"+reponses_puces+"</div>"+
 			"</div> "+
 			"</div>"+

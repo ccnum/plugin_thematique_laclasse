@@ -29,6 +29,8 @@ function init() {
   g_hide_articles_evenement = false;
   g_classes = [];
   g_classe_index = 0;
+  g_intervenants = [];
+  g_intervenant_index = 0;
   g_consignes = [];
   g_consigne_index = 0;
   g_reponses = [];
@@ -163,6 +165,31 @@ function classes_load(fichier){
 				g_classe_index++;
 			}
 			
+			
+			
+			
+			
+			
+			var xml_intervenant = xmldoc.getElementsByTagName("intervenant");
+			
+      // Pour chaque intervenant, on ajoute une entrée dans le tableau `g_intervenants`
+			
+			for (i=0;i<xml_intervenant.length;i++){
+				var id = parseFloat(xml_intervenant[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
+				var nom = xml_intervenant[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
+				
+				// Initialise la classe
+				
+				var nouvel_intervenant = new intervenant();
+				nouvel_intervenant.init(id, nom);
+				
+				g_intervenants.push(nouvel_intervenant);
+				g_intervenant_index++;
+			}
+			
+			
+			
+			
 			// Lance le chargement des consignes
 			consignes_load(g_u_xml+"consignes");
 		}
@@ -273,7 +300,7 @@ function consignes_load(fichier){
         // Initialise la consigne
         
         var nouvelle_consigne = new consigne();
-        nouvelle_consigne.init(g_projet, g_zone, g_consigne_index, id, titre, date_texte, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, g_classes);
+        nouvelle_consigne.init(g_projet, g_zone, g_consigne_index, id, titre, date_texte, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, g_classes, g_intervenants);
         
         
         // // // // // // // // // // // // // // // // // //
