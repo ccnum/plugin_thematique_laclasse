@@ -79,7 +79,7 @@ function reponse() {
 		
 		this.connecteur = $('<div/>', {
   		'id':'connecteur_consigne_'+consigne.id+'_reponse_'+this.id,
-  		'class':'connecteur_timeline',
+  		'class':'connecteur_timeline couleur_travail_en_cours'+coul,
   		'data-consigne-id':consigne.id,
   		'data-reponse-id':this.id
 		});

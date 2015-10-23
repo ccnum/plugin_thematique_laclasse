@@ -50,6 +50,8 @@ function resizenow() {
   hauteur = browserheight;
   this.frame = 0;
   */
+  
+  update_connecteurs();
 }
 
 function stop_action(){

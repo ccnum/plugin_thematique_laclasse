@@ -778,10 +778,10 @@ function update_connecteurs() {
     
     var connecteur = $(this);
     
-    var x1 = connecteur_consigne.offset().left;
-    var y1 = connecteur_consigne.offset().top;
-    var x2 = connecteur_reponse.offset().left;
-    var y2 = connecteur_reponse.offset().top;
+    var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth();
+    var y1 = connecteur_consigne.offset().top+g_projet.timeline.offset().top;
+    var x2 = connecteur_reponse.offset().left+5;
+    var y2 = connecteur_reponse.offset().top+g_projet.timeline.offset().top+5;
     
     var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
