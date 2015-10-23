@@ -110,7 +110,7 @@
 	define('_LOGO_MAX_HEIGHT',3000) ;
 	define('_IMG_MAX_WIDTH',3000) ;
 	define('_IMG_MAX_HEIGHT',3000) ;
-	define('_IMG_MAX_SIZE',2024);
+	define('_IMG_MAX_SIZE',20000);
 	// define('_DOC_MAX_SIZE', 0);
 
 // AutoBR
