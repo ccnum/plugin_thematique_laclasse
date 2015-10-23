@@ -22,12 +22,15 @@
 
 		[(#REM)Type d'admin : 0 : total / autrement : nb de rubriques restreintes / -1 : pas admin / -2 pas connecté]	
 			[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
+			
 		[(#REM)Id de la rubrique restreinte sélectionnée]
 			[(#SET{restreint,[(#INCLURE{fond=noisettes/fonction/admin,mode=restreint})]})]
+			
 		[(#REM)Type de rubrique restreinte: consignes, travail_en_cours, blogs, evenements,ressources,classes]
 			[(#GET{restreint}|oui)
 				[(#SET{type_restreint,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique=#GET{restreint}})]})]
 			]
+			
 		[(#REM)Type auteur : travail_en_cours,ressources,consignes]
 			[(#SET{type_auteur,[(#MODELE{type_auteur}{id_auteur=#SESSION{id_auteur}})]})]
 

@@ -395,6 +395,10 @@ a:hover{
 	padding: 0px 15px 0px 15px;
 }
 
+#menu_haut.zone-menu li.bloc1 {
+	padding: 0px 15px 0px 5px;
+}
+
 #menu_haut.zone-menu form {
 	padding: 0px;
 }
@@ -597,16 +601,26 @@ a:hover{
 
 /* Logos */
 
-#menu_bas.zone-menu li.logo, #menu_haut.zone-menu li.logo {
+#menu_haut.zone-menu span.logo {
+  vertical-align: middle;
+  height: 24px;
+  display: inline-block;
+  margin-right:2px
+}
+
+#menu_haut.zone-menu span.logo img {
+	width: 32px;
+  height: auto;
+  margin-top: -4px;
+}
+
+#menu_bas.zone-menu li.logo {
 	cursor: pointer;
 	width: 31px;
 	padding: 0px;
 }
 #menu_bas.zone-menu li.logo {
 	background-color: #GET{gris_clair};
-}
-#menu_haut.zone-menu li.logo {
-	background-color: #GET{blanc};
 }
 
 #menu_bas.zone-menu li.logo a, #menu_haut.zone-menu li.logo a {
@@ -884,13 +898,10 @@ div.sous-colonne2{
 /*-- Tooltip -- */
 
 	.ui-tooltip, .arrow:after {
-    background-color: #GET{gris_fonce};
+    background-color: #333;
     border: none;
     margin: 0px;
-    border: 1px solid #GET{gris_fonce};
-	-moz-box-shadow: 0 0 5px #ccc;
-	-webkit-box-shadow: 0 0 5px #ccc;
-	box-shadow: 0 0 5px #ccc;  
+    border: 1px solid white;
 	}
 
   .ui-tooltip {
@@ -899,26 +910,27 @@ div.sous-colonne2{
     border-radius: 0px;
     font-size: #GET{font-size1};
     font-weight: normal;
+    border:solid 1px white;
   }
   .arrow {
     width: 70px;
-    height: 16px;
+    height: 9px;
     overflow: hidden;
     position: absolute;
     left: 50%;
-    margin-left: -35px;
-    bottom: -16px;
+    margin-left: -34px;
+    bottom: -9px;
     border:none;
   }
 
   .arrow.left {
-    left: 20%;
+    left: 13.2%;
   }
   .arrow:after {
     content: "";
     position: absolute;
     left: 20px;
-    bottom: -20px;
+    bottom: 6px;
     width: 25px;
     height: 25px;
     -webkit-transform: rotate(45deg);
@@ -1725,3 +1737,14 @@ ul#forum, .lien_forum {
 	border: 0px solid #GET{color_menu_hover};
 }
 */
+
+#menu_haut .logo {
+  width:25px !important
+}
+
+#menu_haut.zone-menu span.logo {
+  vertical-align: -12px;
+  height: 24px;
+  display: inline-block;
+  margin-right: 9px;
+}
