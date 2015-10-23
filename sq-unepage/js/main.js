@@ -618,6 +618,10 @@ function init_view(){
     $(this).addClass('current_select');
   });
   
+  $('.mois').on('click',function(){
+    g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+  });
+  
 	// Zoom sur la date (TO DO)
 	
 	if (g_u_date != "0"){
