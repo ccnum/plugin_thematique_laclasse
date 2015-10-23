@@ -339,6 +339,8 @@ function projet(){
 		//show_buttons();
 		
     this.update_timeline();
+    
+    $('.connecteur_timeline').addClass('hide');
 	}
 	
 	

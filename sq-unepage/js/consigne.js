@@ -257,8 +257,15 @@ function consigne(){
 			$(articles_evenement[i].div_base).hide();
 		}
 		
+		var consigne_id = this.id;
+		
+		// TO DO : mieux
+		
 		setTimeout(function(){
   		update_connecteurs();
+  		
+  		$('.connecteur_timeline').addClass('hide');
+  		$('.connecteur_timeline[data-consigne-id="'+consigne_id+'"]').removeClass('hide');
 		},2300);
 		
 		stop_action();

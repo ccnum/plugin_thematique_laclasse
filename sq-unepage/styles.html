@@ -2391,4 +2391,13 @@ input.crayon-active {
 .connecteur_timeline{
   transform-origin: 0 100%;
   height: 3px; /* Line width of 3 */
+  
+  -webkit-transition:opacity 300ms ease;
+  -moz-transition:opacity 300ms ease;
+  -o-transition:opacity 300ms ease;
+  transition:opacity 300ms ease;
+}
+
+.connecteur_timeline.hide{
+  opacity:0;
 }
