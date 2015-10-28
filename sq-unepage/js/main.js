@@ -609,13 +609,18 @@ function init_view(){
   $('.reponse_haute').on('mouseover',function(){
     $('body').addClass('hoveringReponse');
     $(this).addClass('hover');
-  }).on('mouseleave',function(){
+    $('#connecteur_consigne_'+$(this).data('consigne-id')+'_reponse_'+$(this).data('reponse-id')).addClass('hover');
+  })
+  .on('mouseleave',function(){
     $('body').removeClass('hoveringReponse');
     $(this).removeClass('hover');
-  }).on('click',function(){
+    $('.connecteur_timeline').removeClass('hover');
+  })
+  .on('click',function(){
     $('body').addClass('highlightReponse');
-    $('.reponse_haute').removeClass('current_select');
+    $('.reponse_haute, .connecteur_timeline').removeClass('current_select');
     $(this).addClass('current_select');
+    $('#connecteur_consigne_'+$(this).data('consigne-id')+'_reponse_'+$(this).data('reponse-id')).addClass('current_select');
   });
   
   $('.mois').on('click',function(){

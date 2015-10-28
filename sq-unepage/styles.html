@@ -1223,7 +1223,18 @@ div.donnees_classe {
   position: relative;
   width:228px;
 }
-
+/*
+.consigne:after {
+  content:"";
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+*/
 .consigne_haute:hover {
 	z-index:1000;
 }
@@ -1543,6 +1554,11 @@ div.donnees_classe {
 	overflow-x: hidden;
 	height: 100%;
 	padding:0;
+	
+  box-shadow: 0 2px 7px rgba(0,0,0,.3);
+  border-radius:3px;
+  background:white;
+  margin:5px 7px 5px 0
 }
 
 .popup a {
@@ -1955,7 +1971,7 @@ li.editer p.explication, .editer_pgp, .editer_bio, .editer_liens_sites, .saisie_
 }
 
 .bloc_article{
-	padding: 20px;
+	padding: 20px 20px 0 20px;
 	overflow-x: hidden;
 }
 
@@ -2227,15 +2243,12 @@ ul#forum, .lien_forum {
 
 #sidebar {
   position:fixed;
-  top: 5px;
-  right: 7px; 
-  bottom: 5px;
+  top: 0;
+  right: 0; 
+  bottom: 0;
   width:550px;
-  background:rgba(255,255,255,1);
   z-index:999;
   margin-right:-570px;
-  border-radius:3px;
-  box-shadow: 0 2px 7px rgba(0,0,0,.3);
   
   -webkit-transition:all 2000ms ease;
   -moz-transition:all 2000ms ease;
@@ -2374,23 +2387,31 @@ input.crayon-active {
 
 .hoveringReponse .reponse_haute,
 .highlightReponse .reponse_haute,
-.hoveringReponse .reponse_haute.current_select {
-  opacity:.4;
+.hoveringReponse .reponse_haute.current_select,
+.hoveringReponse .connecteur_timeline,
+.highlightReponse .connecteur_timeline,
+.highlightReponse.hoveringReponse .connecteur_timeline.current_select {
+  opacity:.3;
 }
 
 .reponse_haute.hover,
-.hoveringReponse .reponse_haute.current_select.hover {
+.hoveringReponse .reponse_haute.current_select.hover,
+.hoveringReponse .connecteur_timeline.hover {
   opacity:1;
 }
 
-.reponse_haute.current_select {
+.reponse_haute.current_select,
+.hoveringReponse .connecteur_timeline.hover,
+.hoveringReponse .connecteur_timeline.hover.current_select,
+.highlightReponse .connecteur_timeline.current_select {
   z-index:999;
   opacity:1;
 }
 
 .connecteur_timeline{
-  transform-origin: 0 100%;
-  height: 3px; /* Line width of 3 */
+  transform-origin: 0 50%;
+  height: 4px; /* Line width of 3 */
+  border-radius:5px;
   
   -webkit-transition:opacity 300ms ease;
   -moz-transition:opacity 300ms ease;
