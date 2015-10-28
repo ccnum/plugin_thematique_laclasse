@@ -124,6 +124,10 @@ function consigne(){
 				//	$(this).removeAttr("onClick");
 				  $(this).addClass('no_event');
 				},
+				drag: function(event,ui) {
+  			  update_connecteurs();	
+				},
+				
 				stop: function(event,ui) {
   				yy = (ui.offset.top-g_projet.timeline.offset().top)/g_projet.timeline.height();
 					
@@ -225,6 +229,16 @@ function consigne(){
 
   //  deprecated
 	//	var y_dest = (projet.hauteur-this.hauteur-50)-this.y; 
+	
+	  projet.setIntervalConnecteurs = setInterval(function(){
+  	  update_connecteurs();
+	  },1);
+	  
+	  
+		var consigne_id = this.id;
+  		
+		$('.connecteur_timeline').addClass('hide');
+		$('.connecteur_timeline[data-consigne-id="'+consigne_id+'"]').removeClass('hide');
 		
 		var y_dest = 0;
 		
@@ -257,15 +271,13 @@ function consigne(){
 			$(articles_evenement[i].div_base).hide();
 		}
 		
-		var consigne_id = this.id;
 		
 		// TO DO : mieux
 		
 		setTimeout(function(){
-  		update_connecteurs();
+  	//	update_connecteurs();
   		
-  		$('.connecteur_timeline').addClass('hide');
-  		$('.connecteur_timeline[data-consigne-id="'+consigne_id+'"]').removeClass('hide');
+  		clearInterval(projet.setIntervalConnecteurs);
 		},2300);
 		
 		stop_action();

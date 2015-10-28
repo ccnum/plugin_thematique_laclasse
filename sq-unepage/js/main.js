@@ -778,8 +778,8 @@ function update_connecteurs() {
     
     var connecteur = $(this);
     
-    var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth();
-    var y1 = connecteur_consigne.offset().top+g_projet.timeline.offset().top;
+    var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth()-5;
+    var y1 = connecteur_consigne.offset().top+g_projet.timeline.offset().top+5;
     var x2 = connecteur_reponse.offset().left+5;
     var y2 = connecteur_reponse.offset().top+g_projet.timeline.offset().top+5;
     
@@ -796,9 +796,6 @@ function update_connecteurs() {
       .width(parseFloat(length)+'px');
     
   });
-    
-    
-  
 }
 
 // C'est parti

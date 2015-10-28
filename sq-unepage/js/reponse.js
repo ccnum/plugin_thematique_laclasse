@@ -98,6 +98,9 @@ function reponse() {
   			start: function(event,ui){
   				$(this).addClass('no_event');					
   			},
+				drag: function(event,ui) {
+  			  update_connecteurs();	
+				},
   			stop: function(event,ui) {
   				yy = (ui.offset.top-g_projet.timeline.offset().top)/g_projet.timeline.height();
   				

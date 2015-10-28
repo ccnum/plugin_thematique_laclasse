@@ -47,6 +47,8 @@ function projet(){
 		this.timeline_fixed = $('#timeline_fixed');
 		this.timeline = $('#timeline_wrapin');
 		this.timeline_width = 100; // Pourcentage
+		
+		this.setIntervalConnecteurs;
 	
     // Liste y consignes
     
