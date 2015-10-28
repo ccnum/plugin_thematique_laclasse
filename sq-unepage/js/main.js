@@ -778,13 +778,16 @@ function update_connecteurs() {
 
   $('.connecteur_timeline').each(function(){
     
-    var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id'));
+   // var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id'));
+    
+    var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id')+' .picto_nombre_reponses .reponse_puce').eq($(this).data('index'));
+    
     var connecteur_reponse = $('#reponse_haute'+$(this).data('reponse-id'));
     
     var connecteur = $(this);
     
     var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth()-5;
-    var y1 = connecteur_consigne.offset().top+g_projet.timeline.offset().top+5;
+    var y1 = connecteur_consigne.offset().top+g_projet.timeline.offset().top+1;
     var x2 = connecteur_reponse.offset().left+5;
     var y2 = connecteur_reponse.offset().top+g_projet.timeline.offset().top+5;
     
