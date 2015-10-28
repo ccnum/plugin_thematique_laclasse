@@ -1236,7 +1236,7 @@ div.donnees_classe {
 }
 */
 .consigne_haute:hover {
-	z-index:1000;
+	z-index:3000;
 }
 
 .photo {
@@ -1554,11 +1554,12 @@ div.donnees_classe {
 	overflow-x: hidden;
 	height: 100%;
 	padding:0;
-	
+	/*
   box-shadow: 0 2px 7px rgba(0,0,0,.3);
   border-radius:3px;
   background:white;
-  margin:5px 7px 5px 0
+  */
+  margin:5px 7px 1px 0
 }
 
 .popup a {
@@ -1971,7 +1972,9 @@ li.editer p.explication, .editer_pgp, .editer_bio, .editer_liens_sites, .saisie_
 }
 
 .bloc_article{
+  /*
 	padding: 20px 20px 0 20px;
+	*/
 	overflow-x: hidden;
 }
 
@@ -2004,12 +2007,9 @@ line-height:1.5;
 
 #bloc_texte, .bloc_texte {
 	/*clear:both;*/	
-	margin-bottom:10px;
 	font-size:13px;
 	line-height:17px;
-	padding-top:0px;
-	padding-left:20px;
-	padding-right:20px;
+	padding:20px 30px;
 }
 
 .bloc_texte p {
@@ -2022,17 +2022,17 @@ li a, li a:hover {
 }
 
 #bloc_option_doc, .bloc_option_doc {
-	margin:0 -10px;
-	padding:0;
-	background:#dedede;
-	border-top:solid 1px #CACACA;
+  margin: 0 -10px;
+  padding: 0;
+  background: #F5F5F5;
+  border-top: solid 1px #E0E0E0;
 }
 
 #bloc_option_doc > a, .bloc_option_doc > a {
   display:block;
   padding:20px 40px;
   color:#444;
-	background:#dedede;
+  background: #F5F5F5;
 	font-size:16px;
 }
 
@@ -2065,21 +2065,107 @@ li a, li a:hover {
 .popup .editer_fichier_upload label {display: none;}
 
 .portfolio{
-	height: 70px;
-	width: 70px;
-	padding-top: 0px;
-	margin-right: 30px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	float:left;
+  text-align: left;
+  padding: 0;
+  font-size:12px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin:0 0 4px 0;
+  vertical-align:top;
+  background:#EEE;
+  position:relative;
 }
+
+.portfolio:hover {
+  background:#DEDEDE
+}
+
+.portfolio_lien {
+  display:block;
+  padding:3px 10px;
+  color:#555;
+  margin-right:60px;
+  position:relative;
+  cursor:pointer
+}
+
+.portfolio_lien:hover {
+  color:black;
+}
+
+.portfolio_logo_around {
+  display:inline-block;
+  vertical-align:middle;
+  width:45px;
+  height:45px;
+  text-align:center;
+  margin-right:10px;
+  padding-top:9px;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+
+.portfolio_logo {
+  height:27px;
+  width:auto;
+}
+.portfolio_titre {
+  display:inline-block;
+  vertical-align:middle;
+  font-size:14px;
+  width:260px
+}
+
+.portfolio .action_supprimer {
+  position:absolute;
+  top:0;
+  right:0;
+  float:none;
+  margin:0;
+  bottom:0;
+  width:30px;
+  height:100%;
+}
+
+.portfolio .crayon-icones {
+  position:absolute;
+  right:-30px;
+  top:0;
+  bottom:0;
+  width:30px;
+  left:auto;
+  float:none;
+  display:block !important;
+}
+
+
+.portfolio .crayon-icones:hover {
+  background:#cdcdcd;
+}
+
+.portfolio .crayon-icones span {
+  width:100% !important;
+  height:100% !important;
+}
+
+.portfolio .crayon-icones .crayon-crayon {
+  display: block !important;
+  width: 30px !important;
+  height: 100% !important;
+  background-position: 50% 50% !important;
+}
+
 
 .portfolio a{
 	border:0;
 }
 
 .portfolio_grand{
-	padding: 10px 10px 0 0; float: left; position: relative;
+  /*
+	padding: 10px 10px 0 0; 
+	float: left; 
+	*/
+	position: relative;
 }
 
 .titre_bloc{ 
@@ -2090,8 +2176,10 @@ ul#forum, .lien_forum {
     margin-top: 0px;
 }
 
+/*
 .markItUp .markItUpHeader {display: none;
 }
+*/
 
 
 
@@ -2250,10 +2338,10 @@ ul#forum, .lien_forum {
   z-index:999;
   margin-right:-570px;
   
-  -webkit-transition:all 2000ms ease;
-  -moz-transition:all 2000ms ease;
-  -o-transition:all 2000ms ease;
-  transition:all 2000ms ease;
+  -webkit-transition:margin 2000ms ease;
+     -moz-transition:margin 2000ms ease;
+       -o-transition:margin 2000ms ease;
+          transition:margin 2000ms ease;
 }
 
 #sidebar_iframe {
@@ -2401,11 +2489,14 @@ input.crayon-active {
 }
 
 .reponse_haute.current_select,
-.hoveringReponse .connecteur_timeline.hover,
 .hoveringReponse .connecteur_timeline.hover.current_select,
 .highlightReponse .connecteur_timeline.current_select {
   z-index:999;
   opacity:1;
+}
+
+.hoveringReponse .connecteur_timeline.hover {
+  z-index:1000;
 }
 
 .connecteur_timeline{
@@ -2421,4 +2512,32 @@ input.crayon-active {
 
 .connecteur_timeline.hide{
   opacity:0;
+}
+
+.sidebar_bubble {
+  box-shadow: 0 2px 7px rgba(0,0,0,.3);
+  border-radius:3px;
+  background:white;
+  margin-bottom:4px;
+  overflow:hidden;
+  clear:both;
+}
+
+.sidebar_bubble_split_parent {
+  padding: 0;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 0;
+  font-size:0;
+  margin-bottom:0;
+}
+/*
+.sidebar_bubble_portfolio {
+  padding:20px 30px
+}
+*/
+.bloc_documents {
+  /*
+  background:#EFEFEF;
+  */
+  padding:0 10px 7px 10px
 }

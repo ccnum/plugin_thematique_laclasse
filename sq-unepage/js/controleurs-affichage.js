@@ -127,9 +127,6 @@ $().ready(function(){
   function popup(url,mode){
     if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
     
-    console.log('mode : '+mode);
-    console.log('url : '+url);
-    
     if ((mode=='consigne')||(mode=='reponse'))
     {
     //   $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
@@ -209,4 +206,5 @@ function showSidebar() {
 }
 
 function showSidebarCallback() {
+  $('#sidebar_iframe').contents().find('.crayon-init').trigger('mouseover mouseout mouseleave');
 }
