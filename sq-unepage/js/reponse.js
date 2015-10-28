@@ -44,7 +44,6 @@ function reponse() {
 		this.div_base.setAttribute("id","reponse_haute"+this.id);
 		this.div_base.setAttribute("data-consigne-id",consigne.id);
 		this.div_base.setAttribute("data-reponse-id",this.id);
-		this.div_base.setAttribute("data-index",this.index);
 		
 		for (k=0;k<classes.length;k++){
 			if (classe_id == classes[k].id){
@@ -82,8 +81,7 @@ function reponse() {
   		'id':'connecteur_consigne_'+consigne.id+'_reponse_'+this.id,
   		'class':'connecteur_timeline couleur_travail_en_cours'+coul+' hide',
   		'data-consigne-id':consigne.id,
-  		'data-reponse-id':this.id,
-      'data-index':this.index
+  		'data-reponse-id':this.id
 		});
 		
 		g_projet.timeline_fixed.append(this.connecteur);
