@@ -5,7 +5,13 @@
   [(#REM)Titre]
 
   <li class="double bloc1">
-      <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span>[(#NOM_SITE_SPIP)]</a>
+      <a href="[(#URL_SITE_SPIP)]" title="Accueil">
+        <span class="logo">
+          [(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|oui) [(#CHEMIN{img/pictos_blc/#NOM_SITE_SPIP.png}|image_reduire{100})] ]
+          [(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|non) [(#CHEMIN{img/pictos_blc/defaut.png}|image_reduire{100})] ] 
+        </span>
+        [(#NOM_SITE_SPIP)]
+        </a>
   </li>
 
   <li class="double bloc2">
