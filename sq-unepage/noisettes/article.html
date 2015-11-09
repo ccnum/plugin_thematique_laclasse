@@ -91,7 +91,7 @@
 				[(#REM)Documents joints]
 				<B_documents_joints1>
 					<div class="nettoyeur"></div>
-					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
+					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons}>
 						<div class="portfolio_grand">
 
                         [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
@@ -124,7 +124,7 @@
 
 					<B_documents_joints>
 					<div class="nettoyeur"></div>
-					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons d}>
+					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons}>
 						 <div class="portfolio">
                              [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
 	                            [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
