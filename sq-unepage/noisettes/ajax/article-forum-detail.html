@@ -6,7 +6,7 @@
 	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}{inverse}>
 			#SET{type_objet,#MODELE{type_objet}{id_auteur}}
 
-			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs]
+			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs (TO DO)]
 			[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]
 			[(#GET{type_objet}|=={ressources}|oui) #SET{type_objet,consignes} ]
 			<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
