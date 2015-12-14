@@ -395,6 +395,14 @@ a:hover{
 	padding: 0px 15px 0px 15px;
 }
 
+#menu_haut.zone-menu ul.droite li {
+	padding: 0px 15px 0px 15px;
+}
+
+#menu_haut.zone-menu ul.droite li.logo {
+  padding:0;
+}
+
 #menu_haut.zone-menu li.bloc1 {
 	padding: 0px 15px 0px 5px;
 }
@@ -435,6 +443,35 @@ a:hover{
 	color: #fff;
 	background-color: #GET{color_menu_hover};
 	/*border-top: 2px #000 solid;*/
+}
+
+
+#menu_haut.zone-menu li.lien_logo,
+#menu_haut.zone-menu li.lien_logo a {
+	padding:0 5px 0 0;
+}
+
+#menu_haut.zone-menu li.lien_logo:hover,
+#menu_haut.zone-menu li.lien_logo:hover a {
+	background: none !important;
+}
+
+#menu_haut.zone-menu li.lien_logo a img {
+  max-height:100%;  
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+}
+
+#menu_haut.zone-menu li.lien_logo:hover a img {
+  max-height:100%;  
+  filter: none;
+  -webkit-filter: none;
+  -moz-filter: none;
+  -ms-filter: none;
+  -o-filter: none;
 }
 
 #menu_haut.zone-menu .bordure_gauche {
@@ -1748,3 +1785,23 @@ ul#forum, .lien_forum {
   display: inline-block;
   margin-right: 9px;
 }
+
+#iemsg{
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 130px;
+  margin-top: -130px;
+  background: #95C577;
+  position: absolute;
+  z-index: 100000000000000;
+  background-clip: padding-box;
+  text-align: center;
+  color: #FFF;
+  font-size: 19px;
+  padding: 50px;
+  overflow: auto;
+}
+#iemsg h2{margin:8px; padding:0;}
+#iemsg p{margin:8px; padding:0;}
+#iemsg p a {font-weight:normal; color:#3E542F;}
