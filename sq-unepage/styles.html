@@ -463,6 +463,23 @@ a:hover{
   -moz-filter: grayscale(100%);
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
+  opacity:.5
+}
+
+#menu_logos {
+  position: absolute;
+  left: 50%;
+  width: 280px;
+  margin-left: -140px;
+}
+
+@media screen and (max-width:1200px) {
+  #menu_logos {
+    position:relative;
+    left:0;
+    width:auto;
+    margin:0
+  }
 }
 
 #menu_haut.zone-menu li.lien_logo:hover a img {
@@ -472,6 +489,7 @@ a:hover{
   -moz-filter: none;
   -ms-filter: none;
   -o-filter: none;
+  opacity:1
 }
 
 #menu_haut.zone-menu .bordure_gauche {
