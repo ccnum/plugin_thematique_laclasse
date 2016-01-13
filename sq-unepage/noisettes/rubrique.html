@@ -246,17 +246,20 @@
 	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>
 	
 	
-	[(#REM)Pour générer les appels aux scripts crayons en cas de besoin]
-	<BOUCLE_crayon(RUBRIQUES){id_rubrique=#RESTREINT}{tout}>
-	<div class="#EDIT{titre}" style="display: none;">
+	[(#REM)Pour générer les appels aux scripts crayons en cas de besoin  - à corriger]
+	<BOUCLE_crayon(RUBRIQUES){id_rubrique=#ENV{restreint}}{tout}>
+	<div style="display: none;">
 		<span class="#EDIT{titre}">#TITRE</span>
 		<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE)]</span>
 		<span class="#EDIT{texte}">#TEXTE</span>
+		<BOUCLE_art_cray(ARTICLES){id_rubrique}>
+			<span class="#EDIT{titre}">#TITRE</span>
+			<span class="#EDIT{texte}">#TEXTE</span>
+		</BOUCLE_art_cray>
 	</div>
 	</BOUCLE_crayon>
 
 [(#MODE|!={ajax-detail}|oui)</div>]
-
 </BOUCLE_principale>
 </B_principale>
 	<INCLURE{fond=chargement}{type_objet=#TYPE_OBJET}>
