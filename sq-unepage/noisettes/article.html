@@ -1,5 +1,4 @@
 #CACHE{0}
-
 <BOUCLE_principale(ARTICLES){id_article}{doublons}>
 	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#ENV{type_objet})]">]
 		
@@ -12,9 +11,9 @@
 			</B_auteur><//B_auteur>
 
 		[(#REM) ---------------- Hack temporaire ? ---------------- ]
-			<div class="cache">
+			<!--<div class="cache">
 				<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
-			</div>
+			</div>-->
 		
 		[(#REM) ---------------- titre & logo ---------------- ]
 			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE}</BOUCLE_rub>
