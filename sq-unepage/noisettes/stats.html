@@ -1,0 +1,57 @@
+#CACHE{0}
+<div id="offset"></div>
+<div id="global">
+
+	<INCLURE{fond=noisettes/inc/no_ie6}>
+
+	<div id="menu_haut" class="zone-menu ">
+	<INCLURE{fond=noisettes/menu_haut}{env}>
+	</div>
+
+	<h1 style="clear: both;">#ANNEE_SCOLAIRE</h1>
+
+    <BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{tout}>
+      <BOUCLE_art(ARTICLES){branche}{par date}{inverse}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+            <BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}>
+   					#SET{reponses,#GET{reponses}|plus{1}}
+  				<BOUCLE_documents_joints2(DOCUMENTS) {extension IN png,jpg,gif} {id_article} {tout} {doublons}>
+   					#SET{images,#GET{images}|plus{1}}
+				</BOUCLE_documents_joints2>
+  				<BOUCLE_documents_joints3(DOCUMENTS) {extension IN mp3,wav,ogg} {id_article} {tout} {doublons}>
+   					#SET{sons,#GET{sons}|plus{1}}
+				</BOUCLE_documents_joints3>
+            	<BOUCLE_documents_joints1(DOCUMENTS) {id_article} {tout} {doublons}>
+   					#SET{documents,#GET{documents}|plus{1}}
+            	</BOUCLE_documents_joints1>
+            	[(#TEXTE|match{vimeo,youtube}|oui)
+            		#SET{videos,#GET{videos}|plus{1}}
+				]
+				<BOUCLE_forum(FORUMS) {id_article} {tout} {doublons}>
+   					#SET{forums,#GET{forums}|plus{1}}
+            	</BOUCLE_forum>
+
+            </BOUCLE_reponse>
+      </BOUCLE_art>
+    </BOUCLE_rubrique>
+    	<h2>#TOTAL_BOUCLE Consignes</h2>
+
+    </B_rubrique>
+
+    <BOUCLE_mot(MOTS){titre IN blogs,evenements,ressources}>
+      <BOUCLE_rubrique1(RUBRIQUES){id_mot}{tout}>
+        <BOUCLE_art1(ARTICLES){branche}{par date}{inverse}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{0,20}>
+            #SET{publications,#GET{publications}|plus{1}}
+        </BOUCLE_art1>
+      </BOUCLE_rubrique1>
+    </BOUCLE_mot>
+
+
+ 	<h2>#GET{reponses}  &nbsp;Réponses</h2>
+  	<h2>#GET{images}  &nbsp;Images</h2>
+  	<h2>#GET{sons}  &nbsp;Sons</h2>
+  	<h2>#GET{videos}  &nbsp;Videos</h2>
+  	<h2>#GET{documents}  &nbsp;Documents autres</h2>
+  	<h2>#GET{forums}  &nbsp;Forums</h2>
+  	<h2>#GET{publications}  &nbsp;Publications</h2>
+
+</div>
