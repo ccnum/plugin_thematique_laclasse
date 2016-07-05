@@ -49,9 +49,21 @@
 
 
 
+
+
 /* ------- */
 
-
+/*
+.crayon-html {
+    z-index: 5000;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0,0,0,0.5);
+}
+*/
 
 .formulaire_spip input.text {
   color: #222 !important;
@@ -606,40 +618,40 @@ a:hover{
 }
 /*Jaune*/
 .couleur_consignes1, .zone-menu li.logo a.hover_couleur_consignes1:hover, .zone-menu li.logo a.hover_couleur_consignes1.selected {
-	background-color:#FFE100;
+	background-color:#F44336;
 }
 /*Vert*/
 .couleur_consignes2, .zone-menu li.logo a.hover_couleur_consignes2:hover, .zone-menu li.logo a.hover_couleur_consignes2.selected {
-	background-color:#93DC1F;
+	background-color:#E91E63;
 }
 /*Bleu*/
 .couleur_consignes3, .zone-menu li.logo a.hover_couleur_consignes3:hover, .zone-menu li.logo a.hover_couleur_consignes3.selected {
-	background-color:#00FFFF;
+	background-color:#9C27B0;
 }
 .couleur_consignes4, .zone-menu li.logo a.hover_couleur_consignes4:hover, .zone-menu li.logo a.hover_couleur_consignes4.selected {
-	background-color:#FF5640;
+	background-color:#673AB7;
 }
 /*Jaune*/
 .couleur_consignes5, .zone-menu li.logo a.hover_couleur_consignes5:hover, .zone-menu li.logo a.hover_couleur_consignes5.selected {
-	background-color:#9a9ece;
+	background-color:#3F51B5;
 }
 /*Violet*/
 .couleur_consignes6, .zone-menu li.logo a.hover_couleur_consignes6:hover, .zone-menu li.logo a.hover_couleur_consignes6.selected {
-	background-color:#9a9ece;
+	background-color:#2196F3;
 }
 .couleur_consignes7, .zone-menu li.logo a.hover_couleur_consignes7:hover, .zone-menu li.logo a.hover_couleur_consignes7.selected {
-	background-color:#93DC1F;
+	background-color:#009688;
 }
 .couleur_consignes8, .zone-menu li.logo a.hover_couleur_consignes8:hover, .zone-menu li.logo a.hover_couleur_consignes8.selected {
-	background-color:#2196F3;
+	background-color:#4CAF50;
 }
 /*Bleu clair*/
 .couleur_consignes9, .zone-menu li.logo a.hover_couleur_consignes9:hover, .zone-menu li.logo a.hover_couleur_consignes9.selected {
-	background-color:#95F2B8;
+	background-color:#3F51B5;
 }
 /*Rose*/
 .couleur_consignes0, .zone-menu li.logo a.hover_couleur_consignes0:hover, .zone-menu li.logo a.hover_couleur_consignes0.selected {
-	background-color:#FFCA9A;
+	background-color:#607D8B;
 }
 
 
@@ -677,6 +689,47 @@ a:hover{
 }
 .couleur_travail_en_cours0,  .zone-menu li.logo a.hover_couleur_travail_en_cours0:hover, .zone-menu li.logo a.hover_couleur_travail_en_cours0.selected {
 	background-color:#607D8B;
+}
+
+/* Interventions */
+
+
+/*Jaune*/
+.couleur_intervention_item1 {
+	border-color:#F44336;
+}
+/*Vert*/
+.couleur_intervention_item2 {
+	border-color:#E91E63;
+}
+/*Bleu*/
+.couleur_intervention_item3 {
+	border-color:#9C27B0;
+}
+.couleur_intervention_item4 {
+	border-color:#673AB7;
+}
+/*Jaune*/
+.couleur_intervention_item5 {
+	border-color:#3F51B5;
+}
+/*Violet*/
+.couleur_intervention_item6 {
+	border-color:#2196F3;
+}
+.couleur_intervention_item7 {
+	border-color:#009688;
+}
+.couleur_intervention_item8 {
+	border-color:#4CAF50;
+}
+/*Bleu clair*/
+.couleur_intervention_item9 {
+	border-color:#3F51B5;
+}
+/*Rose*/
+.couleur_intervention_item0 {
+	border-color:#607D8B;
 }
 
 /* ---------------------------------------------------------------- */
@@ -1558,9 +1611,14 @@ div.donnees_classe {
 }
 
 .auteur_date {
-	margin-top:3px;
-	font-size:#GET{font-size1_bas}px;
-	line-height:#GET{font-size1}px;	
+    margin-top: 0px;
+    font-size: 10px;
+    line-height: 14px;
+    color: rgba(255,255,255,.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-top: 0;
+    font-weight: bold;
 }
 
 .reponse .picto_nombre_commentaires {
@@ -1702,6 +1760,10 @@ div.donnees_classe {
 	border: 0px;
 }
 
+.intervention_answers {
+  margin:0 15px
+}
+
 /* Bloc de titre principal de la modalbox */
 .popup .fiche_titre {
 	margin: -20px -20px 0 -20px;
@@ -1752,29 +1814,81 @@ div.donnees_classe {
   text-align:center;
   border-radius:3px;
   max-width:100% !important;
-  box-sizing:border-box
+  box-sizing:border-box;
+  float:none !important;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:10px;
+  margin-bottom:10px;
 }
 
 .popup .spip_documents img {
-  max-width:100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.popup .spip_documents a[type="application/pdf"] img {
+  margin-top:15px
+}
+
+.popup .spip_documents .spip_doc_titre {
+  padding:10px;
+  font-size:12px;
+  width:auto !important;
 }
 
 
 /* Blocs de titres à l'intérieur de la modalbox (pour les réponses par exemple) */
 .popup .intervention {
-	margin:0 0 0 0;
-	padding:15px 30px;
-	overflow:auto;
-	clear:both;
-	display:block;
+    margin: 0 0 0 0;
+    padding: 15px 25px 15px 25px;
+    overflow: auto;
+    clear: both;
+    display: block;
+    background: rgba(0,0,0,.08);
 }
 
 .popup .intervention .photo {
-	float:left;
-	box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
-	margin-right:8px;
-	border-radius:3px;
-	overflow:hidden;
+    float: left;
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
+    margin-right: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    width: 28px;
+    height: 28px;
+}
+
+.intervention_item {
+    margin: 20px 20px 0 20px;
+    border-radius: 4px;
+    overflow: hidden;
+    color:white;
+    padding-bottom:15px
+}
+
+.intervention_answers {
+  margin-top:-20px
+}
+
+.intervention_answers .intervention_item {
+  margin-top:5px;
+  box-shadow:0 -3px 10px rgba(0,0,0,.2)
+}
+
+.intervention_item_content {
+  border-style: solid;
+  border-width: 0 4px 4px 4px;
+}
+
+.intervention_item .titre {
+    font-size: 18px;
+    line-height:22px;
+    margin: 20px 20px 0 20px;
+}
+
+.popup .intervention .photo img {
+  width:100%;
+  height:auto;
 }
 
 .popup .intervention .texte {
@@ -1787,8 +1901,30 @@ div.donnees_classe {
 .popup .intervention .titre {
 	font-size:16px;
 	color:white;
+	margin-bottom:8px
 }
 
+.intervention_callto_answer {
+  background: #DEDEDE;
+  border-radius: 4px;
+  margin: 5px 35px 0 35px;
+}
+
+.intervention_callto_answer a {
+  padding:10px 20px;
+  display:block;
+  text-decoration:none;
+  font-size:14px;
+  color:#333;
+  cursor:pointer;
+}
+
+.intervention_new_answer.bloc_texte {
+  background:#DEDEDE;
+  border-radius:4px;
+  margin: -5px 35px 5px 35px;
+  padding: 10px 20px;
+}
 
 .popup .popup_titre .titre, .popup_titre .titre {
 	font-size:24px;
@@ -1870,10 +2006,10 @@ div.donnees_classe {
 a.lien_ajouter { cursor: pointer; color: #58ab27; padding-right: 25px; font-weight: normal;}
 a.lien_ajouter:hover {  }
 
-a.liens_voir { cursor: pointer; color: #616b70; font-weight: normal;}
+a.liens_voir { cursor: pointer; color: #333; font-weight: normal;}
 a.liens_voir:hover { }
 
-a.liens_voir2 { cursor: pointer; color: #00a5db; font-weight: normal;}
+a.liens_voir2 { cursor: pointer; color: #333; font-weight: normal;}
 a.liens_voir2:hover { }
 
 a.liens_supprimer { cursor: pointer; color: red; font-weight: normal;}
@@ -2087,9 +2223,7 @@ ul.forum {
 }
 
 ul.forum ul.forum {
-  
-	margin-left: 60px;
-	
+/*	margin-left: 60px; */
 }
 
 /*Formulaire_joindre_document*/
@@ -2140,14 +2274,22 @@ line-height:1.5;
 }
 
 #bloc_texte, .bloc_texte {
-	/*clear:both;*/	
-	font-size:13px;
-	line-height:17px;
-	padding:20px 30px;
+    /* clear: both; */
+    font-size: 13px;
+    line-height: 17px;
+    padding: 20px 40px 20px 40px;
+}
+
+.intervention_item #bloc_texte,.intervention_item .bloc_texte {
+    /* clear: both; */
+    font-size: 13px;
+    line-height: 17px;
+    padding: 5px 20px 5px 20px;
 }
 
 .bloc_texte p {
-margin: 12px 0px;
+  margin: 12px 0px;
+  clear:both;
 }
 
 li a, li a:hover {
@@ -2678,6 +2820,7 @@ input.crayon-active {
   margin-bottom:4px;
   overflow:hidden;
   clear:both;
+  border: solid 1px rgba(0,0,0,0.1);
 }
 
 .sidebar_bubble_split_parent {
@@ -2696,5 +2839,24 @@ input.crayon-active {
   /*
   background:#EFEFEF;
   */
-  padding:0 10px 7px 10px
+  padding:0 10px 7px 10px;
+  clear:both;
 }
+
+.material-icons {
+  vertical-align: middle;
+}
+
+// Rules for sizing the icon.
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+// Rules for using icons as black on a light background.
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+// Rules for using icons as white on a dark background.
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }

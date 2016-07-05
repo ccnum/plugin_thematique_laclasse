@@ -22,8 +22,6 @@
     <utilise nom="notations" />
     <utilise nom="medias" />
 
-    <menu nom="configurer_th" titre="th:configurer_th" parent="menu_squelette"/>
-
     <pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
     <pipeline nom="declarer_champs_extras" inclure="base/th_cextras.php" />
     <pipeline nom="jqueryui_plugins" inclure="th_pipelines.php" />
