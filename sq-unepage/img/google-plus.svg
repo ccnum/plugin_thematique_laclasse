@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="3 -4 256 258" style="enable-background:new 3 -4 256 258;" xml:space="preserve">
+<style type="text/css">
+	.st0{filter:url(#filter-1);}
+	.st1{fill:#DC4E41;}
+	.st2{fill:#FFFFFF;}
+	.st3{opacity:0.4;fill:#FFFFFF;enable-background:new    ;}
+	.st4{opacity:0.1;fill:#3E2723;enable-background:new    ;}
+	.st5{fill:none;}
+</style>
+<filter  width="200%" height="200%" id="filter-1" filterUnits="objectBoundingBox" y="-50%" x="-50%">
+	<feOffset  dy="2" dx="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+	<feGaussianBlur  in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"></feGaussianBlur>
+	
+		<feColorMatrix  type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.168 0" in="shadowBlurOuter1" result="shadowMatrixOuter1">
+		</feColorMatrix>
+	<feOffset  dy="0" dx="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+	<feGaussianBlur  in="shadowOffsetOuter2" result="shadowBlurOuter2" stdDeviation="1"></feGaussianBlur>
+	
+		<feColorMatrix  type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.084 0" in="shadowBlurOuter2" result="shadowMatrixOuter2">
+		</feColorMatrix>
+	<feMerge>
+		<feMergeNode  in="shadowMatrixOuter1"></feMergeNode>
+		<feMergeNode  in="shadowMatrixOuter2"></feMergeNode>
+		<feMergeNode  in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<g transform="translate(2.000000, 2.000000)">
+	<g class="st0">
+		<path class="st1" d="M10-4h238c3.9,0,7,3.1,7,7v238c0,3.9-3.1,7-7,7H10c-3.9,0-7-3.1-7-7V3C3-0.9,6.1-4,10-4z"/>
+	</g>
+	<path class="st2" d="M103.8,115.7v15.1h25c-1,6.5-7.6,19-25,19c-15.1,0-27.3-12.5-27.3-27.8s12.3-27.8,27.3-27.8
+		c8.6,0,14.3,3.7,17.6,6.8l12-11.5c-7.7-7.2-17.6-11.5-29.5-11.5c-24.4,0-44.1,19.7-44.1,44.1s19.7,44.1,44.1,44.1
+		c25.5,0,42.3-17.9,42.3-43.1c0-2.9-0.3-5.1-0.7-7.3H103.8L103.8,115.7z"/>
+	<path class="st3" d="M103.8,116.5h41.6c0.4,2.1,0.7,4.3,0.7,6.9v-0.4c0-2.9-0.3-5.1-0.7-7.3h-41.6V116.5L103.8,116.5z M103.8,78.7
+		c11.7,0,21.5,4.2,29,11.2l0.4-0.4c-7.6-7.1-17.6-11.5-29.5-11.5c-24.4,0-44.1,19.7-44.1,44.1v0.4C60,98.2,79.6,78.7,103.8,78.7
+		L103.8,78.7z M103.8,150.6c17.5,0,24-12.5,25-19h-0.2c-1.4,6.7-8,18.2-24.8,18.2c-14.9,0-27.1-12.3-27.3-27.4
+		c0,0.1-0.1,0.3-0.1,0.4C76.5,138.1,88.7,150.6,103.8,150.6L103.8,150.6z"/>
+	<path class="st4" d="M103.8,94.2c-15.1,0-27.3,12.5-27.3,27.8c0,0.1,0.1,0.3,0.1,0.4C76.7,107.2,88.9,95,103.8,95
+		c8.6,0,14.3,3.7,17.6,6.8l12-11.5c-0.1-0.1-0.3-0.3-0.4-0.4L121.4,101C118.1,97.9,112.4,94.2,103.8,94.2L103.8,94.2z M103.8,130.8
+		v0.8h24.8c0.1-0.3,0.1-0.6,0.2-0.8H103.8L103.8,130.8z"/>
+	<path class="st4" d="M103.8,166.1c-24.2,0-43.8-19.5-44.1-43.7v0.4c0,24.4,19.7,44.1,44.1,44.1c25.5,0,42.3-17.9,42.3-43.1v-0.4
+		C145.9,148.4,129.1,166.1,103.8,166.1L103.8,166.1z"/>
+	<path class="st2" d="M198.3,115.7h-12.6v-12.6h-12.6v12.6h-12.6v12.6h12.6v12.6h12.6v-12.6h12.6"/>
+	<path class="st3" d="M185.7,115.7h12.6v0.8h-12.6V115.7z M173.1,103.1h12.6v0.8h-12.6V103.1z M160.5,115.7h12.6v0.8h-12.6V115.7z"
+		/>
+	<path class="st4" d="M160.5,128.3h12.6v0.8h-12.6V128.3z M185.7,128.3h12.6v0.8h-12.6V128.3z M173.1,140.9h12.6v0.8h-12.6V140.9z"
+		/>
+	<path class="st5" d="M28.2,21.2h201.6v201.6H28.2V21.2z"/>
+</g>
+</svg>

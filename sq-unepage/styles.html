@@ -2033,24 +2033,44 @@ div.donnees_classe {
   cursor:pointer;
 }
 
+.intervention_thumbnail {
+  max-width:100% !important;
+  height:auto !important;
+}
+
 .intervention_new_answer.bloc_texte {
-  background:#DEDEDE;
-  border-radius:4px;
-  margin: -5px 35px 5px 35px;
-  padding: 10px 20px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    margin: 5px 35px 5px 35px;
+    padding: 10px 20px;
+}
+
+.popup_new_article .formulaire_spip {
+    margin: 0 -20px !important;
+    padding: 0;
+    background: #eee;
+    border-radius: 3px;
+    padding: 6px 20px !important;
+}
+
+.popup .popup_titre {
+    background: #eee;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 3px;
 }
 
 .popup .popup_titre .titre, .popup_titre .titre {
-	font-size:24px;
-	line-height:24px;
-	color: #00a5db;
+    font-size: 22px;
+    line-height: 24px;
+    color: #2b2b2b;
 }
 .popup .popup_titre .date {
-	font-weight:bold;
-	font-size:14px;
-	line-height:20px;
-	color: #00a5db;
-	padding-left: 2px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    color: #464646;
+    padding-left: 0;
 }
 .popup .popup_titre .auteur {
 	font-weight:bold;
@@ -2313,7 +2333,8 @@ input[type="file"] {
     background: url([(#CHEMIN{img/close_white.svg}|image_reduire{25}|extraire_attribut{src})]) no-repeat center center / 20px auto #ff6347;
 }
 
-.bloc_option_doc .submit {
+.bloc_option_doc .submit,
+.popup_new_article .submit {
     margin-top: 10px;
     background: #ddd;
     color: #000;
@@ -2326,6 +2347,10 @@ input[type="file"] {
     letter-spacing: 1px;
     font-weight: 500;
     width: 100%;
+}
+
+.popup_new_article .submit {
+  background-color:#ccc;
 }
 
 /*Formulaires edition auteur*/
@@ -3128,4 +3153,24 @@ input.crayon-active {
 
 .crayon-html .formulaire_crayon {
     max-width: none !important;
+}
+
+.socialtags ul li img {
+  display:none;
+}
+  
+.socialtags ul li.facebook {
+	background: url(#ENV{chemin}/img/facebook.svg) no-repeat center center / 80% auto;
+}
+  
+.socialtags ul li.twitter {
+	background: url(#ENV{chemin}/img/twitter.svg) no-repeat center center / 80% auto;
+}
+  
+.socialtags ul li.googleplus {
+	background: url(#ENV{chemin}/img/google-plus.svg) no-repeat center center / 80% auto;
+}
+  
+.socialtags ul li.printer {
+	background: url(#ENV{chemin}/img/print.svg) no-repeat center center / 80% auto;
 }

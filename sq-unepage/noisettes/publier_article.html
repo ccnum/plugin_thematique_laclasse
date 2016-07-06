@@ -1,23 +1,25 @@
 #CACHE{0}
 	
-	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
-		[(#ID_ARTICLE|non)
-			<script type="text/javascript">
-				$().ready(function(){
-					$('#entete_contenu').fadeTo('fast', 0.2);
-					$('#entete_publication').delay(1000).slideDown('slow');
-					function cache() {
-						$('#entete_contenu').fadeTo('fast', 1);
-						$('#entete_publication').fadeTo(4000, 0.8, function(){
-							//$(this).slideUp(1000);
-						});
-					}
-					$('#entete_publication').click(cache);
-					window.setTimeout(cache, 2000);
-				});
-			</script>
-			
-			[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
+[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+	[(#ID_ARTICLE|non)
+		<script type="text/javascript">
+			$().ready(function(){
+				$('#entete_contenu').fadeTo('fast', 0.2);
+				$('#entete_publication').delay(1000).slideDown('slow');
+				function cache() {
+					$('#entete_contenu').fadeTo('fast', 1);
+					$('#entete_publication').fadeTo(4000, 0.8, function(){
+						//$(this).slideUp(1000);
+					});
+				}
+				$('#entete_publication').click(cache);
+				window.setTimeout(cache, 2000);
+			});
+		</script>
+		
+		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
+		
+		<div class="sidebar_bubble ">
 			
 			[(#GET{type_objet}|=={travail_en_cours}|oui)
 			<div class="fiche_titre couleur_texte_[(#GET{type_objet})] couleur_[(#GET{type_objet})][(#MODELE{nb2col}{#ENV{id_article}})]">
@@ -29,30 +31,36 @@
 			</div>
 			]
 	
-			<div class="popup_titre">
-				<div class="titre">
-					[(#GET{type_objet}|=={travail_en_cours}|oui) Répondre à la consigne]
-					[(#GET{type_objet}|=={travail_en_cours}|non) Publier un nouvel article]
-				</div>
-				<div class="date" id="entete_publication" style="display: none;">
-					<br /><!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->
-					Etape 1 : Pour créer votre article, choisissez un titre et validez-le ci-dessous
-				</div>
-	
-			</div>
-	
-			<br />
-			<div id="entete_contenu" style="opacity: 0.2;">
-		]
-	
-	[(#REM)Impossible de passer l'url de retour en paramètre... donc forcée en dur dans le formulaire]
-		[(#ID_ARTICLE|non)
-			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{new},#ENV{id_rubrique},#URL_ARTICLE}
-		]
-		[(#ID_ARTICLE|oui)
-			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{id_article},#ENV{id_rubrique},#URL_ARTICLE}
-		]
-	
+  			<div class="popup_titre">
+  				<div class="titre">
+  					[(#GET{type_objet}|=={travail_en_cours}|oui) Répondre à la consigne]
+  					[(#GET{type_objet}|=={travail_en_cours}|non) Publier un nouvel article]
+  				</div>
+  				<div class="date" id="entete_publication" style="display: block;">
+  					<br /><!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->					
+  					[(#GET{type_objet}|=={travail_en_cours}|oui) Etape 1 : Pour répondre à la consigne, choisissez un titre et validez-le ci-dessous]
+  					[(#GET{type_objet}|=={travail_en_cours}|non) Etape 1 : Pour créer votre article, choisissez un titre et validez-le ci-dessous]
+  				</div>
+  			</div>
+  	
+  			<br />
+  			
+      <div class="bloc_texte">
+  			<div id="entete_contenu" class="popup_new_article" style="opacity: 1;">
+  		]
+  	
+    	[(#REM)Impossible de passer l'url de retour en paramètre... donc forcée en dur dans le formulaire]
+    		[(#ID_ARTICLE|non)
+    			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{new},#ENV{id_rubrique},#URL_ARTICLE}
+    		]
+    		[(#ID_ARTICLE|oui)
+    			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{id_article},#ENV{id_rubrique},#URL_ARTICLE}
+    		]
+  			
+  			
+  			
+  			[(#ID_ARTICLE|non) </div>]
+  		</div>
 [(#MODE|!={ajax-detail}|oui)
 	[(#REM)<br /><br />PS : Après enregistrement, vous pourrez ajouter un texte et des documents. <br />Un mail sera envoyé à la mailing liste.]
 	</div>

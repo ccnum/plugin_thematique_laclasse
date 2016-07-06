@@ -83,9 +83,10 @@
 									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
 								</div>
 							</BOUCLE_documents_joints3>
+							
 							<BOUCLE_documents_joints2(DOCUMENTS) {id_forum} {tout} {doublons}>
 								<div class="portfolio">
-									[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{80}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox intervention_thumbnail"})] type="#MIME_TYPE">(#LOGO_DOCUMENT|||inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
 								</div>
 							</BOUCLE_documents_joints2>
 						</div>
@@ -99,7 +100,7 @@
 			
 			<div class="intervention_callto_answer">
 				<a id="ajaxf1#ID_FORUM" class="hac liens_voir" title="Répondre à ce message">					
-					<i class="material-icons md-24">&#xE8AF;</i>&nbsp;&nbsp;Répondre à ce message
+					<i class="material-icons md-24">&#xE8AF;</i>&nbsp;&nbsp;&nbsp;Répondre à ce message
 			  </a>
 			</div>
       
