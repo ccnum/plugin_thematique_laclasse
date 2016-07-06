@@ -65,42 +65,78 @@
 }
 */
 
+
+
+.crayon-html {
+  position: fixed !important;
+  top: 30% !important;
+  left: 30px !important;
+  margin: -50px 0 !important;
+  z-index: 10;
+  right: 30px !important;
+}
+
+
+.crayon-html:before {
+  content:"";
+  display:block;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(0,0,0,.8);
+  z-index:1;
+  
+}
+
+.crayon-html .formulaire_spip {
+  z-index:10000;
+  position:relative;
+  background: #fff;
+}
+
+.resizehandle_boutons {
+  margin:0 !important;
+}
+
 .formulaire_spip input.text {
-  color: #222 !important;
-  /* font-size: 14px !important; */
-  /* font-family: font, Helvetica, Arial, sans-serif !important; */
-  /* font-weight: 400 !important; */
-  /* line-height: 13px !important; */
-  /* min-height: 13px !important; */
-  /* text-align: left !important; */
-  background-color: #FFF !important;
-  /* width: 260px !important; */
-  padding: 5px 9px !important;
-  border: none !important;
-  margin-top: -6px !important;
-  margin-left: -8px !important;
-  outline:none !important;
+    color: #222 !important;
+    /* font-size: 14px !important; */
+    /* font-family: font, Helvetica, Arial, sans-serif !important; */
+    /* font-weight: 400 !important; */
+    /* line-height: 13px !important; */
+    /* min-height: 13px !important; */
+    /* text-align: left !important; */
+    background-color: #FFF !important;
+    width: 100% !important;
+    padding: 10px 9px !important;
+    border: none !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    outline: none !important;
+    box-sizing: border-box;
 }
 
 .crayon-html .crayon-boutons {
     position: absolute !important;
     right: 0px !important;
-    left: -9px !important;
+    left: 0px !important;
     background: #FFF !important;
-    padding: 3px 6px 6px 6px !important;
+    padding: 3px 0px 0px 0px !important;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .crayon-boutons .crayon-cancel {
     background: #D27E60 url(images/annuler-16.png) center center no-repeat !important;
-    color: #8a1f11 !important;
-    /* text-indent: 0 !important; */
+    color: rgba(255, 255, 255, 0.65) !important;
+    text-indent: 0 !important;
     padding-right: 20px !important;
     margin-bottom: 0 !important;
     margin-left: 0 !important;
-    padding: 7px 5px !important;
-    width: 23.5% !important;
-    margin: 0 0 1% 1% !important;
+    padding: 10px 5px !important;
+    width: 25% !important;
+    margin: 0 !important;
     float: left !important;
 }
 
@@ -109,21 +145,22 @@
     cursor: pointer !important;
     display: inline-block !important;
     font-size: 12px !important;
-    border-radius: 5px !important;
+    border-radius: 0px !important;
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
 }
 
 .crayon-boutons .crayon-submit {
     background: #ADD260 url(images/ok-16.png) 2px center no-repeat !important;
-    color: #FFF !important;
+    color: #5f6554 !important;
     border-color: #c6d880 !important;
     float: right !important;
     margin-bottom: 0 !important;
     margin-left: 0 !important;
-    padding: 7px 5px !important;
-    width: 73.5% !important;
-    margin: 0 1% 1% 0 !important;
+    padding: 10px 5px !important;
+    width: 75% !important;
+    margin: 0 !important;
+    text-indent: 0 !important;
 }
 
 
@@ -135,7 +172,35 @@
     background-position: center center  !important;
     border-radius: 50%  !important;
     background-size: 50%  !important;
-    margin-top: -5px !important ;
+    margin-top: -8px !important ;
+}
+
+.markItUp {
+    margin: 0;
+    clear: both;
+    position: relative;
+}
+
+.markItUp .markItUpHeader {
+    display: block;
+    margin: 0;
+    padding: 0 10px;
+    background: #DDD;
+    border: none;
+    border-radius: 0;
+}
+.markItUp .markItUpHeader ul a {
+    clear: none;
+    display: block;
+    margin: 0;
+    padding: 10px 9px 9px;
+}
+.markItUpEditor {
+    width: 100% !important;
+    box-sizing: border-box;
+    border: none !important;
+    padding: 20px !important;
+    outline: none !important;
 }
 
 /* ---------------------------------------------------------------- */
@@ -1187,6 +1252,20 @@ div.sous-colonne2{
 	z-index: 2;	
 }
 
+.portfolio_grand .action_supprimer {
+  position: absolute;
+  z-index: 1000;
+  right: 1px;
+  top: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.portfolio_grand .action_supprimer:hover {
+  background-color:tomato;
+}
 
 /* --------- Formulaires --------- */
 
@@ -1245,7 +1324,7 @@ div.sous-colonne2{
 .formulaire_jaime form .submit.jaimeplus:hover,
 .formulaire_jaime .dejavote:hover,
 div.jaimeplus:hover {
-	background-color:#cdcdcd;
+	background-color:white;
 }
 
 .formulaire_jaime form .submit.jaimeplus{
@@ -1813,9 +1892,11 @@ div.donnees_classe {
 
 
 
-.popup .spip_documents {
+.popup .bloc_texte .spip_documents,
+.popup .bloc_documents .portfolio,
+.popup .bloc_documents .portfolio_grand {
   background:#dedede;
-  text-align:center;
+  text-align:left;
   border-radius:3px;
   max-width:100% !important;
   box-sizing:border-box;
@@ -1826,6 +1907,7 @@ div.donnees_classe {
   margin-bottom:10px;
 }
 
+
 .popup .spip_documents img {
   max-width: 100% !important;
   height: auto !important;
@@ -1835,10 +1917,22 @@ div.donnees_classe {
   margin-top:15px
 }
 
-.popup .spip_documents .spip_doc_titre {
+.popup .portfolio_grand .spip_doc_titre,
+.popup .bloc_texte .spip_doc_titre {
   padding:10px;
   font-size:12px;
   width:auto !important;
+  display:block;
+  text-align:center;
+}
+
+.popup .bloc_texte .spip_documents,
+.popup .bloc_documents .spip_documents {
+  text-align:center;
+}
+
+.popup .portfolio_grand dt.spip_doc_titre {
+  display:none;
 }
 
 
@@ -2637,20 +2731,80 @@ ul#forum, .lien_forum {
   z-index:999;
   margin-right:-570px;
   
-  -webkit-transition:margin 2000ms ease;
-     -moz-transition:margin 2000ms ease;
-       -o-transition:margin 2000ms ease;
-          transition:margin 2000ms ease;
+  -webkit-transition:margin 2000ms ease, width 2000ms ease;
+     -moz-transition:margin 2000ms ease, width 2000ms ease;
+       -o-transition:margin 2000ms ease, width 2000ms ease;
+          transition:margin 2000ms ease, width 2000ms ease;
 }
 
 #sidebar_iframe {
     border: none;
     width: 100%;
     height: 100%;
+    z-index: 10000;
+    position: relative;
 }
 
 .hasSidebarOpen #sidebar {
   margin-right:0;
+}
+
+.hasSidebarOpen #sidebarExpand {
+  left:-38px;
+    z-index: 100000;
+
+}
+
+.hasSidebarExpanded #sidebar {
+  width: 80%;
+  margin-right: 10%;
+  z-index: 100000;
+  
+  -webkit-transition:margin 1000ms ease, width 1000ms ease;
+     -moz-transition:margin 1000ms ease, width 1000ms ease;
+       -o-transition:margin 1000ms ease, width 1000ms ease;
+          transition:margin 1000ms ease, width 1000ms ease;
+}
+#sidebarExpand {
+  
+  -webkit-transition:all 2000ms ease;
+     -moz-transition:all 2000ms ease;
+       -o-transition:all 2000ms ease;
+          transition:all 2000ms ease;
+          
+    position: absolute;
+    left: 0;
+    top: 5px;
+    height: 33px;
+    width: 33px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 7px rgba(0,0,0,.3);
+    font-size: 0;
+    line-height: 33px;
+    z-index: -1;
+}
+
+#sidebarCache {
+  display:block;
+  position:fixed;
+  background:transparent;
+  pointer-events:none;
+  z-index:1000;
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  
+  -webkit-transition:background 1000ms ease;
+     -moz-transition:background 1000ms ease;
+       -o-transition:background 1000ms ease;
+          transition:background 1000ms ease;
+}
+
+.hasSidebarExpanded #sidebarCache {
+  background:rgba(0,0,0,.8);
+  pointer-events:all;
 }
 
 .timeline_item {
@@ -2868,4 +3022,8 @@ input.crayon-active {
 
 #cboxOverlay {
   background:rgba(0,0,0,.9) !important;
+}
+
+.crayon-html .formulaire_crayon {
+    max-width: none !important;
 }

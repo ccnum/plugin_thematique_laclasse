@@ -50,6 +50,11 @@ $().ready(function(){
         var selectedOption = $(this).find(":selected").text();
         $(this).next(".holder").text(selectedOption);
       })*/
+      
+      
+    $('#sidebarExpand').on('click', function(){
+      $('body').toggleClass('hasSidebarExpanded');
+    });
 
     //Tooltip 
       $("#menu_bas ul a").tooltip({

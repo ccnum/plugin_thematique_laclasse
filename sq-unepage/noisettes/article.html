@@ -128,20 +128,20 @@
                 ]
   
                 [(#MEDIA|match{'audio|video'}|oui)
-  	    [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
+                  [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
                 ]
   
                 [(#MEDIA|match{'image'}|oui)
-                    <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                    [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
-                    </a>
+                  <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+                  [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+                  </a>
                 ]
-                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                    [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
-                  ]
-                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                      [<span class="#EDIT{titre} spip_doc_titre"><br />(#TITRE|supprimer_numero)</span>]
-                  ]
+                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                  [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<div class="ajouter_couleur">ajouter un titre</div>})</div>]
+                ]
+                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                  [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div>]
+                ]
                 </div>
 
 					</BOUCLE_documents_joints1>
