@@ -1935,6 +1935,10 @@ div.donnees_classe {
   display:none;
 }
 
+.popup .spip_documents audio {
+  margin-top:10px;
+}
+
 
 /* Blocs de titres à l'intérieur de la modalbox (pour les réponses par exemple) */
 .popup .intervention {
@@ -2783,6 +2787,13 @@ ul#forum, .lien_forum {
     font-size: 0;
     line-height: 33px;
     z-index: -1;
+    
+    background:url(#ENV{chemin}/img/expandIcon_on.png) no-repeat center center 
+}
+
+.hasSidebarExpanded #sidebarExpand {
+  
+    background:url(#ENV{chemin}/img/expandIcon_off.png) no-repeat center center 
 }
 
 #sidebarCache {

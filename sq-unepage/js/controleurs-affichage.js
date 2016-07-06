@@ -55,6 +55,10 @@ $().ready(function(){
     $('#sidebarExpand').on('click', function(){
       $('body').toggleClass('hasSidebarExpanded');
     });
+    
+    $('#sidebarCache').on('click', function(){
+      $('body').removeClass('hasSidebarExpanded');
+    });
 
     //Tooltip 
       $("#menu_bas ul a").tooltip({
