@@ -1176,10 +1176,15 @@ div.sous-colonne2{
 	margin-left: 5px;
 	margin-bottom: 3px;
 	margin-right: 5px;
-	background: url(#ENV{chemin}/img/logo_supprimer_off_15.png) no-repeat scroll 0% 0%;  position: relative; z-index: 2;	
+	background: url(#ENV{chemin}/img/logo_supprimer_off_15.png) no-repeat center center / 12px auto;  
+	position: relative; 
+	z-index: 2;	
 }
 .action_supprimer:hover, .formulaire_editer_rubrique .action_supprimer:hover, .action_supprimer_on {
-	background: url(#ENV{chemin}/img/logo_supprimer_on_15.png) no-repeat scroll 0% 0%;  position: relative; z-index: 2;	
+	background: url(#ENV{chemin}/img/logo_supprimer_off_15_white.png) no-repeat scroll center center / 12px auto tomato;  
+	border-radius:0 3px 3px 0;
+	position: relative; 
+	z-index: 2;	
 }
 
 
@@ -1205,10 +1210,10 @@ div.sous-colonne2{
 /*--- Notations ---*/
 
 .formulaire_jaime_flottant {
-  margin-top: -42px;
+  margin-top: -182px;
   z-index: 100;
   position: absolute;
-  right: 40px;
+  right: 10px;
 }
 
 .formulaire_notation {
@@ -1219,22 +1224,21 @@ div.sous-colonne2{
 
 .formulaire_jaime form .submit.jaime,.formulaire_jaime form .submit.jaimeplus, .formulaire_jaime .dejavote, div.jaimeplus {
 	background-image: url([(#CHEMIN{img/logo_notation.svg}|image_reduire{25}|extraire_attribut{src})]);
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size:25px auto;
-	width: 45px;
-	height: 45px;
-	color: transparent;
-	float: left;
-	background-color:#dedede;
-	border:none;
-	border-radius:50%;
-	cursor:pointer;
-	
-	-webkit-transition:all 100ms ease;
-	-moz-transition:all 100ms ease;
-	-o-transition:all 100ms ease;
-	transition:all 100ms ease;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px auto;
+  width: 35px;
+  height: 35px;
+  color: rgba(0, 0, 0, 0);
+  float: left;
+  background-color: rgba(255, 255, 255, 0.88);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: all 100ms ease;
+  -moz-transition: all 100ms ease;
+  -o-transition: all 100ms ease;
+  transition: all 100ms ease;
 }
 
 .formulaire_jaime form .submit.jaime:hover,
@@ -2821,6 +2825,7 @@ input.crayon-active {
   overflow:hidden;
   clear:both;
   border: solid 1px rgba(0,0,0,0.1);
+  background-clip: padding-box;
 }
 
 .sidebar_bubble_split_parent {
@@ -2839,7 +2844,7 @@ input.crayon-active {
   /*
   background:#EFEFEF;
   */
-  padding:0 10px 7px 10px;
+  padding:7px 10px 7px 10px;
   clear:both;
 }
 
@@ -2860,3 +2865,7 @@ input.crayon-active {
 // Rules for using icons as white on a dark background.
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+#cboxOverlay {
+  background:rgba(0,0,0,.9) !important;
+}
