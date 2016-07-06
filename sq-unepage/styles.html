@@ -200,7 +200,8 @@
     box-sizing: border-box;
     border: none !important;
     padding: 20px !important;
-    outline: none !important;
+    outline: solid 1px #ddd !important;
+    outline-offset: -1px;
 }
 
 /* ---------------------------------------------------------------- */
@@ -261,7 +262,7 @@ body {
 	/* [(#TYPE_OBJET|match{travail_en_cours|blogs|evenements}|non)overflow: hidden;] */
 	background-color: transparent;
 	margin: 0px;
-	padding: 0px;
+	padding: 0 0 64px 0;
 	font-family: '#GET{font}', Helvetica, Arial, sans-serif;
 	color : #ENV{couleur_base_texte};
 	font-size: #GET{font-size1}px;
@@ -1302,7 +1303,7 @@ div.sous-colonne2{
 } 
 
 .formulaire_jaime form .submit.jaime,.formulaire_jaime form .submit.jaimeplus, .formulaire_jaime .dejavote, div.jaimeplus {
-	background-image: url([(#CHEMIN{img/logo_notation.svg}|image_reduire{25}|extraire_attribut{src})]);
+	background-image: url([(#CHEMIN{img/logo_notation_white.svg}|image_reduire{25}|extraire_attribut{src})]);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 18px auto;
@@ -1310,9 +1311,9 @@ div.sous-colonne2{
   height: 35px;
   color: rgba(0, 0, 0, 0);
   float: left;
-  background-color: rgba(255, 255, 255, 0.88);
   border: none;
   border-radius: 50%;
+  background-color:transparent;
   cursor: pointer;
   -webkit-transition: all 100ms ease;
   -moz-transition: all 100ms ease;
@@ -1320,19 +1321,29 @@ div.sous-colonne2{
   transition: all 100ms ease;
 }
 
-.formulaire_jaime form .submit.jaime:hover,
+.formulaire_jaime form .submit.jaime:hover {
+	background-color:white;
+	background-image: url([(#CHEMIN{img/logo_notation.svg}|image_reduire{25}|extraire_attribut{src})]);
+}
+
 .formulaire_jaime form .submit.jaimeplus:hover,
 .formulaire_jaime .dejavote:hover,
 div.jaimeplus:hover {
 	background-color:white;
+	background-image: url([(#CHEMIN{img/logo_notation_bas.svg}|image_reduire{25}|extraire_attribut{src})]);
 }
 
 .formulaire_jaime form .submit.jaimeplus{
 	background-image: url([(#CHEMIN{img/logo_notation_bas.svg}|image_reduire{25}|extraire_attribut{src})]);
+	background-color:rgba(0,0,0,.2);
 }
-.formulaire_jaime .dejavote, .formulaire_jaime form .submit.jaimeplus, div.jaimeplus {
-	background-image: url([(#CHEMIN{img/logo_notation.svg}|image_gamma{200}|image_reduire{25}|extraire_attribut{src})]);
+
+.formulaire_jaime .dejavote, 
+.formulaire_jaime form .submit.jaimeplus, 
+div.jaimeplus {
+	background-image: url([(#CHEMIN{img/logo_notation_bas_white.svg}|image_reduire{25}|extraire_attribut{src})]);
 }
+
 .formulaire_jaime form {
 	float: left;
 
@@ -1824,7 +1835,7 @@ div.donnees_classe {
   border-radius:3px;
   background:white;
   */
-  margin:5px 7px 1px 0
+  margin:4px 7px 1px 0
 }
 
 .popup a {
@@ -1905,6 +1916,7 @@ div.donnees_classe {
   margin-right:auto;
   margin-top:10px;
   margin-bottom:10px;
+  width: auto !important;
 }
 
 
@@ -2256,17 +2268,65 @@ label em.aide, .formulaire_editer_article li.editer_parent, .markItUpButton10, .
 
 
 /*Formulaires edition article public*/
+.ajouter_couleur {
+  color:gray;
+}
 
 .popup div.formulaire_spip {
-	margin-left: 8px;
-	padding-left:15px;	
-	margin-bottom:20px;
+    margin: 0;
+    padding: 10px;
 }
 
 .popup div.formulaire_editer_article, .popup div.formulaire_editer_document, .formulaire_editer_auteur {
-	border-left: 4px #58AB27 solid;
 }
 
+input[type="file"] {
+    border:solid 2px #EEE;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+#fichier_upload__new_wrap_list > div {
+    padding: 10px;
+    background: #eee;
+    border-radius: 3px;
+    margin-top: 5px;
+    font-size: 12px;
+}
+#fichier_upload__new_wrap_list > div > a {
+    float: right;
+    display: block;
+    width: 30px;
+    text-align: center;
+    margin: -6px;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    line-height: 22px;
+    font-size: 0;
+    background: url([(#CHEMIN{img/close.svg}|image_reduire{25}|extraire_attribut{src})]) no-repeat center center / 20px auto;
+}
+
+#fichier_upload__new_wrap_list > div > a:hover {
+    background: url([(#CHEMIN{img/close_white.svg}|image_reduire{25}|extraire_attribut{src})]) no-repeat center center / 20px auto #ff6347;
+}
+
+.bloc_option_doc .submit {
+    margin-top: 10px;
+    background: #ddd;
+    color: #000;
+    text-align: center;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    width: 100%;
+}
 
 /*Formulaires edition auteur*/
 
@@ -2407,11 +2467,13 @@ li a, li a:hover {
 }
 
 #bloc_option_doc > a, .bloc_option_doc > a {
-  display:block;
-  padding:20px 30px;
-  color:#444;
-  background: #F5F5F5;
-	font-size:16px;
+  display: block;
+  padding: 20px 30px 20px 60px;
+  color: #000;
+  background-color: #F5F5F5;
+  background-repeat: no-repeat;
+  background-position: 20px 50%;
+  font-size: 17px;
 }
 
 #bloc_option_doc p, .bloc_option_doc p {
@@ -2420,7 +2482,36 @@ li a, li a:hover {
 
 #bloc_option_doc .cache,
 .bloc_option_doc .cache {
-  padding:0 30px 20px 30px  
+  padding:0 10px 20px 20px  
+}
+
+.bloc_option_doc_adddocument {
+	background-image: url([(#CHEMIN{img/add.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 33px auto;
+}
+
+.bloc_option_doc_comment {
+	background-image: url([(#CHEMIN{img/comment.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 24px auto;
+  background-position: 25px 55% !important;
+}
+
+.bloc_option_doc_link {
+	background-image: url([(#CHEMIN{img/permalink.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 24px auto;
+  background-position: 25px 50% !important;
+}
+
+.bloc_option_doc_social {
+	background-image: url([(#CHEMIN{img/share.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 24px auto;
+  background-position: 25px 50% !important;
+}
+
+.bloc_option_doc_about {
+	background-image: url([(#CHEMIN{img/group.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 24px auto;
+  background-position: 25px 50% !important;
 }
 
 .popup code {
@@ -2771,10 +2862,10 @@ ul#forum, .lien_forum {
 }
 #sidebarExpand {
   
-  -webkit-transition:all 2000ms ease;
-     -moz-transition:all 2000ms ease;
-       -o-transition:all 2000ms ease;
-          transition:all 2000ms ease;
+  -webkit-transition:all 2000ms ease, background 500ms ease;
+     -moz-transition:all 2000ms ease, background 500ms ease;
+       -o-transition:all 2000ms ease, background 500ms ease;
+          transition:all 2000ms ease, background 500ms ease;
           
     position: absolute;
     left: 0;
@@ -2788,12 +2879,12 @@ ul#forum, .lien_forum {
     line-height: 33px;
     z-index: -1;
     
-    background:url(#ENV{chemin}/img/expandIcon_on.png) no-repeat center center 
+    background:url(#ENV{chemin}/img/expandIcon_off.png) no-repeat center center white
 }
 
 .hasSidebarExpanded #sidebarExpand {
   
-    background:url(#ENV{chemin}/img/expandIcon_off.png) no-repeat center center 
+    background:url(#ENV{chemin}/img/expandIcon_on.png) no-repeat center center white
 }
 
 #sidebarCache {

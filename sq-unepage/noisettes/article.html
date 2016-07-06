@@ -137,7 +137,7 @@
                   </a>
                 ]
                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                  [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<div class="ajouter_couleur">ajouter un titre</div>})</div>]
+                  [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<div class="ajouter_couleur">Ajouter un titre…</div>})</div>]
                 ]
                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
                   [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div>]
@@ -228,9 +228,8 @@
 						<div class="sidebar_bubble">
 							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_texte-#ID_ARTICLE}>
 							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_option_texte-#ID_ARTICLE" class="hac lien_ajouter" title="ajouter un texte">
-									<img src="[(#CHEMIN{img/logo_editer_on_15.png}||image_reduire{15}|extraire_attribut{src})]" >
-									&nbsp;Ajouter un texte
+								<a id="bloc_option_texte-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="ajouter un texte">
+									Ajouter un texte
 								</a>
 								<div class='nettoyeur cache bloc_option_doc'>
 									<INCLURE{fond=noisettes/publier_article,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	
@@ -248,11 +247,11 @@
 						
 							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_doc-#ID_ARTICLE}>
 							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter" title="ajouter un document">
-									<img src="[(#CHEMIN{img/logo_editer_on_15.png}||image_reduire{15}|extraire_attribut{src})]" >
-									&nbsp;Ajouter un document
+								<a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un document">
+									Ajouter un document
 								</a>
-  							<div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>#FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}</div>
+  							<div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
+    							#FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}</div>
   							<INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
 							</div>
 						</div>
@@ -267,8 +266,8 @@
 						<div class="sidebar_bubble">
 							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_motsclefs-#ID_ARTICLE}>
 							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter" title="Lien d'ouverture directe" href="#">
-									<img src="[(#CHEMIN{img/logo_editer_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Ajouter à l'encyclopédie
+								<a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter à l'encyclopédie" href="#">
+									Ajouter à l'encyclopédie
 								</a>
 								<div class="nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc">
 									<INCLURE{fond=noisettes/inc/article-mot}{id_article}{id_groupe=5}{titre='Thématique'}>
@@ -283,9 +282,8 @@
 						<div class="sidebar_bubble">
   						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum-#ID_ARTICLE}>
   						<div class="bloc_option_doc nettoyeur">
-  							<a id="bloc_option_forum-#ID_ARTICLE" class="hac liens_voir" title="commenter">
-  								<img src="[(#CHEMIN{img/logo_aide_on_15.png}||image_reduire{15}|extraire_attribut{src})]" >
-  								&nbsp;Commenter
+  							<a id="bloc_option_forum-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Commenter">
+  								Commenter
   							</a>
   							<div class='nettoyeur cache bloc_option_forum'>
   								<INCLURE{fond=forum,id_article,mode=ajax-detail}>
@@ -300,8 +298,8 @@
 					[<div class="sidebar_bubble">
   						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
 					<div class="bloc_option_doc nettoyeur">
-						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
-							<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Permalien
+						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
+							Permalien
 						</a>
 						<div class="cache">
 							<code><a href="#URL_SITE_SPIP/(#GET{url})" target="_blank">#URL_SITE_SPIP/#GET{url}</a></code>
@@ -316,8 +314,8 @@
           <div class="sidebar_bubble">
   				  <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_reseaux-#ID_ARTICLE}>
   					<div class="bloc_option_doc nettoyeur">
-  						<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
-  							<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Réseaux sociaux
+  						<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_social" title="Réseaux sociaux" href="#">
+  							Réseaux sociaux
   						</a>
   						<div class="cache">
   							<div class="reseaux"></div>
@@ -332,8 +330,8 @@
 						<div class="sidebar_bubble">
   						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_donnees-#ID_ARTICLE}>
 					<div class="bloc_option_doc nettoyeur">
-						<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum" title="Lien d'ouverture directe" href="#">
-							<img src="[(#CHEMIN{img/logo_voir_on_15.png}||image_reduire{17}|extraire_attribut{src})]" >&nbsp;&nbsp;Données de la classe
+						<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_about" title="À propos de la classe" href="#">
+							À propos de la classe
 						</a>
 						<div class=" ">
 							<div class="donnees_classe">(#GET{donnees_classe})</div>
