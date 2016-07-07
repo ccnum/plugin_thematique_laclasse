@@ -312,6 +312,9 @@ function projet(){
 	this.changevoittout = function(consignes, articles_blog, articles_evenement){
 		
 	  console.log('changevoittout');
+	  
+	  $('#menu-consignes .filter a').removeClass('selected');
+	  $('#menu-consignes .logo_menu-tout').addClass('selected');
 	
 		this.changezoompos(g_projet.nombre_jours, 0, 0);
 		

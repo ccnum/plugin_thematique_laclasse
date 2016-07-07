@@ -4,8 +4,22 @@
 	
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
-	<div id="ressources_gauche">
-		<div class="popup_titre">
+  <script type="text/javascript">
+    $().ready(function(){
+      $('.call_sidebar_lateral').on('click', function(){
+        console.log('clicked');
+        $('body').toggleClass('hasSidebarLateralVisible');
+      });
+    });
+    
+    function hideSidebarLateral() {
+      $('body').removeClass('hasSidebarLateralVisible');
+    }
+  </script>
+  <div class="call_sidebar_lateral">Show/hide</div>
+  
+	<div id="ressources_gauche" class="sidebar_bubble">
+		<div class="ressources_header_titre">
 			[(#MODE|=={ajax}|non)<!--<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">-->]
 			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
 			<span class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</span>
@@ -27,6 +41,7 @@
 							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
 							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 								$('div#ressources_droite').removeClass('chargement');	
 								$('#ressources_droite').show('slow'); 		
 								});					
@@ -46,6 +61,7 @@
 							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
 							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 								$('div#ressources_droite').removeClass('chargement');	
 								$('#ressources_droite').show('slow'); 		
 								});					
@@ -68,18 +84,23 @@
 							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
 							$('#ressources_droite').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 								$('div#ressources_droite').removeClass('chargement');
 								$('#ressources_droite').show('slow'); 		
 								});					
 						});});						
 						</script>
 						
-					<li><a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">[<strong>(#TITRE|supprimer_numero|couper{80})</strong>]</a>
+					<li class="couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)] ressources_classes">
+					  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
+  					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
+  				  </a>
+						
 						<ul>
 							[(#REM)Rubriques]
 							<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre} {doublons r}>
-								<li>
-								<a href="#" class="ajax hac1 [ (#EXPOSE)] [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]">[<strong>- (#TITRE|couper{80})</strong>]</a>
+								<li class="ressources_classe_consignes">
+								  <a href="#" class="ajax hac1 [ (#EXPOSE)] [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]">[<strong>- (#TITRE|couper{80})</strong>]</a>
 									<B_sous_rubriques00>
 										<ul>
 										<BOUCLE_sous_rubriques00(RUBRIQUES) {id_parent} {tout} {par titre} {doublons r}>
@@ -102,12 +123,13 @@
 											$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
 											$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 											, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 												$('div#ressources_droite').removeClass('chargement');	
 												$('#ressources_droite').show('slow'); 		
 												});					
 										});});						
 										</script>
-									<li><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+									<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
 								</BOUCLE_sous_articles2>
 							</B_rubriques_ordre2>
 								<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
@@ -119,12 +141,13 @@
 										$('div#ressources_droite').addClass('chargement');
 										$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 											$('div#ressources_droite').removeClass('chargement');	
 											$('#ressources_droite').show('slow'); 		
 											});					
 									});});						
 									</script>
-									<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+									<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
 								</BOUCLE_sous_articles3>
 							<//B_rubriques_ordre2>
 					
@@ -137,12 +160,13 @@
 									$('div#ressources_droite').addClass('chargement');
 									$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 									, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 										$('div#ressources_droite').removeClass('chargement');	
 										$('#ressources_droite').show('slow'); 		
 										});					
 								});});						
 								</script>						
-								<li><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+								<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
 							</BOUCLE_sous_articles>
 						</ul>
 					</li>
@@ -165,6 +189,7 @@
 										$('div#ressources_droite').addClass('chargement');
 										$('#ressources_droite').load('[(#URL_PAGE{syndic_article}|parametre_url{id_syndic_article,#ID_SYNDIC_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 											$('div#ressources_droite').removeClass('chargement');	
 											$('#ressources_droite').show('slow'); 		
 											});					
@@ -182,12 +207,13 @@
 										$('div#ressources_droite').addClass('chargement');
 										$('#ressources_droite').load('[(#URL_PAGE{syndic_article}|parametre_url{id_syndic_article,#ID_SYNDIC_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 											$('div#ressources_droite').removeClass('chargement');	
 											$('#ressources_droite').show('slow'); 		
 											});					
 									});});						
 									</script>
-									<li><a id="ajax#ID_SYNDIC_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+									<li><a id="ajax#ID_SYNDIC_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
 								]
 							</BOUCLE_syndic_articles>
 						</ul>
@@ -196,8 +222,8 @@
 				
 				
 			</ul>
-			</div>	
-			</div>
+		</div>	
+  </div>
 			
 	[(#REM)Pour ouverture directe si id_article ou publier présent]
 		<BOUCLE_rubart(ARTICLES){id_article}>
@@ -207,6 +233,7 @@
 				$('div#ressources_droite').addClass('chargement');
 				$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 					$('div#ressources_droite').removeClass('chargement');
 					$('#ressources_droite').show('slow');
 					});					
@@ -222,6 +249,7 @@
 				$('div#ressources_droite').addClass('chargement');
 				$('#ressources_droite').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE_OUVRE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 					$('div#ressources_droite').removeClass('chargement');
 					$('#ressources_droite').show('slow'); 		
 					});					
@@ -236,6 +264,7 @@
 				$('div#ressources_droite').addClass('chargement');
 				$('#ressources_droite').load('[(#URL_PAGE{publier}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|parametre_url{type_objet,#TYPE_OBJET}|parametre_url{id_consigne,#ID_CONSIGNE}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
+  				hideSidebarLateral();
 					$('div#ressources_droite').removeClass('chargement');
 					$('#ressources_droite').show('slow'); 		
 					});
@@ -243,17 +272,23 @@
 			</script>
 		]		
 		
+		
+		
 	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>
+	
 	
 	
 	[(#REM)Pour générer les appels aux scripts crayons en cas de besoin]
 	<BOUCLE_crayon(RUBRIQUES){id_rubrique=#RESTREINT}{tout}>
+	
 	<div class="#EDIT{titre}" style="display: none;">
 		<span class="#EDIT{titre}">#TITRE</span>
 		<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE)]</span>
 		<span class="#EDIT{texte}">#TEXTE</span>
 	</div>
 	</BOUCLE_crayon>
+</div>
+		
 
 [(#MODE|!={ajax-detail}|oui)</div>]
 
