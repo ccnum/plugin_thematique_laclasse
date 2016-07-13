@@ -106,9 +106,12 @@
 			[(#REM) ---------------- documents ---------------- ]
 			
 		</div>
-			
+		
+		<B_documents_joints_compteur>
     <div class="sidebar_bubble">
 			<div class="bloc_documents">
+		<BOUCLE_documents_joints_compteur(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur>
+			
 			
 				[(#REM)Documents joints]
 				<B_documents_joints1>
@@ -139,7 +142,7 @@
                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
                   [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div>]
                 ]
-                </div>
+              </div>
 
 					</BOUCLE_documents_joints1>
 
@@ -171,8 +174,10 @@
 					</BOUCLE_documents_joints>
 					</B_documents_joints>
 					
+		<B_documents_joints_compteur2>
 				</div>	
 		  </div> [(#REM) Fin bubble ]
+		<BOUCLE_documents_joints_compteur2(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur2>
 					
 					
 		
