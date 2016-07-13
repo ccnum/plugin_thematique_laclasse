@@ -21,6 +21,15 @@
 			
 		<div class="intervention_item_around">	
 			
+  				
+			
+  		<B_forums_fils_compteur>
+  			<div class="intervention_nb_reponses">#TOTAL_BOUCLE</div>
+  			
+  			<BOUCLE_forums_fils_compteur(FORUMS){id_parent}{par date}> </BOUCLE_forums_fils_compteur>
+  			
+  		</B_forums_fils_compteur>
+  				
       <div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
   			
   			<div class="triggertoggleshow intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
@@ -74,11 +83,14 @@
   
   		</div> [(#REM) /intervention_item]
   
+  		
   		<B_forums_fils>
   			<ul class="toggleshow forum intervention_answers">
+  			
   				<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
   					#SET{type_objet,#MODELE{type_objet}{id_auteur}}
   					[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]		
+  					
   					
   					<div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
   									
