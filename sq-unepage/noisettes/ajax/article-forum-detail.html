@@ -26,7 +26,7 @@
 				<B_documents_joints>
 					<BOUCLE_documents_joints(DOCUMENTS) {id_forum} {tout} {doublons}>
 						<div class="forum_around_document">
-							[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#LOGO_DOCUMENT||image_reduire{80}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+							[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
 						</div>
 					</BOUCLE_documents_joints>
 				</B_documents_joints>
@@ -79,13 +79,13 @@
 							[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
 							<BOUCLE_documents_joints3(DOCUMENTS) {id_forum} {tout} {doublons}>
 								<div class="portfolio_grand">
-									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
 								</div>
 							</BOUCLE_documents_joints3>
 							
 							<BOUCLE_documents_joints2(DOCUMENTS) {id_forum} {tout} {doublons}>
 								<div class="portfolio">
-									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox intervention_thumbnail"})] type="#MIME_TYPE">(#LOGO_DOCUMENT|||inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})</a>]
+									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox intervention_thumbnail"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid red;'})</a>]
 								</div>
 							</BOUCLE_documents_joints2>
 						</div>

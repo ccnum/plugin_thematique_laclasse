@@ -215,48 +215,10 @@
 				<BOUCLE_rub_classe(RUBRIQUES){id_rubrique}{tout}>
 					[(#SET{donnees_classe,[(#TEXTE*|liens_ouvrants)]})]
 				</BOUCLE_rub_classe>
-				
+				<!--
 				
 					[(#GET{type_objet}|=={consignes}|oui)
 					
-					<script type="application/javascript" src="plugins/auto/plugin_thematique_laclasse/./sq-unepage/js/controleurs-affichage.js"></script>
-					<script type="application/javascript" src="plugins/auto/plugin_thematique_laclasse/./sq-unepage/js/controleurs-timeline.js"></script>
-					<script type="text/javascript">
-  					
-  					
-						$().ready(function(){
-  						$('#ajax#ID_ARTICLE').click(function() {
-  							$('div#ressources_droite').addClass('chargement');
-  							$('#menug li a.selected').removeClass('selected');
-  							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
-  							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-  							, {limit: 25}, function(){ 
-                  hideSidebarLateral();
-  								$('div#ressources_droite').removeClass('chargement');	
-  								$('#ressources_droite').show('slow'); 		
-  								});					
-  						});
-						});			
-						
-						
-          $(function(){
-            
-            
-            
-            
-            function sidebar_ressources_click(){
-            //	if ($('#zone_classe').is(':hidden'))	{
-              	console.log('showing ressources');
-            		hide_popups();
-            		showhide_travaux('show');
-            		var url = g_projet.url_popup_ressources;
-            		popup(url,'edition');
-            //	}	
-            }
-            
-            $('.bloc_option_doc_ressources').on('click', function(){sidebar_ressources_click();});
-          });
-					</script>
 				
 					<div class="sidebar_bubble">
 						<div class="bloc_option_doc nettoyeur">
@@ -266,7 +228,7 @@
 						</div>
 					</div>
 					]
-					
+					-->
 				
 				[(#REM)Ajouter un texte]
 					[(#GET{blocs_cplt}|=={non}|non)
