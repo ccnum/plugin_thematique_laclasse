@@ -17,21 +17,25 @@ function logo_menu_change_couleur(val){
 
 function isotope_ressources_ferme_tout(){
   //showhide_travaux('show');
-  var bouton = $(".filter a[onclick*='showhide_travaux'][class*='tout']");
-  isotope_filtre(bouton);
+  //var bouton = $(".filter a[onclick*='showhide_travaux'][class*='tout']");
+  //isotope_filtre(bouton);
   //$('#menu_haut ul li a').removeClass('selected');
 }
 
 function isotope_classes_ferme_tout(){
+/*
   var bouton = $("#menu-classes a.logo_menu-tout");
   isotope_filtre(bouton);
-  //$('#menu-classes ul li a').removeClass('selected');
+  
+*///$('#menu-classes ul li a').removeClass('selected');
 }
 
 function isotope_consignes_ferme_tout(){
   //g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+/*
   var bouton = $(".filter a[onclick*='g_projet.changevoittout']");
   isotope_filtre(bouton);
+*/
 }
 
 ////////////////////////////////////////////////////////////////

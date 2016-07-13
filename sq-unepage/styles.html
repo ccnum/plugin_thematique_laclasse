@@ -2727,6 +2727,12 @@ li a, li a:hover {
   background-size: 33px auto;
 }
 
+.bloc_option_doc_ressources {
+	background-image: url([(#CHEMIN{img/ressources.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 24px auto;
+  background-position: 25px 50% !important;
+}
+
 .bloc_option_doc_comment {
 	background-image: url([(#CHEMIN{img/comment.svg}|image_reduire{25}|extraire_attribut{src})]);
   background-size: 24px auto;
@@ -3087,10 +3093,10 @@ ul#forum, .lien_forum {
   z-index:999;
   margin-right:-570px;
   
-  -webkit-transition:margin 2000ms ease, width 2000ms ease;
-     -moz-transition:margin 2000ms ease, width 2000ms ease;
-       -o-transition:margin 2000ms ease, width 2000ms ease;
-          transition:margin 2000ms ease, width 2000ms ease;
+  -webkit-transition:margin 1000ms ease, width 1000ms ease;
+     -moz-transition:margin 1000ms ease, width 1000ms ease;
+       -o-transition:margin 1000ms ease, width 1000ms ease;
+          transition:margin 1000ms ease, width 1000ms ease;
 }
 
 #sidebar_iframe {
@@ -3108,7 +3114,6 @@ ul#forum, .lien_forum {
 .hasSidebarOpen #sidebarExpand {
   left:-38px;
     z-index: 100000;
-
 }
 
 .hasSidebarExpanded #sidebar {

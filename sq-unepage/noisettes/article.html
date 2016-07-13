@@ -219,18 +219,53 @@
 				
 					[(#GET{type_objet}|=={consignes}|oui)
 					
-						<div class="sidebar_bubble">
+					<script type="application/javascript" src="plugins/auto/plugin_thematique_laclasse/./sq-unepage/js/controleurs-affichage.js"></script>
+					<script type="application/javascript" src="plugins/auto/plugin_thematique_laclasse/./sq-unepage/js/controleurs-timeline.js"></script>
+					<script type="text/javascript">
+  					
+  					
+						$().ready(function(){
+  						$('#ajax#ID_ARTICLE').click(function() {
+  							$('div#ressources_droite').addClass('chargement');
+  							$('#menug li a.selected').removeClass('selected');
+  							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
+  							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+  							, {limit: 25}, function(){ 
+                  hideSidebarLateral();
+  								$('div#ressources_droite').removeClass('chargement');	
+  								$('#ressources_droite').show('slow'); 		
+  								});					
+  						});
+						});			
 						
-							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Accéder aux ressources">
-									Accéder aux ressources
-								</a>
-  							<div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
-    							#FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}</div>
-  							<INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
-							</div>
+						
+          $(function(){
+            
+            
+            
+            
+            function sidebar_ressources_click(){
+            //	if ($('#zone_classe').is(':hidden'))	{
+              	console.log('showing ressources');
+            		hide_popups();
+            		showhide_travaux('show');
+            		var url = g_projet.url_popup_ressources;
+            		popup(url,'edition');
+            //	}	
+            }
+            
+            $('.bloc_option_doc_ressources').on('click', function(){sidebar_ressources_click();});
+          });
+					</script>
+				
+					<div class="sidebar_bubble">
+						<div class="bloc_option_doc nettoyeur">
+							<a class="hac lien_ajouter bloc_option_doc_ressources" title="Accéder aux ressources">
+								Accéder aux ressources
+							</a>
 						</div>
-						]
+					</div>
+					]
 					
 				
 				[(#REM)Ajouter un texte]
