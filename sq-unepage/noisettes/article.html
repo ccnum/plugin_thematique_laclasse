@@ -87,9 +87,6 @@
     	
 		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
 
-  		
-  		
-  		
 				<div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
 				<div class="nettoyeur0"></div>
 
@@ -110,8 +107,7 @@
 			
 		</div>
 			
-  <div class="sidebar_bubble">
-			
+    <div class="sidebar_bubble">
 			<div class="bloc_documents">
 			
 				[(#REM)Documents joints]
@@ -175,8 +171,7 @@
 					</BOUCLE_documents_joints>
 					</B_documents_joints>
 					
-					</div>
-					
+				</div>	
 		  </div> [(#REM) Fin bubble ]
 					
 					
@@ -221,6 +216,23 @@
 					[(#SET{donnees_classe,[(#TEXTE*|liens_ouvrants)]})]
 				</BOUCLE_rub_classe>
 				
+				
+					[(#GET{type_objet}|=={consignes}|oui)
+					
+						<div class="sidebar_bubble">
+						
+							<div class="bloc_option_doc nettoyeur">
+								<a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Accéder aux ressources">
+									Accéder aux ressources
+								</a>
+  							<div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
+    							#FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}</div>
+  							<INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
+							</div>
+						</div>
+						]
+					
+				
 				[(#REM)Ajouter un texte]
 					[(#GET{blocs_cplt}|=={non}|non)
 						[(#TEXTE|non)[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
@@ -258,6 +270,8 @@
 						</div>
 						]
 					]
+					
+					
 
 			[(#GET{blocs_cplt}|=={non}|non)
 
@@ -300,7 +314,7 @@
   						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
 					<div class="bloc_option_doc nettoyeur">
 						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
-							Permalien
+							Partager le lien
 						</a>
 						<div class="cache">
 							<code><a href="#URL_SITE_SPIP/(#GET{url})" target="_blank">#URL_SITE_SPIP/#GET{url}</a></code>
@@ -308,7 +322,7 @@
 					</div>
 					</div>
 					]
-
+<!--
 				[(#REM)Liens sociaux]
 					[(#PLUGIN{SOCIALTAGS}|oui)
 					
@@ -324,7 +338,7 @@
   					</div>
 					</div>
 					]
-
+-->
 				[(#REM)Données de la classe]
 					[(#GET{type_objet}|=={travail_en_cours}|oui)
 					[

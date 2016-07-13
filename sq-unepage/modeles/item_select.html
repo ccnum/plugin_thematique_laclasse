@@ -1,0 +1,13 @@
+[(#REM)
+-href
+-filter
+-class
+-title
+-valeur
+-style
+-onclick
+-texte
+]
+<li>
+  <a [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"] [onClick="(#ONCLICK)"] class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS" title="[(#TITLE|sinon{#VALEUR})]" style="background-image:url([(#MODELE{logo_carre}{id_rubrique}|extraire_attribut{src})])">[(#TITLE|sinon{#VALEUR})]</a>
+</li>

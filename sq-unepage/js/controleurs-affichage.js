@@ -68,8 +68,17 @@ $().ready(function(){
   });
 
   // Tooltip 
+  /*
+  $('.menu-bas-select .call-to-select').on('mouseover', function(){
+    $(this).parents().find('.liste-select').slideDown(300);
+  });
   
-  $("#menu_bas ul a").tooltip({
+  $('.menu-bas-select .liste-select').on('mouseleave', function(){
+    $(this).slideUp(300);
+  });
+  */
+  
+  $("#menu_bas ul a").not('#menu-classes-select ul a').tooltip({
     position: {
       my: "center bottom-4",
       at: "center top",

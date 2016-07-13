@@ -24,12 +24,35 @@
 			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
 			<span class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</span>
 		</div>
+		
+		
+		
+<BOUCLE_tab_consignes_rubrique(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
+	<BOUCLE_tab_consignes_consigne(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+	<!--
+	<hr>
+	<hr>
+	  <div class="tab_consignes_consigne">
+  	  <div class="tab_consignes_consigne_titre">
+        [(#TITRE|couper{40}|wordwrap{23,<br />})]
+  	  </div>
+  	  
+  	  <BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}>
+  	    <hr>
+				#ID_ARTICLE<br>
+				#ID_RUBRIQUE<br>
+				[(#TITRE|couper{60}|entites_html)]
+      </BOUCLE_reponse>			
+	  </div>
+	  -->
+	</BOUCLE_tab_consignes_consigne>
+</BOUCLE_tab_consignes_rubrique>
 
 		[(#REM)Corps Menu Arborescent]
 		<div id="listmenu">
 		<ul id="menug">
 			
-			[(#REM)Articles de la rubriques parente]
+			[(#REM)Articles de la rubrique parente]
 				<BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
 				</BOUCLE_rubriques_ordre>
 					<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>

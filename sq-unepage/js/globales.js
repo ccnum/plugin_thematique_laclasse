@@ -2,6 +2,7 @@
 // Déclaration des globales
 ////////////////////////////////////////////////////////////////
 var g_nom_mois = new Array("Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc.");
+var g_nom_mois_complet = new Array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
 var g_mousedown, g_mousex, g_mousey;
 var g_projet;
 var g_classes, g_classe_index;

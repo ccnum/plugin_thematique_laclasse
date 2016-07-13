@@ -83,7 +83,7 @@ function consigne(){
 			"<div class=\"photo\"><img src=\""+image+"\" /></div> "+
 			"<div class=\"texte\">"+
 			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
-			"<div class=\"auteur_date\">"+nom_intervenant+" - "+this.date_texte+""+
+			"<div class=\"auteur_date\">"+nom_intervenant+"<!-- - "+this.date_texte+"-->"+
 			"<div class=\"picto_nombre_reponses\">"+reponses_puces+"</div>"+
 			"</div> "+
 			"</div>"+
@@ -99,7 +99,7 @@ function consigne(){
     // Préparation bouton réponse plus (crayon)
 	
 		this.div_reponse_plus = document.createElement("div");
-		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne' > Répondre à la consigne</div>";
+		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne' > Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse
 		
 		/*
 		this.div_reponse_plus.style.position = "absolute";

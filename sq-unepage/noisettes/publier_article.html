@@ -19,7 +19,7 @@
 		
 		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
 		
-		<div class="sidebar_bubble ">
+		<div class="sidebar_bubble bloc_publier_repondre">
 			
 			[(#GET{type_objet}|=={travail_en_cours}|oui)
 			<div class="fiche_titre couleur_texte_[(#GET{type_objet})] couleur_[(#GET{type_objet})][(#MODELE{nb2col}{#ENV{id_article}})]">
@@ -37,7 +37,7 @@
   					[(#GET{type_objet}|=={travail_en_cours}|non) Publier un nouvel article]
   				</div>
   				<div class="date" id="entete_publication" style="display: block;">
-  					<br /><!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->					
+  					<!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->					
   					[(#GET{type_objet}|=={travail_en_cours}|oui) Etape 1 : Pour répondre à la consigne, choisissez un titre et validez-le ci-dessous]
   					[(#GET{type_objet}|=={travail_en_cours}|non) Etape 1 : Pour créer votre article, choisissez un titre et validez-le ci-dessous]
   				</div>

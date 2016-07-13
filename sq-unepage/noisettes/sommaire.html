@@ -56,7 +56,7 @@ et/ou
 
 		[(#REM)Ressources]
 		    <div id="menu-ressources" class="bloc_view col">
-				<h3><span>Ressources</span></h3>
+				<h3><span>Blogs</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
 					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=showhide_travaux('show');}{title=Toutes les ressources})]
 						#SET{blog,Le blog du projet}
@@ -68,8 +68,6 @@ et/ou
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
 					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=show_articles_blog();}{title=#GET{blog}})]
 					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=show_articles_evenement();}{title=Le blog pédagogique})]
-					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=ressources_click();}{title=L'espace ressource})]
-					[(#MODELE{logo_menu}{valeur=agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=agora_click();})]					
 					<!--[(#MODELE{logo_menu}{valeur=ressource_classes}{filter=.ressource_classes}{title=Les classes}{onclick=classes_click();})]-->
 					[(#MODELE{logo_menu}{valeur=consigne}{filter=.ressource_consignes}{onclick=showhide_travaux('show');}{title=Les consignes})]
 					[(#MODELE{logo_menu}{valeur=reponse}{filter=.ressource_reponses}{title=Les réponses des classes})]
@@ -78,6 +76,35 @@ et/ou
 					</BOUCLE_j>
 				</ul>
 		    </div>
+		    
+		    <div id="menu-ressources" class="bloc_view col">
+				<h3><span>Ressources</span></h3>
+		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
+						#SET{blog,Le blog du projet}
+						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
+						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
+						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
+						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
+						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
+						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
+					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=ressources_click();}{title=L'espace ressource})]
+				</ul>
+		    </div>
+		    
+		    <div id="menu-ressources" class="bloc_view col">
+				<h3><span>Forums</span></h3>
+		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
+						#SET{blog,Le blog du projet}
+						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
+						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
+						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
+						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
+						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
+						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
+					[(#MODELE{logo_menu}{valeur=agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=agora_click();})]			
+				</ul>
+		    </div>
+
 
 		[(#REM)Consignes]
 			<div id="menu-consignes" class="bloc_view col">
@@ -105,19 +132,24 @@ et/ou
 			</div>
 
 		[(#REM)Classes]
-			<div id="menu-classes" class="bloc_view col" >
-				<h3><span>Classes</span></h3>
-	      		<ul class="filter clearfix option-set" data-filter-group="classe">
-			        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les classes})]
-			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
-			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
-			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
-			            </BOUCLE_a3>
-							[(#MODELE{logo_menu}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]}{onclick=classes_click([(#ID_RUBRIQUE)]);})]
-			            </B_a3>
-			            <//B_a3>
-			          </BOUCLE_c3>
-			          </BOUCLE_r3>
+			
+			<div id="menu-classes-select" class="menu-bas-select bloc_view col">
+  			<div class="call-to-select">Afficher une classe…</div>
+  			
+  			<ul class="liste-select filter clearfix option-set" data-filter-group="classe">
+	        [(#MODELE{item_select}{valeur=tout}{class=selected}{title=Toutes les classes})]
+	        <BOUCLE_select_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
+	          <BOUCLE_select_c3(RUBRIQUES){id_parent}{tout}>
+	            <BOUCLE_select_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+	            </BOUCLE_select_a3>
+	            <li>			            
+					[(#MODELE{item_select}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_select_c3:TITRE)]}{class=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_select_c3:TITRE|couper{2})]}{onclick=classes_click([(#ID_RUBRIQUE)]);})]
+				
+	            </li>
+	            </B_select_a3>
+	            <//B_select_a3>
+	          </BOUCLE_select_c3>
+	        </BOUCLE_select_r3>
 				</ul>
 			</div>
 
