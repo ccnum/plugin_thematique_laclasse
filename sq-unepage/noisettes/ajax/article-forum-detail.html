@@ -2,109 +2,130 @@
 [<div class="lien_forum"><a class="lienss" href="(#PARAMETRES_FORUM|url_reponse_forum)">> <:repondre_article:></a></div>]
 <B_Forums>
 <!-- Début Forum-->
+
+  <script type="text/javascript">
+    $(function(){
+      $('.triggertoggleshow').on('click', function(){
+        $(this).closest('.intervention_item_around').find('.toggleshow').slideToggle(300);
+      });
+    });  
+  </script>
+
 	<ul class="forum">
 	<BOUCLE_Forums(FORUMS){id_article?}{id_breve?}{par date}{inverse}>
 			#SET{type_objet,#MODELE{type_objet}{id_auteur}}
 
-			[(#REM)Pour l'instant on se rabbat sur les consignes pour les couleurs (TO DO)]
+			[(#REM)Pour l'instant on se rabat sur les consignes pour les couleurs (TO DO)]
 			[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]
 			[(#GET{type_objet}|=={ressources}|oui) #SET{type_objet,consignes} ]
 			
-    <div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
+		<div class="intervention_item_around">	
 			
-			<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
-				<div class="intervention_header">
-  				<div class="photo">
-  					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
-  				</div>
-					<div class="auteur_date">[(#MODELE{titre_auteur}{id_auteur})<br>][(#DATE|affdate)]</div>
-				</div>
-			</div>
-						<div class="intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
-			  [<div class="titre">(#TITRE)</div>]				
-				[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
-				<B_documents_joints>
-					<BOUCLE_documents_joints(DOCUMENTS) {id_forum} {tout} {doublons}>
-						<div class="forum_around_document">
-							[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
+      <div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
+  			
+  			<div class="triggertoggleshow intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
+  				<div class="intervention_header">
+    				<div class="photo">
+    					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
+    				</div>
+						<div class="auteur_date">
+							[<div class="intervention_date">(#DATE|affdate)</div>]
+							[<div class="intervention_auteur">(#NOM)</div>]
 						</div>
-					</BOUCLE_documents_joints>
-				</B_documents_joints>
-				</div>
-
-				[(#REM)Commenter]
-					[(#ADMIN|=={-2}|non)
-					<div class="bloc_option_doc nettoyeur">
-					<ul><li>
-						<script type="text/javascript">
-							$().ready(function(){
-							$('#ajaxf1#ID_FORUM').click(function() {
-								var visibility = $('div#ajax_callback_forum_#ID_FORUM').css("display");
-								if (visibility == 'none'){
-								$(this).addClass('chargement');
-								$('#ajax_callback_forum_#ID_FORUM').load('[(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-								, {limit: 25}, function(){ 
-									$('#ajax_callback_forum_#ID_FORUM').show('slow'); 
-									$('#ajaxf1#ID_FORUM').removeClass('chargement');	});
-								}
-								else $('#ajax_callback_forum_#ID_FORUM').hide('slow');
-								return false; // Or ev.preventDefault();
-							});
-							});
-						</script>
-					</li></ul></div>
-					]
-
-		</div>	
-
-			<B_forums_fils>
-				<ul class="forum intervention_answers">
-					<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
-						#SET{type_objet,#MODELE{type_objet}{id_auteur}}
-						[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]		
-						
-						<div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
-										
-						<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
+  				</div>
+  			</div>
+        
+        <div class="toggleshow intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
+  			  [<div class="titre">(#TITRE)</div>]				
+  				[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
+  				<B_documents_joints>
+  					<BOUCLE_documents_joints(DOCUMENTS) {id_forum} {tout} {doublons}>
+  						<div class="forum_around_document">
+  							[<br /><a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
+  						</div>
+  					</BOUCLE_documents_joints>
+  				</B_documents_joints>
+  				</div>
+  
+  		[(#REM)Commenter]
+  		
+  			[(#ADMIN|=={-2}|non)
+  			<div class="toggleshow bloc_option_doc nettoyeur">
+  				<ul><li>
+  					<script type="text/javascript">
+  						$().ready(function(){
+  						$('#ajaxf1#ID_FORUM').click(function() {
+  							var visibility = $('div#ajax_callback_forum_#ID_FORUM').css("display");
+  							if (visibility == 'none'){
+  							$(this).addClass('chargement');
+  							$('#ajax_callback_forum_#ID_FORUM').load('[(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+  							, {limit: 25}, function(){ 
+  								$('#ajax_callback_forum_#ID_FORUM').show('slow'); 
+  								$('#ajaxf1#ID_FORUM').removeClass('chargement');	});
+  							}
+  							else $('#ajax_callback_forum_#ID_FORUM').hide('slow');
+  							return false; // Or ev.preventDefault();
+  						});
+  						});
+  					</script>
+  				</li></ul>
+  			</div>
+  			]
+  
+  		</div> [(#REM) /intervention_item]
+  
+  		<B_forums_fils>
+  			<ul class="toggleshow forum intervention_answers">
+  				<BOUCLE_forums_fils(FORUMS){id_parent}{par date}>
+  					#SET{type_objet,#MODELE{type_objet}{id_auteur}}
+  					[(#GET{type_objet}|=={''}|oui) #SET{type_objet,consignes} ]		
+  					
+  					<div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
+  									
+  					<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
   						<div class="intervention_header">
   							<div class="photo">
   								[(#MODELE{logo_carre}{taille=40}{id_auteur})]
   							</div>
-								<div class="auteur_date">[(#NOM)<br>][(#DATE|affdate)]</div>
+  							<div class="auteur_date">
+    							[<div class="intervention_date">(#DATE|affdate)</div>]
+    							[<div class="intervention_auteur">(#NOM)</div>]
+    						</div>
   						</div>
-						</div>				
-						
-						<div class="intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
+  					</div>				
+  					
+  					<div class="intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
               [<div class="titre">(#TITRE)</div>]				
-							[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
-							<BOUCLE_documents_joints3(DOCUMENTS) {id_forum} {tout} {doublons}>
-								<div class="portfolio_grand">
-									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
-								</div>
-							</BOUCLE_documents_joints3>
-							
-							<BOUCLE_documents_joints2(DOCUMENTS) {id_forum} {tout} {doublons}>
-								<div class="portfolio">
-									[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox intervention_thumbnail"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid red;'})</a>]
-								</div>
-							</BOUCLE_documents_joints2>
-						</div>
-						</div>
-							
-							<!--[<div id="spip"><a href="(#PARAMETRES_FORUM|url_reponse_forum)"  class="lienss">R&eacute;pondre &agrave; ce message</a></div>]-->
-					</BOUCLE_forums_fils>
-
-					</ul>
-			</B_forums_fils>
-			
-			<div class="intervention_callto_answer">
-				<a id="ajaxf1#ID_FORUM" class="hac liens_voir" title="Répondre à ce message">					
-					<i class="material-icons md-24">&#xE8AF;</i>&nbsp;&nbsp;&nbsp;Répondre à ce message
-			  </a>
-			</div>
+  						[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
+  						<BOUCLE_documents_joints3(DOCUMENTS) {id_forum} {tout} {doublons}>
+  							<div class="portfolio_grand">
+  								[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
+  							</div>
+  						</BOUCLE_documents_joints3>
+  						
+  						<BOUCLE_documents_joints2(DOCUMENTS) {id_forum} {tout} {doublons}>
+  							<div class="portfolio">
+  								[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox intervention_thumbnail"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid red;'})</a>]
+  							</div>
+  						</BOUCLE_documents_joints2>
+  					</div>
+  					</div>
+  						
+  						<!--[<div id="spip"><a href="(#PARAMETRES_FORUM|url_reponse_forum)"  class="lienss">R&eacute;pondre &agrave; ce message</a></div>]-->
+  				</BOUCLE_forums_fils>
+  
+  				</ul>
+  		</B_forums_fils>
+  		
+  		<div class="toggleshow intervention_callto_answer">
+  			<a id="ajaxf1#ID_FORUM" class="hac liens_voir" title="Répondre à ce message">					
+  				<i class="material-icons md-24">&#xE8AF;</i>&nbsp;&nbsp;&nbsp;Répondre à ce message
+  		  </a>
+  		</div>
       
       <div id="ajax_callback_forum_#ID_FORUM" class="intervention_new_answer bloc_texte" style='display: none;'></div>
 			
+		</div>
 		
 	</BOUCLE_Forums>
 	</ul>

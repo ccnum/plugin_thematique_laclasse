@@ -1777,14 +1777,28 @@ div.donnees_classe {
 }
 
 .auteur_date {
-    margin-top: 0px;
-    font-size: 10px;
-    line-height: 14px;
-    color: rgba(255,255,255,.8);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding-top: 0;
-    font-weight: bold;
+  margin-top: 0px;
+  padding-top: 7px;
+}
+
+.intervention_auteur {
+  font-size:17px;
+  color:white;
+}
+
+.intervention_date {
+  font-size: 10px;
+  line-height: 14px;
+  color: rgba(255,255,255,.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  float:right;
+  padding-left:10px;
+}
+
+.intervention_item_around .toggleshow {
+  display:none;
 }
 
 .reponse .picto_nombre_commentaires {
@@ -2043,30 +2057,33 @@ div.donnees_classe {
 
 /* Blocs de titres à l'intérieur de la modalbox (pour les réponses par exemple) */
 .popup .intervention {
-    margin: 0 0 0 0;
+    margin: 0;
     padding: 15px 25px 15px 25px;
     overflow: auto;
     clear: both;
     display: block;
     background: rgba(0,0,0,.08);
+    cursor:pointer;
 }
 
 .popup .intervention .photo {
     float: left;
     box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
-    margin-right: 10px;
+    margin: -6px 13px -4px 0px;
     border-radius: 3px;
     overflow: hidden;
-    width: 28px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
+}
+
+.intervention_item_around {
+  margin: 10px 10px 0 10px;
 }
 
 .intervention_item {
-    margin: 20px 20px 0 20px;
     border-radius: 4px;
     overflow: hidden;
     color:white;
-    padding-bottom:15px
 }
 
 .intervention_answers {
@@ -2081,6 +2098,7 @@ div.donnees_classe {
 .intervention_item_content {
   border-style: solid;
   border-width: 0 4px 4px 4px;
+  padding-bottom:15px
 }
 
 .intervention_item .titre {
@@ -2110,7 +2128,7 @@ div.donnees_classe {
 .intervention_callto_answer {
   background: #DEDEDE;
   border-radius: 4px;
-  margin: 5px 35px 0 35px;
+  margin: 5px 15px 0 15px;
 }
 
 .intervention_callto_answer a {
@@ -3370,7 +3388,7 @@ input.crayon-active {
   /*
   background:#EFEFEF;
   */
-  padding:7px 10px 7px 10px;
+  padding:0 10px 0 10px;
   clear:both;
 }
 
