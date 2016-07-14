@@ -6,10 +6,10 @@ paramètre : id_auteur ou pas
 ]
 #SET{type,''}
 <BOUCLE_aut1(RUBRIQUES auteurs_liens){id_auteur}{tout}>
-<BOUCLE_hie_rub(HIERARCHIE){id_rubrique}{tout}>
-<BOUCLE_mot_rub(MOTS){id_rubrique}{titre IN travail_en_cours,ressources,consignes}{0,1}>
-#SET{type,#TITRE}
-</BOUCLE_mot_rub>
-</BOUCLE_hie_rub>
+  <BOUCLE_hie_rub(HIERARCHIE){id_rubrique}{tout}>
+    <BOUCLE_mot_rub(MOTS){id_rubrique}{titre IN travail_en_cours,ressources,consignes}{0,1}>
+      #SET{type,#TITRE}
+    </BOUCLE_mot_rub>
+  </BOUCLE_hie_rub>
 </BOUCLE_aut1>
 #GET{type}

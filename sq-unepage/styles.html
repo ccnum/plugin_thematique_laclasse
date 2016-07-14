@@ -1782,8 +1782,12 @@ div.donnees_classe {
 }
 
 .intervention_auteur {
-  font-size:17px;
-  color:white;
+  font-size: 17px;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 20px;
+  width: calc(100% - 160px);
 }
 
 .intervention_date {
@@ -1793,8 +1797,10 @@ div.donnees_classe {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;
-  float:right;
-  padding-left:10px;
+  text-align: right;
+  position: absolute;
+  top: 22px;
+  right: 20px;
 }
 
 .intervention_item_around {
@@ -1803,6 +1809,11 @@ div.donnees_classe {
 
 .intervention_item_around .toggleshow {
   display:none;
+}
+
+.intervention_item_content a {
+  color:white;
+  text-decoration:underline !important;
 }
 
 .intervention_nb_reponses {
@@ -1857,6 +1868,115 @@ div.donnees_classe {
   text-align: center;
   border-radius: 50%;
 }
+
+
+
+
+
+/* * * * * * * *
+ 
+  FICHE CLASSE
+  
+*/
+
+.classe_consigne {
+  margin: 10px;
+  padding: 0 0 15px 0;
+  text-align: left;
+  border-radius: 3px;
+}
+.classe_consigne_reponse {
+  color: #fff;
+  padding: 15px 15px 15px 17px;
+  position: relative;
+  font-size:0;
+  cursor:pointer;
+}
+
+.classe_consigne_reponse_photo {
+  display:inline-block;
+  width: 38px;
+  height: 38px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fff;
+  margin-right:15px;
+  vertical-align:middle;
+}
+.classe_consigne_reponse_photo img {
+  width:100%;
+  height:auto;
+}
+
+.classe_consigne_reponse_titre {
+  display:inline-block;
+  vertical-align:middle;
+  width:calc(100% - 60px);
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.classe_consigne_reponse_consigne {
+  background: rgba(0,0,0,.2);
+  padding: 15px 15px 15px 54px;
+  color: #fff;
+  margin: 0 15px;
+  cursor:pointer;
+}
+.classe_consigne_reponse_date {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.47);
+    margin-bottom: 3px;
+    line-height: 13px;
+}
+.classe_consigne_reponse_consigne_label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.47);
+  margin-bottom: 3px;
+}
+.classe_consigne_reponse_consigne_titre {
+  font-size: 15px;
+  line-height: 19px;
+  color: #fff;
+}
+
+
+.consigne_no_reponse {
+  background:#dcdcdc;
+}
+
+.consigne_no_reponse .classe_consigne_reponse {
+  color:#757575;
+}
+
+.consigne_no_reponse .classe_consigne_reponse_photo {
+  visibility:hidden;
+}
+
+.consigne_no_reponse .classe_consigne_reponse_consigne {
+  background:#c3c3c3
+}
+
+.consigne_no_reponse .classe_consigne_reponse_consigne_titre {
+  color:#585858;
+}
+
+.consigne_no_reponse .classe_consigne_reponse_date {
+  color:rgba(49, 49, 49, 0.5)
+}
+
+
+
+
+
+.reponse_goto_classe {
+  display:inline-block;
+  cursor:pointer;
+}
+
+
+
 
 
 .article_blog_container .article_blog{
@@ -2015,6 +2135,7 @@ div.donnees_classe {
   color:rgba(255,255,255,.8);
   text-transform:uppercase;
   letter-spacing:1px;
+  font-size:11px;
 }
 
 
@@ -2046,7 +2167,8 @@ div.donnees_classe {
 }
 
 .popup .spip_documents a[type="application/pdf"] img {
-  margin-top:15px
+  clear: both;
+  padding-top: 15px;
 }
 
 .popup .portfolio_grand .spip_doc_titre,
@@ -2079,23 +2201,25 @@ div.donnees_classe {
 
 /* Blocs de titres à l'intérieur de la modalbox (pour les réponses par exemple) */
 .popup .intervention {
-    margin: 0;
-    padding: 15px 25px 15px 25px;
-    overflow: auto;
-    clear: both;
-    display: block;
-    background: rgba(0,0,0,.08);
-    cursor:pointer;
+  margin: 0;
+  padding: 10px 25px 10px 25px;
+  overflow: auto;
+  clear: both;
+  display: block;
+  background: rgba(0,0,0,.08);
+  cursor:pointer;
+  overflow:visible
 }
 
 .popup .intervention .photo {
-    float: left;
-    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
-    margin: -6px 13px -4px 0px;
-    border-radius: 3px;
-    overflow: hidden;
-    width: 38px;
-    height: 38px;
+  display: inline-block;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
+  margin: 0 13px 0 0px;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 38px;
+  height: 38px;
+  vertical-align: middle;
 }
 
 .intervention_item_around {
@@ -2103,13 +2227,12 @@ div.donnees_classe {
 }
 
 .intervention_item {
-    border-radius: 4px;
-    overflow: hidden;
-    color:white;
+  border-radius: 4px;
+  color:white;
 }
 
 .intervention_answers {
-  margin-top:-20px
+  margin-top:-17px
 }
 
 .intervention_answers .intervention_item {
@@ -2804,6 +2927,12 @@ li a, li a:hover {
   background-image: url(plugins/auto/plugin_thematique_laclasse/./sq-unepage/img/edit.svg);
   background-size: 27px auto;
   background-position: 24px 50% !important;
+}
+
+.bloc_option_doc_reply {
+  background-image: url(plugins/auto/plugin_thematique_laclasse/./sq-unepage/img/reply.svg);
+  background-size: 27px auto;
+  background-position: 22px 49% !important;
 }
 
 .popup code {

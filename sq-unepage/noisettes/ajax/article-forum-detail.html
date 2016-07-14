@@ -22,25 +22,24 @@
 		<div class="intervention_item_around">	
 			
   				
-			
-  		<B_forums_fils_compteur>
-  			<div class="intervention_nb_reponses">#TOTAL_BOUCLE</div>
-  			
-  			<BOUCLE_forums_fils_compteur(FORUMS){id_parent}{par date}> </BOUCLE_forums_fils_compteur>
-  			
-  		</B_forums_fils_compteur>
   				
       <div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
-  			
+		  			
   			<div class="triggertoggleshow intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
+      		<B_forums_fils_compteur>
+      			<div class="intervention_nb_reponses">#TOTAL_BOUCLE</div>
+      			
+      			<BOUCLE_forums_fils_compteur(FORUMS){id_parent}{par date}> </BOUCLE_forums_fils_compteur>
+      			
+      		</B_forums_fils_compteur>
+
+
   				<div class="intervention_header">
     				<div class="photo">
     					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
     				</div>
-						<div class="auteur_date">
-							[<div class="intervention_date">(#DATE|affdate)</div>]
-							[<div class="intervention_auteur">(#NOM)</div>]
-						</div>
+						[<div class="intervention_auteur">(#NOM)</div>]
+						[<div class="intervention_date">(#DATE|affdate)</div>]
   				</div>
   			</div>
         
@@ -96,13 +95,11 @@
   									
   					<div class="intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
   						<div class="intervention_header">
-  							<div class="photo">
-  								[(#MODELE{logo_carre}{taille=40}{id_auteur})]
-  							</div>
-  							<div class="auteur_date">
-    							[<div class="intervention_date">(#DATE|affdate)</div>]
-    							[<div class="intervention_auteur">(#NOM)</div>]
-    						</div>
+        				<div class="photo">
+        					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
+        				</div>
+    						[<div class="intervention_auteur">(#NOM)</div>]
+    						[<div class="intervention_date">(#DATE|affdate)</div>]
   						</div>
   					</div>				
   					

@@ -14,7 +14,7 @@
 			<//B_nb_doc>
 			
 		[(#REM) ---------------- titre & logo ---------------- ] 
-		<div class="sidebar_bubble">
+		<div class="sidebar_bubble">  		
 			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
 			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
 			    <div class="texte">
@@ -23,6 +23,84 @@
 			    </div>
 			</div>
 		</div>
+		
+		
+		
+		
+		<div class="sidebar_bubble">
+  		
+			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_ARTICLE}>
+			<div class="bloc_option_doc nettoyeur">
+				<a id="bloc_option_reponses_consignes_classe-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_reply" title="Réponses de la classe">
+					Réponses de la classe
+				</a>
+				<div style="clear:both" class='bloc_option_reponses_consignes_classe'>
+					<div class="nettoyeur"></div>
+					
+    			<BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
+    			
+          	<BOUCLE_consigne(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+          	  #SET{id_to_check,#_principale:ID_RUBRIQUE}
+          	
+              
+
+  						<script type="text/javascript">
+      						
+    						$().ready(function(){
+      						$('#ajax_go_to_consigne_#ID_ARTICLE').on('click',function() {
+      							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
+      						});
+    						});						
+  						
+  						</script>            	  
+            			<BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}{id_rubrique=#_principale:ID_RUBRIQUE}>
+            			
+      						<script type="text/javascript">
+          						
+        						$().ready(function(){      						
+          						$('#ajax_go_to_reponse_#ID_ARTICLE').on('click',function() {
+          							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
+          						});
+        						});						
+      						
+      						</script>
+  						
+                    <div class="classe_consigne couleur_[(#TYPE_OBJET)][(#GET{id_to_check}|substr{[(#GET{id_to_check}|strlen|moins{1})],1})]">
+                    	<div id="ajax_go_to_reponse_#ID_ARTICLE" class="classe_consigne_reponse">
+                    	  <div class="classe_consigne_reponse_photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+                    		<div class="classe_consigne_reponse_titre">[(#TITRE)]</div>
+                    	</div>
+                    	<div id="ajax_go_to_consigne_#_consigne:ID_ARTICLE"class="classe_consigne_reponse_consigne">
+                    	  <div class="classe_consigne_reponse_date">Mis en ligne le [(#DATE|affdate{'d'})]/[(#DATE|affdate{'m'})]/[(#DATE|affdate{'Y'})] en réponse à la consigne :</div>
+                    		<div class="classe_consigne_reponse_consigne_titre">[(#_consigne:TITRE)]</div>
+                    	</div>
+                    </div>
+            			</BOUCLE_reponse>		
+            				
+            			</B_reponse>            			  
+                    <div id="ajax_go_to_consigne_#ID_ARTICLE" class="classe_consigne consigne_no_reponse">
+              			  <div class="classe_consigne_reponse">
+                			  <div class="classe_consigne_reponse_photo"></div>
+              					<div class="classe_consigne_reponse_titre">La classe n'a pas encore répondu à cette consigne.</div>
+              				</div>
+                			<div class="classe_consigne_reponse_consigne">
+                    	  <div class="classe_consigne_reponse_date">Consigne :</div>
+                  			<div class="classe_consigne_reponse_consigne_titre">[(#_consigne:TITRE)]</div>
+                			</div>
+                    </div>
+            			<//B_reponse>
+          			
+          		
+          	</BOUCLE_consigne>
+          </BOUCLE_rubrique>
+
+					<div class="introduction nettoyeur"></div>
+				</div>
+		  </div>
+  		
+  		
+		</div>
+		
 		
 		[(#REM) ---------------- bloc rubrique ---------------- ] 
 		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>

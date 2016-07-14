@@ -3,7 +3,7 @@
 <BOUCLE_principale(ARTICLES){id_article}{doublons}>
 	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#ENV{type_objet})]">]
   	
-		<div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
+  <div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
   	
   <div class="sidebar_bubble">
 		
@@ -21,13 +21,25 @@
 			</div>
 		
 		[(#REM) ---------------- titre & logo ---------------- ]
-			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE}</BOUCLE_rub>
+			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE} #SET{id_parent,#ID_RUBRIQUE}</BOUCLE_rub>
 			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes}|oui)
+			  [(#GET{type_objet}|match{travail_en_cours|classes}|oui)
+				<script type="text/javascript">
+					$().ready(function(){      						
+						$('#ajax_go_to_classe_#GET{id_parent}').on('click',function() {
+							$('#ressources_droite').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
+						});
+					});						
+				</script>
+				]
+				
 				<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
 					<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
 					<div class="texte">
 						<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
-						<div class="auteur_date">[(#GET{titre_parent}) - ][<span class="#EDIT{date}">(#DATE|affdate)</span>]</div>
+						<div class="auteur_date">
+  						[<div id="ajax_go_to_classe_#GET{id_parent}" class="reponse_goto_classe">(#GET{titre_parent})</div> - ]
+  						[<span class="#EDIT{date}">(#DATE|affdate)</span>]</div>
 					</div>
 				</div>
 			]
@@ -191,7 +203,7 @@
             	
   						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum_all-#ID_ARTICLE}>
   						<div class="bloc_option_doc nettoyeur">
-  							<a id="bloc_option_forum_all-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Commenter">
+  							<a id="bloc_option_forum_all-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Forum">
   								Forum
   							</a>
   							<div style="clear:both" class='bloc_option_forum'>
