@@ -1363,7 +1363,7 @@ div.sous-colonne2{
 
 .formulaire_jaime_flottant {
 /*   margin-top: -182px; */
-  top:10px;
+  top:45px;
   z-index: 100;
   position: absolute;
   right: 10px;
@@ -1946,11 +1946,12 @@ div.donnees_classe {
 
 .classe_consigne_reponse_classe {
   margin: 10px -15px -30px -15px;
-  background: rgba(0,0,0,.2);
-  padding: 10px 15px 10px 68px;
-  font-size: 11px;
+  background: rgba(0,0,0,0.1);
+  padding: 9px 15px 9px 68px;
+  font-size: 9px;
   color: rgba(255,255,255,.5);
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .bloc_option_reponses_consignes_classe.cache {padding:0 !important}
@@ -2018,6 +2019,11 @@ div.donnees_classe {
   color:white;
 }
 
+
+#sidebar_main_around {
+/*   margin-top: 34px; */
+  margin-top:0;
+}
 
 
 .article_blog_container .article_blog{
@@ -2138,7 +2144,7 @@ div.donnees_classe {
 /* Bloc de titre principal de la modalbox */
 .popup .fiche_titre {
 	margin: -20px -20px 0 -20px;
-	padding:40px;
+	padding:74px 40px 40px 40px;
 	overflow:auto;
 	clear:both;
 	text-align:center;
@@ -2410,11 +2416,31 @@ div.donnees_classe {
 
 
 .call_sidebar_main {
+  position: absolute;
+  right: 7px;
+  height: 35px;
+  left: 0;
+  z-index: 10000000;
+  border: solid 1px rgba(0,0,0,0.2);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  background-clip: padding-box;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  cursor:pointer;
+}
+
+.call_sidebar_main_inner {
+  background:rgba(0,0,0,.1);
   position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
   right:0;
-  height:30px;
-  width:30px;
-  background:white;
+  text-align: center;
+  padding: 11px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 

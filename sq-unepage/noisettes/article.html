@@ -6,7 +6,7 @@
 <div class="popup [popup_(#ENV{type_objet})]">
 ]
 
-<INCLURE{fond=noisettes/call_sidebar}>
+<INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}>
 
  <div id="sidebar_main_around">
   <div id="sidebar_main">
@@ -44,7 +44,8 @@
   					$().ready(function(){      						
   						$('#ajax_go_to_classe_#GET{id_parent}').on('click',function() {
   						//	$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)] #sidebar_content_inner', {limit: 25}, function(){ });			
-  							loadContentInMainSidebar('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]');		
+  							loadContentInMainSidebar('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'rubrique', 'classes');		
+  							loadContentInLateralSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'rubrique', '');
   						});
   					});						
   				</script>
@@ -63,7 +64,7 @@
           				<script type="text/javascript">
           					$().ready(function(){      						
           						$('#ajax_go_to_consigne_#GET{id_consigne}').on('click',function() {
-          							loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]');		
+          							loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'article', 'consignes');		
           						});
           					});						
           				</script>

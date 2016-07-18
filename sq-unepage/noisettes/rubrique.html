@@ -5,7 +5,7 @@
   	
 <div id="sidebar_lateral_around">
   <div id="sidebar_lateral">
-  	<div id="sidebat_content_inner">
+  	<div id="sidebar_content_inner">
 	
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
@@ -102,7 +102,7 @@
 							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
 							$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
-  				hideSidebarLateral();
+                hideSidebarLateral();
 								$('div#sidebar_main').removeClass('chargement');
 								$('#sidebar_main').show('slow'); 		
 								});					
@@ -288,8 +288,6 @@
 		});						
 		</script>
 	]
-		
-	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>
 	
 	[(#REM)Pour générer les appels aux scripts crayons en cas de besoin]
 	<BOUCLE_crayon(RUBRIQUES){id_rubrique=#RESTREINT}{tout}>
@@ -303,6 +301,8 @@
 		
 </div>
 </div>
+		
+[(#REM)	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>]
 
 [(#MODE|!={ajax-detail}|oui)</div>]
 

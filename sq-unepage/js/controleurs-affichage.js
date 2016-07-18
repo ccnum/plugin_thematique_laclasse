@@ -164,6 +164,9 @@ $().ready(function(){
 //   Colorbox
 
 function popup(url,mode){
+  
+  console.log('%c Popup'+' %c '+url+' ', 'background:#E91E63;color:#fff;padding:2px;border-radius:2px;', 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
+  
   if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
   
   if ((mode=='consigne')||(mode=='reponse')) {

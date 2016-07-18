@@ -11,7 +11,7 @@
 			<script type="text/javascript">
 				$().ready(function(){      						
 					$('#ajax_go_to_reponse_#ID_ARTICLE').on('click',function() {
-						loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]');
+						loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'article', 'travail_en_cours');
           });
 				});						
 			</script>
