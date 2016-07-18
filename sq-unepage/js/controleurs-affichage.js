@@ -230,10 +230,15 @@ function reload(url) {
 function loadSidebarContent(url) {
   // TO DO : loading
   
+  $('#sidebar_content').load(url, function(){
+    showSidebarCallback();
+  });
+  /*
   $('#sidebar_iframe').attr('src',url);
   $('#sidebar_iframe').on('load',function(){
    showSidebarCallback();
   });
+  */
 }
 
 function showSidebar() {
@@ -243,5 +248,5 @@ function showSidebar() {
 }
 
 function showSidebarCallback() {
-  $('#sidebar_iframe').contents().find('.crayon-init').trigger('mouseover mouseout mouseleave');
+//  $('#sidebar_iframe').contents().find('.crayon-init').trigger('mouseover mouseout mouseleave');
 }

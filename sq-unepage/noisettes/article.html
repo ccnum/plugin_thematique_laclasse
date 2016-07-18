@@ -2,9 +2,7 @@
 
 <BOUCLE_principale(ARTICLES){id_article}{doublons}>
 
-[(#MODE|!={ajax-detail}|oui)
 <div class="popup [popup_(#ENV{type_objet})]">
-]
 
 <INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}>
 
@@ -444,7 +442,6 @@
 	]
 </div>
 
-[(#MODE|!={ajax-detail}|oui)
 </div>
-]
+
 </BOUCLE_principale>

@@ -29,7 +29,7 @@
 	<BOUCLE_rub1(RUBRIQUES){id_rubrique}{tout}>#SET{id_rubrique_lien,#ID_RUBRIQUE_LIEN}</BOUCLE_rub1>
 	<BOUCLE_lien(ARTICLES){id_consigne}{id_rubrique=#GET{id_rubrique_lien}}>#SET{art_lie,#ID_ARTICLE}</BOUCLE_lien>
 
-	[(#GET{mode}|=={detail}|oui)
+	[(#GET{mode}|=={detail|ajax-detail}|oui)
 		<INCLURE{fond=layout}{id_rubrique}{env}{page=#GET{page}}{type_objet=#GET{type_objet}}{id_article=#ID_ARTICLE} />
 		[(#GET{art_lie}|oui)
 			<br />
