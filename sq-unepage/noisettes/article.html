@@ -190,18 +190,23 @@
 				</div>	
 		  </div> [(#REM) Fin bubble ]
 		<BOUCLE_documents_joints_compteur2(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur2>
-					
-					
+				
+		
+		[(#GET{type_objet}|match{consignes}|oui)
 		<div class="sidebar_bubble">
-  		
+  			
 			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_ARTICLE}>
+		]
+            [(#GET{type_objet}|match{consignes}|oui)
 			<div class="bloc_option_doc nettoyeur">
 				<a id="bloc_option_reponses_consignes_classe-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_reply" title="Réponses de la classe">
 					Réponses des classes
 				</a>
+				
 				<div style="clear:both" class='cache bloc_option_reponses_consignes_classe'>
 					<div class="nettoyeur"></div>
-
+]
+            [(#GET{type_objet}|match{consignes}|oui)
 					<script type="text/javascript">
   						
 						$().ready(function(){
@@ -211,10 +216,11 @@
 						});						
 					
 					</script>            	  
-					
+					]
 					
       		<BOUCLE_reponse(ARTICLES){id_consigne=#_principale:ID_ARTICLE}>
       		  
+            [(#GET{type_objet}|match{consignes}|oui)
 						<script type="text/javascript">
     						
   						$().ready(function(){      						
@@ -225,26 +231,32 @@
   						});						
 						
 						</script>
-				
-              <div class="classe_consigne couleur_[(#TYPE_OBJET)][(#ID_RUBRIQUE|substr{[(#GET{id_to_check}|strlen|moins{1})],1})]">
-              	<div id="ajax_go_to_reponse_#ID_ARTICLE" class="classe_consigne_reponse">
-              	  <div class="classe_consigne_reponse_photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
-              		<div class="classe_consigne_reponse_titre">[(#TITRE)]</div>
-              	  <div class="classe_consigne_reponse_classe">
-              		  <BOUCLE_classe_de_la_reponse(RUBRIQUES){id_rubrique}>
-              		    #TITRE
-              		  </BOUCLE_classe_de_la_reponse>
-              		</div>
-              	</div>
-              </div>
-      			</BOUCLE_reponse>		
-      				
-      			</B_reponse>
+				]
+            [(#GET{type_objet}|match{consignes}|oui)
+            <div class="classe_consigne couleur_[(#TYPE_OBJET)][(#ID_RUBRIQUE|substr{[(#GET{id_to_check}|strlen|moins{1})],1})]">
+            	<div id="ajax_go_to_reponse_#ID_ARTICLE" class="classe_consigne_reponse">
+            	  <div class="classe_consigne_reponse_photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+            		<div class="classe_consigne_reponse_titre">[(#TITRE)]</div>
+            	  <div class="classe_consigne_reponse_classe">
+            		  <BOUCLE_classe_de_la_reponse(RUBRIQUES){id_rubrique}>
+            		    #TITRE
+            		  </BOUCLE_classe_de_la_reponse>
+            		</div>
+            	</div>
+            </div>
+            ]
+    			</BOUCLE_reponse>		
+    				
+    			</B_reponse>
+    			
+            [(#GET{type_objet}|match{consignes}|oui)
 				</div>
+				
 		  </div>
   		
   		
 		</div>
+		]
 					
 		
 				[(#REM)Commentaires]
