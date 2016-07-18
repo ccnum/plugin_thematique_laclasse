@@ -1362,7 +1362,8 @@ div.sous-colonne2{
 /*--- Notations ---*/
 
 .formulaire_jaime_flottant {
-  margin-top: -182px;
+/*   margin-top: -182px; */
+  top:10px;
   z-index: 100;
   position: absolute;
   right: 10px;
@@ -1991,6 +1992,31 @@ div.donnees_classe {
 }
 
 
+.reponse_goto_consigne {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 2px;
+  margin-top: 10px;
+  text-transform: initial;
+  letter-spacing: 0;
+  font-size: 13px;
+  color: #fff;
+  line-height:16px;
+  cursor:pointer;
+}
+
+.reponse_goto_consigne:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+
+.reponse_goto_consigne_label {
+  color:rgba(255,255,255,.6)
+}
+
+.reponse_goto_consigne:hover .reponse_goto_consigne_label {
+  color:white;
+}
 
 
 
@@ -2139,7 +2165,7 @@ div.donnees_classe {
 
 .popup .fiche_titre .titre {
 	font-size:24px;
-	line-height:24px;
+	line-height:28px;
 	color:white;
 }
 
@@ -2244,6 +2270,7 @@ div.donnees_classe {
 .intervention_item {
   border-radius: 4px;
   color:white;
+  position:relative;
 }
 
 .intervention_answers {
@@ -2377,12 +2404,12 @@ div.donnees_classe {
 #ressources_wrap {
 }
 
-#ressources_gauche,
-#ressources_droite {
+#sidebar_lateral,
+#sidebar_main {
 }
 
 
-.call_sidebar_lateral {
+.call_sidebar_main {
   position:absolute;
   right:0;
   height:30px;
@@ -2391,7 +2418,7 @@ div.donnees_classe {
 }
 
 
-#ressources_gauche{
+#sidebar_lateral{
   width: calc(100% - 8px);
   position: absolute;
   font-size: 13px;
@@ -2409,11 +2436,11 @@ div.donnees_classe {
   z-index: 10000000;
 }
 
-.hasSidebarLateralVisible #ressources_gauche {
+.hasSidebarLateralVisible #sidebar_lateral {
   right:7px;
 }
 
-.hasSidebarLateralVisible #ressources_droite {
+.hasSidebarLateralVisible #sidebar_main {
   overflow: hidden;
   height: auto;
   min-height: 0px;
@@ -2424,13 +2451,13 @@ div.donnees_classe {
   width: calc(100% - 7px);
 }
 
-#ressources_gauche .ressources_header_titre {
+#sidebar_lateral .ressources_header_titre {
   font-size: 22px;
   color: #000;
   margin: 5px 0 25px 0;
 }
 
-#ressources_droite{
+#sidebar_main{
 	width: 100%;
 	font-size:13px;
 	min-height: [(#ENV{hauteur}|mult{0.8})px];
@@ -2548,15 +2575,15 @@ a.liens_forum:hover { }
 }
 
 /* --- Menu --- */
-#ressources_gauche .ui-state-active {
+#sidebar_lateral .ui-state-active {
 	color: #GET{gris_fonce};
 }
 /*
-#ressources_gauche li {
+#sidebar_lateral li {
 	margin-top:2px;
 }
 
-#ressources_gauche li a:hover, #ressources_gauche li a.selected {
+#sidebar_lateral li a:hover, #sidebar_lateral li a.selected {
 	color: #00a5db;
 }
 */

@@ -1,409 +1,449 @@
 #CACHE{0}
 
 <BOUCLE_principale(ARTICLES){id_article}{doublons}>
-	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#ENV{type_objet})]">]
-  	
-  <div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
-  	
-  <div class="sidebar_bubble">
-		
-		[(#REM) ---------------- entete publication ---------------- ]
-			#SET{type_objet,#TYPE_OBJET}
-			[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressources}]
-			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
-			</BOUCLE_auteur>
-				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet0,consignes} ]
-			</B_auteur><//B_auteur>
 
-		[(#REM) ---------------- Hack temporaire ? ---------------- ]
-			<div class="cache">
-				<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
-			</div>
-		
-		[(#REM) ---------------- titre & logo ---------------- ]
-			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE} #SET{id_parent,#ID_RUBRIQUE}</BOUCLE_rub>
-			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes}|oui)
-			  [(#GET{type_objet}|match{travail_en_cours|classes}|oui)
-				<script type="text/javascript">
-					$().ready(function(){      						
-						$('#ajax_go_to_classe_#GET{id_parent}').on('click',function() {
-							$('#ressources_droite').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
-						});
-					});						
-				</script>
-				]
-				
-				<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
-					<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
-					<div class="texte">
-						<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
-						<div class="auteur_date">
-  						[<div id="ajax_go_to_classe_#GET{id_parent}" class="reponse_goto_classe[(#GET{type_objet}|match{travail_en_cours|classes}|oui) pointer]">(#GET{titre_parent})</div> - ]
-  						[<span class="#EDIT{date}">(#DATE|affdate)</span>]</div>
-					</div>
-				</div>
-			]
-			[(#GET{type_objet}|match{blogs|evenements}|oui)
-				<div class="popup_titre">
-					<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
-					<span class="date #EDIT{date}">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
-					<span class="auteur">[ - (#LESAUTEURS)]</span>								
-				</div>
-			]
-			
-			
-			
+[(#MODE|!={ajax-detail}|oui)
+<div class="popup [popup_(#ENV{type_objet})]">
+]
 
-			[(#REM) ---------------- entete publication ---------------- ]
-					<BOUCLE_nb_doc(DOCUMENTS) {id_article} {tout}>
-					</BOUCLE_nb_doc>
-						#SET{nb_doc,#TOTAL_BOUCLE}
-					</B_nb_doc>
-						#SET{nb_doc,0}
-					<//B_nb_doc>
-					[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui
-					|et{#TEXTE|non|et{#GET{nb_doc}|=={0}|oui}}
-					|et{#ADMIN|=={-1}|non}
-					|oui)
-						<script type="text/javascript">
-							$().ready(function(){
-								$('.bloc_article').fadeTo('fast', 0.2);
-								$('#entete_publication').delay(1000).slideDown('slow');
-								function cache() {
-									$('.bloc_article').fadeTo('fast', 1);
-									$('#entete_publication').fadeTo(4000, 0.8, function(){
-										//$(this).slideUp(1000);
-									});
-								}
-								$('#entete_publication').click(cache);
-								window.setTimeout(cache, 2000);
-							});
-						</script>
-						
-						
-	
-						<div class="popup_titre">
-							<div class="date" id="entete_publication" style="display: none;">
-								Etape 2 : vous pouvez ajouter un texte et des documents à votre article<br />
-							</div>
-						</div>
-						
-						
-					]
-					
-					
+<INCLURE{fond=noisettes/call_sidebar}>
 
-		[(#REM) ---------------- bloc article ---------------- ]
-		
-		
-    	
-		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
-
-				<div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
-				<div class="nettoyeur0"></div>
-
-			[(#REM)Texte]
-				
-				[(#TEXTE|oui)
-					<div class="bloc_texte">
-						[[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) <p>ordinateur@novaterra:~$</p>]						
-						<span class="spip #EDIT{texte}">(#TEXTE|liens_ouvrants|image_reduire{500})</span>]
-					</div>
-				]
-				
-
-			[(#REM) ---------------- Champs personnalisés ---------------- ]
-				<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
+ <div id="sidebar_main_around">
+  <div id="sidebar_main">
+   <div id="sidebar_content_inner">
      
-			[(#REM) ---------------- documents ---------------- ]
-			
-		</div>
-		
-		<B_documents_joints_compteur>
+    <div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
+    	
     <div class="sidebar_bubble">
-			<div class="bloc_documents">
-		<BOUCLE_documents_joints_compteur(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur>
-			
-			
-				[(#REM)Documents joints]
-				<B_documents_joints1>
-					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
-  						<div class="portfolio_grand">
+  		
+  		[(#REM) ---------------- Entete publication ---------------- ]
+  			#SET{type_objet,#TYPE_OBJET}
+  			[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressources}]
+  			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
+  			</BOUCLE_auteur>
+  				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet0,consignes} ]
+  			</B_auteur><//B_auteur>
   
-                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
-                        class='supprimer_couleur'
-                        onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
-                        title='Supprimer ce document' >
-                        <div class='action_supprimer'></div>
-                    </a>]
-                ]
+  		[(#REM) ---------------- Hack temporaire ? ---------------- ]
+  			<div class="cache">
+  				<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
+  			</div>
+  		
+  		[(#REM) ---------------- Titre & logo ---------------- ]
+  			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE} #SET{id_parent,#ID_RUBRIQUE}</BOUCLE_rub>
+  			  			  
+			  <BOUCLE_consigne_de_la_reponse(ARTICLES){id_article=#ID_CONSIGNE}>
+			    #SET{titre_consigne,#TITRE}
+			    #SET{id_consigne,#ID_ARTICLE}
+			  </BOUCLE_consigne_de_la_reponse>
+  			
+  			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes}|oui)
+  			  [(#GET{type_objet}|match{travail_en_cours|classes}|oui)
+				  
+  				<script type="text/javascript">
+  					$().ready(function(){      						
+  						$('#ajax_go_to_classe_#GET{id_parent}').on('click',function() {
+  						//	$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)] #sidebar_content_inner', {limit: 25}, function(){ });			
+  							loadContentInMainSidebar('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]');		
+  						});
+  					});						
+  				</script>
+  				]
+  				
+  				<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+  					<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
+  					<div class="texte">
+  						<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
+  						<div class="auteur_date">
+    						[<div id="ajax_go_to_classe_#GET{id_parent}" class="reponse_goto_classe[(#GET{type_objet}|match{travail_en_cours|classes}|oui) pointer]">(#GET{titre_parent})</div> - ]
+    						[<span class="#EDIT{date}">(#DATE|affdate)</span>]
+    						
+    						[(#GET{type_objet}|match{travail_en_cours}|oui) 
+    						
+          				<script type="text/javascript">
+          					$().ready(function(){      						
+          						$('#ajax_go_to_consigne_#GET{id_consigne}').on('click',function() {
+          							loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]');		
+          						});
+          					});						
+          				</script>
+          				
+      						<div id="ajax_go_to_consigne_#GET{id_consigne}" class="reponse_goto_consigne">
+      						  <div class="reponse_goto_consigne_label">En réponse à la consigne :</div>
+      						  #GET{titre_consigne}
+      						</div>
+    						]
+    				  </div>
+    						
+    						
+    						
+  					</div>
+  				</div>
+  			]
+  			[(#GET{type_objet}|match{blogs|evenements}|oui)
+  				<div class="popup_titre">
+  					<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
+  					<span class="date #EDIT{date}">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
+  					<span class="auteur">[ - (#LESAUTEURS)]</span>								
+  				</div>
+  			]
+  			
+  			
+  			
   
-                [(#MEDIA|match{'audio|video'}|oui)
-                  [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
-                ]
-  
-                [(#MEDIA|match{'image'}|oui)
-                  <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                  [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
-                  </a>
-                ]
-                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                  [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<div class="ajouter_couleur">Ajouter un titre…</div>})</div>]
-                ]
-                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                  [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div>]
-                ]
-              </div>
-
-					</BOUCLE_documents_joints1>
-
-					<B_documents_joints>
-					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons d}>
-            <div class="portfolio">
-              <div onclick="location.href='#URL_DOCUMENT'" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" class="portfolio_lien">
-                [<div class="portfolio_logo_around">(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{class,'portfolio_logo'})</div>]
-              
-                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                  [<div class="portfolio_titre"><div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<span class="ajouter_couleur" style="text-color: gray;">Ajouter un titre…</span>})</div></div>]
-                ]
-                
-                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                  [<div class="portfolio_titre"><div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div></div>]
-                ]
-              </div>
-                
-                
-             [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-              [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
-                  class='supprimer_couleur'
-                  onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
-                  title='Supprimer ce document' >
-                  <div class='action_supprimer'></div>
-              </a>]
-              ]
-            </div>
-					</BOUCLE_documents_joints>
-					</B_documents_joints>
-					
-		<B_documents_joints_compteur2>
-				</div>	
-		  </div> [(#REM) Fin bubble ]
-		<BOUCLE_documents_joints_compteur2(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur2>
-				
-		
-		[(#GET{type_objet}|match{consignes}|oui)
-		<div class="sidebar_bubble">
-			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_ARTICLE}>
-			<INCLURE{fond=noisettes/reponses_classes,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	  		
-		</div>
-		]
-					
-		
-				[(#REM)Commentaires]
-					<BOUCLE_forum(FORUMS){id_article}>
-					</BOUCLE_forum>
-						[(#GET{type_objet}|!={ressource0}|oui)
-						
-          	<div class="sidebar_bubble">
-            	
-            	
-  						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum_all-#ID_ARTICLE}>
-  						<div class="bloc_option_doc nettoyeur">
-  							<a id="bloc_option_forum_all-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Forum">
-  								Forum
-  							</a>
-  							<div style="clear:both" class='bloc_option_forum'>
-  								<div class="nettoyeur"></div>
-      						<INCLURE{fond=noisettes/ajax/article-forum-detail}{id_article}{admin}>
-      						<div class="introduction nettoyeur"></div>
-  							</div>
-						  </div>
-						  
-						  
+  			[(#REM) ---------------- entete publication ---------------- ]
+  					<BOUCLE_nb_doc(DOCUMENTS) {id_article} {tout}>
+  					</BOUCLE_nb_doc>
+  						#SET{nb_doc,#TOTAL_BOUCLE}
+  					</B_nb_doc>
+  						#SET{nb_doc,0}
+  					<//B_nb_doc>
+  					[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui
+  					|et{#TEXTE|non|et{#GET{nb_doc}|=={0}|oui}}
+  					|et{#ADMIN|=={-1}|non}
+  					|oui)
+  						<script type="text/javascript">
+  							$().ready(function(){
+  								$('.bloc_article').fadeTo('fast', 0.2);
+  								$('#entete_publication').delay(1000).slideDown('slow');
+  								function cache() {
+  									$('.bloc_article').fadeTo('fast', 1);
+  									$('#entete_publication').fadeTo(4000, 0.8, function(){
+  										//$(this).slideUp(1000);
+  									});
+  								}
+  								$('#entete_publication').click(cache);
+  								window.setTimeout(cache, 2000);
+  							});
+  						</script>
   						
-        		</div><!-- fin commentaires bubble -->
-						]
-					</B_forum>
-
-				[(#REM)Forum]
-					[(#GET{blocs_forum}|=={non}|non)
-						<div class="sidebar_bubble">
-  						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum-#ID_ARTICLE}>
-  						<div class="bloc_option_doc nettoyeur">
-  							<a id="bloc_option_forum-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Commenter">
-  								Commenter
-  							</a>
-  							<div class='nettoyeur cache bloc_option_forum'>
-  								<INCLURE{fond=forum,id_article,mode=ajax-detail}>
+  						
+  	
+  						<div class="popup_titre">
+  							<div class="date" id="entete_publication" style="display: none;">
+  								Etape 2 : vous pouvez ajouter un texte et des documents à votre article<br />
   							</div>
-						  </div>
-						</div>
-					]
-					
-		
-
-			[(#REM) ---------------- Blocs complémentaires ---------------- ]
-				<!--<div class="nettoyeur"><br /></div>-->
-
-				[(#REM)On exclut le cas où on est dans la zone ajax-detail d'une rubrique - Désactivé temporairement car c'est quand même utile pour les classes]
-					[(#MODE|=={ajax-detail}|et{#TYPE_OBJET|=={travail_en_cours}}|oui) #SET{blocs_cplt,non0}	]
-				
-				[(#REM)On exclut le forum sur les consignes pour les enseignants]
-					[(#TYPE_AUTEUR|=={travail_en_cours}
-					|ou{#TYPE_AUTEUR|=={''}}
-					|et{#TYPE_OBJET|=={consignes}}|oui)
-						#SET{blocs_forum,non}	
-					]
-
-				[(#ADMIN|=={0}|oui)
-					#SET{blocs_forum,oui}
-					#SET{blocs_cplt,oui}
-				]
-				[(#ADMIN|=={-2}|oui)
-					#SET{blocs_forum,non}
-				]
-
-				<BOUCLE_rub_classe(RUBRIQUES){id_rubrique}{tout}>
-					[(#SET{donnees_classe,[(#TEXTE*|liens_ouvrants)]})]
-				</BOUCLE_rub_classe>
-				<!--
-				
-					[(#GET{type_objet}|=={consignes}|oui)
-					
-				
-					<div class="sidebar_bubble">
-						<div class="bloc_option_doc nettoyeur">
-							<a class="hac lien_ajouter bloc_option_doc_ressources" title="Accéder aux ressources">
-								Accéder aux ressources
-							</a>
-						</div>
-					</div>
-					]
-					-->
-				
-				[(#REM)Ajouter un texte]
-					[(#GET{blocs_cplt}|=={non}|non)
-						[(#TEXTE|non)[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
-						
-						
-						<div class="sidebar_bubble">
-							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_texte-#ID_ARTICLE}>
-							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_option_texte-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un texte">
-									Ajouter un texte
-								</a>
-								<div class='nettoyeur cache bloc_option_doc'>
-									<INCLURE{fond=noisettes/publier_article,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	
-								</div>
-							</div>
-						</div>
-						]]
-					]
-				
-				[(#REM)Ajouter un document]
-					[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-						[(#GET{blocs_cplt}|=={non}|non)
-						
-						<div class="sidebar_bubble">
-						
-							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_doc-#ID_ARTICLE}>
-							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un document">
-									Ajouter un document
-								</a>
-  							<div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
-    							#FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}</div>
-  							<INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
-							</div>
-						</div>
-						]
-					]
-					
-					
-
-			[(#GET{blocs_cplt}|=={non}|non)
-
-				[(#REM)Mots-clefs]
-					[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-						[(#NOM_SITE_SPIP|match{novaterra.laclasse.com}|oui)
-						<div class="sidebar_bubble">
-							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_motsclefs-#ID_ARTICLE}>
-							<div class="bloc_option_doc nettoyeur">
-								<a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter à l'encyclopédie" href="#">
-									Ajouter à l'encyclopédie
-								</a>
-								<div class="nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc">
-									<INCLURE{fond=noisettes/inc/article-mot}{id_article}{id_groupe=5}{titre='Thématique'}>
-								</div>
-							</div>
-						</div>
-						]
-					]
-
-				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
-					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
-					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
-					[<div class="sidebar_bubble">
-  						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
-					<div class="bloc_option_doc nettoyeur">
-						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
-							Partager le lien
-						</a>
-						<div class="cache">
-							<code><a href="#URL_SITE_SPIP/(#GET{url})" target="_blank">#URL_SITE_SPIP/#GET{url}</a></code>
-						</div>
-					</div>
-					</div>
-					]
-<!--
-				[(#REM)Liens sociaux]
-					[(#PLUGIN{SOCIALTAGS}|oui)
-					
-          <div class="sidebar_bubble">
-  				  <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_reseaux-#ID_ARTICLE}>
-  					<div class="bloc_option_doc nettoyeur">
-  						<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_social" title="Réseaux sociaux" href="#">
-  							Réseaux sociaux
-  						</a>
-  						<div class="cache">
-  							<div class="reseaux"></div>
+  						</div>
+  						
+  						
+  					]
+  					
+  					
+  
+  		[(#REM) ---------------- bloc article ---------------- ]
+  		
+  		
+      	
+  		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+  
+  				<div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
+  				<div class="nettoyeur0"></div>
+  
+  			[(#REM)Texte]
+  				
+  				[(#TEXTE|oui)
+  					<div class="bloc_texte">
+  						[[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) <p>ordinateur@novaterra:~$</p>]						
+  						<span class="spip #EDIT{texte}">(#TEXTE|liens_ouvrants|image_reduire{500})</span>]
+  					</div>
+  				]
+  				
+  
+  			[(#REM) ---------------- Champs personnalisés ---------------- ]
+  				<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
+       
+  			[(#REM) ---------------- documents ---------------- ]
+  			
+  		</div>
+  		
+  		<B_documents_joints_compteur>
+      <div class="sidebar_bubble">
+  			<div class="bloc_documents">
+  		<BOUCLE_documents_joints_compteur(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur>
+  			
+  			
+  				[(#REM)Documents joints]
+  				<B_documents_joints1>
+  					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
+    						<div class="portfolio_grand">
+    
+                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                      [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                          class='supprimer_couleur'
+                          onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
+                          title='Supprimer ce document' >
+                          <div class='action_supprimer'></div>
+                      </a>]
+                  ]
+    
+                  [(#MEDIA|match{'audio|video'}|oui)
+                    [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
+                  ]
+    
+                  [(#MEDIA|match{'image'}|oui)
+                    <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+                    [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+                    </a>
+                  ]
+                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                    [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<div class="ajouter_couleur">Ajouter un titre…</div>})</div>]
+                  ]
+                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                    [<div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div>]
+                  ]
+                </div>
+  
+  					</BOUCLE_documents_joints1>
+  
+  					<B_documents_joints>
+  					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons d}>
+              <div class="portfolio">
+                <div onclick="location.href='#URL_DOCUMENT'" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" class="portfolio_lien">
+                  [<div class="portfolio_logo_around">(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{class,'portfolio_logo'})</div>]
+                
+                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                    [<div class="portfolio_titre"><div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero|sinon{<span class="ajouter_couleur" style="text-color: gray;">Ajouter un titre…</span>})</div></div>]
+                  ]
+                  
+                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                    [<div class="portfolio_titre"><div class="#EDIT{titre} spip_doc_titre">(#TITRE|supprimer_numero)</div></div>]
+                  ]
+                </div>
+                  
+                  
+               [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                    class='supprimer_couleur'
+                    onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
+                    title='Supprimer ce document' >
+                    <div class='action_supprimer'></div>
+                </a>]
+                ]
+              </div>
+  					</BOUCLE_documents_joints>
+  					</B_documents_joints>
+  					
+  		<B_documents_joints_compteur2>
+  				</div>	
+  		  </div> [(#REM) Fin bubble ]
+  		<BOUCLE_documents_joints_compteur2(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur2>
+  				
+  		
+  		[(#GET{type_objet}|match{consignes}|oui)
+  		<div class="sidebar_bubble">
+  			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_ARTICLE}>
+  			<INCLURE{fond=noisettes/reponses_classes,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	  		
+  		</div>
+  		]
+  					
+  		
+  				[(#REM)Commentaires]
+  					<BOUCLE_forum(FORUMS){id_article}>
+  					</BOUCLE_forum>
+  						[(#GET{type_objet}|!={ressource0}|oui)
+  						
+            	<div class="sidebar_bubble">
+              	
+              	
+    						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum_all-#ID_ARTICLE}>
+    						<div class="bloc_option_doc nettoyeur">
+    							<a id="bloc_option_forum_all-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Forum">
+    								Forum
+    							</a>
+    							<div style="clear:both" class='bloc_option_forum'>
+    								<div class="nettoyeur"></div>
+        						<INCLURE{fond=noisettes/ajax/article-forum-detail}{id_article}{admin}>
+        						<div class="introduction nettoyeur"></div>
+    							</div>
+  						  </div>
+  						  
+  						  
+    						
+          		</div><!-- fin commentaires bubble -->
+  						]
+  					</B_forum>
+  
+  				[(#REM)Forum]
+  					[(#GET{blocs_forum}|=={non}|non)
+  						<div class="sidebar_bubble">
+    						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum-#ID_ARTICLE}>
+    						<div class="bloc_option_doc nettoyeur">
+    							<a id="bloc_option_forum-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Commenter">
+    								Commenter
+    							</a>
+    							<div class='nettoyeur cache bloc_option_forum'>
+    								<INCLURE{fond=forum,id_article,mode=ajax-detail}>
+    							</div>
+  						  </div>
+  						</div>
+  					]
+  					
+  		
+  
+  			[(#REM) ---------------- Blocs complémentaires ---------------- ]
+  				<!--<div class="nettoyeur"><br /></div>-->
+  
+  				[(#REM)On exclut le cas où on est dans la zone ajax-detail d'une rubrique - Désactivé temporairement car c'est quand même utile pour les classes]
+  					[(#MODE|=={ajax-detail}|et{#TYPE_OBJET|=={travail_en_cours}}|oui) #SET{blocs_cplt,non0}	]
+  				
+  				[(#REM)On exclut le forum sur les consignes pour les enseignants]
+  					[(#TYPE_AUTEUR|=={travail_en_cours}
+  					|ou{#TYPE_AUTEUR|=={''}}
+  					|et{#TYPE_OBJET|=={consignes}}|oui)
+  						#SET{blocs_forum,non}	
+  					]
+  
+  				[(#ADMIN|=={0}|oui)
+  					#SET{blocs_forum,oui}
+  					#SET{blocs_cplt,oui}
+  				]
+  				[(#ADMIN|=={-2}|oui)
+  					#SET{blocs_forum,non}
+  				]
+  
+  				<BOUCLE_rub_classe(RUBRIQUES){id_rubrique}{tout}>
+  					[(#SET{donnees_classe,[(#TEXTE*|liens_ouvrants)]})]
+  				</BOUCLE_rub_classe>
+  				<!--
+  				
+  					[(#GET{type_objet}|=={consignes}|oui)
+  					
+  				
+  					<div class="sidebar_bubble">
+  						<div class="bloc_option_doc nettoyeur">
+  							<a class="hac lien_ajouter bloc_option_doc_ressources" title="Accéder aux ressources">
+  								Accéder aux ressources
+  							</a>
   						</div>
   					</div>
-					</div>
-					]
--->
-				[(#REM)Données de la classe]
-					[(#GET{type_objet}|=={travail_en_cours}|oui)
-					[
-						<div class="sidebar_bubble">
-  						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_donnees-#ID_ARTICLE}>
-					<div class="bloc_option_doc nettoyeur">
-						<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_about" title="À propos de la classe" href="#">
-							À propos de la classe
-						</a>
-						<div class=" ">
-							<div class="donnees_classe">(#GET{donnees_classe})</div>
-						</div>
-					</div></div>
-					]
-					]
-
-				[(#REM)Bloc suppression]
-					[(#AUTORISER{modifier, article, #ID_ARTICLE})
-						[(#SET{confirmation,Etes vous sûr de vouloir supprimer l\'article [\'(#TITRE|attribut_html)\']})]
-						<!--
-						<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
-						-->
-					]
-			]
-
-		</div>
+  					]
+  					-->
+  				
+  				[(#REM)Ajouter un texte]
+  					[(#GET{blocs_cplt}|=={non}|non)
+  						[(#TEXTE|non)[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
+  						
+  						
+  						<div class="sidebar_bubble">
+  							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_texte-#ID_ARTICLE}>
+  							<div class="bloc_option_doc nettoyeur">
+  								<a id="bloc_option_texte-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un texte">
+  									Ajouter un texte
+  								</a>
+  								<div class='nettoyeur cache bloc_option_doc'>
+  									<INCLURE{fond=noisettes/publier_article,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	
+  								</div>
+  							</div>
+  						</div>
+  						]]
+  					]
+  				
+  				[(#REM)Ajouter un document]
+  					[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+  						[(#GET{blocs_cplt}|=={non}|non)
+  						
+  						<div class="sidebar_bubble">
+  						
+  							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_doc-#ID_ARTICLE}>
+  							<div class="bloc_option_doc nettoyeur">
+  								<a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un document">
+  									Ajouter un document
+  								</a>
+    							<div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
+      							#FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}</div>
+    							<INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
+  							</div>
+  						</div>
+  						]
+  					]
+  					
+  					
+  
+  			[(#GET{blocs_cplt}|=={non}|non)
+  
+  				[(#REM)Mots-clefs]
+  					[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+  						[(#NOM_SITE_SPIP|match{novaterra.laclasse.com}|oui)
+  						<div class="sidebar_bubble">
+  							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_motsclefs-#ID_ARTICLE}>
+  							<div class="bloc_option_doc nettoyeur">
+  								<a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter à l'encyclopédie" href="#">
+  									Ajouter à l'encyclopédie
+  								</a>
+  								<div class="nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc">
+  									<INCLURE{fond=noisettes/inc/article-mot}{id_article}{id_groupe=5}{titre='Thématique'}>
+  								</div>
+  							</div>
+  						</div>
+  						]
+  					]
+  
+  				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
+  					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
+  					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
+  					[<div class="sidebar_bubble">
+    						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
+  					<div class="bloc_option_doc nettoyeur">
+  						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
+  							Partager le lien
+  						</a>
+  						<div class="cache">
+  							<code><a href="#URL_SITE_SPIP/(#GET{url})" target="_blank">#URL_SITE_SPIP/#GET{url}</a></code>
+  						</div>
+  					</div>
+  					</div>
+  					]
+  <!--
+  				[(#REM)Liens sociaux]
+  					[(#PLUGIN{SOCIALTAGS}|oui)
+  					
+            <div class="sidebar_bubble">
+    				  <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_reseaux-#ID_ARTICLE}>
+    					<div class="bloc_option_doc nettoyeur">
+    						<a id="bloc_reseaux-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_social" title="Réseaux sociaux" href="#">
+    							Réseaux sociaux
+    						</a>
+    						<div class="cache">
+    							<div class="reseaux"></div>
+    						</div>
+    					</div>
+  					</div>
+  					]
+  -->
+  				[(#REM)Données de la classe]
+  					[(#GET{type_objet}|=={travail_en_cours}|oui)
+  					[
+  						<div class="sidebar_bubble">
+    						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_donnees-#ID_ARTICLE}>
+  					<div class="bloc_option_doc nettoyeur">
+  						<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_about" title="À propos de la classe" href="#">
+  							À propos de la classe
+  						</a>
+  						<div class=" ">
+  							<div class="donnees_classe">(#GET{donnees_classe})</div>
+  						</div>
+  					</div></div>
+  					]
+  					]
+  
+  				[(#REM)Bloc suppression]
+  					[(#AUTORISER{modifier, article, #ID_ARTICLE})
+  						[(#SET{confirmation,Etes vous sûr de vouloir supprimer l\'article [\'(#TITRE|attribut_html)\']})]
+  						<!--
+  						<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
+  						-->
+  					]
+  			]
+   </div>
+  </div>
+ </div>
 
 	[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
 		</div>
 	]
+</div>
 
-	[(#MODE|!={ajax-detail}|oui)</div>]
-
+[(#MODE|!={ajax-detail}|oui)
+</div>
+]
 </BOUCLE_principale>

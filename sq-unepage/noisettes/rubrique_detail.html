@@ -1,5 +1,11 @@
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{doublons}{tout}>
 	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+  
+<INCLURE{fond=noisettes/call_sidebar}>  
+  
+<div id="sidebar_main_around">
+	<div id="sidebar_main">
+  	<div id="sidebar_content_inner">
 		
 		[(#REM) ---------------- entete publication ---------------- ]
 		#SET{type_objet,#TYPE_OBJET}
@@ -48,7 +54,8 @@
       						
     						$().ready(function(){
       						$('#ajax_go_to_consigne_#ID_ARTICLE').on('click',function() {
-      							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
+        						console.log('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]');
+      							$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
       						});
     						});						
   						
@@ -59,7 +66,7 @@
           						
         						$().ready(function(){      						
           						$('#ajax_go_to_reponse_#ID_ARTICLE').on('click',function() {
-          							$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
+          							$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', {limit: 25}, function(){ });					
           						});
         						});						
       						
@@ -163,6 +170,9 @@
 	[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
 		</div>
 	]
+  	  </div>
+  	</div>
+	</div>
 
 	[(#MODE|!={ajax-detail}|oui)</div>]
 

@@ -2,8 +2,9 @@
 <BOUCLE_principale(GROUPES_MOTS){id_groupe}{tout}>
 	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
 	
-	
-	<div id="ressources_gauche">
+<div id="sidebar_lateral_around">
+	<div id="sidebar_lateral">
+  	<div id="sidebar_content_inner">
 		<div class="popup_titre">
 			[(#MODE|=={ajax}|non)<!--<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">-->]
 			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
@@ -19,11 +20,11 @@
 						<script type="text/javascript">
 						$().ready(function(){
 						$('#ajax_rub_#ID_MOT').click(function() {
-							$('div#ressources_droite').addClass('chargement');
-							$('#ressources_droite').load('[(#URL_PAGE{groupe_mot}|parametre_url{id_groupe,#ID_GROUPE}|parametre_url{id_mot,#ID_MOT}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+							$('div#sidebar_main').addClass('chargement');
+							$('#sidebar_main').load('[(#URL_PAGE{groupe_mot}|parametre_url{id_groupe,#ID_GROUPE}|parametre_url{id_mot,#ID_MOT}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 							, {limit: 25}, function(){ 
-								$('div#ressources_droite').removeClass('chargement');
-								$('#ressources_droite').show('slow'); 		
+								$('div#sidebar_main').removeClass('chargement');
+								$('#sidebar_main').show('slow'); 		
 								});					
 						});});						
 						</script>
@@ -35,11 +36,11 @@
 									<script type="text/javascript">
 										$().ready(function(){
 										$('#ajax#ID_ARTICLE').click(function() {
-											$('div#ressources_droite').addClass('chargement');
-											$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+											$('div#sidebar_main').addClass('chargement');
+											$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 											, {limit: 25}, function(){ 
-												$('div#ressources_droite').removeClass('chargement');	
-												$('#ressources_droite').show('slow'); 		
+												$('div#sidebar_main').removeClass('chargement');	
+												$('#sidebar_main').show('slow'); 		
 												});					
 										});});
 										</script>
@@ -59,11 +60,11 @@
 		[(#ID_ARTICLE|oui)
 			<script type="text/javascript">
 			$().ready(function(){
-				$('div#ressources_droite').addClass('chargement');
-				$('#ressources_droite').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+				$('div#sidebar_main').addClass('chargement');
+				$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
-					$('div#ressources_droite').removeClass('chargement');
-					$('#ressources_droite').show('slow'); 		
+					$('div#sidebar_main').removeClass('chargement');
+					$('#sidebar_main').show('slow'); 		
 					});					
 			});						
 			</script>
@@ -71,11 +72,11 @@
 		[(#TYPE_OBJET|=={travail_en_cours}|oui)
 			<script type="text/javascript">
 			$().ready(function(){
-				$('div#ressources_droite').addClass('chargement');
-				$('#ressources_droite').load('[(#URL_PAGE{publier}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|parametre_url{type_objet,#TYPE_OBJET}|parametre_url{id_consigne,#ID_CONSIGNE}|html_entity_decode)]'
+				$('div#sidebar_main').addClass('chargement');
+				$('#sidebar_main').load('[(#URL_PAGE{publier}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|parametre_url{type_objet,#TYPE_OBJET}|parametre_url{id_consigne,#ID_CONSIGNE}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
-					$('div#ressources_droite').removeClass('chargement');
-					$('#ressources_droite').show('slow'); 		
+					$('div#sidebar_main').removeClass('chargement');
+					$('#sidebar_main').show('slow'); 		
 					});					
 			});						
 			</script>
@@ -92,6 +93,9 @@
 		<span class="#EDIT{texte}">#TEXTE</span>
 	</div>
 	</BOUCLE_crayon>
+	
+	</div>
+</div>
 
 [(#MODE|!={ajax-detail}|oui)</div>]
 
