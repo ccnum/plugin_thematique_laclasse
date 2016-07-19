@@ -399,22 +399,27 @@ function classes_click(id_rubrique_ouvre){
 	}
 }
 
+/* * * * * * Below : to convert into loadXXXInSidebar * * * * * */
+
 function article_ressource_click(id_objet,type_objet){
 	hide_popups();
 	var url = g_projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
 	popup(url,'ressource');
+	console.log('article_ressource_click');
 }
 
 function article_evenement_click(id_objet,type_objet){
 	hide_popups();
 	var url = g_projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');
+	console.log('article_evenement_click');
 }
 
 function article_blog_click(id_objet,type_objet){
 	hide_popups();	
 	var url = g_projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'blog');
+	console.log('article_blog_click');
 }
 
 function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
@@ -422,12 +427,14 @@ function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
 	var url = g_projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
 	popup(url,'edition');
 	if (numero!=undefined) g_consignes[numero].div_reponse_plus.style.visibility = "hidden"; // TO DO ?
+	console.log('ajoutreponse_click');
 }
 
 function reponse_ajouter_click(){
 	hide_popups();
 	var url = g_projet.url_popup_reponseajout;
 	popup(url,'reponse_editer');
+	console.log('reponse_ajouter_click');
 }
 
 function ressources_click(){
@@ -436,6 +443,7 @@ function ressources_click(){
 		showhide_travaux('show');
 		var url = g_projet.url_popup_ressources;
 		popup(url,'edition');
+    console.log('ressources_click');
 	}	
 }
 
@@ -446,6 +454,7 @@ function agora_click(){
 		//popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressources','agora');
 		var url = g_projet.url_popup_agora;
 		popup(url,'agora');
+		console.log('agora_click');
 	}
 }
 
@@ -459,6 +468,7 @@ function chat_click(type){
 		popup_html(url,'chat'); } else {
 		hide_popups();
 		popup(url,'chat');
+		console.log('chat_click');
 	}
 }
 
