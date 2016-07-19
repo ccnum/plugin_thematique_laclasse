@@ -1,9 +1,8 @@
 #CACHE{0}
 
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
-	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
   	
-<div id="sidebar_lateral_around">
+<div id="sidebar_lateral_around" class="popup [popup_(#GET{type_objet})]">
   <div id="sidebar_lateral">
   	<div id="sidebar_content_inner">
 	
@@ -304,7 +303,6 @@
 		
 [(#REM)	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>]
 
-[(#MODE|!={ajax-detail}|oui)</div>]
 
 </BOUCLE_principale>
 </B_principale>

@@ -2,11 +2,9 @@
 
 <BOUCLE_principale(ARTICLES){id_article}{doublons}>
 
-<div class="popup [popup_(#ENV{type_objet})]">
-
 <INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}>
 
- <div id="sidebar_main_around">
+ <div id="sidebar_main_around" class="popup [popup_(#ENV{type_objet})]">
   <div id="sidebar_main">
    <div id="sidebar_content_inner">
      
@@ -442,6 +440,5 @@
 	]
 </div>
 
-</div>
 
 </BOUCLE_principale>

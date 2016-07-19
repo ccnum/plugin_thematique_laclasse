@@ -69,11 +69,13 @@
 
 .crayon-html {
   position: fixed !important;
-  top: 30% !important;
-  left: 30px !important;
+  top: 0 !important;
+  left: 0 !important;
   margin: -50px 0 !important;
   z-index: 10;
-  right: 30px !important;
+  right: 0 !important;
+  /* transform: translateX(-50%); */
+  bottom: 0;
 }
 
 
@@ -91,9 +93,17 @@
 }
 
 .crayon-html .formulaire_spip {
-  z-index:10000;
-  position:relative;
+  z-index: 10000;
   background: #fff;
+  width: 80%;
+  max-width: 560px;
+  transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  top: 114px;
+}
+
+.crayon-html textara.crayon-active {
 }
 
 .resizehandle_boutons {
@@ -1177,6 +1187,8 @@ a:hover{
 	border: 0px solid #fff;
 }
 
+
+
 <BOUCLE_vue(DATA){liste tout,timeline,classe,blog,evenement,ressource,consigne,article_evt,texte,image,son,video,autre,date,notation,descendant,ascendant,agora,forum,ressource_classes,reponse}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
@@ -2099,18 +2111,12 @@ div.donnees_classe {
 /* --------- Styles popups --------- */
 
 .popup {
-	font-size:11px;	
-	line-height:13px;
-	overflow-y: auto;
-	overflow-x: hidden;
-	height: 100%;
-	padding:0;
-	/*
-  box-shadow: 0 2px 7px rgba(0,0,0,.3);
-  border-radius:3px;
-  background:white;
-  */
-  margin:4px 7px 1px 0
+  font-size: 11px;
+  line-height: 13px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 0 64px 0;
+  margin: 4px 7px 1px 0;
 }
 
 .popup a {
@@ -2201,6 +2207,10 @@ div.donnees_classe {
   margin-top:10px;
   margin-bottom:10px;
   width: auto !important;
+}
+
+.spip_documents video {
+    max-width: 100%;
 }
 
 
@@ -2471,7 +2481,7 @@ div.donnees_classe {
   height: auto;
   min-height: 0px;
   position: absolute;
-  top: 4px;
+  top: 0px;
   right: 7px;
   bottom: 5px;
   width: calc(100% - 7px);
@@ -3333,6 +3343,7 @@ ul#forum, .lien_forum {
   width:550px;
   z-index:999;
   margin-right:-570px;
+  top:4px;
   
   -webkit-transition:margin 1000ms ease, width 1000ms ease;
      -moz-transition:margin 1000ms ease, width 1000ms ease;
@@ -3377,7 +3388,7 @@ ul#forum, .lien_forum {
           
     position: absolute;
     left: 0;
-    top: 5px;
+    top: 1px;
     height: 33px;
     width: 33px;
     background: #fff;
