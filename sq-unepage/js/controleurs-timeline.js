@@ -382,17 +382,24 @@ function reponse_click(id_consigne, id_reponse){
 	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
+	// Changer la page des consignes en la page des (…?)
 	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
 }
 
-function classes_click(id_rubrique_ouvre){
+function classes_click(id_rubrique_ouvre, id_travail_en_cours){
 	if (id_rubrique_ouvre==undefined) id_rubrique_ouvre='';
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
 		var url = g_projet.url_popup_classes;
 		if (id_rubrique_ouvre!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_rubrique_ouvre+'&type_objet=travail_en_cours';
     loadContentInMainSidebar(url, 'rubrique', 'classes');
+	
+  	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+id_travail_en_cours;
+  	
+  	console.log(url_travail_en_cours);
+  	
+  	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
     
 		$('#menug li a.selected').removeClass('selected');
 		$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');

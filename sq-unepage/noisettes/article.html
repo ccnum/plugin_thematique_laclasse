@@ -25,7 +25,11 @@
   			</div>
   		
   		[(#REM) ---------------- Titre & logo ---------------- ]
-  			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE} #SET{id_parent,#ID_RUBRIQUE}</BOUCLE_rub>
+  			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>#SET{titre_parent,#TITRE} #SET{id_parent,#ID_RUBRIQUE}
+  			  <BOUCLE_rub00(RUBRIQUES){id_rubrique=#ID_PARENT}{tout}>
+  			    #SET{id_travail_en_cours,#ID_RUBRIQUE}
+  			  </BOUCLE_rub00>
+  			</BOUCLE_rub>
   			  			  
 			  <BOUCLE_consigne_de_la_reponse(ARTICLES){id_article=#ID_CONSIGNE}>
 			    #SET{titre_consigne,#TITRE}
@@ -39,7 +43,7 @@
   					$().ready(function(){      						
   						$('#ajax_go_to_classe_#GET{id_parent}').on('click',function() {
     						
-    						classes_click('#GET{id_parent}');
+    						classes_click('#GET{id_parent}', '#GET{id_travail_en_cours}');
     						/*
   							loadContentInMainSidebar('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'rubrique', 'classes');		
   							loadContentInLateralSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'rubrique', '');
