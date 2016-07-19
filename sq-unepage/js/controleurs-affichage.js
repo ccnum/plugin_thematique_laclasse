@@ -241,12 +241,6 @@ function loadSidebarContent(url) {
   */
 }
 
-function showSidebar() {
-  $('body').addClass('hasSidebarOpen');
-  $('#sidebar').addClass('show');
-  resizenow();
-}
-
 function showSidebarCallback() {
 //  $('#sidebar_iframe').contents().find('.crayon-init').trigger('mouseover mouseout mouseleave');
 }

@@ -2,10 +2,8 @@
 
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
   	
-<div id="sidebar_lateral_around" class="popup [popup_(#GET{type_objet})]">
-  <div id="sidebar_lateral">
-  	<div id="sidebar_content_inner">
-	
+<div class="popup [popup_(#GET{type_objet})]">
+
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
   
@@ -44,27 +42,28 @@
 		<ul id="menug">
 			
 			[(#REM)Articles de la rubrique parente]
-				<BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
-				</BOUCLE_rubriques_ordre>
-					<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-						<script type="text/javascript">
-						$().ready(function(){
-						$('#ajax#ID_ARTICLE').click(function() {
-							$('div#sidebar_main').addClass('chargement');
-							$('#menug li a.selected').removeClass('selected');
-							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
-							$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-							, {limit: 25}, function(){ 
-                hideSidebarLateral();
-								$('div#sidebar_main').removeClass('chargement');	
-								$('#sidebar_main').show('slow'); 		
-								});					
-						});});						
-						</script>
-						<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
-					</BOUCLE_sous_articles0>
-					<br />
-					</B_sous_articles0>
+				<BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}></BOUCLE_rubriques_ordre>
+			
+				<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
+					<script type="text/javascript">
+					$().ready(function(){
+					$('#ajax#ID_ARTICLE').click(function() {
+						$('div#sidebar_main').addClass('chargement');
+						$('#menug li a.selected').removeClass('selected');
+						$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
+						$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+						, {limit: 25}, function(){ 
+              hideSidebarLateral();
+							$('div#sidebar_main').removeClass('chargement');	
+							$('#sidebar_main').show('slow'); 		
+							});					
+					});});						
+					</script>
+					<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+				</BOUCLE_sous_articles0>
+				<br />
+				</B_sous_articles0>
+				
 				</B_rubriques_ordre>
 					<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
 						<script type="text/javascript">
@@ -257,6 +256,9 @@
 	</BOUCLE_rubart>
 
 	[(#ID_RUBRIQUE_OUVRE|oui)
+	
+	  [(#REM) N'est plus utilisé]
+	
 		<script type="text/javascript">
 		$().ready(function(){
 			$('#menug li a.selected').removeClass('selected');
@@ -267,7 +269,7 @@
 				hideSidebarLateral();
 				$('div#sidebar_main').removeClass('chargement');
 				$('#sidebar_main').show('slow'); 		
-				});					
+		  });					
 		});						
 		</script>
 	]
@@ -298,12 +300,6 @@
 	</BOUCLE_crayon>
 </div>
 		
-</div>
-</div>
-		
-[(#REM)	<INCLURE{fond=noisettes/inc/rubrique-droite}{env}>]
-
-
 </BOUCLE_principale>
 </B_principale>
 	<INCLURE{fond=chargement}{type_objet=#TYPE_OBJET}>

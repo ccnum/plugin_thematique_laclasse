@@ -1,10 +1,7 @@
 #CACHE{0}
 <BOUCLE_principale(GROUPES_MOTS){id_groupe}{tout}>
-	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+<div class="popup [popup_(#GET{type_objet})]">
 	
-<div id="sidebar_lateral_around">
-	<div id="sidebar_lateral">
-  	<div id="sidebar_content_inner">
 		<div class="popup_titre">
 			[(#MODE|=={ajax}|non)<!--<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">-->]
 			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
@@ -94,10 +91,7 @@
 	</div>
 	</BOUCLE_crayon>
 	
-	</div>
 </div>
-
-[(#MODE|!={ajax-detail}|oui)</div>]
 
 </BOUCLE_principale>
 </B_principale>

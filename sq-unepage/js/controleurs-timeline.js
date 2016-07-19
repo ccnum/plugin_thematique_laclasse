@@ -58,14 +58,14 @@ function stop_action(){
 	g_action = false;
 	g_action_mois = false;
 	g_projet.frame=0;
-	log('stop_action');
+//	log('stop_action');
 }
 
 function activate_action(){
 	g_action = true;
 	g_action_mois = false;
 	g_projet.frame=0;
-	log('activate_action');
+//	log('activate_action');
 }
 
 ////////////////////////////////////////////////////////////////
@@ -374,9 +374,29 @@ function show_articles_blog(duration){
 ////////////////////////////////////////////////////////////////
 
 function consigne_click(id_consigne){
-	hide_popups();
 	var url = g_projet.url_popup_consigne+"&id_article="+id_consigne;
-	popup(url,'consigne');	
+	loadContentInMainSidebar(url, 'article', 'consignes');
+}
+
+function reponse_click(id_consigne, id_reponse){
+	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
+	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
+	
+	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
+	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
+}
+
+function classes_click(id_rubrique_ouvre){
+	if (id_rubrique_ouvre==undefined) id_rubrique_ouvre='';
+	if ($('#zone_classe').is(':hidden'))	{
+		hide_popups();
+		var url = g_projet.url_popup_classes;
+		if (id_rubrique_ouvre!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_rubrique_ouvre+'&type_objet=travail_en_cours';
+    loadContentInMainSidebar(url, 'rubrique', 'classes');
+    
+		$('#menug li a.selected').removeClass('selected');
+		$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
+	}
 }
 
 function article_ressource_click(id_objet,type_objet){
@@ -395,12 +415,6 @@ function article_blog_click(id_objet,type_objet){
 	hide_popups();	
 	var url = g_projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'blog');
-}
-
-function reponse_click(id_consigne, id_reponse){
-	hide_popups();
-	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
-	popup(url,'reponse');
 }
 
 function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
@@ -432,16 +446,6 @@ function agora_click(){
 		//popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressources','agora');
 		var url = g_projet.url_popup_agora;
 		popup(url,'agora');
-	}
-}
-
-function classes_click(id_rubrique_ouvre){
-	if (id_rubrique_ouvre==undefined) id_rubrique_ouvre='';
-	if ($('#zone_classe').is(':hidden'))	{
-		hide_popups();
-		var url = g_projet.url_popup_classes;
-		if (id_rubrique_ouvre!='') url = g_projet.url_popup_classes+'&id_rubrique_ouvre='+id_rubrique_ouvre;
-		popup(url,'classes');
 	}
 }
 

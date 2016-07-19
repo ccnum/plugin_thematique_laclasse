@@ -4,9 +4,7 @@
 
 <INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}>
 
- <div id="sidebar_main_around" class="popup [popup_(#ENV{type_objet})]">
-  <div id="sidebar_main">
-   <div id="sidebar_content_inner">
+ <div class="popup [popup_(#ENV{type_objet})]">
      
     <div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
     	
@@ -18,7 +16,8 @@
   			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
   			</BOUCLE_auteur>
   				[(#TOTAL_BOUCLE|=={1}|oui) #SET{type_objet0,consignes} ]
-  			</B_auteur><//B_auteur>
+  			</B_auteur>
+  			<//B_auteur>
   
   		[(#REM) ---------------- Hack temporaire ? ---------------- ]
   			<div class="cache">
@@ -39,9 +38,12 @@
   				<script type="text/javascript">
   					$().ready(function(){      						
   						$('#ajax_go_to_classe_#GET{id_parent}').on('click',function() {
-  						//	$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)] #sidebar_content_inner', {limit: 25}, function(){ });			
+    						
+    						classes_click('#GET{id_parent}');
+    						/*
   							loadContentInMainSidebar('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#GET{id_parent}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'rubrique', 'classes');		
   							loadContentInLateralSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'rubrique', '');
+  							*/
   						});
   					});						
   				</script>
@@ -60,7 +62,8 @@
           				<script type="text/javascript">
           					$().ready(function(){      						
           						$('#ajax_go_to_consigne_#GET{id_consigne}').on('click',function() {
-          							loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'article', 'consignes');		
+            						consigne_click('#GET{id_consigne}');
+          						//	loadContentInMainSidebar('[(#URL_PAGE{article}|parametre_url{id_article,#GET{id_consigne}}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 'article', 'consignes');		
           						});
           					});						
           				</script>
@@ -432,8 +435,6 @@
   					]
   			]
    </div>
-  </div>
- </div>
 
 	[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
 		</div>

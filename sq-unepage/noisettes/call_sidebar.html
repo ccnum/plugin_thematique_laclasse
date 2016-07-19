@@ -1,14 +1,32 @@
+#CACHE{0}
+
 <script type="text/javascript">
   $().ready(function(){
-    $('.call_sidebar_main').on('click', function(){
-      $('body').toggleClass('hasSidebarLateralVisible');
-      console.log('toggle : hasSidebarLateralVisible');
+    $('.call_sidebar_main').off('click').on('click', function(){
+      if ($('body').hasClass('hasSidebarLateralVisible')) {
+        $('body').removeClass('hasSidebarLateralVisible');
+      } else {
+        $('body').addClass('hasSidebarLateralVisible');
+      }
+      
+      console.log('toggle hasSidebarLateralVisible');
     });
   });
 </script>
 
+
 <div class="call_sidebar_main couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
   <div class="call_sidebar_main_inner">
-    Show/hide
+    [(#TYPE_OBJET|=={consignes}|oui)
+      Afficher toutes les consignes
+    ]
+    
+    [(#TYPE_OBJET|=={travail_en_cours}|oui)
+      Afficher les réponses des classes
+    ]
+    
+    [(#TYPE_OBJET|=={classes}|oui)
+      Afficher toutes les classes
+    ]
   </div>
 </div>
