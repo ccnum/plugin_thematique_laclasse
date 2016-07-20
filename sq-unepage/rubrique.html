@@ -20,7 +20,9 @@
 		[(#GET{ref}|non) #SET{mode,complet} ]		
 	]
 
-	[(#GET{mode}|=={detail}|oui)<INCLURE{fond=layout}{env}{page=rubrique} />]
+	[(#GET{mode}|=={detail}|oui)
+		<INCLURE{fond=noisettes/rubrique}{type_objet=#GET{type_objet}}{env} />
+  ]
 	[(#GET{mode}|=={complet}|oui)<INCLURE{fond=layout}{id_rubrique}{env}{page=sommaire}{type_objet=#GET{type_objet}}{id_objet=#ID_ARTICLE} />]
 	[(#GET{mode}|match{ajax}|oui)
 		[(#REM)Type d'admin : 0 : total / autrement : nb de rubriques restreintes / -1 : pas admin]	

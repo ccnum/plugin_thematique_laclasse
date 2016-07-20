@@ -1,7 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  OBJET consigne()
+/**
+ * Génère une consigne.
  *
+ * @constructor
  */
  
 function consigne(){
@@ -61,8 +61,10 @@ function consigne(){
 	
 		this.date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1] + " " + date.substring(6, 10);
 		this.div_titre = document.createElement("div");
-		this.div_titre.setAttribute("onClick","consigne_ouvre("+this.numero+")");
+		this.div_titre.setAttribute("onClick","consigne_click("+this.id+")");
 		this.div_titre.setAttribute("id","consigne"+this.id);
+		this.div_titre.setAttribute("data-id",this.id);
+		this.div_titre.setAttribute("data-index",this.numero);
 		var coul = ""+intervenant_id+"";
 		var coul = coul.substr(coul.length-1,1);			
 		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
@@ -99,7 +101,7 @@ function consigne(){
     // Préparation bouton réponse plus (crayon)
 	
 		this.div_reponse_plus = document.createElement("div");
-		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne' > Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse
+		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne' > Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
 		
 		/*
 		this.div_reponse_plus.style.position = "absolute";
@@ -219,10 +221,16 @@ function consigne(){
 		this.select = false;
 	}
 
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE ouvre()
+  /**
+   * Affiche la consigne et les réponses associées.
    *
+   * @param {Object} projet - Projet global de la CCN
+   * @param {string[]} consignes - Liste des consignes
+   * @param {string[]} articles_blog - Liste des articles de blog
+   * @param {string[]} articles_evenements - Liste des événements
+   *
+   * @see consigne_ouvre
+   * @see consigne_click
    */
    
   this.ouvre = function(projet, consignes, articles_blog, articles_evenement){
@@ -255,7 +263,7 @@ function consigne(){
 		$('.reponse_haute_consigne_parent'+this.id).removeClass('hide');
 		
 		this.div_titre.removeAttribute("onClick");
-		this.div_titre.setAttribute("onClick","consigne_ouvre("+this.numero+");");
+		this.div_titre.setAttribute("onClick","consigne_click("+this.id+");");
 		
     // Cache les articles de blog (TO DO)
 	
@@ -281,7 +289,7 @@ function consigne(){
 		},2300);
 		
 		stop_action();
-		consigne_click(this.id);
+	//	consigne_click(this.id);
 		this.select = true;
 	}
 }

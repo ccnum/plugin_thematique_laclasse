@@ -132,17 +132,17 @@ et/ou
 				  #SET{num,0}
 
 					<BOUCLE_consignes0(RUBRIQUES mots mots_liens){mots.titre=consignes}{rubriques.id_rubrique=mots_liens.id_objet}>
-				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_ouvre([(#GET{num})]);}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_click('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
 				      [(#SET{num,[(#GET{num}|plus{1})]})]
 					</BOUCLE_consignes0>						
 					<BOUCLE_consignes(ARTICLES mots_liens rubriques){rubriques.id_rubrique=mots_liens.id_objet}{mots_liens.id_mot=2}{tout}>
-				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_ouvre([(#GET{num})]);}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_click('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
 				      [(#SET{num,[(#GET{num}|plus{1})]})]
 					</BOUCLE_consignes>
 
 				  <BOUCLE_r4(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
 				    <BOUCLE_a4(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
-				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_ouvre([(#GET{num})]);}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=consigne_click('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
 				      [(#SET{num,[(#GET{num}|plus{1})]})]
 				    </BOUCLE_a4>
 				  </BOUCLE_r4>

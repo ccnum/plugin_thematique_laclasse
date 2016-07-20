@@ -3,18 +3,31 @@
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
   	
 <div class="popup [popup_(#GET{type_objet})]">
+  
+<INCLURE{fond=noisettes/call_sidebar}>
 
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
-  
+  [(#REM) ---------------- titre & logo ---------------- ] 
+		<div class="sidebar_bubble">  		
+			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+			    <div class="texte">
+			        <div class="titre">[(#TITRE|supprimer_numero)]</div>
+			        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
+			    </div>
+			</div>
+		</div>
+		
+		<!--
 	<div class="sidebar_bubble">
 		<div class="ressources_header_titre">
-			[(#MODE|=={ajax}|non)<!--<img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur#GET{coul}.gif">-->]
+			[(#MODE|=={ajax}|non) ]
 			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
 			<span class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</span>
 		</div>
-		
-		
+	</div>
+		-->
 		
 <BOUCLE_tab_consignes_rubrique(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
 	<BOUCLE_tab_consignes_consigne(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
@@ -37,6 +50,7 @@
 	</BOUCLE_tab_consignes_consigne>
 </BOUCLE_tab_consignes_rubrique>
 
+	<div class="sidebar_bubble">
 		[(#REM)Corps Menu Arborescent]
   <div id="listmenu">
 		<ul id="menug">
@@ -274,7 +288,7 @@
 		</script>
 	]
 	
-	[(#TYPE_OBJET|=={travail_en_cours}|oui)
+	[(#REM) #TYPE_OBJET|=={travail_en_cours}|oui
 		<script type="text/javascript">
 		$().ready(function(){
 			$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');

@@ -399,7 +399,7 @@ function consignes_load(fichier){
         }
         
         // Ajoute le bouton de réponse si pas encore de réponse de la classe
-        if (nb_classe_reponse == 0)	nouvelle_consigne.ajouter_reponse_plus();
+        if (nb_classe_reponse == 0)	nouvelle_consigne.ajouter_reponse_plus(); // TO SEE
         
         // Consigne suivante
         
@@ -660,7 +660,6 @@ function init_view(){
 			for (k=0; k<g_consignes.length;k++){
 				if (g_consignes[k].id == g_u_id_objet){
 					consigne_click(g_u_id_objet);
-					consigne_ouvre(g_consignes[k].numero);
 				}
 			}
 		}

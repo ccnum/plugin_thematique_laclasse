@@ -1,14 +1,15 @@
-#CACHE{0}
-
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{doublons}{tout}>
 
 <div class="popup [popup_(#GET{type_objet})]">
   
-<INCLURE{fond=noisettes/call_sidebar}>
+<INCLURE{fond=noisettes/call_sidebar}>  
+  
+<div id="sidebar_main_around">
+	<div id="sidebar_main">
+  	<div id="sidebar_content_inner">
 		
 		[(#REM) ---------------- entete publication ---------------- ]
 		#SET{type_objet,#TYPE_OBJET}
-		
 		[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax}|oui})#SET{type_objet,ressources}]
 		
 		[(#REM) ---------------- entete publication ---------------- ] 
@@ -21,7 +22,7 @@
 			
 		[(#REM) ---------------- titre & logo ---------------- ] 
 		<div class="sidebar_bubble">  		
-			<div class="fiche_titre hello couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
 			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
 			    <div class="texte">
 			        <div class="titre">[(#TITRE|supprimer_numero)]</div>
@@ -65,7 +66,7 @@
           						
         						$().ready(function(){      						
           						$('#ajax_go_to_reponse_#ID_ARTICLE').on('click',function() {
-                        reponse_click('#_consigne:ID_ARTICLE', '#ID_ARTICLE');			
+          							reponse_click('#_consigne:ID_ARTICLE', '#ID_ARTICLE');			
           						});
         						});						
       						
@@ -169,6 +170,9 @@
 	[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
 		</div>
 	]
+  	  </div>
+  	</div>
+	</div>
 
 </div>
 

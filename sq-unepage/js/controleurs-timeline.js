@@ -6,66 +6,16 @@
  *
  */
    
-function largeur_zone(){
-    //return $(window).width()*0.82;
-    
-    return $(window).width()*0.98;
-    
-    /*
-  
-    
-  if ($('body').hasClass('hasSidebarOpen')) {
-    return ($(window).width()-$('#sidebar').width())*0.98;
-    
-  } else {
-    return $(window).width()*0.98;
-  }
-  */
-  
-  // return 100;
+function largeur_zone() {
+  return $(window).width()*0.98;
 }
 
-function hauteur_zone(){
-    //return $(window).height()-40;
-    //if($("#menu_bas").height())	return $(window).height() - $("#menu_bas").height() - $("#menu_haut").height();
-	//return $(window).height()*0.873;
-	
-	
+function hauteur_zone() {
   return $(window).height()*0.873;
-    
-  //  return 100;
 }
 
 function resizenow() {
-  /*
-  var browserwidth = largeur_zone();
-  var browserheight = hauteur_zone();
-  $('#zone').css('width', browserwidth).css('height', browserheight);
-  //$('#zone').css('left', ((browserwidth - $("#zone").width())/2)).css('top', ((browserheight - $("#zone").height())/2));
-  g_projet.largeur = browserwidth;
-  g_projet.hauteur = browserheight;
-  g_projet.div_base.width = browserwidth;
-  g_projet.div_base.height = browserheight;
-  largeur = browserwidth;
-  hauteur = browserheight;
-  this.frame = 0;
-  */
-  
   update_connecteurs();
-}
-
-function stop_action(){
-	g_action = false;
-	g_action_mois = false;
-	g_projet.frame=0;
-//	log('stop_action');
-}
-
-function activate_action(){
-	g_action = true;
-	g_action_mois = false;
-	g_projet.frame=0;
-//	log('activate_action');
 }
 
 ////////////////////////////////////////////////////////////////
@@ -110,11 +60,30 @@ function showhide_travaux(mode){
 }
 
 
-////////////////////////////////////////////////////////////////
-// Consignes
-////////////////////////////////////////////////////////////////
-
-function consigne_ouvre(numero){
+/**
+ * Gère les événements lors du click sur une consigne et appelle {@link consigne.ouvre}.
+ *
+ * @param {number} numero - Index de la consigne (voir ex.1) ou ID SPIP de l'objet (voir ex.2)
+ * @param {boolean} [isIdOfObject] - Définit si le numéro passé avec le paramètre <tt>numero</tt> est l'ID SPIP de l'objet
+ *
+ * @example
+ * // Avec l'index de la consigne
+ * consigne_ouvre(0);
+ *
+ * @example
+ * // Avec l'ID SPIP la consigne
+ * consigne_ouvre(146, true);
+ *
+ * @see consigne_click
+ * @see consigne#ouvre
+ */
+ 
+function consigne_ouvre(numero, isIdOfObject) {
+  
+  if (isIdOfObject == true) {
+    var numero = $('.consigne[data-id="'+numero+'"]').data('index');
+  }
+  
 	var consigne_deja_select = 0;
 	
 	for (i=0; i<g_consignes.length;i++){
@@ -129,28 +98,30 @@ function consigne_ouvre(numero){
   //	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
   }
   
-  //Puis on ouvre la consigne
+  // Puis on ouvre la consigne
+  
   g_consignes[numero].ouvre(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
   
-  // TO DO 
+  // Listener de fermeture (TO DO)
   
-  //Listener de fermeture
   g_projet.timeline.unbind().click(function(){
   //	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
   });
-  //Propagation isotope
+  
+  // Propagation isotope
   var bouton = $(".filter a[onclick*='consigne_ouvre("+numero+")']");
   isotope_filtre(bouton);
-
 }
 
 function consigne_ferme(numero){
-	//Listener de fermeture
-		$("#canvas_projet").unbind('click');
-	//Fermeture
-		g_consignes[numero].ferme(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
-	//Propagation isotope
-		isotope_consignes_ferme_tout();
+	// Listener de fermeture
+  $("#canvas_projet").unbind('click');
+	
+	// Fermeture
+  g_consignes[numero].ferme(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
+	
+	// Propagation isotope
+  isotope_consignes_ferme_tout();
 }
 
 ////////////////////////////////////////////////////////////////
@@ -376,13 +347,16 @@ function show_articles_blog(duration){
 function consigne_click(id_consigne){
 	var url = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInMainSidebar(url, 'article', 'consignes');
+	consigne_ouvre(id_consigne, true);
 }
 
 function reponse_click(id_consigne, id_reponse){
 	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
+	// TODO
 	// Changer la page des consignes en la page des (…?)
+	
 	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
 }
@@ -395,10 +369,9 @@ function classes_click(id_rubrique_ouvre, id_travail_en_cours){
 		if (id_rubrique_ouvre!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_rubrique_ouvre+'&type_objet=travail_en_cours';
     loadContentInMainSidebar(url, 'rubrique', 'classes');
 	
+	
+    // TODO
   	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+id_travail_en_cours;
-  	
-  	console.log(url_travail_en_cours);
-  	
   	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
     
 		$('#menug li a.selected').removeClass('selected');
@@ -503,3 +476,23 @@ function show_buttons(){
 	if (reponse_plus2 != null) reponse_plus2.style.visibility = "visible";
 }
 
+
+
+
+// Deprecated
+
+function stop_action(){
+	g_action = false;
+	g_action_mois = false;
+	g_projet.frame=0;
+//	log('stop_action');
+}
+
+// Deprecated
+
+function activate_action(){
+	g_action = true;
+	g_action_mois = false;
+	g_projet.frame=0;
+//	log('activate_action');
+}
