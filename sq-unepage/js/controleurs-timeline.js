@@ -86,7 +86,7 @@ function showhide_travaux(mode){
  * consigne_ouvre(0);
  *
  * @example
- * // Avec l'ID SPIP la consigne
+ * // Avec l'ID SPIP de la consigne
  * consigne_ouvre(146, true);
  *
  * @see consigne_click
@@ -645,13 +645,18 @@ function chat_click(type){
 	var url = g_projet.url_popup_chat;
 	if (type==2) url = g_projet.url_popup_chat2;
 	if (url.match("target=blank"))	window.open(url);
-	else
-	if (url.match("<"))	{
-		hide_popups();
-		popup_html(url,'chat'); } else {
-		hide_popups();
-		popup(url,'chat');
-		console.log('chat_click');
+	
+	else {
+  	if (url.match("<"))	{
+  		hide_popups();
+  	//	popup_html(url,'chat'); 
+    } 
+    
+    else {
+  		hide_popups();
+  		popup(url,'chat');
+  		console.log('chat_click');
+  	}
 	}
 }
 
