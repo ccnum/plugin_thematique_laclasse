@@ -10,14 +10,12 @@ var g_consignes, g_consigne_index;
 var g_reponses, g_reponse_index;
 var g_articles_blog, g_article_blog_index;
 var g_articles_evenement, g_article_evenement_index;
-var g_frame;
 var g_hide_travaux;
 var g_hide_articles_blog;
 var g_hide_articles_evenement;
 var g_popup_consigne, g_popup_reponse, g_popup_article_blog, g_popup_article_evenement, g_popup_ressources, g_popup_classes, g_popup_chat, g_popup_reponse_ajouter;
 var g_bouton_plus, g_couleur_blog;
 var g_duration_def;
-var g_action, g_action_mois, g_action_reponses;
 
 
 ////////////////////////////////////////////////////////////////

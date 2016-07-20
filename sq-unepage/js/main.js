@@ -1,65 +1,49 @@
 var g_loaded = false;
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  init()
+/**
+ * Première fonction initialisant le document
+ * et les variables globales, puis appelant
+ * le chargement du projet 
  *
- *  Première fonction initialisant le document
- *  et les variables globales, puis appelant
- *  le chargement du projet 
- *
- */
- 
+ * @see loadProjet
+ */   
+
 function init() {
+  g_zone                      = document.getElementById("zone");
+  g_click_reponse             = false;
+  g_hide_travaux              = false;
+  g_hide_articles_blog        = false;
+  g_hide_articles_evenement   = false;
+  g_classes                   = [];
+  g_classe_index              = 0;
+  g_intervenants              = [];
+  g_intervenant_index         = 0;
+  g_consignes                 = [];
+  g_consigne_index            = 0;
+  g_reponses                  = [];
+  g_reponse_index             = 0;
+  g_articles_blog             = [];
+  g_article_blog_index        = 0;
+  g_articles_evenement        = [];
+  g_article_evenement_index   = 0;
+  g_couleur_blog              = '';
+  g_duration_def              = 800;
   
-  // Initialise le document
+  // Charge le projet
   
-  g_zone = document.getElementById("zone");
-  g_zone.onmousedown = mouse_down;
-  g_zone.onmouseup = mouse_up;
-  g_zone.onmousemove = mouse_move;
-  g_projet = new projet();
-  
-  // Initialise les globales
- 
-  g_frame = 0;
-  g_click_reponse = false;
-  g_hide_travaux = false;
-  g_hide_articles_blog = false;
-  g_hide_articles_evenement = false;
-  g_classes = [];
-  g_classe_index = 0;
-  g_intervenants = [];
-  g_intervenant_index = 0;
-  g_consignes = [];
-  g_consigne_index = 0;
-  g_reponses = [];
-  g_reponse_index = 0;
-  g_articles_blog = [];
-  g_article_blog_index = 0;
-  g_articles_evenement = [];
-  g_article_evenement_index = 0;
-  g_couleur_blog = '';
-  g_duration_def = 800;
-  // g_bouton_plus = new bouton();
-  
-  stop_action();
-  
-  // Charge le projet -> c'est parti
-  projet_load(g_u_xml+"projet");
+  loadProjet(g_u_xml+"projet");
 }
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  projet_load()
- *
+
+/**
  *  Charge le XML du projet,
  *  initialise le projet
  *  puis appelle le chargement des classes 
  *
+ * @see loadProjet
  */
 
-function projet_load(fichier){  
+function loadProjet(fichier){  
 	var xmlhttp;
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
@@ -77,46 +61,51 @@ function projet_load(fichier){
 			
 			// Récupération des données extraites du XML
 			
-			var date_debut = xmldoc.getElementsByTagName("date_debut")[0].childNodes[0].nodeValue;
-			var date_fin = xmldoc.getElementsByTagName("date_fin")[0].childNodes[0].nodeValue;
-			var couleur_fond = xmldoc.getElementsByTagName("couleur_fond")[0].childNodes[0].nodeValue;
-			var couleur_base_texte = xmldoc.getElementsByTagName("couleur_base_texte")[0].childNodes[0].nodeValue;
-			var couleur_1erplan1 = xmldoc.getElementsByTagName("couleur_1erplan1")[0].childNodes[0].nodeValue;
-			var couleur_1erplan2 = xmldoc.getElementsByTagName("couleur_1erplan2")[0].childNodes[0].nodeValue;
-			var couleur_1erplan3 = xmldoc.getElementsByTagName("couleur_1erplan3")[0].childNodes[0].nodeValue;
 			g_couleur_blog = xmldoc.getElementsByTagName("couleur_blog")[0].childNodes[0].nodeValue;			
-			//var largeur = parseFloat(xmldoc.getElementsByTagName("largeur")[0].childNodes[0].nodeValue);
-			//var hauteur = parseFloat(xmldoc.getElementsByTagName("hauteur")[0].childNodes[0].nodeValue);
-			var largeur = largeur_zone();
-			var hauteur = hauteur_zone();
+			
+			var dataForProjet = {};
+			
+			dataForProjet.date_debut = xmldoc.getElementsByTagName("date_debut")[0].childNodes[0].nodeValue;
+			dataForProjet.date_fin = xmldoc.getElementsByTagName("date_fin")[0].childNodes[0].nodeValue;
+			dataForProjet.couleur_fond = xmldoc.getElementsByTagName("couleur_fond")[0].childNodes[0].nodeValue;
+			dataForProjet.couleur_base_texte = xmldoc.getElementsByTagName("couleur_base_texte")[0].childNodes[0].nodeValue;
+			dataForProjet.couleur_1erplan1 = xmldoc.getElementsByTagName("couleur_1erplan1")[0].childNodes[0].nodeValue;
+			dataForProjet.couleur_1erplan2 = xmldoc.getElementsByTagName("couleur_1erplan2")[0].childNodes[0].nodeValue;
+			dataForProjet.couleur_1erplan3 = xmldoc.getElementsByTagName("couleur_1erplan3")[0].childNodes[0].nodeValue;
+			
+			dataForProjet.largeur = getLargeurZone();
+			dataForProjet.hauteur = getHauteurZone();
 
-			var fps = parseFloat(xmldoc.getElementsByTagName("fps")[0].childNodes[0].nodeValue);
-			var zoom_consignes = xmldoc.getElementsByTagName("zoom_consignes")[0].childNodes[0].nodeValue;
-			var liste_y_consignes = xmldoc.getElementsByTagName("seq_posy_consignes")[0].childNodes[0].nodeValue;
-			var liste_y_blogs = xmldoc.getElementsByTagName("seq_posy_blogs")[0].childNodes[0].nodeValue;
-			var liste_y_evenements = xmldoc.getElementsByTagName("seq_posy_evenements")[0].childNodes[0].nodeValue;
+			dataForProjet.fps = parseFloat(xmldoc.getElementsByTagName("fps")[0].childNodes[0].nodeValue);
+			dataForProjet.zoom_consignes = xmldoc.getElementsByTagName("zoom_consignes")[0].childNodes[0].nodeValue;
+			dataForProjet.liste_y_consignes = xmldoc.getElementsByTagName("seq_posy_consignes")[0].childNodes[0].nodeValue;
+			dataForProjet.liste_y_blogs = xmldoc.getElementsByTagName("seq_posy_blogs")[0].childNodes[0].nodeValue;
+			dataForProjet.liste_y_evenements = xmldoc.getElementsByTagName("seq_posy_evenements")[0].childNodes[0].nodeValue;
 
-			var url_popup_consigne = xmldoc.getElementsByTagName("url_popup_consigne")[0].childNodes[0].nodeValue;
-			var url_popup_reponse = xmldoc.getElementsByTagName("url_popup_reponse")[0].childNodes[0].nodeValue;
-			var url_popup_reponseajout = xmldoc.getElementsByTagName("url_popup_reponseajout")[0].childNodes[0].nodeValue;
-			var url_popup_blog = xmldoc.getElementsByTagName("url_popup_blog")[0].childNodes[0].nodeValue;
-			var url_popup_evenement = xmldoc.getElementsByTagName("url_popup_evenement")[0].childNodes[0].nodeValue;
-			var url_popup_ressources = xmldoc.getElementsByTagName("url_popup_ressources")[0].childNodes[0].nodeValue;
-			var url_popup_agora = xmldoc.getElementsByTagName("url_popup_agora")[0].childNodes[0].nodeValue;
-			var url_popup_classes = xmldoc.getElementsByTagName("url_popup_classes")[0].childNodes[0].nodeValue;
-			var url_popup_chat = xmldoc.getElementsByTagName("url_popup_chat")[0].childNodes[0].nodeValue;
-			var url_popup_chat2 = xmldoc.getElementsByTagName("url_popup_chat2")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_consigne = xmldoc.getElementsByTagName("url_popup_consigne")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_reponse = xmldoc.getElementsByTagName("url_popup_reponse")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_reponseajout = xmldoc.getElementsByTagName("url_popup_reponseajout")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_blog = xmldoc.getElementsByTagName("url_popup_blog")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_evenement = xmldoc.getElementsByTagName("url_popup_evenement")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_ressources = xmldoc.getElementsByTagName("url_popup_ressources")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_agora = xmldoc.getElementsByTagName("url_popup_agora")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_classes = xmldoc.getElementsByTagName("url_popup_classes")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_chat = xmldoc.getElementsByTagName("url_popup_chat")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_chat2 = xmldoc.getElementsByTagName("url_popup_chat2")[0].childNodes[0].nodeValue;
 
 			if (xmldoc.getElementsByTagName("image_fond")[0].childNodes[0]){
-				var image_fond = xmldoc.getElementsByTagName("image_fond")[0].childNodes[0].nodeValue;
+				dataForProjet.image_fond = xmldoc.getElementsByTagName("image_fond")[0].childNodes[0].nodeValue;
 			}else{
-				var image_fond = "";
+				dataForProjet.image_fond = "";
 			}
 			
 			// Initialise le projet
-			g_projet.init(g_zone, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2);
+			
+      g_projet = new Projet();
+      g_projet.init(dataForProjet);
 			
 			// Lance le chargement des classes
+			
 			classes_load(g_u_xml+"classes");
 		}
 	}
@@ -299,7 +288,7 @@ function consignes_load(fichier){
         
         // Initialise la consigne
         
-        var nouvelle_consigne = new consigne();
+        var nouvelle_consigne = new Consigne();
         nouvelle_consigne.init(g_projet, g_zone, g_consigne_index, id, titre, date_texte, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, g_classes, g_intervenants);
         
         
@@ -379,7 +368,7 @@ function consignes_load(fichier){
         	
         	var nouvelle_reponse = new reponse();
         	nouvelle_reponse.init(g_projet, nouvelle_consigne, g_classes, g_reponse_index, id_reponse, classe_id_reponse, titre_reponse, date_texte_reponse, date_reponse, nombre_commentaires_reponse, nombre_jours_reponse, reponse_y, vignette, g_reponse_index1);
-        	nouvelle_consigne.ajoutereponse(nouvelle_reponse);
+        	nouvelle_consigne.reponses.push(nouvelle_reponse);
         	
           // Sélection de la classe prime sur classe logguée
         	
@@ -399,7 +388,7 @@ function consignes_load(fichier){
         }
         
         // Ajoute le bouton de réponse si pas encore de réponse de la classe
-        if (nb_classe_reponse == 0)	nouvelle_consigne.ajouter_reponse_plus(); // TO SEE
+        if (nb_classe_reponse == 0)	nouvelle_consigne.showNewReponseButtonInTimeline(); // TO SEE
         
         // Consigne suivante
         
@@ -596,17 +585,17 @@ function init_view(){
   
   // Premier update pour initialiser certaines variables dont on a besoin
   
-  g_projet.update(g_zone, g_consignes, g_articles_blog, g_articles_evenement, g_mousex, g_mousey, g_mousedown, g_couleur_blog);
-  g_projet.init_timeline();
+  g_projet.initTimelineMonths();
   
   // Ouverture des icones evts et blogs
   
   hide_articles_blog(g_duration_def);
   hide_articles_evenement(g_duration_def);
   
-	update_connecteurs();
+	updateConnecteurs();
   
-  $('.reponse_haute').on('mouseover',function(){
+  $('.reponse_haute')
+  .on('mouseover',function(){
     $('body').addClass('hoveringReponse');
     $(this).addClass('hover');
     $('#connecteur_consigne_'+$(this).data('consigne-id')+'_reponse_'+$(this).data('reponse-id')).addClass('hover');
@@ -615,16 +604,10 @@ function init_view(){
     $('body').removeClass('hoveringReponse');
     $(this).removeClass('hover');
     $('.connecteur_timeline').removeClass('hover');
-  })
-  .on('click',function(){
-    $('body').addClass('highlightReponse');
-    $('.reponse_haute, .connecteur_timeline').removeClass('current_select');
-    $(this).addClass('current_select');
-    $('#connecteur_consigne_'+$(this).data('consigne-id')+'_reponse_'+$(this).data('reponse-id')).addClass('current_select');
   });
   
   $('.mois').on('click',function(){
-    g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+    g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
   });
   
 	// Zoom sur la date (TO DO)
@@ -645,9 +628,9 @@ function init_view(){
 			var mois = Math.round((date-g_projet.date_debut)/(24*60*60*30.5*1000));
 			g_projet.mois_select = mois;
 			if (mois < g_projet.nombre_mois/2){
-				g_projet.changezoompos(90, (mois*g_projet.largeur_mois), 0);
+				g_projet.showRangeOfTimeline(90, (mois*g_projet.largeur_mois), 0);
 			}else{
-				g_projet.changezoompos(90, ((mois+1)*g_projet.largeur_mois), 0);
+				g_projet.showRangeOfTimeline(90, ((mois+1)*g_projet.largeur_mois), 0);
 			}
 		}
 	}
@@ -659,7 +642,7 @@ function init_view(){
 		if (g_u_type_popup == "consignes"){
 			for (k=0; k<g_consignes.length;k++){
 				if (g_consignes[k].id == g_u_id_objet){
-					consigne_click(g_u_id_objet);
+					callConsigne(g_u_id_objet);
 				}
 			}
 		}
@@ -668,23 +651,23 @@ function init_view(){
     	for (k=0; k<g_consignes.length;k++){
     		for (l=0; l<g_consignes[k].reponses.length;l++){
     			if (g_consignes[k].reponses[l].id == g_u_id_objet){
-    				reponse_click(g_consignes[k].id, g_u_id_objet);
-    				consigne_ouvre(g_consignes[k].numero);
+    				callReponse(g_consignes[k].id, g_u_id_objet);
+    				showConsigneInTimeline(g_consignes[k].numero);
     			}
     		}
     	}
     }
     // Article de blog
     if (g_u_type_popup == "blogs"){
-    	article_blog_click(g_u_id_objet,"article");
+    	callBlog(g_u_id_objet,"article");
     }
     // Article d'événement
     if (g_u_type_popup == "evenements"){
-    	article_evenement_click(g_u_id_objet,"article");
+    	callEvenement(g_u_id_objet,"article");
     }
     // Ressource
     if (g_u_type_popup == "ressources"){
-    	article_ressource_click(g_u_id_objet,"article");
+    	callRessource(g_u_id_objet,"article");
     }
 	}
 	else {
@@ -708,73 +691,14 @@ function init_view(){
     
     // Listeners de changements sur la fenêtre pour forcer les calculs d'affichage timeline
     window.addEventListener("focus", function(event) { activate_action(); }, false);
-    window.addEventListener("resize", function(event) { activate_action(); resizenow(); }, false);
+    window.addEventListener("resize", function(event) { activate_action(); updateTimeline(); }, false);
     window.addEventListener("blur", function(event) { stop_action(); }, false);
 	});	
 }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  update()
- *
- *  Met à jour les données à interpréter à chaque frame
- *
- */
- 
-function update(){
-	// Update le projet
-  g_projet.update(g_zone, g_consignes, g_articles_blog, g_articles_evenement, g_mousex, g_mousey, g_mousedown, g_couleur_blog);
-  
-  // Compteur de frame
-  g_frame++;
-}
 
-
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  mouse_down()
- *
- */
- 
-function mouse_down(){
-	g_mousedown = true;
-	g_projet.click(g_mousex, g_mousey, g_consignes, g_articles_blog, g_articles_evenement);
-	return false;
-}
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  mouse_move()
- *
- */
- 
-function mouse_up(){
-	g_mousedown = false;
-	return false;
-}
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  mouse_move()
- *
- */
- 
-function mouse_move(evenement){
-	g_mousex = evenement.clientX-(window.innerWidth-g_zone.clientWidth)/2;
-	g_mousey = evenement.clientY-20;
-	
-  // Pour gérer le mouseover sur la barre de mois : hack temporaire pour ne pas utiliser deux canvas
-  if (g_mousey > g_projet.hauteur-80) 
-  	activate_action();
-  else 
-  	g_action_mois = false;
-}
-
-function update_connecteurs() {
-
+function updateConnecteurs() {
   $('.connecteur_timeline').each(function(){
     
     var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id'));
@@ -792,13 +716,12 @@ function update_connecteurs() {
     var transform = 'rotate('+angle+'deg)';
     
     connecteur.css({
-        'position': 'absolute',
-        'transform': transform,
-        'left': parseFloat(x1)+'px', 
-        'top': parseFloat(y1)+'px'
-      })
-      .width(parseFloat(length)+'px');
-    
+      'position': 'absolute',
+      'transform': transform,
+      'left': parseFloat(x1)+'px', 
+      'top': parseFloat(y1)+'px'
+    })
+    .width(parseFloat(length)+'px');
   });
 }
 

@@ -91,5 +91,5 @@ function hideSidebarLateral() {
 function showSidebar() {
   $('body').addClass('hasSidebarOpen');
   $('#sidebar').addClass('show');
-  resizenow();
+  updateTimeline();
 }

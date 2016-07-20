@@ -41,7 +41,7 @@ function article_blog(){
 			
 			var html = "<div id='article_blog"+id+"' class='article_blog ";
 			if ((titre.match("gazette"))||(titre.match("novamag"))||(titre.match("magazine"))) html = html+" article_blog2 ";
-			html = html + "' onClick='article_blog_click("+this.id_objet+",\""+this.type_objet+"\");'><span><b>"+titre+"</b><br/>"+date_texte+"</span>";
+			html = html + "' onClick='callBlog("+this.id_objet+",\""+this.type_objet+"\");'><span><b>"+titre+"</b><br/>"+date_texte+"</span>";
 			
 			if (nombre_commentaires > 0) html += "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div>";
 			html +=	"</div>";
@@ -61,7 +61,6 @@ function article_blog(){
 					yy = ui.position.top / y_parent;
 					alert (type_objet);
 					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id_objet, type_objet:type_objet, X:0, Y:yy } );
-					//g_action = true;
 				}
 			});
 			

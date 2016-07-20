@@ -84,16 +84,16 @@
 			<div id="chat">
 				[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_doc_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_doc_petit.png})]})]
 				[(#NOM_SITE_SPIP|match{novaterra}|oui)
-				<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click();">Ouvrir l'encyclopédie</a><br>
+				<img src="#GET{img}">&nbsp;<a href="#" onClick="callChat();">Ouvrir l'encyclopédie</a><br>
 				]
 				[(#NOM_SITE_SPIP|match{miam}|oui)
-				<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click();">Tableau des saisons</a><br>
+				<img src="#GET{img}">&nbsp;<a href="#" onClick="callChat();">Tableau des saisons</a><br>
 				]
 			</div>
 			<div id="chat2">
 				[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_doc2_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_doc2_petit.png})]})]
 				[(#NOM_SITE_SPIP|match{miam}|oui)
-				<img src="#GET{img}">&nbsp;<a href="#" onClick="chat_click(2);">Carte du projet</a><br>					
+				<img src="#GET{img}">&nbsp;<a href="#" onClick="callChat(2);">Carte du projet</a><br>					
 				]
 			</div>
 

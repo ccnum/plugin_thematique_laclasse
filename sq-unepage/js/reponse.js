@@ -58,7 +58,7 @@ function reponse() {
 		var date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1];
 		this.div_texte = document.createElement("div");
 		this.div_texte.onSelectStart = null;
-		this.div_texte.setAttribute("onClick","reponse_click("+consigne.id+","+this.id+");");
+		this.div_texte.setAttribute("onClick","callReponse("+consigne.id+","+this.id+");");
 		this.div_texte.setAttribute("id","reponse"+this.id);
 		
 		var coul = ""+classe_id+"";
@@ -99,7 +99,7 @@ function reponse() {
   				$(this).addClass('no_event');					
   			},
 				drag: function(event,ui) {
-  			  update_connecteurs();	
+  			  updateConnecteurs();	
 				},
   			stop: function(event,ui) {
   				yy = (ui.offset.top-g_projet.timeline.offset().top)/g_projet.timeline.height();

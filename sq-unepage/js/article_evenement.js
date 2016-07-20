@@ -39,7 +39,7 @@ function article_evenement(){
 			this.div_texte = document.createElement("div");
 			this.div_texte.setAttribute("class","cache");			
 			this.div_texte.onSelectStart = null;
-			var html = "<div id='article_evenement"+id+"' class='article_evenement' onClick='article_evenement_click("+this.id_objet+",\""+this.type_objet+"\");'><span><b>"+titre+"</b><br/>"+date_texte+"</span>";
+			var html = "<div id='article_evenement"+id+"' class='article_evenement' onClick='callEvenement("+this.id_objet+",\""+this.type_objet+"\");'><span><b>"+titre+"</b><br/>"+date_texte+"</span>";
 			if (nombre_commentaires > 0) html += "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div>";
 			html += "</div>";
 			this.div_texte.innerHTML = html;

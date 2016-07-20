@@ -23,7 +23,7 @@
 				//window.parent.#GET{objet}_load("spip.php?page=xml&mode=#GET{objet}&annee_scolaire=#EVAL{_annee_scolaire}&var_mode=recalcul");
 			]
 			[(#TYPE_OBJET|=={travail_en_cours}|oui)
-				//window.parent.reponse_click([(#ID_CONSIGNE)],[(#ID_ARTICLE)]);
+				//window.parent.callReponse([(#ID_CONSIGNE)],[(#ID_ARTICLE)]);
 			]
 			window.parent.document.location.href = "#GET{url}";
 		}

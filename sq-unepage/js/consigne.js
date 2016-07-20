@@ -4,7 +4,7 @@
  * @constructor
  */
  
-function consigne(){
+function Consigne(){
 	
 	var id, numero, titre, date, date_texte, nombre_reponses, nombre_commentaires, x, y, largeur, hauteur, select, taille_titre;
 	var div_base, div_titre, div_home, div_reponse_plus, div_reponses, div_reponses_classe;
@@ -56,7 +56,7 @@ function consigne(){
 	
 		this.date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1] + " " + date.substring(6, 10);
 		this.div_titre = document.createElement("div");
-		this.div_titre.setAttribute("onClick","consigne_click("+this.id+")");
+		this.div_titre.setAttribute("onClick","callConsigne("+this.id+")");
 		this.div_titre.setAttribute("id","consigne"+this.id);
 		this.div_titre.setAttribute("data-id",this.id);
 		this.div_titre.setAttribute("data-index",this.numero);
@@ -96,7 +96,7 @@ function consigne(){
     // Préparation bouton réponse plus (crayon)
 	
 		this.div_reponse_plus = document.createElement("div");
-		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutreponse_click("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne' > Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
+		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutcallReponse("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
 		
 		/*
 		this.div_reponse_plus.style.position = "absolute";
@@ -122,7 +122,7 @@ function consigne(){
 				  $(this).addClass('no_event');
 				},
 				drag: function(event,ui) {
-  			  update_connecteurs();	
+  			  updateConnecteurs();	
 				},
 				
 				stop: function(event,ui) {
@@ -146,7 +146,7 @@ function consigne(){
    * @see consignes_load
    */   
  
-  this.ajouter_reponse_plus = function(){
+  this.showNewReponseButtonInTimeline = function(){
 		if ((g_u_id_restreint > 0)
 		  &&(g_u_type_restreint != '')
 		  &&(g_u_type_restreint == 'travail_en_cours')){
@@ -156,21 +156,10 @@ function consigne(){
 
 
   /**
-   * Ajoute la réponse dans le tableau des réponses <tt>this.reponses</tt>.
-   *
-   * @see consignes_load
-   */ 
- 
-  this.ajoutereponse = function(reponse){
-		this.reponses.push(reponse);
-  }
-
-
-  /**
    * Fait apparaître le picto du nombre de commentaires d'une consigne.
    */ 
    
-	this.montre_questionscommentaires = function(){
+	this.showConsignePastille = function() {
 		$("#consigne"+this.id+" .picto_nombre_commentaires").fadeIn('slow');
 	}
 
@@ -179,7 +168,7 @@ function consigne(){
    * Fait disparaître le picto du nombre de commentaires d'une consigne.
    */ 
  
-  this.cache_questionscommentaires = function(){
+  this.hideConsignePastille = function() {
 		$("#consigne"+this.id+" .picto_nombre_commentaires").fadeOut('slow');
 	}
 
@@ -191,18 +180,18 @@ function consigne(){
    * @param {string[]} articles_blog - Liste des articles de blog
    * @param {string[]} articles_evenements - Liste des événements
    *
-   * @see consigne_ouvre
-   * @see consigne_click
+   * @see showConsigneInTimeline
+   * @see callConsigne
    *
    * @todo *1 : Vérifier
    * @todo *2 : Vérifier
    * @todo *3 : Améliorer l'arrêt du <tt>clearInterval</tt>
    */
    
-  this.ouvre = function(projet, consignes, articles_blog, articles_evenement) {
+  this.showInTimeline = function(projet, consignes, articles_blog, articles_evenement) {
 	
 	  projet.setIntervalConnecteurs = setInterval(function(){
-  	  update_connecteurs();
+  	  updateConnecteurs();
 	  },1);
 	  
 	  
@@ -213,9 +202,9 @@ function consigne(){
 		
 		var y_dest = 0;
 		
-		this.cache_questionscommentaires();	
+		this.hideConsignePastille();	
 		
-		projet.changepos(this.nombre_jours_max, this.x-3, y_dest);
+		projet.showRangeOfTimeline(this.nombre_jours_max, this.x-3, y_dest);
 		
 		$('.consigne_haute').not('#consigne_haute'+this.id).addClass('hide');
 		$('.reponse_haute').not('.reponse_haute_consigne_parent'+this.id).addClass('hide');
@@ -226,7 +215,7 @@ function consigne(){
 		$('.reponse_haute_consigne_parent'+this.id).removeClass('hide');
 		
 		this.div_titre.removeAttribute("onClick");
-		this.div_titre.setAttribute("onClick","consigne_click("+this.id+");");
+		this.div_titre.setAttribute("onClick","callConsigne("+this.id+");");
 		
     // (TODO*1) Cache les articles de blog
 	

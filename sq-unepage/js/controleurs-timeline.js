@@ -2,7 +2,7 @@
  * Définit la largeur de la zone.
  */
 
-function largeur_zone() {
+function getLargeurZone() {
   return $(window).width()*0.98;
 }
 
@@ -11,7 +11,7 @@ function largeur_zone() {
  * Définit la hauteur de la zone.
  */
 
-function hauteur_zone() {
+function getHauteurZone() {
   return $(window).height()*0.873;
 }
 
@@ -19,11 +19,11 @@ function hauteur_zone() {
 /**
  * Appelle le recalcul des connecteurs.
  *
- * @see update_connecteurs
+ * @see updateConnecteurs
  */
 
-function resizenow() {
-  update_connecteurs();
+function updateTimeline() {
+  updateConnecteurs();
 }
 
 
@@ -60,7 +60,7 @@ function showhide_travaux(mode){
 			
 			if (g_consignes[i].select == true){
 				$(g_consignes[i].div_reponse_plus).fadeIn('slow');
-				g_consignes[i].cache_questionscommentaires();
+				g_consignes[i].hideConsignePastille();
 				
 				for (j = 0 ; j < g_consignes[i].reponses.length ; j++){
 					$(g_consignes[i].reponses[j].div_base).stop().fadeIn('slow');
@@ -83,22 +83,25 @@ function showhide_travaux(mode){
  *
  * @example
  * // Avec l'index de la consigne
- * consigne_ouvre(0);
+ * showConsigneInTimeline(0);
  *
  * @example
  * // Avec l'ID SPIP de la consigne
- * consigne_ouvre(146, true);
+ * showConsigneInTimeline(146, true);
  *
- * @see consigne_click
+ * @see callConsigne
  * @see consigne#ouvre
  */
  
-function consigne_ouvre(numero, isIdOfObject) {
+function showConsigneInTimeline(numero, isIdOfObject) {
   
   if (isIdOfObject == true) {
     var numero = $('.consigne[data-id="'+numero+'"]').data('index');
   }
   
+  g_consignes[numero].showInTimeline(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
+  
+  /*
 	var consigne_deja_select = 0;
 	
 	for (i=0; i<g_consignes.length;i++){
@@ -110,49 +113,18 @@ function consigne_ouvre(numero, isIdOfObject) {
 	}
 	
   if (consigne_deja_select != 0){
-  //	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+  //	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
   }
+  */
   
   // Puis on ouvre la consigne
   
-  g_consignes[numero].ouvre(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
   
-  // Listener de fermeture (TO DO)
-  
-  g_projet.timeline.unbind().click(function(){
-  //	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
-  });
-  
+  /*
   // Propagation isotope
-  var bouton = $(".filter a[onclick*='consigne_ouvre("+numero+")']");
+  var bouton = $(".filter a[onclick*='showConsigneInTimeline("+numero+")']");
   isotope_filtre(bouton);
-}
-
-
-/**
- * Afficher la réponse.
- *
- * @todo Documenter
- */
-
-function show_reponse(index_consigne,index_reponse){
-	for (i=0; i<g_consignes[index_consigne].reponses.length;i++){
-		//log (i+' '+index_reponse);	
-		$(g_consignes[index_consigne].reponses[i].div_base).stop(true);
-		if (i != index_reponse) $(g_consignes[index_consigne].reponses[i].div_base).stop(true).fadeTo(300,0.5);
-		if (i == index_reponse) $(g_consignes[index_consigne].reponses[i].div_base).stop(true).fadeTo(300,1);		
-	}
-}
-
-
-/**
- * @deprecated
- */
-
-function hide_reponse(index_consigne,index_reponse){
-	for (i=0; i<g_consignes[index_consigne].reponses.length;i++){
-		$(g_consignes[index_consigne].reponses[i].div_base).stop(true).fadeTo(300,1);
-	}
+  */
 }
 
 
@@ -280,7 +252,7 @@ function hide_articles_evenement(duration){
 
 function show_articles_evenement(duration){
 	if (duration == undefined) duration = g_duration_def;
-	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
 	showhide_travaux('hide');
 	hide_articles_blog();
 	$.each(g_articles_evenement, function(index, value) {	
@@ -411,7 +383,7 @@ function hide_articles_blog(duration){
 
 function show_articles_blog(duration){
 	if (duration == undefined) duration = g_duration_def;
-	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);	
+	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);	
 	showhide_travaux('hide');
 	hide_articles_evenement();
 	$.each(g_articles_blog, function(index, value) {	
@@ -430,15 +402,15 @@ function show_articles_blog(duration){
  * @param {number} id_consigne - ID de la consigne
  *
  * @see loadContentInMainSidebar
- * @see consigne_ouvre
+ * @see showConsigneInTimeline
  *
  * @todo Définir le contenu de la sidebar secondaire
  */
 
-function consigne_click(id_consigne){
+function callConsigne(id_consigne){
 	var url = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInMainSidebar(url, 'article', 'consignes');
-	consigne_ouvre(id_consigne, true);
+	showConsigneInTimeline(id_consigne, true);
 }
 
 
@@ -452,11 +424,12 @@ function consigne_click(id_consigne){
  *
  * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
+ * @see showConsigneInTimeline
  *
  * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
-function reponse_click(id_consigne, id_reponse){
+function callReponse(id_consigne, id_reponse){
 	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
@@ -464,6 +437,14 @@ function reponse_click(id_consigne, id_reponse){
 	
 	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
+  
+  showConsigneInTimeline(id_consigne, true);
+	
+	var reponse_DOM = $('.reponse_haute[data-reponse-id="'+id_reponse+'"]');
+	$('body').addClass('highlightReponse');
+  $('.reponse_haute, .connecteur_timeline').removeClass('current_select');
+  reponse_DOM.addClass('current_select');
+  $('#connecteur_consigne_'+id_consigne+'_reponse_'+id_reponse).addClass('current_select');
 }
 
 
@@ -481,7 +462,7 @@ function reponse_click(id_consigne, id_reponse){
  * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
-function classes_click(id_rubrique_ouvre, id_travail_en_cours){
+function callClasse(id_rubrique_ouvre, id_travail_en_cours){
 	if (id_rubrique_ouvre==undefined) id_rubrique_ouvre='';
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
@@ -517,11 +498,11 @@ function classes_click(id_rubrique_ouvre, id_travail_en_cours){
  * @todo Documenter
  */
 
-function article_ressource_click(id_objet,type_objet){
+function callRessource(id_objet,type_objet){
 	hide_popups();
 	var url = g_projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
 	popup(url,'ressource');
-	console.log('article_ressource_click');
+	console.log('callRessource');
 }
 
 
@@ -540,11 +521,11 @@ function article_ressource_click(id_objet,type_objet){
  * @todo Documenter
  */
 
-function article_evenement_click(id_objet,type_objet){
+function callEvenement(id_objet,type_objet){
 	hide_popups();
 	var url = g_projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');
-	console.log('article_evenement_click');
+	console.log('callEvenement');
 }
 
 
@@ -563,11 +544,11 @@ function article_evenement_click(id_objet,type_objet){
  * @todo Documenter
  */
 
-function article_blog_click(id_objet,type_objet){
+function callBlog(id_objet,type_objet){
 	hide_popups();	
 	var url = g_projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'blog');
-	console.log('article_blog_click');
+	console.log('callBlog');
 }
 
 
@@ -579,12 +560,12 @@ function article_blog_click(id_objet,type_objet){
  * @todo Documenter
  */
 
-function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
+function createReponse(id_consigne, id_rubrique_classe, numero){
 	hide_popups();
 	var url = g_projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
 	popup(url,'edition');
 	if (numero!=undefined) g_consignes[numero].div_reponse_plus.style.visibility = "hidden"; // TO DO ?
-	console.log('ajoutreponse_click');
+	console.log('createReponse');
 }
 
 
@@ -613,7 +594,7 @@ function ressources_click(){
 
 
 /**
- * Appelle le chargement de la'agora
+ * Appelle le chargement de l'agora
  * dans la sidebar principale et appelle
  * (…)
  *
@@ -625,14 +606,14 @@ function ressources_click(){
  * @todo Documenter
  */
 
-function agora_click(){
+function callAgora(){
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
 		showhide_travaux('show');
 		//popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressources','agora');
 		var url = g_projet.url_popup_agora;
 		popup(url,'agora');
-		console.log('agora_click');
+		console.log('callAgora');
 	}
 }
 
@@ -641,7 +622,7 @@ function agora_click(){
  * @deprecated
  */
 
-function chat_click(type){
+function callChat(type){
 	var url = g_projet.url_popup_chat;
 	if (type==2) url = g_projet.url_popup_chat2;
 	if (url.match("target=blank"))	window.open(url);
@@ -655,7 +636,7 @@ function chat_click(type){
     else {
   		hide_popups();
   		popup(url,'chat');
-  		console.log('chat_click');
+  		console.log('callChat');
   	}
 	}
 }
@@ -670,7 +651,6 @@ function chat_click(type){
  */
 
 function hide_popups(){
-	g_action = false;
 	
 	// Propagation isotope
 	isotope_ressources_ferme_tout();
@@ -682,8 +662,6 @@ function hide_popups(){
  */
 
 function stop_action(){
-	g_action = false;
-	g_action_mois = false;
 	g_projet.frame=0;
 }
 
@@ -693,7 +671,5 @@ function stop_action(){
  */
 
 function activate_action(){
-	g_action = true;
-	g_action_mois = false;
 	g_projet.frame=0;
 }

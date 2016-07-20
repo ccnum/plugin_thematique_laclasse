@@ -1,12 +1,11 @@
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  CLASSE projet()
+/**
+ * Génère un projet.
  *
+ * @constructor
  */
- 
-function projet(){
+
+function Projet(){
 	
-	// Membres
 	var x, xx, x_dest, dx;
 	var y, yy, y_dest, dy;
 	var largeur, hauteur, fps, frame, dzoom, x_barre, largeur_barre;
@@ -17,13 +16,17 @@ function projet(){
 	var div_base, div_barre, div_base_context, div_mois;
   var timeline_parent, timeline, timeline_width;
 	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE init()
-   *
+    
+  /**
+   * Initialise le projet.
    */
-   
-	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2){
+ 
+//	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2) {
+  
+  this.init = function(data) {
+    
+    console.log(data);
+    
 		this.x = 0;
 		this.xx = 0;
 		this.dzoom = 0;
@@ -33,15 +36,15 @@ function projet(){
 		this.yy = 0;
 		this.y_dest = 0;
 		this.dy = 0;
-		this.fps = fps;
+		this.fps = data.fps;
 		this.frame = -1;
-		this.calcdate(date_debut, date_fin);
-		this.couleur_fond = couleur_fond;
-		this.couleur_base_texte = couleur_base_texte;
-		this.couleur_1erplan1 = couleur_1erplan1;
-		this.couleur_1erplan2 = couleur_1erplan2;
-		this.couleur_1erplan3 = couleur_1erplan3;
-		this.zoom_consignes = zoom_consignes;
+		this.initTimeVariables(data.date_debut, data.date_fin);
+		this.couleur_fond = data.couleur_fond;
+		this.couleur_base_texte = data.couleur_base_texte;
+		this.couleur_1erplan1 = data.couleur_1erplan1;
+		this.couleur_1erplan2 = data.couleur_1erplan2;
+		this.couleur_1erplan3 = data.couleur_1erplan3;
+		this.zoom_consignes = data.zoom_consignes;
 		this.timeline_parent = $('#timeline');
 		this.timeline_background = $('#timeline_background');
 		this.timeline_fixed = $('#timeline_fixed');
@@ -52,7 +55,7 @@ function projet(){
 	
     // Liste y consignes
     
-		var liste_y = liste_y_consignes.split(",");
+		var liste_y = data.liste_y_consignes.split(",");
 		this.liste_y_consignes = [];
 		for (i=0;i<liste_y.length;i++){
 			this.liste_y_consignes.push(parseFloat(liste_y[i]));
@@ -60,7 +63,7 @@ function projet(){
 	
     // Liste y articles de blog
     
-		var liste_y = liste_y_blogs.split(",");
+		var liste_y = data.liste_y_blogs.split(",");
 		this.liste_y_blogs = [];
 		for (i=0;i<liste_y.length;i++){
 			this.liste_y_blogs.push(parseFloat(liste_y[i]));
@@ -68,7 +71,7 @@ function projet(){
 	
     // Liste y articles d'événement
     
-		var liste_y = liste_y_evenements.split(",");
+		var liste_y = data.liste_y_evenements.split(",");
 		this.liste_y_evenements = [];
 		for (i=0;i<liste_y.length;i++){
 			this.liste_y_evenements.push(parseFloat(liste_y[i]));
@@ -77,32 +80,31 @@ function projet(){
     // Canvas général
     
 		this.image_fond = new Image();
-		if (image_fond.length > 1){
-			this.timeline_parent.css({'background-image':'url('+image_fond+')'});
+		if (data.image_fond.length > 1){
+			this.timeline_parent.css({'background-image':'url('+data.image_fond+')'});
 		}
 		
 
     // Urls
     
-		this.url_popup_consigne = url_popup_consigne;
-		this.url_popup_reponse = url_popup_reponse;
-		this.url_popup_reponseajout = url_popup_reponseajout;
-		this.url_popup_blog = url_popup_blog;
-		this.url_popup_evenement = url_popup_evenement;
-		this.url_popup_ressources = url_popup_ressources;
-		this.url_popup_agora = url_popup_agora;
-		this.url_popup_classes = url_popup_classes;		
-		this.url_popup_chat	= url_popup_chat;
-		this.url_popup_chat2 = url_popup_chat2;
+		this.url_popup_consigne = data.url_popup_consigne;
+		this.url_popup_reponse = data.url_popup_reponse;
+		this.url_popup_reponseajout = data.url_popup_reponseajout;
+		this.url_popup_blog = data.url_popup_blog;
+		this.url_popup_evenement = data.url_popup_evenement;
+		this.url_popup_ressources = data.url_popup_ressources;
+		this.url_popup_agora = data.url_popup_agora;
+		this.url_popup_classes = data.url_popup_classes;		
+		this.url_popup_chat	= data.url_popup_chat;
+		this.url_popup_chat2 = data.url_popup_chat2;
 	}
 	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE calcdate()
-   *
-   */
-   
-	this.calcdate = function(date_debut, date_fin){
+
+  /**
+   * Définit les variables de temps
+   */   
+ 
+	this.initTimeVariables = function(date_debut, date_fin){
 		var jd1 = parseFloat(date_debut.substring(0, 2));
 		var md1 = parseFloat(date_debut.substring(3, 5));
 		var yd1 = parseFloat(date_debut.substring(6, 10));
@@ -128,195 +130,47 @@ function projet(){
 		this.aujourdhui = Math.round(new Date()-this.date_debut)/(24*60*60*1000);
 		this.premiere_annee = yd1;
 	}
-	
-	// méthode update
-	this.update = function(canvas, consignes, articles_blog, articles_evenement, x, y, mousedown, couleur_blog){
-		//Initialisation de certains affichages - type document.ready
-		
-		/*
-		
-			if (this.frame == -1)
-			{
-				for (i=0;i<consignes.length;i++){
-					consignes[i].largeur = $(consignes[i].div_base).outerWidth();
-					consignes[i].hauteur = $(consignes[i].div_base).outerHeight();
-					if (consignes[i].div_reponse_plus.style.visibility == 'visible')
-					{
-						consignes[i].div_reponse_plus.style.left = consignes[i].largeur+10+"px";
-						//consignes[i].div_home.style.left = consignes[i].largeur+55+"px";
-					}
-					//else consignes[i].div_home.style.left = consignes[i].largeur+10+"px";
-					for (j=0; j<consignes[i].reponses.length;j++){
-						consignes[i].reponses[j].hauteur = $(consignes[i].reponses[j].div_base).outerHeight();
-					}
-				}
-			}
-			
-		//Every frame if g_action
-			if ((g_action == true)||(g_action_mois == true)||(this.frame == -1))
-			{
-				// calcul ratio zoom
-					var ratio = this.largeur/this.nombre_jours_vus;
-				// prépare rendu
-					this.div_base.style.cursor = "default";
 
-					this.div_base_context.drawImage(this.image_fond, 0, 0, this.largeur, this.hauteur);
 
-					
-				// calcul precalcul zoom + position
-					this.largeur_mois = Math.round(this.largeur/this.nombre_mois)*(this.nombre_jours/this.nombre_jours_vus);
-					this.dzoom = (this.nombre_jours_vus_dest-this.nombre_jours_vus)/10;
-					this.nombre_jours_vus += this.dzoom;
-					this.dx = (this.x_dest-this.x)/10;
-					this.x += this.dx;
-					this.xx = this.x*ratio;
-					this.dy = (this.y_dest-this.y)/10;
-					this.y += this.dy;
-					this.yy = this.y;
-
-				// zone interactive barre mois
-					this.div_base_context.fillStyle = "#eee";
-					this.x_barre = 0;
-					this.largeur_barre = (this.nombre_jours_vus)*this.largeur;
-					this.div_base_context.fillRect(this.x_barre, this.hauteur-44, this.largeur_barre, 20);
-
-					if (this.mois_select >= 0){
-						this.div_base_context.fillStyle = this.couleur_1erplan2;
-						this.div_base_context.fillRect(this.xx+this.mois_select*this.xx, this.hauteur-44, this.largeur_mois, 20);
-					}
-					this.div_base_context.fillStyle = this.couleur_1erplan2;
-					this.mois_rollover = -1;
-
-					if ((y > this.hauteur-30)&&(y < this.hauteur)){
-						this.div_base.style.cursor = "pointer";
-						this.mois_rollover = Math.round((x-this.xx-(this.largeur_mois/2))/this.largeur_mois);
-						if (this.mois_rollover >= 0 && this.mois_rollover < this.nombre_mois){
-							this.div_base_context.fillRect(this.mois_rollover*this.largeur_mois+this.xx, this.hauteur-44, this.largeur_mois, 20);
-						}
-					}
-					
-
-				// fond : lignes + mois
-					var mois = this.premier_mois;
-					var annee = this.premiere_annee;
-					this.div_base_context.fillStyle = this.couleur_1erplan1;
-					for (i=0;i<this.nombre_mois;i++){
-						this.div_base_context.fillStyle = this.couleur_1erplan1;				
-						var x = this.largeur_mois*i;
-						if (mois == 0){
-							var texte = g_nom_mois[mois]+" "+annee+" ";
-							if (this.mois_select == -1){
-								texte += "+";
-							}else{
-								texte += "-";
-							}
-							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-28, this.hauteur-38);
-						}else{
-							var texte = g_nom_mois[mois]+" ";
-							if (this.mois_select == -1){
-								texte += "+";
-							}else{
-								texte += "-";
-							}
-							this.div_base_context.fillText(texte, x+this.xx+this.largeur_mois/2-14, this.hauteur-38);
-						}
-						if (i > 0){
-							this.drawline(this.div_base_context, x+this.xx, 0, x+this.xx, this.hauteur, "rgb(50,50,50)", 0.5, 1);
-						}
-						mois++;
-						if (mois >= 12){
-							annee++;
-							mois = 0;
-						}
-					}
-
-				// repère aujourdhui
-					//this.drawline(this.div_base_context, this.xx+(this.aujourdhui*ratio), this.hauteur-40, this.xx+(this.aujourdhui*ratio), this.hauteur-20, "#fff", 0.5);
-
-				// update les articles du blog
-					for (i=0;i<articles_blog.length;i++){
-						articles_blog[i].div_base.style.left = this.xx+articles_blog[i].x*ratio + "px";
-						articles_blog[i].div_base.style.top = this.yy+articles_blog[i].y + "px";
-					}
-				// update les articles d'événement
-					for (i=0;i<articles_evenement.length;i++){
-						articles_evenement[i].div_base.style.left = this.xx+articles_evenement[i].x*ratio + "px";
-						articles_evenement[i].div_base.style.top = this.yy+articles_evenement[i].y + "px";
-					}
-				// update les consignes
-					for (i=0;i<consignes.length;i++){
-						//Maj tailles et position
-						//	consignes[i].div_base.style.left = this.xx+consignes[i].x*ratio + "px";
-							consignes[i].div_base.style.top = this.yy+consignes[i].y + "px";
-						//Connecteurs
-							this.get_x_date(consignes[i].date);
-							var color = $('#consigne'+consignes[i].id).css('background-color');
-							var opacity = $(consignes[i].div_base).css('opacity');
-							this.drawline(this.div_base_context, this.xx+(this.x_date*ratio)-8, this.hauteur-44, this.xx+consignes[i].x*ratio, this.yy+consignes[i].y+consignes[i].hauteur, color, '3', opacity);
-						//réponses si consigne ouverte
-							if (consignes[i].select == true)
-								for (j=0; j<consignes[i].reponses.length;j++){
-									//$(this.reponses[j].div_base).fadeTo(0,0).fadeTo(2000,1).css('visibility','visible');
-									var color = $('#reponse'+consignes[i].reponses[j].id).css('background-color');
-									var opacity = $(consignes[i].reponses[j].div_base).css('opacity');
-									this.drawline(this.div_base_context, this.xx+consignes[i].x*ratio+consignes[i].largeur, this.yy+consignes[i].y, this.xx+consignes[i].x*ratio+consignes[i].reponses[j].x, this.yy+consignes[i].y-(consignes[i].reponses[j].y*g_projet.hauteur)+consignes[i].reponses[j].hauteur, color, '1.5', opacity);
-								}
-					}
-		// frame
-			this.frame++;
-			//log(this.frame);
-			if (this.frame > this.fps*10)
-			{
-				stop_action ();
-			}
-		}
-	*/
-	}
-
-	// méthode get_x_date
-	this.get_x_date = function(date_abs){
-		var date = new Date();
-		date.setDate(parseFloat(date_abs.substring(0, 2)));
-		date.setMonth(parseFloat(date_abs.substring(3, 5))-1);
-		date.setFullYear(parseFloat(date_abs.substring(6, 10)));
-		this.x_date = Math.round((date-this.date_debut)/(24*60*60*1000));
-	}
-
-	// Méthode changezoompos (deprecated)
-	this.changezoompos = function(nombre_jours_vus_dest, x_dest, y_dest){
-  	this.changepos(nombre_jours_vus_dest, x_dest, y_dest);
-	}
-	
-	// Méthode changepos
-	this.changepos = function(nombre_jours_vus_dest, x_dest, y_dest){
-  	//	g_action = true;
-  	//	g_projet.frame = 0;			
-  	//	this.mois_select = Math.round(((this.largeur_mois/2))/this.largeur_mois)-1;
-
-	  // Pour que les blocs de la timeline ne soient pas tronqués à droite,
-    // on affiche la vue plus large
-	  var offset_bloc_width = 20;     
+  /**
+   * Met à jour les variables d'affichage de la timeline
+   * et appelle l'application des nouveaux paramètres.
+   *
+   * @see Projet#setTimelineZoom
+   */   
+ 
+	this.showRangeOfTimeline = function(nombre_jours_vus_dest, x_dest, y_dest){
+    
+    // Nombre de jours ajoutés au nombre de jours à afficher 
+    // pour que les blocs les plus à droite soient visibles
+    
+	  var offset_bloc_width = 20; 
 		
 		this.nombre_jours_vus_dest = nombre_jours_vus_dest+offset_bloc_width;
 		this.x_dest = x_dest;
 		this.y_dest = y_dest;
 		
-		console.log('changepos');
-		
 		$('body').removeClass('highlightReponse');
 		
-		this.update_timeline();
+		this.setTimelineZoom();
 	}
 
-	// méthode changevoittout
-	this.changevoittout = function(consignes, articles_blog, articles_evenement){
-		
-	  console.log('changevoittout');
+
+  /**
+   * Affiche la totalité de l'année.
+   *
+   * @see Projet#showRangeOfTimeline
+   * @see Projet#setTimelineZoom
+   *
+   * @todo Gérer l'affichage/le masquage des événements et des blogs
+   */   
+ 
+	this.showWholeTimeline = function(consignes, articles_blog, articles_evenement) {
 	  
 	  $('#menu-consignes .filter a, #menu-classes .filter a').removeClass('selected');
 	  $('#menu-consignes .logo_menu-tout, #menu-classes .logo_menu-tout').addClass('selected');
 	
-		this.changezoompos(g_projet.nombre_jours, 0, 0);
+		this.showRangeOfTimeline(g_projet.nombre_jours, 0, 0);
 		
 		$('body').removeClass('hasSidebarOpen highlightReponse');
 		
@@ -324,7 +178,7 @@ function projet(){
 		this.mois_rollover = -1;
 		
 		for (i=0; i<consignes.length;i++){
-			consignes[i].montre_questionscommentaires();
+			consignes[i].showConsignePastille();
 			consignes[i].select = false;				
 		}
 		
@@ -342,63 +196,32 @@ function projet(){
 				//articles_evenement[i].div_base.style.visibility = "visible";
 		}
 		
-    this.update_timeline();
+    this.setTimelineZoom();
     
     $('.connecteur_timeline').addClass('hide');
 	}
 	
-	
-	this.update_timeline = function() {
+
+  /**
+   * Applique les paramètres de zoom de la timeline.
+   *
+   * @see Projet#showRangeOfTimeline
+   */   
+ 
+	this.setTimelineZoom = function() {
 		this.timeline_width = (100/(this.nombre_jours_vus_dest*100/this.nombre_jours)*100);
 		this.timeline.css({
   		'width':this.timeline_width+'%',
   		'left':(-(this.x_dest*100/this.nombre_jours)*this.timeline_width/100)+'%'
 		});
 	}
-
-	// méthode drawline
-	this.drawline = function(context, from_x, from_y, dest_x, dest_y, color, width, opacity){
-		rgb = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-		if (opacity != undefined)	color = "rgba("+rgb[1]+", "+rgb[2]+", "+rgb[3]+", " + opacity + ")";
-		if (width != undefined) context.lineWidth = width;
-		if (color != undefined) context.fillStyle = color;
-		if ((width > 1)&&(color != undefined)) context.strokeStyle = color; else context.strokeStyle = this.couleur_1erplan1;
-		//if (opacity != undefined)	log (color);
-		
-		context.beginPath();
-		context.moveTo(from_x, from_y);
-		context.lineTo(dest_x, dest_y);
-		context.closePath();
-		context.stroke();
-	}
-
-	// méthode click
-  this.click = function(x, y, consignes, articles_blog, articles_evenement){
-			//alert (y);
-		if (y > this.hauteur-40 ){
-
-			if (y <= this.hauteur){
-				// un mois est actif
-				if (this.mois_select != -1) {	
-					this.changevoittout(consignes, articles_blog, articles_evenement);
-				}
-				else {
-					if (y > this.hauteur-40 ){
-						this.mois_select = Math.round((x-2+(this.largeur_mois/2))/this.largeur_mois)-1;
-						
-  					if (this.mois_select < this.nombre_mois/2){
-  						this.changezoompos(90, (this.mois_select*this.largeur_mois), 0);
-            }
-            else {
-  						this.changezoompos(90, ((this.mois_select+1)*this.largeur_mois), 0);
-            }
-          }
-				}
-			}
-		}			
-  }
   
-  this.init_timeline = function(){
+
+  /**
+   * Initialise les mois de la timeline.
+   */   
+ 
+	this.initTimelineMonths = function(){
     
     // width, height, etc
     
@@ -411,7 +234,6 @@ function projet(){
       // Si on entre dans une nouvelle année
       if (mois == 0){
     		var texte = g_nom_mois_complet[mois]+" ";//+annee+" ";
-    		
     	} else {
     		var texte = g_nom_mois_complet[mois]+" ";
     	}
@@ -420,19 +242,12 @@ function projet(){
       	'class':'mois'
     	}).append('<div class="mois_label">'+texte+'</div>').css({'width':100/this.nombre_mois+'%'});
     	
-    	/*
-    	for (j = 1; j <= 30; j++) {
-      	$('<div/>', {
-        	'class':'jour'
-      	}).appendTo(mois_DOM);
-    	}
-    	*/
-    	
     	mois_DOM.appendTo(this.timeline_background);
     	
     	mois++;
     	
       // Si on entre dans une nouvelle année
+      
     	if (mois >= 12){
     		annee++;
     		mois = 0;

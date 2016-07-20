@@ -1,24 +1,10 @@
 var vue = 'timeline';
 
 
-/**
- * Change la couleur du bouton une fois cliqué.
- *
- * @param {string} val - Sélecteur de l'élément DOM en jQuery
- */
-
-function logo_menu_change_couleur(val){
-  var color = $(val).css('background-color');
-  $(val).parent().parent().parent().children("h3").css('background-color',color);
-}
-
-////////////////////////////////////////////////////////////////
-// 
-//   Listeneurs Affichage
 
 $().ready(function(){
   $('#timeline_fixed').on('click', function(){
-  	g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+  	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
   })
       
       
@@ -96,7 +82,7 @@ $().ready(function(){
   
   $("#canvas_projet").click(function(){
     //alert ('ok');
-    //g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
+    //g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
   });
 
   // Initialisation des logos-menus
@@ -105,6 +91,19 @@ $().ready(function(){
   $('#menu_bas a[data-filter-value=".ressource_consignes"]').parent().stop().fadeOut(1000);
   $('#menu_bas a[data-filter-value=".ressource_reponses"]').parent().stop().fadeOut(1000);
 });
+
+
+/**
+ * Change la couleur du bouton une fois cliqué.
+ *
+ * @param {string} val - Sélecteur de l'élément DOM en jQuery
+ */
+
+function logo_menu_change_couleur(val){
+  var color = $(val).css('background-color');
+  $(val).parent().parent().parent().children("h3").css('background-color',color);
+}
+
 
 /**
  * @deprecated
@@ -132,7 +131,7 @@ function reload_cookie(url,cookie_nom,cookie_valeur) {
 
 
 /**
- * Gère le rechargement de la page
+ * Gère le rechargement de la page.
  *
  * @param {string} url - URL de la page à charger avec AJAX ou <tt>self</tt> pour recharger la même page
  *
@@ -149,41 +148,34 @@ function reload(url) {
 
 
 /**
- *
  * @deprecated 
  */
 
 function isotope_ressources_ferme_tout(){
-  //showhide_travaux('show');
-  //var bouton = $(".filter a[onclick*='showhide_travaux'][class*='tout']");
-  //isotope_filtre(bouton);
-  //$('#menu_haut ul li a').removeClass('selected');
+  // showhide_travaux('show');
+  // var bouton = $(".filter a[onclick*='showhide_travaux'][class*='tout']");
+  // isotope_filtre(bouton);
+  // $('#menu_haut ul li a').removeClass('selected');
 }
 
 
 /**
- *
  * @deprecated 
  */
 
 function isotope_classes_ferme_tout(){
-/*
-  var bouton = $("#menu-classes a.logo_menu-tout");
-  isotope_filtre(bouton);
-  
-*///$('#menu-classes ul li a').removeClass('selected');
+  // var bouton = $("#menu-classes a.logo_menu-tout");
+  // isotope_filtre(bouton);
+  // $('#menu-classes ul li a').removeClass('selected');
 }
 
 
 /**
- *
  * @deprecated 
  */
 
 function isotope_consignes_ferme_tout(){
-  //g_projet.changevoittout(g_consignes, g_articles_blog, g_articles_evenement);
-/*
-  var bouton = $(".filter a[onclick*='g_projet.changevoittout']");
-  isotope_filtre(bouton);
-*/
+  // g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
+  // var bouton = $(".filter a[onclick*='g_projet.showWholeTimeline']");
+  // isotope_filtre(bouton);
 }
