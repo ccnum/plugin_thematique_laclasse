@@ -5,20 +5,15 @@
  */
  
 function consigne(){
-
-	// Membres
 	
 	var id, numero, titre, date, date_texte, nombre_reponses, nombre_commentaires, x, y, largeur, hauteur, select, taille_titre;
 	var div_base, div_titre, div_home, div_reponse_plus, div_reponses, div_reponses_classe;
 	var reponses;
 	var nombre_jours_max;
 	var nombre_jours;
-
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE init()
-   *
+  
+  /**
+   * Initialise la consigne, crée l'élément DOM et l'intègre dans la timeline.
    */
  
   this.init = function(projet, canvas, numero, id, titre, date, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, classes, intervenants){
@@ -143,82 +138,49 @@ function consigne(){
 			});
 		}
   }
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE ajouter_reponse_plus()
+
+
+  /**
+   * Affiche le bouton <tt>Répondre à la question</tt>.
    *
-   *  Bouton répondre à la consigne
-   *
-   */
+   * @see consignes_load
+   */   
  
   this.ajouter_reponse_plus = function(){
 		if ((g_u_id_restreint > 0)
 		  &&(g_u_type_restreint != '')
 		  &&(g_u_type_restreint == 'travail_en_cours')){
 			  this.div_reponse_plus.style.visibility = "visible";
-        //this.div_home.style.left = this.largeur+50+"px";
 		}
 	}
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE ajoutereponseclasse()
+
+
+  /**
+   * Ajoute la réponse dans le tableau des réponses <tt>this.reponses</tt>.
    *
-   */
- 
-  this.ajoutereponseclasse = function(nombre_reponses, nombre_commentaires){
-	}
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE ajoutereponse()
-   *
-   */
+   * @see consignes_load
+   */ 
  
   this.ajoutereponse = function(reponse){
 		this.reponses.push(reponse);
   }
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE montre_questionscommentaires()
-   *
-   */
+
+
+  /**
+   * Fait apparaître le picto du nombre de commentaires d'une consigne.
+   */ 
    
 	this.montre_questionscommentaires = function(){
 		$("#consigne"+this.id+" .picto_nombre_commentaires").fadeIn('slow');
-	//	$("#consigne"+this.id+" .picto_nombre_reponses").fadeIn('slow');
-		//$(this.div_titre).fadeIn('slow');
-		//$(this.div_titre).fadeIn('slow');
 	}
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE cache_questionscommentaires()
-   *
-   */
+
+
+  /**
+   * Fait disparaître le picto du nombre de commentaires d'une consigne.
+   */ 
  
   this.cache_questionscommentaires = function(){
 		$("#consigne"+this.id+" .picto_nombre_commentaires").fadeOut('slow');
-	//	$("#consigne"+this.id+" .picto_nombre_reponses").fadeOut('slow');
-		//$(this.div_reponses_classe).fadeOut('slow');
-		//$(this.div_commentaires_classe).fadeOut('slow');
-	}
-	
-  /* * * * * * * * * * * * * * * * * * * * * * * *
-   *  
-   *  MÉTHODE ferme()
-   *
-   */
-   
-	this.ferme = function(projet, consignes, articles_blog, articles_evenement){
-		
-		console.log('methode : consigne.ferme()');
-		
-		projet.changevoittout(consignes, articles_blog, articles_evenement);
-		this.montre_questionscommentaires();
-		this.select = false;
 	}
 
   /**
@@ -231,12 +193,13 @@ function consigne(){
    *
    * @see consigne_ouvre
    * @see consigne_click
+   *
+   * @todo *1 : Vérifier
+   * @todo *2 : Vérifier
+   * @todo *3 : Améliorer l'arrêt du <tt>clearInterval</tt>
    */
    
-  this.ouvre = function(projet, consignes, articles_blog, articles_evenement){
-
-  //  deprecated
-	//	var y_dest = (projet.hauteur-this.hauteur-50)-this.y; 
+  this.ouvre = function(projet, consignes, articles_blog, articles_evenement) {
 	
 	  projet.setIntervalConnecteurs = setInterval(function(){
   	  update_connecteurs();
@@ -265,31 +228,25 @@ function consigne(){
 		this.div_titre.removeAttribute("onClick");
 		this.div_titre.setAttribute("onClick","consigne_click("+this.id+");");
 		
-    // Cache les articles de blog (TO DO)
+    // (TODO*1) Cache les articles de blog
 	
 		for (i=0; i<articles_blog.length;i++){
-			//$(articles_blog[i].div_base).fadeOut('normal');
 			$(articles_blog[i].div_base).hide();
 		}
     
-    // Cache les articles d'événement (TO DO)
+    // (TODO*2) Cache les articles d'événement
 		
 		for (i=0; i<articles_evenement.length;i++){
-			//$(articles_evenement[i].div_base).fadeOut('normal');
 			$(articles_evenement[i].div_base).hide();
 		}
 		
-		
-		// TO DO : mieux
-		
+		// (TODO*3) Interrompre le clearInterval
+
 		setTimeout(function(){
-  	//	update_connecteurs();
-  		
   		clearInterval(projet.setIntervalConnecteurs);
 		},2300);
 		
 		stop_action();
-	//	consigne_click(this.id);
 		this.select = true;
 	}
 }

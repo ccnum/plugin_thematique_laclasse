@@ -341,7 +341,6 @@ function projet(){
 				$(articles_evenement[i].div_base).fadeIn(3000);
 				//articles_evenement[i].div_base.style.visibility = "visible";
 		}
-		//show_buttons();
 		
     this.update_timeline();
     

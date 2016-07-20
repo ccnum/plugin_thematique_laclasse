@@ -1,67 +1,82 @@
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  controleurs-timeline.js
- *
- *  Fonctions d'affichage générales
- *
+/**
+ * Définit la largeur de la zone.
  */
-   
+
 function largeur_zone() {
   return $(window).width()*0.98;
 }
+
+
+/**
+ * Définit la hauteur de la zone.
+ */
 
 function hauteur_zone() {
   return $(window).height()*0.873;
 }
 
+
+/**
+ * Appelle le recalcul des connecteurs.
+ *
+ * @see update_connecteurs
+ */
+
 function resizenow() {
   update_connecteurs();
 }
 
-////////////////////////////////////////////////////////////////
-// Travaux
-////////////////////////////////////////////////////////////////
+
+/**
+ * Afficher/cacher les travaux.
+ *
+ * @todo Documenter
+ */
+
 function showhide_travaux(mode){
-	if (mode==undefined) if (g_hide_travaux == false) mode = 'hide'; else mode = 'show';
-	if (mode=='hide'){
-		for (i=0; i<g_consignes.length;i++){
+	if (mode == undefined) if (g_hide_travaux == false) mode = 'hide'; else mode = 'show';
+	
+	if (mode == 'hide') {
+		for (i = 0 ; i < g_consignes.length ; i++) {
 			$(g_consignes[i].div_base).stop().fadeTo(2000,0.1);
-			//g_consignes[i].cache_questionscommentaires();
-			if (g_consignes[i].select == true){
-				//$(g_consignes[i].div_home).fadeOut('slow');
+			
+			if (g_consignes[i].select == true) {
 				$(g_consignes[i].div_reponse_plus).fadeOut('slow');
-				for (j=0; j<g_consignes[i].reponses.length;j++){
+				
+				for (j = 0 ; j < g_consignes[i].reponses.length ; j++) {
 					$(g_consignes[i].reponses[j].div_base).fadeOut('slow');
 				}
 			}
 		}
 		g_hide_travaux = true;
 	}
-	else{
+	
+	else {
 		hide_articles_evenement();
 		hide_articles_blog();
-		for (i=0; i<g_consignes.length;i++){
+		
+		for (i = 0 ; i < g_consignes.length ; i++){
 			$(g_consignes[i].div_base).fadeTo('slow',1);
-			//g_consignes[i].montre_questionscommentaires();
+			
 			if (g_consignes[i].select == true){
-				//$(g_consignes[i].div_home).fadeIn('slow');
 				$(g_consignes[i].div_reponse_plus).fadeIn('slow');
 				g_consignes[i].cache_questionscommentaires();
-				for (j=0; j<g_consignes[i].reponses.length;j++){
+				
+				for (j = 0 ; j < g_consignes[i].reponses.length ; j++){
 					$(g_consignes[i].reponses[j].div_base).stop().fadeIn('slow');
 				}
 			}
 		}
 		g_hide_travaux = false;
 
-		//Propagation isotope
-			isotope_ressources_ferme_tout();
+		// Propagation isotope
+		isotope_ressources_ferme_tout();
 	}
 }
 
 
 /**
- * Gère les événements lors du click sur une consigne et appelle {@link consigne.ouvre}.
+ * Gère les événements lors du click sur une consigne et appelle {@link consigne#ouvre}.
  *
  * @param {number} numero - Index de la consigne (voir ex.1) ou ID SPIP de l'objet (voir ex.2)
  * @param {boolean} [isIdOfObject] - Définit si le numéro passé avec le paramètre <tt>numero</tt> est l'ID SPIP de l'objet
@@ -113,20 +128,12 @@ function consigne_ouvre(numero, isIdOfObject) {
   isotope_filtre(bouton);
 }
 
-function consigne_ferme(numero){
-	// Listener de fermeture
-  $("#canvas_projet").unbind('click');
-	
-	// Fermeture
-  g_consignes[numero].ferme(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
-	
-	// Propagation isotope
-  isotope_consignes_ferme_tout();
-}
 
-////////////////////////////////////////////////////////////////
-// Réponses
-////////////////////////////////////////////////////////////////
+/**
+ * Afficher la réponse.
+ *
+ * @todo Documenter
+ */
 
 function show_reponse(index_consigne,index_reponse){
 	for (i=0; i<g_consignes[index_consigne].reponses.length;i++){
@@ -136,15 +143,22 @@ function show_reponse(index_consigne,index_reponse){
 		if (i == index_reponse) $(g_consignes[index_consigne].reponses[i].div_base).stop(true).fadeTo(300,1);		
 	}
 }
+
+
+/**
+ * @deprecated
+ */
+
 function hide_reponse(index_consigne,index_reponse){
 	for (i=0; i<g_consignes[index_consigne].reponses.length;i++){
 		$(g_consignes[index_consigne].reponses[i].div_base).stop(true).fadeTo(300,1);
 	}
 }
 
-////////////////////////////////////////////////////////////////
-// Articles_evenement
-////////////////////////////////////////////////////////////////
+
+/**
+ * @deprecated
+ */
 
 function show_one_article_evenement(numero,duration){
 	for (j=0; j<g_articles_evenement.length;j++){
@@ -153,12 +167,18 @@ function show_one_article_evenement(numero,duration){
 		if (j != numero) hide_article_evenement(j,1,duration);
 		if (j == numero) show_article_evenement(j,1,duration);
 	}
+	
 	for (j=0; j<g_articles_blog.length;j++) {
 		$(g_articles_blog[j].img).stop(true);
 		$(g_articles_blog[j].div_texte).stop(true);
 		hide_article_blog(j,1,duration);
-		}
+  }
 }
+
+
+/**
+ * @deprecated
+ */
 
 function hide_article_evenement(i,delay,duration){
 	if (duration == undefined) duration = g_duration_def;
@@ -184,6 +204,14 @@ function hide_article_evenement(i,delay,duration){
 		});
 	});
 }
+
+
+/**
+ * Affiche un événement.
+ *
+ * @todo Documenter
+ */
+
 function show_article_evenement(i,delay,duration){
 	if (duration == undefined) duration = g_duration_def;
 	var th = g_articles_evenement[i];
@@ -199,34 +227,56 @@ function show_article_evenement(i,delay,duration){
 		});
 	});
 }
+
+
+/**
+ * @deprecated
+ */
+
 function showhide_articles_evenement(duration){
 	if (duration == undefined) duration = g_duration_def;
-	//$('#evenements a').fadeTo('fast',0);
-	if (g_hide_articles_evenement == false){
+	
+	if (g_hide_articles_evenement == false) {
 			$.each(g_articles_evenement, function(index, value) {
 			var delay = Math.random()*duration*0;
 			hide_article_evenement(index,delay,duration);	
-		});		
+		});
+		
 		showhide_travaux('show');
-	}else{
+	}
+	else {
 		showhide_travaux('hide');
 		hide_articles_blog();
+		
 		$.each(g_articles_evenement, function(index, value) {	
 			var delay = Math.random()*duration*0;
 			show_article_evenement(index,delay,duration);
 		});
-
 	}
 }
+
+
+/**
+ * Cache un événement.
+ *
+ * @todo Documenter
+ */
+
 function hide_articles_evenement(duration){
 	if (duration == undefined) duration = g_duration_def;
-	//$('#evenements a').fadeTo('fast',0);
-	//hide_articles_blog();
+	
 	$.each(g_articles_evenement, function(index, value) {	
-			var delay = Math.random()*duration*0;
-			hide_article_evenement(index,0,duration);
-		});	
+		var delay = Math.random()*duration*0;
+		hide_article_evenement(index,0,duration);
+	});	
 }
+
+
+/**
+ * Affiche les événements
+ *
+ * @todo Documenter
+ */
 
 function show_articles_evenement(duration){
 	if (duration == undefined) duration = g_duration_def;
@@ -241,10 +291,10 @@ function show_articles_evenement(duration){
 }
 
 
-////////////////////////////////////////////////////////////////
-// Articles_blog
-////////////////////////////////////////////////////////////////
-
+/**
+ * @deprecated
+ */ 
+ 
 function show_one_article_blog(numero,duration){
 	for (j=0; j<g_articles_blog.length;j++){
 		$(g_articles_blog[j].img).stop(true);
@@ -258,6 +308,13 @@ function show_one_article_blog(numero,duration){
 		hide_article_evenement(j,1,duration);
 	}
 }
+
+
+/**
+ * Cache l'article du blog
+ *
+ * @todo Documenter
+ */
 
 function hide_article_blog(i,delay,duration){
 	if (duration == undefined) duration = g_duration_def;
@@ -285,6 +342,11 @@ function hide_article_blog(i,delay,duration){
 	});
 }
 
+
+/**
+ * @deprecated
+ */
+
 function show_article_blog(i,delay,duration){
 	if (duration == undefined) duration = g_duration_def;
 	var th = g_articles_blog[i];
@@ -300,6 +362,11 @@ function show_article_blog(i,delay,duration){
 		});
 	});
 }
+
+
+/**
+ * @deprecated
+ */
 
 function showhide_articles_blog(duration){
 	if (duration == undefined) duration = g_duration_def;
@@ -320,6 +387,13 @@ function showhide_articles_blog(duration){
 	}
 }
 
+
+/**
+ * Cache les articles de blog
+ *
+ * @todo Documenter
+ */
+
 function hide_articles_blog(duration){
 	if (duration == undefined) duration = g_duration_def;
 	$.each(g_articles_blog, function(index, value) {	
@@ -327,6 +401,13 @@ function hide_articles_blog(duration){
 		hide_article_blog(index,0,duration);
 	});
 }
+
+
+/**
+ * Affiche les articles de blog
+ *
+ * @todo Documenter
+ */
 
 function show_articles_blog(duration){
 	if (duration == undefined) duration = g_duration_def;
@@ -340,9 +421,19 @@ function show_articles_blog(duration){
 	$("#canvas_projet").unbind().click(function(){ showhide_travaux('show');});
 }
 
-////////////////////////////////////////////////////////////////
-// Popups
-////////////////////////////////////////////////////////////////
+
+/**
+ * Appelle le chargement de la consigne 
+ * dans la sidebar principale et appelle 
+ * l'affichage de la consigne dans la timeline.
+ *
+ * @param {number} id_consigne - ID de la consigne
+ *
+ * @see loadContentInMainSidebar
+ * @see consigne_ouvre
+ *
+ * @todo Définir le contenu de la sidebar secondaire
+ */
 
 function consigne_click(id_consigne){
 	var url = g_projet.url_popup_consigne+"&id_article="+id_consigne;
@@ -350,17 +441,46 @@ function consigne_click(id_consigne){
 	consigne_ouvre(id_consigne, true);
 }
 
+
+/**
+ * Appelle le chargement de la réponse 
+ * dans la sidebar principale et appelle 
+ * le chargement de la réponse dans la sidebar secondaire.
+ *
+ * @param {number} id_consigne - ID de la consigne parente
+ * @param {number} id_reponse - ID de la réponse
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo *1 : Modifier le contenu de la sidebar secondaire
+ */
+ 
 function reponse_click(id_consigne, id_reponse){
 	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
-	// TODO
-	// Changer la page des consignes en la page des (…?)
+	// (TODO*1) Changer la page des consignes en la page (…?)
 	
 	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
 }
 
+
+/**
+ * Appelle le chargement de la classe 
+ * dans la sidebar principale et appelle 
+ * le chargement de la classe dans la sidebar secondaire.
+ *
+ * @param {number} id_consigne - ID de la consigne parente
+ * @param {number} id_reponse - ID de la réponse
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo *1 : Modifier le contenu de la sidebar secondaire
+ */
+ 
 function classes_click(id_rubrique_ouvre, id_travail_en_cours){
 	if (id_rubrique_ouvre==undefined) id_rubrique_ouvre='';
 	if ($('#zone_classe').is(':hidden'))	{
@@ -369,8 +489,8 @@ function classes_click(id_rubrique_ouvre, id_travail_en_cours){
 		if (id_rubrique_ouvre!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_rubrique_ouvre+'&type_objet=travail_en_cours';
     loadContentInMainSidebar(url, 'rubrique', 'classes');
 	
+    // (TODO*1) Changer la page des consignes en la page (…?)
 	
-    // TODO
   	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+id_travail_en_cours;
   	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
     
@@ -381,12 +501,44 @@ function classes_click(id_rubrique_ouvre, id_travail_en_cours){
 
 /* * * * * * Below : to convert into loadXXXInSidebar * * * * * */
 
+
+/**
+ * Appelle le chargement de la ressource
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @param {number} id_objet
+ * @param {string} type_objet
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
+
 function article_ressource_click(id_objet,type_objet){
 	hide_popups();
 	var url = g_projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
 	popup(url,'ressource');
 	console.log('article_ressource_click');
 }
+
+
+/**
+ * Appelle le chargement de l'événement
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @param {number} id_objet
+ * @param {string} type_objet
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
 
 function article_evenement_click(id_objet,type_objet){
 	hide_popups();
@@ -395,12 +547,37 @@ function article_evenement_click(id_objet,type_objet){
 	console.log('article_evenement_click');
 }
 
+
+/**
+ * Appelle le chargement de l'article de blog
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @param {number} id_objet
+ * @param {string} type_objet
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
+
 function article_blog_click(id_objet,type_objet){
 	hide_popups();	
 	var url = g_projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'blog');
 	console.log('article_blog_click');
 }
+
+
+/**
+ * @param {number} id_consigne
+ * @param {number} id_rubrique_classe
+ * @param {number} numero
+ *
+ * @todo Documenter
+ */
 
 function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
 	hide_popups();
@@ -410,12 +587,19 @@ function ajoutreponse_click(id_consigne, id_rubrique_classe, numero){
 	console.log('ajoutreponse_click');
 }
 
-function reponse_ajouter_click(){
-	hide_popups();
-	var url = g_projet.url_popup_reponseajout;
-	popup(url,'reponse_editer');
-	console.log('reponse_ajouter_click');
-}
+
+/**
+ * Appelle le chargement de la ressource
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar principale
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
 
 function ressources_click(){
 	if ($('#zone_classe').is(':hidden'))	{
@@ -427,6 +611,20 @@ function ressources_click(){
 	}	
 }
 
+
+/**
+ * Appelle le chargement de la'agora
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar principale
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
+
 function agora_click(){
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
@@ -437,6 +635,11 @@ function agora_click(){
 		console.log('agora_click');
 	}
 }
+
+
+/**
+ * @deprecated
+ */
 
 function chat_click(type){
 	var url = g_projet.url_popup_chat;
@@ -453,46 +656,39 @@ function chat_click(type){
 }
 
 
+/**
+ * Cache les popups. 
+ *
+ * @todo Documenter
+ *
+ * @deprecated Sert pour Isotope (donc ne sert pas pour l'instant) 
+ */
+
 function hide_popups(){
 	g_action = false;
-	//Propagation isotope
+	
+	// Propagation isotope
 	isotope_ressources_ferme_tout();
 }
 
 
-////////////////////////////////////////////////////////////////
-// Boutons
-////////////////////////////////////////////////////////////////
-
-function hide_buttons(){
-	//g_bouton_plus.div_base.style.visibility = "hidden";
-	reponse_plus2 = document.getElementById("reponse_plus2");
-	if (reponse_plus2 != null) reponse_plus2.style.visibility = "hidden";
-}
-
-function show_buttons(){
-	//g_bouton_plus.div_base.style.visibility = "visible";
-	reponse_plus2 = document.getElementById("reponse_plus2");
-	if (reponse_plus2 != null) reponse_plus2.style.visibility = "visible";
-}
-
-
-
-
-// Deprecated
+/**
+ * @deprecated
+ */
 
 function stop_action(){
 	g_action = false;
 	g_action_mois = false;
 	g_projet.frame=0;
-//	log('stop_action');
 }
 
-// Deprecated
+
+/**
+ * @deprecated
+ */
 
 function activate_action(){
 	g_action = true;
 	g_action_mois = false;
 	g_projet.frame=0;
-//	log('activate_action');
 }
