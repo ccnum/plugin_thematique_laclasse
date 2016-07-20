@@ -472,17 +472,6 @@ function loadBlog(fichier){
 				dataForArticleBlog.nombre_jours = jour_article-g_projet.premier_jour;
 				dataForArticleBlog.nombre_commentaires = parseFloat(xml_blog[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
 				
-				
-				//
-				//
-				//
-				//
-				// numero, id, titre, date, nombre_commentaires, nombre_jours, y, type_objet, id_objet, index
-				//
-				//
-				//
-				//
-				
 				dataForArticleBlog.numero = g_article_blog_index;
 				dataForArticleBlog.index = g_article_blog_index;
 				dataForArticleBlog.y = dataForArticleBlog.y*(g_projet.hauteur);
@@ -492,8 +481,6 @@ function loadBlog(fichier){
 				
 				var nouvel_article = new ArticleBlog();
 				    nouvel_article.init(dataForArticleBlog);
-				    
-			//	nouvel_article.init(g_article_blog_index, id, titre, date_texte, nombre_commentaires, nombre_jours, y*(g_projet.hauteur), type_objet, id_objet, g_article_blog_index)
 				
 				g_articles_blog.push(nouvel_article);
 
@@ -501,23 +488,21 @@ function loadBlog(fichier){
 			}
 			
 			// Lance le chargement des articles d'événements
-			evenements_load(g_u_xml+"articles_evenement");			
 			
+			loadEvenements(g_u_xml+"articles_evenement");			
 		}
 	}
 }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  evenements_load()
- *
+/**
  *  Charge le XML des événements
- *  puis appelle init_view 
+ *  puis appelle initTimeline 
  *
+ * @param {string} fichier - URL du fichier
  */
  
-function evenements_load(fichier){
+function loadEvenements(fichier){
 	var xmlhttp;
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
@@ -540,42 +525,48 @@ function evenements_load(fichier){
 				
 				// Nouvel article d'événement
 				
-				var id = xml_evenement[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
-				var type_objet = xml_evenement[i].getElementsByTagName("type_objet")[0].childNodes[0].nodeValue;
-				var id_objet = xml_evenement[i].getElementsByTagName("id_objet")[0].childNodes[0].nodeValue;
-				var titre = xml_evenement[i].getElementsByTagName("titre")[0].childNodes[0].nodeValue;
-				var y = xml_evenement[i].getElementsByTagName("y")[0].childNodes[0].nodeValue;
-				titre = titre.replace("[", "<");
-				titre = titre.replace("]", ">");
+				var dataForEvenement = {};
+				
+				dataForEvenement.id = xml_evenement[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+				dataForEvenement.type_objet = xml_evenement[i].getElementsByTagName("type_objet")[0].childNodes[0].nodeValue;
+				dataForEvenement.id_objet = xml_evenement[i].getElementsByTagName("id_objet")[0].childNodes[0].nodeValue;
+				dataForEvenement.titre = xml_evenement[i].getElementsByTagName("titre")[0].childNodes[0].nodeValue;
+				dataForEvenement.y = xml_evenement[i].getElementsByTagName("y")[0].childNodes[0].nodeValue;
+				dataForEvenement.titre = dataForEvenement.titre.replace("[", "<");
+				dataForEvenement.titre = dataForEvenement.titre.replace("]", ">");
         
         // Positionnement en y de l'article d'événement
 				
 				if (index_y >= g_projet.liste_y_evenements.length){
 					index_y = 0;
 				}
-				if (y==0) {
-  				y = g_projet.liste_y_evenements[index_y];
+				if (dataForEvenement.y==0) {
+  				dataForEvenement.y = g_projet.liste_y_evenements[index_y];
   		  }
 				//if (y!=0) alert (titre+date+y);
 				index_y++;
 			
         // Date
 				
-				var date_texte = xml_evenement[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
+				dataForEvenement.date = xml_evenement[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
 				var date = new Date();
 				
-				date.setDate(parseFloat(date_texte.substring(0, 2)));
-				date.setMonth(parseFloat(date_texte.substring(3, 5))-1);
-				date.setFullYear(parseFloat(date_texte.substring(6, 10)));
+				date.setDate(parseFloat(dataForEvenement.date.substring(0, 2)));
+				date.setMonth(parseFloat(dataForEvenement.date.substring(3, 5))-1);
+				date.setFullYear(parseFloat(dataForEvenement.date.substring(6, 10)));
 				
 				var jour_article = parseFloat(Math.round((date)/(24*60*60*1000)));
-				var nombre_jours = jour_article-g_projet.premier_jour;
-				var nombre_commentaires = parseFloat(xml_evenement[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
+				dataForEvenement.nombre_jours = jour_article-g_projet.premier_jour;
+				dataForEvenement.nombre_commentaires = parseFloat(xml_evenement[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
+				
+				dataForEvenement.numero = g_article_evenement_index;
+				dataForEvenement.index = g_article_evenement_index;
+				dataForEvenement.y = dataForEvenement.y*(g_projet.hauteur-5);
 				
 				// Initialise l'article d'événement
 				
-				var nouvel_article = new article_evenement();
-				nouvel_article.init(g_projet, g_zone, g_article_evenement_index, id, titre, date_texte, nombre_commentaires, nombre_jours, y*(g_projet.hauteur-5), type_objet, id_objet, g_article_evenement_index);
+				var nouvel_article = new ArticleEvenement();
+				nouvel_article.init(dataForEvenement);
 				
 				g_articles_evenement.push(nouvel_article);
 				g_article_evenement_index++;
@@ -587,26 +578,20 @@ function evenements_load(fichier){
 			//
 			////////////////////////////////////////////////////////////////
 			
-      // Boucle infinie pour la màj de l'application
-    //  setInterval(update, 1000/g_projet.fps);
-      
       // Initialise la vue à l'ouverture selon les arguments dans l'url
-      init_view();
+      
+      initTimeline();
 		}
 	}
 }
+ 
 
-
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  init_view()
- *
+/**
  *  Initialise la vue, la timeline,
- *  définit les événements attribués aux éléments de la timeline 
- *
+ *  définit les événements attribués aux éléments de la timeline.
  */
  
-function init_view(){
+function initTimeline(){
   
   // Premier update pour initialiser certaines variables dont on a besoin
   
@@ -702,7 +687,7 @@ function init_view(){
 				var expires = new Date();
 				expires.setDate(expires.getDate()+30);
 				document.cookie = "visited=true; expires="+expires.toUTCString();
-				//$('.presentation').colorbox({width:'900px',height: '600px',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false, open: true});
+				//$('.presentation').colorbox({width:'900px',height: '600px',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false, open: true}); (TO DO ?)
 			}			
 		});
 	}
@@ -714,15 +699,20 @@ function init_view(){
     $('.presentation').colorbox({width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
     $('.profil').colorbox({width:'80%',height: '80%'});
     
-    // Listeners de changements sur la fenêtre pour forcer les calculs d'affichage timeline
-    window.addEventListener("focus", function(event) { activate_action(); }, false);
-    window.addEventListener("resize", function(event) { activate_action(); updateTimeline(); }, false);
-    window.addEventListener("blur", function(event) { stop_action(); }, false);
+    window.addEventListener("resize", function(event) { updateTimeline(); }, false);
 	});	
 }
 
 
-
+/**
+ * Met à jour les connecteurs de la timeline.
+ * <br>
+ * La fonction est appelée de manière récursive (<tt>setInterval(…, 1)</tt>)
+ * afin de mettre à jour en même temps que la transition CSS de la timeline.
+ *
+ * @todo Éléments autres que DOM ?
+ */
+ 
 function updateConnecteurs() {
   $('.connecteur_timeline').each(function(){
     
@@ -751,4 +741,5 @@ function updateConnecteurs() {
 }
 
 // C'est parti
+
 window.onload = init();

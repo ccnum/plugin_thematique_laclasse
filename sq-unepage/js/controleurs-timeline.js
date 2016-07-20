@@ -283,7 +283,7 @@ function show_one_article_blog(numero,duration){
 
 
 /**
- * Cache l'article du blog
+ * Cache l'article du blog [Note : n'existera sûrement plus une fois le append DOM]
  *
  * @todo Documenter
  */
