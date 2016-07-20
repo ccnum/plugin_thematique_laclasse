@@ -1,15 +1,23 @@
-////////////////////////////////////////////////////////////////
-// objet classe
-////////////////////////////////////////////////////////////////
-function classe(){
+/**
+ * Génère une classe.
+ *
+ * @constructor
+ */
 
-	// membres
+function Classe(){
+
 	var id, nom;
 
-	// méthode init
-	this.init = function(id, nom){
-		this.id = id;
-		this.nom = nom;
+
+  /**
+   * Initialise la classe.
+   *
+   * @param {Object} data - Données à affecter à l'instance
+   */
+
+	this.init = function(data){
+		this.id = data.id;
+		this.nom = data.nom;
 	}
 	
 }

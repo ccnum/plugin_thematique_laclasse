@@ -1,15 +1,23 @@
-////////////////////////////////////////////////////////////////
-// objet intervenant
-////////////////////////////////////////////////////////////////
-function intervenant(){
+/**
+ * Génère un intervenant.
+ *
+ * @constructor
+ */
 
-	// membres
+function Intervenant(){
+
 	var id, nom;
 
-	// méthode init
-	this.init = function(id, nom){
-		this.id = id;
-		this.nom = nom;
+
+  /**
+   * Initialise l'intervenant.
+   *
+   * @param {Object} data - Données à affecter à l'instance
+   */
+
+	this.init = function(data){
+		this.id = data.id;
+		this.nom = data.nom;
 	}
 	
 }

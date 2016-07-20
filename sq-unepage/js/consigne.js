@@ -12,27 +12,31 @@ function Consigne(){
 	var nombre_jours_max;
 	var nombre_jours;
   
+  
   /**
    * Initialise la consigne, crée l'élément DOM et l'intègre dans la timeline.
+   *
+   * @param {Object} data - Données à affecter à l'instance (TODO URGENT)
    */
- 
-  this.init = function(projet, canvas, numero, id, titre, date, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, classes, intervenants){
-		this.id = id;
-		this.intervenant_id = intervenant_id;
-		this.numero = numero;
-		this.titre = titre;
-		this.date = date;
-		this.nombre_reponses = nombre_reponses;
-		this.nombre_commentaires = nombre_commentaires;
-		this.nombre_jours = nombre_jours;
-		this.x = nombre_jours;
-		this.nombre_jours_max = nombre_jours_max;
+  
+  this.init = function(data) {
+		this.id = data.id;
+		this.intervenant_id = data.intervenant_id;
+		this.numero = data.numero;
+		this.titre = data.titre;
+		this.date = data.date;
+		this.nombre_reponses = data.nombre_reponses;
+		this.nombre_commentaires = data.nombre_commentaires;
+		this.nombre_jours = data.nombre_jours;
+		this.x = data.nombre_jours;
+		this.nombre_jours_max = data.nombre_jours_max;
+		
 		if (this.nombre_jours_max <= 0){
-			this.nombre_jours_max = nombre_jours;
+			this.nombre_jours_max = data.nombre_jours;
 		}
 		
-		this.y = y; // Entre 0 et 1
-		this.image = image;
+		this.y = data.y; // Entre 0 et 1
+		this.image = data.image;
 		this.select = false;
 
     // Base
@@ -46,13 +50,15 @@ function Consigne(){
 
     g_projet.timeline.append(this.div_base);
 
-		for (k = 0; k < intervenants.length; k++){
-			if (intervenant_id == intervenants[k].id){
-				var nom_intervenant = intervenants[k].nom;
+		for (k = 0; k < data.intervenants.length; k++){
+			if (data.intervenant_id == data.intervenants[k].id){
+				var nom_intervenant = data.intervenants[k].nom;
 			}
 		}
 
     // Titre
+	
+    var date = data.date_texte;
 	
 		this.date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1] + " " + date.substring(6, 10);
 		this.div_titre = document.createElement("div");
@@ -60,24 +66,24 @@ function Consigne(){
 		this.div_titre.setAttribute("id","consigne"+this.id);
 		this.div_titre.setAttribute("data-id",this.id);
 		this.div_titre.setAttribute("data-index",this.numero);
-		var coul = ""+intervenant_id+"";
+		var coul = ""+data.intervenant_id+"";
 		var coul = coul.substr(coul.length-1,1);			
 		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
 
-		this.taille_titre = 9+12*projet.zoom_consignes/(0.3*nombre_reponses+1);
+		this.taille_titre = 9+12*g_projet.zoom_consignes/(0.3*data.nombre_reponses+1);
 		
 		var reponses_puces = '';
 		
-		for (var j = 1;j <= nombre_reponses;j++) {
+		for (var j = 1;j <= data.nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce"></div>';
 		}
 		
-		for (var j = 1;j <= classes.length-nombre_reponses;j++) {
+		for (var j = 1;j <= data.classes.length-data.nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce disabled"></div>';
 		}
 				
-		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div> "+
-			"<div class=\"photo\"><img src=\""+image+"\" /></div> "+
+		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+data.nombre_commentaires+"</div> "+
+			"<div class=\"photo\"><img src=\""+data.image+"\" /></div> "+
 			"<div class=\"texte\">"+
 			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
 			"<div class=\"auteur_date\">"+nom_intervenant+"<!-- - "+this.date_texte+"-->"+
@@ -128,7 +134,7 @@ function Consigne(){
 				stop: function(event,ui) {
   				yy = (ui.offset.top-g_projet.timeline.offset().top)/g_projet.timeline.height();
 					
-					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:id, type_objet:"article", X:0, Y:yy } );
+					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:data.id, type_objet:"article", X:0, Y:yy } );
 				  $(this).removeClass('no_event');
 					
 					this.y = yy;
@@ -143,7 +149,7 @@ function Consigne(){
   /**
    * Affiche le bouton <tt>Répondre à la question</tt>.
    *
-   * @see consignes_load
+   * @see loadConsignes
    */   
  
   this.showNewReponseButtonInTimeline = function(){

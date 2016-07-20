@@ -38,9 +38,9 @@ function init() {
 /**
  *  Charge le XML du projet,
  *  initialise le projet
- *  puis appelle le chargement des classes 
+ *  puis appelle le chargement des classes.
  *
- * @see loadProjet
+ * @param {string} fichier - URL du fichier
  */
 
 function loadProjet(fichier){  
@@ -106,22 +106,20 @@ function loadProjet(fichier){
 			
 			// Lance le chargement des classes
 			
-			classes_load(g_u_xml+"classes");
+			loadClasses(g_u_xml+"classes");
 		}
 	}
 }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  classes_load()
- *
+/**
  *  Charge le XML des classes (liste)
- *  puis appelle le chargement des consignes 
+ *  puis appelle le chargement des consignes.
  *
+ * @param {string} fichier - URL du fichier
  */
  
-function classes_load(fichier){
+function loadClasses(fichier){
 	var xmlhttp;
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
@@ -142,21 +140,19 @@ function classes_load(fichier){
       // Pour chaque classe, on ajoute une entrée dans le tableau `g_classes`
 			
 			for (i=0;i<xml_classe.length;i++){
-				var id = parseFloat(xml_classe[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
-				var nom = xml_classe[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
+  			var dataForClasse = {};
+  			
+				dataForClasse.id = parseFloat(xml_classe[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
+				dataForClasse.nom = xml_classe[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
 				
 				// Initialise la classe
 				
-				var nouvelle_classe = new classe();
-				nouvelle_classe.init(id, nom);
+				var nouvelle_classe = new Classe();
+				nouvelle_classe.init(dataForClasse);
 				
 				g_classes.push(nouvelle_classe);
 				g_classe_index++;
 			}
-			
-			
-			
-			
 			
 			
 			var xml_intervenant = xmldoc.getElementsByTagName("intervenant");
@@ -164,38 +160,36 @@ function classes_load(fichier){
       // Pour chaque intervenant, on ajoute une entrée dans le tableau `g_intervenants`
 			
 			for (i=0;i<xml_intervenant.length;i++){
-				var id = parseFloat(xml_intervenant[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
-				var nom = xml_intervenant[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
+  			var dataForIntervenant = {};
+  			
+				dataForIntervenant.id = parseFloat(xml_intervenant[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
+				dataForIntervenant.nom = xml_intervenant[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
 				
 				// Initialise la classe
 				
-				var nouvel_intervenant = new intervenant();
-				nouvel_intervenant.init(id, nom);
+				var nouvel_intervenant = new Intervenant();
+				    nouvel_intervenant.init(dataForIntervenant);
 				
 				g_intervenants.push(nouvel_intervenant);
 				g_intervenant_index++;
 			}
 			
-			
-			
-			
 			// Lance le chargement des consignes
-			consignes_load(g_u_xml+"consignes");
+			
+			loadConsignes(g_u_xml+"consignes");
 		}
 	}
 }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  consignes_load()
- *
- *  Charge le XML des consignes + réponses
+/**
+ *  Charge le XML des consignes et des réponses
  *  puis appelle le chargement des articles du blog 
  *
+ * @param {string} fichier - URL du fichier
  */
  
-function consignes_load(fichier){
+function loadConsignes(fichier){
 	var xmlhttp;
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
@@ -218,47 +212,49 @@ function consignes_load(fichier){
 			
 			for (i = 0; i < xml_consigne.length; i++){
   			
+  			var dataForConsigne = {};
+  			
         // Déclaration de la consigne
         
-        var id = parseFloat(xml_consigne[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
-        var intervenant_id = parseFloat(xml_consigne[i].getElementsByTagName("intervenant_id")[0].childNodes[0].nodeValue);					
-        var titre = xml_consigne[i].getElementsByTagName("titre")[0].childNodes[0].nodeValue;
-        titre = titre.replace("[", "<");
-        titre = titre.replace("]", ">");
-        var image = xml_consigne[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
+        dataForConsigne.id = parseFloat(xml_consigne[i].getElementsByTagName("id")[0].childNodes[0].nodeValue);
+        dataForConsigne.intervenant_id = parseFloat(xml_consigne[i].getElementsByTagName("intervenant_id")[0].childNodes[0].nodeValue);					
+        dataForConsigne.titre = xml_consigne[i].getElementsByTagName("titre")[0].childNodes[0].nodeValue;
+        dataForConsigne.titre = dataForConsigne.titre.replace("[", "<");
+        dataForConsigne.titre = dataForConsigne.titre.replace("]", ">");
+        dataForConsigne.image = xml_consigne[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
         					
         // Positionnement en y de la consigne (sert encore ?) 
         
-        var y = parseFloat(xml_consigne[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+        dataForConsigne.y = parseFloat(xml_consigne[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
         
         if (index_y >= g_projet.liste_y_consignes.length){
         	index_y = 0;
         }
         
-        if ((y <= 0) || (y >= 1.05)) {
-          y = g_projet.liste_y_consignes[index_y];
+        if ((dataForConsigne.y <= 0) || (dataForConsigne.y >= 1.05)) {
+          dataForConsigne.y = g_projet.liste_y_consignes[index_y];
         }
         
         index_y++;
         
         // Date de la consigne
         
-        var date_texte = xml_consigne[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
-        var date = new Date();
-        date.setDate(parseFloat(date_texte.substring(0, 2)));
-        date.setMonth(parseFloat(date_texte.substring(3, 5))-1);
-        date.setFullYear(parseFloat(date_texte.substring(6, 10)));
-        var jour_consigne = parseFloat(Math.round((date)/(24*60*60*1000)));
-        var nombre_jours = jour_consigne-g_projet.premier_jour; // Compte des jours avec le premier jour de la CCN comme 0
+        dataForConsigne.date_texte = xml_consigne[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
+        dataForConsigne.date = new Date();
+        dataForConsigne.date.setDate(parseFloat(dataForConsigne.date_texte.substring(0, 2)));
+        dataForConsigne.date.setMonth(parseFloat(dataForConsigne.date_texte.substring(3, 5))-1);
+        dataForConsigne.date.setFullYear(parseFloat(dataForConsigne.date_texte.substring(6, 10)));
+        dataForConsigne.jour_consigne = parseFloat(Math.round((dataForConsigne.date)/(24*60*60*1000)));
+        dataForConsigne.nombre_jours = dataForConsigne.jour_consigne-g_projet.premier_jour; // Compte des jours avec le premier jour de la CCN comme 0
         
         xml_reponses = xml_consigne[i].getElementsByTagName("reponse");
         
-        var nombre_reponses = (xml_reponses) ? xml_reponses.length : 0;
+        dataForConsigne.nombre_reponses = (xml_reponses) ? xml_reponses.length : 0;
         
         // Calcul nombre de jour max + totaux commentaires de la consigne à partir des réponses
         
         var liste_jours_max = [];
-        var nombre_commentaires = 0;
+        dataForConsigne.nombre_commentaires = 0;
         
         for (j = 0; j < xml_reponses.length; j++){
         	var date_texte_reponse = xml_reponses[j].getElementsByTagName("date")[0].childNodes[0].nodeValue;
@@ -268,31 +264,33 @@ function consignes_load(fichier){
         	date_jours_max.setMonth(parseFloat(date_texte_reponse.substring(3, 5))-1);
         	date_jours_max.setFullYear(parseFloat(date_texte_reponse.substring(6, 10)));
         	
-        	var jours = parseFloat(Math.round((date_jours_max)/(24*60*60*1000)))-jour_consigne;
+        	var jours = parseFloat(Math.round((date_jours_max)/(24*60*60*1000)))-dataForConsigne.jour_consigne;
         	liste_jours_max.push(jours);
+        	
         	var nombre_commentaires_reponse = parseFloat(xml_reponses[j].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
-        	nombre_commentaires += nombre_commentaires_reponse;
+        	dataForConsigne.nombre_commentaires += nombre_commentaires_reponse;
         }
         
-        var nombre_jours_max = 0;
+        dataForConsigne.nombre_jours_max = 0;
         
         for (j = 0; j < liste_jours_max.length; j++){
-        	if (nombre_jours_max < liste_jours_max[j]){
-        		nombre_jours_max = liste_jours_max[j];
+        	if (dataForConsigne.nombre_jours_max < liste_jours_max[j]){
+        		dataForConsigne.nombre_jours_max = liste_jours_max[j];
         	}
         }
-        nombre_jours_max += nombre_jours_max/5;
-        if (nombre_jours_max <= 30){
-        	nombre_jours_max = 30;
+        dataForConsigne.nombre_jours_max += dataForConsigne.nombre_jours_max/5;
+        if (dataForConsigne.nombre_jours_max <= 30){
+        	dataForConsigne.nombre_jours_max = 30;
         }
+        
+        dataForConsigne.classes = g_classes;
+        dataForConsigne.intervenants = g_intervenants;
+        dataForConsigne.numero = g_consigne_index;
         
         // Initialise la consigne
         
         var nouvelle_consigne = new Consigne();
-        nouvelle_consigne.init(g_projet, g_zone, g_consigne_index, id, titre, date_texte, nombre_jours, nombre_jours_max, nombre_reponses, nombre_commentaires, y, image, intervenant_id, g_classes, g_intervenants);
-        
-        
-        // // // // // // // // // // // // // // // // // //
+            nouvelle_consigne.init(dataForConsigne);
         
         
         // Calcul du positionnement y intelligent des réponses (TO DO)
@@ -336,49 +334,57 @@ function consignes_load(fichier){
         var g_reponse_index1 = 0;			
         		
         for (j = 0;j < xml_reponses.length; j++){
-        	var id_reponse = parseFloat(xml_reponses[j].getElementsByTagName("id")[0].childNodes[0].nodeValue);
-        	var classe_id_reponse = parseFloat(xml_reponses[j].getElementsByTagName("classe_id")[0].childNodes[0].nodeValue);
-        	var titre_reponse = xml_reponses[j].getElementsByTagName("texte")[0].childNodes[0].nodeValue;
-        	titre_reponse = titre_reponse.replace("[", "<");
-        	titre_reponse = titre_reponse.replace("]", ">");
-        	var date_texte_reponse = xml_reponses[j].getElementsByTagName("date")[0].childNodes[0].nodeValue;
-        	var date_reponse = new Date();
-        	date_reponse.setDate(parseFloat(date_texte_reponse.substring(0, 2)));
-        	date_reponse.setMonth(parseFloat(date_texte_reponse.substring(3, 5))-1);
-        	date_reponse.setFullYear(parseFloat(date_texte_reponse.substring(6, 10)));
+          var dataForReponse = {};
+          
+        	dataForReponse.id = parseFloat(xml_reponses[j].getElementsByTagName("id")[0].childNodes[0].nodeValue);
+        	dataForReponse.classe_id = parseFloat(xml_reponses[j].getElementsByTagName("classe_id")[0].childNodes[0].nodeValue);
+        	dataForReponse.titre = xml_reponses[j].getElementsByTagName("texte")[0].childNodes[0].nodeValue;
+        	dataForReponse.titre = dataForReponse.titre.replace("[", "<");
+        	dataForReponse.titre = dataForReponse.titre.replace("]", ">");
+        	dataForReponse.date = xml_reponses[j].getElementsByTagName("date")[0].childNodes[0].nodeValue;
+        	dataForReponse.date_date = new Date();
+        	dataForReponse.date_date.setDate(parseFloat(dataForReponse.date.substring(0, 2)));
+        	dataForReponse.date_date.setMonth(parseFloat(dataForReponse.date.substring(3, 5))-1);
+        	dataForReponse.date_date.setFullYear(parseFloat(dataForReponse.date.substring(6, 10)));
         	
-        	var nombre_jours_reponse = parseFloat(Math.round((date_reponse)/(24*60*60*1000)))-jour_consigne;        	
-        	var nombre_commentaires_reponse = parseFloat(xml_reponses[j].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
+        	dataForReponse.nombre_jours = parseFloat(Math.round((dataForReponse.date_date)/(24*60*60*1000)))-dataForConsigne.jour_consigne;
+        	dataForReponse.nombre_commentaires = parseFloat(xml_reponses[j].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
         	
         	if (xml_reponses[j].getElementsByTagName("vignette")[0].childNodes[0]){
-        		var vignette = xml_reponses[j].getElementsByTagName("vignette")[0].childNodes[0].nodeValue;
+        		dataForReponse.vignette = xml_reponses[j].getElementsByTagName("vignette")[0].childNodes[0].nodeValue;
         	} else {
-        		var vignette = "";
+        		dataForReponse.vignette = "";
         	}
         
           // Positionnement en hauteur (TO DO)
         	
-        	var reponse_y = parseFloat(xml_reponses[j].getElementsByTagName("y")[0].childNodes[0].nodeValue);
-        	if ((reponse_y === 0)||(reponse_y > 0.8)||(reponse_y < -0.2)) {
-        		reponse_y = (liste_y[j])/(xml_reponses.length);
+        	dataForReponse.y = parseFloat(xml_reponses[j].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+        	if ((dataForReponse.y === 0)||(dataForReponse.y > 0.8)||(dataForReponse.y < -0.2)) {
+        		dataForReponse.y = (liste_y[j])/(xml_reponses.length);
         	}
-        	reponse_y = (liste_y[j])/(xml_reponses.length+5)+0.12;
+        	dataForReponse.y = (liste_y[j])/(xml_reponses.length+5)+0.12;
         
+          dataForReponse.consigne = nouvelle_consigne;
+          dataForReponse.classes = g_classes;
+          dataForReponse.numero = g_reponse_index;
+          dataForReponse.index = g_reponse_index1;
+          
           // Initialise la réponse de la consigne
+          
+        	var nouvelle_reponse = new Reponse();
+            	nouvelle_reponse.init(dataForReponse);
+            	nouvelle_consigne.reponses.push(nouvelle_reponse);
         	
-        	var nouvelle_reponse = new reponse();
-        	nouvelle_reponse.init(g_projet, nouvelle_consigne, g_classes, g_reponse_index, id_reponse, classe_id_reponse, titre_reponse, date_texte_reponse, date_reponse, nombre_commentaires_reponse, nombre_jours_reponse, reponse_y, vignette, g_reponse_index1);
-        	nouvelle_consigne.reponses.push(nouvelle_reponse);
         	
           // Sélection de la classe prime sur classe logguée
         	
         	if (g_u_classe_select > 0){
-        		if (g_u_classe_select == classe_id_reponse){
+        		if (g_u_classe_select == dataForReponse.classe_id){
         			nb_classe_reponse++;
         			nb_classe_commentaires += nombre_commentaires_reponse;
         		}
         	} else {
-        		if (g_u_id_restreint == classe_id_reponse){
+        		if (g_u_id_restreint == dataForReponse.classe_id){
         			nb_classe_reponse++;
         			nb_classe_commentaires += nombre_commentaires_reponse;
         		}
@@ -397,22 +403,20 @@ function consignes_load(fichier){
 			}
 			
 			// Lance le chargement des articles de blog
-			blog_load(g_u_xml+"articles_blog");
+			loadBlog(g_u_xml+"articles_blog");
 		}
 	}
 }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * *
- *  
- *  blog_load()
- *
- *  Charge le XML des articles du bloc
+/**
+ *  Charge le XML des articles du blog
  *  puis appelle le chargement des événements 
  *
+ * @param {string} fichier - URL du fichier
  */
  
-function blog_load(fichier){
+function loadBlog(fichier){
 	var xmlhttp;
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
@@ -431,45 +435,66 @@ function blog_load(fichier){
 			var xml_blog = xmldoc.getElementsByTagName("article");
 			var index_y = 0;	
 			for (i = 0; i < xml_blog.length; i++){
+  			
+  			var dataForArticleBlog = {};
 				
 				// Nouvel article de blog
 				
-				var id = xml_blog[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
-				var type_objet = xml_blog[i].getElementsByTagName("type_objet")[0].childNodes[0].nodeValue;
-				var id_objet = xml_blog[i].getElementsByTagName("id_objet")[0].childNodes[0].nodeValue;
-				var titre = xml_blog[i].getElementsByTagName("titre")[0].childNodes[0].nodeValue;
-				var y = xml_blog[i].getElementsByTagName("y")[0].childNodes[0].nodeValue;
-				titre = titre.replace("[", "<");
-				titre = titre.replace("]", ">");
+				dataForArticleBlog.id = xml_blog[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+				dataForArticleBlog.type_objet = xml_blog[i].getElementsByTagName("type_objet")[0].childNodes[0].nodeValue;
+				dataForArticleBlog.id_objet = xml_blog[i].getElementsByTagName("id_objet")[0].childNodes[0].nodeValue;
+				dataForArticleBlog.titre = xml_blog[i].getElementsByTagName("titre")[0].childNodes[0].nodeValue;
+				dataForArticleBlog.titre = dataForArticleBlog.titre.replace("[", "<");
+				dataForArticleBlog.titre = dataForArticleBlog.titre.replace("]", ">");
+				dataForArticleBlog.y = xml_blog[i].getElementsByTagName("y")[0].childNodes[0].nodeValue;
 				
 				// Positionnement en y de l'article de blog
 				
 				if (index_y >= g_projet.liste_y_blogs.length){
 					index_y = 0;
 				}
-				if (y==0) {
-  				y = g_projet.liste_y_blogs[index_y];
+				if (dataForArticleBlog.y==0) {
+  				dataForArticleBlog.y = g_projet.liste_y_blogs[index_y];
   		  }
 				
 				index_y++;
 				
 				// Date de l'article de blog
 				
-				var date_texte = xml_blog[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
+				dataForArticleBlog.date = xml_blog[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
 				var date = new Date();
 				
-				date.setDate(parseFloat(date_texte.substring(0, 2)));
-				date.setMonth(parseFloat(date_texte.substring(3, 5))-1);
-				date.setFullYear(parseFloat(date_texte.substring(6, 10)));
+				date.setDate(parseFloat(dataForArticleBlog.date.substring(0, 2)));
+				date.setMonth(parseFloat(dataForArticleBlog.date.substring(3, 5))-1);
+				date.setFullYear(parseFloat(dataForArticleBlog.date.substring(6, 10)));
 				
 				var jour_article = parseFloat(Math.round((date)/(24*60*60*1000)));
-				var nombre_jours = jour_article-g_projet.premier_jour;
-				var nombre_commentaires = parseFloat(xml_blog[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
+				dataForArticleBlog.nombre_jours = jour_article-g_projet.premier_jour;
+				dataForArticleBlog.nombre_commentaires = parseFloat(xml_blog[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
+				
+				
+				//
+				//
+				//
+				//
+				// numero, id, titre, date, nombre_commentaires, nombre_jours, y, type_objet, id_objet, index
+				//
+				//
+				//
+				//
+				
+				dataForArticleBlog.numero = g_article_blog_index;
+				dataForArticleBlog.index = g_article_blog_index;
+				dataForArticleBlog.y = dataForArticleBlog.y*(g_projet.hauteur);
+				
 				
 				// Initialise l'article de blog
 				
-				var nouvel_article = new article_blog();
-				nouvel_article.init(g_projet, g_zone, g_article_blog_index, id, titre, date_texte, nombre_commentaires, nombre_jours, y*(g_projet.hauteur), type_objet, id_objet, g_article_blog_index)
+				var nouvel_article = new ArticleBlog();
+				    nouvel_article.init(dataForArticleBlog);
+				    
+			//	nouvel_article.init(g_article_blog_index, id, titre, date_texte, nombre_commentaires, nombre_jours, y*(g_projet.hauteur), type_objet, id_objet, g_article_blog_index)
+				
 				g_articles_blog.push(nouvel_article);
 
 				g_article_blog_index++;

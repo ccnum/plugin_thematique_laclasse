@@ -5,7 +5,7 @@
  */
 
 function Projet(){
-	
+  
 	var x, xx, x_dest, dx;
 	var y, yy, y_dest, dy;
 	var largeur, hauteur, fps, frame, dzoom, x_barre, largeur_barre;
@@ -16,17 +16,14 @@ function Projet(){
 	var div_base, div_barre, div_base_context, div_mois;
   var timeline_parent, timeline, timeline_width;
 	
-    
+	
   /**
    * Initialise le projet.
+   *
+   * @param {Object} data - Données à affecter à l'instance
    */
- 
-//	this.init = function(canvas, largeur, hauteur, fps, date_debut, date_fin, couleur_fond, couleur_base_texte, couleur_1erplan1, couleur_1erplan2, couleur_1erplan3, image_fond, zoom_consignes, liste_y_consignes, liste_y_blogs, liste_y_evenements, url_popup_consigne, url_popup_reponse, url_popup_reponseajout, url_popup_blog, url_popup_evenement, url_popup_ressources, url_popup_agora, url_popup_classes, url_popup_chat, url_popup_chat2) {
   
   this.init = function(data) {
-    
-    console.log(data);
-    
 		this.x = 0;
 		this.xx = 0;
 		this.dzoom = 0;
