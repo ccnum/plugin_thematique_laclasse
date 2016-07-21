@@ -490,6 +490,34 @@ body {
   margin-left:0 !important;
 }
 
+.logo_menu_classe_image {
+  width:100%;
+  height:100%;
+  font-size:0;
+  background-size:100% auto;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-color:white;
+}
+
+.logo:hover .logo_menu_classe_image {
+  opacity:1;
+}
+
+.logo_menu_classe_couleur {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:5px;
+  
+  transition:all 200ms ease-in-out;
+}
+
+.logo:hover .logo_menu_classe_couleur {
+  height:100%; 
+}
+
 .logo_menu-ecrire {
   border-radius: 3px;
   width: 33px;
@@ -1159,6 +1187,7 @@ a:hover{
 	cursor: pointer;
 	width: 31px;
 	padding: 0px;
+	position:relative;
 }
 #menu_bas.zone-menu li.logo {
 	background-color: #GET{gris_clair};
