@@ -11,7 +11,7 @@
   [(#REM) ---------------- titre & logo ---------------- ] 
   
 	<div class="sidebar_bubble">  		
-		<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+		<div class="fiche_titre">
 		    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
 		    <div class="texte">
 	        <div class="titre">[(#TITRE|supprimer_numero)]</div>
@@ -65,7 +65,7 @@
   						});					
   				});});						
 					
-					console.log('Rubrique (#TYPE_OBJET) : Affichage des articles ||| enfants ||| de la rubrique #_principale ayant les mots-clés blog ou chrono');
+					console.log('(A) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE ayant les mots-clés blog ou chrono');
   				</script>
   				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
   			</BOUCLE_sous_articles0>
@@ -101,7 +101,7 @@
 						});
 					});				
 					
-					console.log('Rubrique (#TYPE_OBJET) : Affichage des articles ||| enfants ||| de la rubrique #_principale n\'ayant pas les mots-clés blog ou chrono');
+					console.log('(A.a) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfants ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');
 							
 					</script>
 					<div class="sidebar_bubble">
@@ -128,17 +128,19 @@
   					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
     					call({
       					'type':'rubrique',
+      					'type_objet':'#TYPE_OBJET',
       					'id_rubrique':'#ID_RUBRIQUE',
+      					'id_parent':'#ID_PARENT',
       					'mode':'ajax-detail'
     					});				
   					});
 					});		
 				
-          console.log('Rubrique (#TYPE_OBJET) : Affichage de la sous-rubrique ##ID_RUBRIQUE ||| enfants ||| de la rubrique #_principale ##ID_PARENT n\'ayant pas les mots-clés blog ou chrono');				
+          console.log('(B) Rubrique (#TYPE_OBJET) : Affichage de la sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
 			  </script>
 					
-				<div class="sidebar_bubble ressources_classes_around">
-  				<div class="couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)] ressources_classes">
+				<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
+  				<div class="[(#TYPE_OBJET|match{travail_en_cours}|oui) couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]] ressources_classes">
 				  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
 					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
 				  </a>
@@ -146,11 +148,46 @@
 					<ul>
 						[(#REM)Rubriques]
 						<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre} {doublons r}>
+						
+      				<script type="text/javascript">
+      					$().ready(function(){
+        					// TODO 
+        					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
+          					call({
+            					'type':'rubrique',
+            					'type_objet':'travail_en_cours',
+            					'id_rubrique':'#ID_RUBRIQUE',
+            					'mode':'ajax-detail'
+          					});				
+        					});
+      					});		
+      				
+                console.log('(B.a) Rubrique (#TYPE_OBJET) : Affichage de la sous-sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la sous-rubrique ##ID_PARENT ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+      			  </script>
+      			  
 							<li class="ressources_classe_consignes">
 							  <a href="#" class="ajax hac1 [ (#EXPOSE)] [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]">[<strong>- (#TITRE|couper{80})</strong>]</a>
 								<B_sous_rubriques00>
 									<ul>
 									<BOUCLE_sous_rubriques00(RUBRIQUES) {id_parent} {tout} {par titre} {doublons r}>
+									
+          				<script type="text/javascript">
+          					$().ready(function(){
+            					// TODO 
+            					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
+              					call({
+                					'type':'rubrique',
+                					'type_objet':'travail_en_cours',
+                					'id_rubrique':'#ID_RUBRIQUE',
+                					'mode':'ajax-detail'
+              					});				
+            					});
+          					});		
+          				
+                    console.log('(B.a.a) Rubrique (#TYPE_OBJET) : Affichage de la sous-sous-sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la sous-sous-rubrique ##ID_PARENT ||| enfant ||| de la sous-rubrique ##_rubriques:ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+          			  </script>
+          			  
+          			  
 									<li><a href="#" class="ajax [(#EXPOSE) [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
 									</BOUCLE_sous_rubriques00>
 									</ul>
@@ -159,61 +196,112 @@
 						</BOUCLE_sous_rubriques>
 						
 						[(#REM)Articles]
+						
 						<BOUCLE_rubriques_ordre2(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
 						</BOUCLE_rubriques_ordre2>
+						
+
+        			[(#REM) 
+        			|
+        			|  Si :
+        			|   …la sous-rubrique #_rubriques a les mots-clés blog ou chrono enfant de la rubrique #_principale
+        			|
+        			|  Alors on cherche :
+        			|   Articles ||| enfants ||| de la sous-rubrique #_rubriques ayant les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
+        			|
+        			|  Note : 
+        			|   Il n'y a aucun article/rubrique avec ces mots-clés,
+        			|   donc la boucle n'est jamais exécutée
+              ]
+              
 							<BOUCLE_sous_articles2(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-								<script type="text/javascript">
-									$().ready(function(){
-									$('#ajax#ID_ARTICLE').click(function() {
-										$('div#sidebar_main').addClass('chargement');
-										$('#menug li a.selected').removeClass('selected');
-										$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
-										$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-										, {limit: 25}, function(){ 
-				hideSidebarLateral();
-											$('div#sidebar_main').removeClass('chargement');	
-											$('#sidebar_main').show('slow'); 		
-											});					
-									});});						
-									</script>
-								<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
+									
+        				<script type="text/javascript">
+        					$().ready(function(){
+          					// TODO 
+          					$('#ajax#ID_ARTICLE').click(function() {
+            					call({
+              					'type':'article',
+              					'type_objet':'travail_en_cours',
+              					'id_rubrique':'#ID_ARTICLE',
+              					'mode':'ajax-detail'
+            					});				
+          					});
+        					});		
+        				
+                  console.log('(B.b) Rubrique (#TYPE_OBJET) : Affiche de l\'article ##ID_ARTICLE ||| enfant ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ayant les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+        			  </script>								
+        			  
+        			  <li class="ressources_classe_consignes">
+        			    <a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">
+          			    [(#TITRE|supprimer_numero|couper{80})]
+          			  </a>
+          		  </li>
 							</BOUCLE_sous_articles2>
 						</B_rubriques_ordre2>
+						
+
+        			[(#REM) 
+        			|
+        			|  On cherche :
+        			|   Articles ||| enfants ||| de la sous-rubrique #_rubriques n'ayant pas les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
+              ]
+              
 							<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
-							<script type="text/javascript">
-								$().ready(function(){
-								$('#ajax#ID_ARTICLE').click(function() {
-									$('#menug li a.selected').removeClass('selected');
-									$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
-									$('div#sidebar_main').addClass('chargement');
-									$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-									, {limit: 25}, function(){ 
-				hideSidebarLateral();
-										$('div#sidebar_main').removeClass('chargement');	
-										$('#sidebar_main').show('slow'); 		
-										});					
-								});});						
-								</script>
-								<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
+									
+        				<script type="text/javascript">
+        					$().ready(function(){
+          					// TODO 
+          					$('#ajax#ID_ARTICLE').click(function() {
+            					call({
+              					'type':'article',
+              					'type_objet':'travail_en_cours',
+              					'id_rubrique':'#ID_ARTICLE',
+              					'mode':'ajax-detail'
+            					});				
+          					});
+        					});		
+        				
+                  console.log('(B.c) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfant ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+        			  </script>
+        			  
+								<li class="ressources_classe_consignes">
+								  <a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">
+  								  [(#TITRE|supprimer_numero|couper{80})]
+  								</a>
+  						  </li>
 							</BOUCLE_sous_articles3>
 						<//B_rubriques_ordre2>
 				
+      			[(#REM) 
+      			|
+      			|  On cherche (si on ne se trompe pas) :
+      			|   Tous les autres articles ||| enfants ||| de la sous-rubrique #_rubriques ||| enfant ||| de la rubrique #_principale
+            ]
+            
 						<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-							<script type="text/javascript">
-							$().ready(function(){
-							$('#ajax#ID_ARTICLE').click(function() {
-							$('#menug li a.selected').removeClass('selected');
-							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');									
-								$('div#sidebar_main').addClass('chargement');
-								$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-								, {limit: 25}, function(){ 
-				hideSidebarLateral();
-									$('div#sidebar_main').removeClass('chargement');	
-									$('#sidebar_main').show('slow'); 		
-									});					
-							});});						
-							</script>						
-							<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
+									
+      				<script type="text/javascript">
+      					$().ready(function(){
+        					// TODO 
+        					$('#ajax#ID_ARTICLE').click(function() {
+          					call({
+            					'type':'article',
+            					'type_objet':'travail_en_cours',
+            					'id_rubrique':'#ID_ARTICLE',
+            					'mode':'ajax-detail'
+          					});				
+        					});
+      					});		
+      				
+                console.log('(B.d) Rubrique (#TYPE_OBJET) : Affichage de tous les autres articles (ici ##ID_ARTICLE) ||| enfants ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE');				
+      			  </script>
+      			  				
+							<li class="ressources_classe_consignes">
+							  <a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">
+  							  [(#TITRE|supprimer_numero|couper{80})]
+  						  </a>
+  						</li>
 						</BOUCLE_sous_articles>
 					</ul>
 					</div>

@@ -395,14 +395,14 @@ function show_articles_blog(duration){
 
 
 /**
- * Redirige vers la fonction la plus apprioriée
+ * Redirige vers la fonction la plus appropriée
  * pour charger l'élément
  *
  * @param {Object} opts - Données identifiant l'élément
  * @param {string} opts.type - Le type de la page à charger (<tt>rubrique</tt>, <tt>article</tt>…)
  * @param {string} opts.mode - La modalité d'affichage de la page (<tt>ajax</tt>, <tt>ajax-detail</tt>, <tt>detail</tt>)
  * @param {string} [opts.id_rubrique] - L'id de la rubrique si c'est une <tt>rubrique</tt>
- * @param {string} [opts.id_article] - L'id de la rubrique si c'est un <tt>article</tt>
+ * @param {string} [opts.id_article] - L'id de l'article si c'est un <tt>article</tt>
  *
  * @see callConsigne
  * @see callReponse
@@ -413,6 +413,14 @@ function show_articles_blog(duration){
 
 function call(opts) {
   console.log(opts);
+  
+  if (opts.type == 'rubrique') {  
+    if (opts.type_objet == 'travail_en_cours') {
+      // Classe
+      callClasse(opts.id_rubrique, opts.id_parent);
+    }  
+  }
+  
 }
 
 /**
@@ -474,8 +482,8 @@ function callReponse(id_consigne, id_reponse){
  * dans la sidebar principale et appelle 
  * le chargement de la classe dans la sidebar secondaire.
  *
- * @param {number} id_rubrique_ouvre - ID de la consigne parente
- * @param {number} id_travail_en_cours - ID de la réponse
+ * @param {number} id_classe - ID de la classe
+ * @param {number} id_travail_en_cours - ID de la rubrique <tt>Travail en cours</tt>
  *
  * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
@@ -483,12 +491,12 @@ function callReponse(id_consigne, id_reponse){
  * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
-function callClasse(id_rubrique_ouvre, id_travail_en_cours){
-	if (id_rubrique_ouvre==undefined) id_rubrique_ouvre='';
+function callClasse(id_classe, id_travail_en_cours){
+	if (id_classe==undefined) id_classe='';
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
 		var url = g_projet.url_popup_classes;
-		if (id_rubrique_ouvre!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_rubrique_ouvre+'&type_objet=travail_en_cours';
+		if (id_classe!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
     loadContentInMainSidebar(url, 'rubrique', 'classes');
 	
     // (TODO*1) Changer la page des consignes en la page (…?)
