@@ -4,3 +4,8 @@ old
 *copie)*
 *.settings
 TODO.txt
+docs/
+jsdoc.json
+node_modules/
+package.json
+.gitignore
