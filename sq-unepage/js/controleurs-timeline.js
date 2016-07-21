@@ -434,10 +434,10 @@ function callReponse(id_consigne, id_reponse){
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
 	// (TODO*1) Changer la page des consignes en la page (…?)
-	
+	/*
 	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
-  
+  */
   showConsigneInTimeline(id_consigne, true);
 	
 	var reponse_DOM = $('.reponse_haute[data-reponse-id="'+id_reponse+'"]');

@@ -26,11 +26,32 @@
   <div id="listmenu">
 		<ul id="menug">
 			
-			[(#REM) Articles de la rubrique parente]
+			[(#REM) 
+			|
+			|  On cherche :
+			|   Sous-rubriques qui ont les mots-clés chrono ||| enfants ||| de la rubrique #_principale
+			|
+			|  Note : 
+			|   Il n'y a aucun article/rubrique avec ces mots-clés,
+			|   donc la boucle n'est jamais exécutée
+      ]
 			
       <BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
       </BOUCLE_rubriques_ordre>
 			
+  			[(#REM) 
+  			|
+  			|  S'il n'y a : 
+  			|   Sous-rubrique qui a les mots-clés chrono ou blog ||| enfant ||| de la rubrique #_principale,
+  			|
+  			|  Alors on cherche :
+  			|   Articles ||| enfants ||| de la sous-rubrique qui a les mots-clés chrono ou blog ||| enfant ||| de la rubrique #_principale
+  			|
+  			|  Note : 
+  			|   Il n'y a aucun article/rubrique avec ces mots-clés,
+  			|   donc la boucle n'est jamais exécutée
+        ]
+        
   			<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
   				<script type="text/javascript">
   				$().ready(function(){
@@ -45,6 +66,8 @@
   						$('#sidebar_main').show('slow'); 		
   						});					
   				});});						
+					
+					console.log('Rubrique : affichage des articles enfants d\'une sous-rubrique ayant les mots-clés blog ou chrono enfant de la rubrique #_principale');
   				</script>
   				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
   			</BOUCLE_sous_articles0>
@@ -52,6 +75,15 @@
   			</B_sous_articles0>
 			
 			</B_rubriques_ordre>
+			
+			[(#REM) 
+			|
+			|  S'il n'y a pas de : 
+			|   Sous-rubrique qui a les mots-clés chrono ou blog ||| enfant ||| de la rubrique #_principale,
+			|
+			|  Alors on cherche :
+			|   Articles ||| enfants ||| de la rubrique #_principale
+      ]
 				
 				<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
 					<script type="text/javascript">
@@ -69,7 +101,10 @@
 								}
               );					
 						});
-					});						
+					});				
+					
+					console.log('Rubrique : affichage des articles enfants de la rubrique #_principale');
+							
 					</script>
 					<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
 				</BOUCLE_sous_articles1>
@@ -78,104 +113,113 @@
 							
 			<//B_rubriques_ordre>
 
-
-			[(#REM)Déroulé de l'arborescence]
-				<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}{tout} {doublons r}>
-					<script type="text/javascript">
-						$().ready(function(){
-						$('#ajax_rub_#ID_RUBRIQUE').click(function() {
-							$('div#sidebar_main').addClass('chargement');
-							$('#menug li a.selected').removeClass('selected');
-							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
-							$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-							, {limit: 25}, function(){ 
-                hideSidebarLateral();
-								$('div#sidebar_main').removeClass('chargement');
-								$('#sidebar_main').show('slow'); 		
-								});					
-						});});						
-				  </script>
+			[(#REM) 
+			|
+			|  Dans les doublons {doublons r} :
+			|  - Les éventuelles sous-rubriques enfants de la rubrique #_principale qui ont les mots-clés chrono ou blog
+			|
+			|  On cherche :
+			|   Sous-rubriques (qui n'ont pas les mots-clés chrono ou blog) ||| enfants ||| de la rubrique #_principale
+      ]
+			
+			<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}{tout} {doublons r}>
+				<script type="text/javascript">
+					$().ready(function(){
+					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
+						$('div#sidebar_main').addClass('chargement');
+						$('#menug li a.selected').removeClass('selected');
+						$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
+						$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+						, {limit: 25}, function(){ 
+              hideSidebarLateral();
+							$('div#sidebar_main').removeClass('chargement');
+							$('#sidebar_main').show('slow'); 		
+							});					
+					});});		
+				
+          console.log('Rubrique : affichage des sous-rubriques (qui n\'ont pas les mots-clés chrono ou blog) enfants de la rubrique #_principale');				
+			  </script>
+					
+				<li class="couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)] ressources_classes">
+				  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
+					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
+				  </a>
+					
+					<ul>
+						[(#REM)Rubriques]
+						<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre} {doublons r}>
+							<li class="ressources_classe_consignes">
+							  <a href="#" class="ajax hac1 [ (#EXPOSE)] [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]">[<strong>- (#TITRE|couper{80})</strong>]</a>
+								<B_sous_rubriques00>
+									<ul>
+									<BOUCLE_sous_rubriques00(RUBRIQUES) {id_parent} {tout} {par titre} {doublons r}>
+									<li><a href="#" class="ajax [(#EXPOSE) [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+									</BOUCLE_sous_rubriques00>
+									</ul>
+								</B_sous_rubriques00>
+							</li>
+						</BOUCLE_sous_rubriques>
 						
-					<li class="couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)] ressources_classes">
-					  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
-  					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
-  				  </a>
-						
-						<ul>
-							[(#REM)Rubriques]
-							<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre} {doublons r}>
-								<li class="ressources_classe_consignes">
-								  <a href="#" class="ajax hac1 [ (#EXPOSE)] [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]">[<strong>- (#TITRE|couper{80})</strong>]</a>
-									<B_sous_rubriques00>
-										<ul>
-										<BOUCLE_sous_rubriques00(RUBRIQUES) {id_parent} {tout} {par titre} {doublons r}>
-										<li><a href="#" class="ajax [(#EXPOSE) [(#GET{rub1}|=={#ID_RUBRIQUE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
-										</BOUCLE_sous_rubriques00>
-										</ul>
-									</B_sous_rubriques00>
-								</li>
-							</BOUCLE_sous_rubriques>
-							
-							[(#REM)Articles]
-							<BOUCLE_rubriques_ordre2(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
-							</BOUCLE_rubriques_ordre2>
-								<BOUCLE_sous_articles2(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-									<script type="text/javascript">
-										$().ready(function(){
-										$('#ajax#ID_ARTICLE').click(function() {
-											$('div#sidebar_main').addClass('chargement');
-											$('#menug li a.selected').removeClass('selected');
-											$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
-											$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-											, {limit: 25}, function(){ 
-  				hideSidebarLateral();
-												$('div#sidebar_main').removeClass('chargement');	
-												$('#sidebar_main').show('slow'); 		
-												});					
-										});});						
-										</script>
-									<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
-								</BOUCLE_sous_articles2>
-							</B_rubriques_ordre2>
-								<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
+						[(#REM)Articles]
+						<BOUCLE_rubriques_ordre2(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
+						</BOUCLE_rubriques_ordre2>
+							<BOUCLE_sous_articles2(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
 								<script type="text/javascript">
 									$().ready(function(){
 									$('#ajax#ID_ARTICLE').click(function() {
+										$('div#sidebar_main').addClass('chargement');
 										$('#menug li a.selected').removeClass('selected');
 										$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
-										$('div#sidebar_main').addClass('chargement');
 										$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 										, {limit: 25}, function(){ 
-  				hideSidebarLateral();
+				hideSidebarLateral();
 											$('div#sidebar_main').removeClass('chargement');	
 											$('#sidebar_main').show('slow'); 		
 											});					
 									});});						
 									</script>
-									<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
-								</BOUCLE_sous_articles3>
-							<//B_rubriques_ordre2>
-					
-							<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-								<script type="text/javascript">
+								<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
+							</BOUCLE_sous_articles2>
+						</B_rubriques_ordre2>
+							<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
+							<script type="text/javascript">
 								$().ready(function(){
 								$('#ajax#ID_ARTICLE').click(function() {
-								$('#menug li a.selected').removeClass('selected');
-								$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');									
+									$('#menug li a.selected').removeClass('selected');
+									$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');										
 									$('div#sidebar_main').addClass('chargement');
 									$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 									, {limit: 25}, function(){ 
-  				hideSidebarLateral();
+				hideSidebarLateral();
 										$('div#sidebar_main').removeClass('chargement');	
 										$('#sidebar_main').show('slow'); 		
 										});					
 								});});						
-								</script>						
-								<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
-							</BOUCLE_sous_articles>
-						</ul>
-					</li>
-				</BOUCLE_rubriques>
+								</script>
+								<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
+							</BOUCLE_sous_articles3>
+						<//B_rubriques_ordre2>
+				
+						<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
+							<script type="text/javascript">
+							$().ready(function(){
+							$('#ajax#ID_ARTICLE').click(function() {
+							$('#menug li a.selected').removeClass('selected');
+							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');									
+								$('div#sidebar_main').addClass('chargement');
+								$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+								, {limit: 25}, function(){ 
+				hideSidebarLateral();
+									$('div#sidebar_main').removeClass('chargement');	
+									$('#sidebar_main').show('slow'); 		
+									});					
+							});});						
+							</script>						
+							<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
+						</BOUCLE_sous_articles>
+					</ul>
+				</li>
+			</BOUCLE_rubriques>
 
 			[(#REM)Déroulé des sites syndiqués]
 				<BOUCLE_sites(SITES) {id_rubrique} {par nom_site}{tout} >
