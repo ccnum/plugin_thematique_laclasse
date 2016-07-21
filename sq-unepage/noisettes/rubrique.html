@@ -26,30 +26,33 @@
   <div id="listmenu">
 		<ul id="menug">
 			
-			[(#REM)Articles de la rubrique parente]
-      <BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}></BOUCLE_rubriques_ordre>
+			[(#REM) Articles de la rubrique parente]
 			
-			<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-				<script type="text/javascript">
-				$().ready(function(){
-				$('#ajax#ID_ARTICLE').click(function() {
-					$('div#sidebar_main').addClass('chargement');
-					$('#menug li a.selected').removeClass('selected');
-					$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
-					$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-					, {limit: 25}, function(){ 
-            hideSidebarLateral();
-						$('div#sidebar_main').removeClass('chargement');	
-						$('#sidebar_main').show('slow'); 		
-						});					
-				});});						
-				</script>
-				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
-			</BOUCLE_sous_articles0>
-			<br />
-			</B_sous_articles0>
+      <BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}>
+      </BOUCLE_rubriques_ordre>
+			
+  			<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
+  				<script type="text/javascript">
+  				$().ready(function(){
+  				$('#ajax#ID_ARTICLE').click(function() {
+  					$('div#sidebar_main').addClass('chargement');
+  					$('#menug li a.selected').removeClass('selected');
+  					$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
+  					$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+  					, {limit: 25}, function(){ 
+              hideSidebarLateral();
+  						$('div#sidebar_main').removeClass('chargement');	
+  						$('#sidebar_main').show('slow'); 		
+  						});					
+  				});});						
+  				</script>
+  				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+  			</BOUCLE_sous_articles0>
+  			<br />
+  			</B_sous_articles0>
 			
 			</B_rubriques_ordre>
+				
 				<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
 					<script type="text/javascript">
 					$().ready(function(){
@@ -71,7 +74,8 @@
 					<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
 				</BOUCLE_sous_articles1>
 				<br />
-				</B_sous_articles1>					
+				</B_sous_articles1>		
+							
 			<//B_rubriques_ordre>
 
 

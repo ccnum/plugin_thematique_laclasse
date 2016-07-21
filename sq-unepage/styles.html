@@ -1433,14 +1433,15 @@ div.jaimeplus {
 	float: left;
 
 }
-.formulaire_jaime .note{
-	float: right;
-	font-size: #GET{font-size3}px;
-	line-height: 25px;
-	font-weight: bold;
-	vertical-align: middle;
-	text-align: center;
-	color: #GET{gris_clair};
+.formulaire_jaime .note {
+  float: right;
+  font-size: 16px;
+  line-height: 35px;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+  color: #fff;
+  margin: 0;
 }
 
 /*-- Tooltip -- */
@@ -3042,13 +3043,13 @@ li a, li a:hover {
 }
 
 .bloc_option_doc_edit {
-  background-image: url(plugins/auto/plugin_thematique_laclasse/./sq-unepage/img/edit.svg);
+  background-image: url([(#CHEMIN{img/edit.svg}|image_reduire{25}|extraire_attribut{src})]);
   background-size: 27px auto;
   background-position: 24px 50% !important;
 }
 
 .bloc_option_doc_reply {
-  background-image: url(plugins/auto/plugin_thematique_laclasse/./sq-unepage/img/reply.svg);
+  background-image: url([(#CHEMIN{img/reply.svg}|image_reduire{25}|extraire_attribut{src})]);
   background-size: 27px auto;
   background-position: 22px 49% !important;
 }
@@ -3728,6 +3729,30 @@ input.crayon-active {
 #cboxBottomRight {
   display:none;
 }
+
+#cboxClose, #cboxClose:hover {
+  top: 0;
+  right: 0;
+  background: url(#ENV{chemin}/img/close.svg) no-repeat center center / 80% auto white;
+  width: 40px;
+  height: 40px;
+  z-index: 2000;
+}
+
+#cboxLoadedContent {
+  padding: 0;
+  margin:0;
+}
+
+#cboxContent {
+  overflow:visible;
+}
+
+#cboxTitle {
+  color:white;
+  bottom:-30px;
+}
+/*
 #colorbox, #cboxOverlay, #cboxWrapper {
     position: absolute;
     top: 0;
@@ -3766,3 +3791,5 @@ input.crayon-active {
     height: 100%;
     width: auto;
 }
+
+*/
