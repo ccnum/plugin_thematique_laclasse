@@ -9,46 +9,17 @@
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
   [(#REM) ---------------- titre & logo ---------------- ] 
-		<div class="sidebar_bubble">  		
-			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
-			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
-			    <div class="texte">
-			        <div class="titre">[(#TITRE|supprimer_numero)]</div>
-			        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
-			    </div>
-			</div>
-		</div>
-		
-		<!--
-	<div class="sidebar_bubble">
-		<div class="ressources_header_titre">
-			[(#MODE|=={ajax}|non) ]
-			[(#MODE|=={ajax}|et{#TYPE_OBJET|=={travail_en_cours}}|oui)<span class="#EDIT{logo}">[(#LOGO_RUBRIQUE||image_reduire{80}||inserer_attribut{class,img_titre ombre_portee}|sinon{#LOGO_SITE_SPIP})]</span>]
-			<span class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</span>
+  
+	<div class="sidebar_bubble">  		
+		<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+		    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+		    <div class="texte">
+	        <div class="titre">[(#TITRE|supprimer_numero)]</div>
+	        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
+		    </div>
 		</div>
 	</div>
-		-->
 		
-<BOUCLE_tab_consignes_rubrique(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
-	<BOUCLE_tab_consignes_consigne(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
-	<!--
-	<hr>
-	<hr>
-	  <div class="tab_consignes_consigne">
-  	  <div class="tab_consignes_consigne_titre">
-        [(#TITRE|couper{40}|wordwrap{23,<br />})]
-  	  </div>
-  	  
-  	  <BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}>
-  	    <hr>
-				#ID_ARTICLE<br>
-				#ID_RUBRIQUE<br>
-				[(#TITRE|couper{60}|entites_html)]
-      </BOUCLE_reponse>			
-	  </div>
-	  -->
-	</BOUCLE_tab_consignes_consigne>
-</BOUCLE_tab_consignes_rubrique>
 
 	<div class="sidebar_bubble">
 		[(#REM)Corps Menu Arborescent]
@@ -56,52 +27,52 @@
 		<ul id="menug">
 			
 			[(#REM)Articles de la rubrique parente]
-				<BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}></BOUCLE_rubriques_ordre>
+      <BOUCLE_rubriques_ordre(RUBRIQUES) {id_rubrique} {titre_mot IN chrono,blog} {doublons r}></BOUCLE_rubriques_ordre>
 			
-				<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
+			<BOUCLE_sous_articles0(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
+				<script type="text/javascript">
+				$().ready(function(){
+				$('#ajax#ID_ARTICLE').click(function() {
+					$('div#sidebar_main').addClass('chargement');
+					$('#menug li a.selected').removeClass('selected');
+					$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
+					$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
+					, {limit: 25}, function(){ 
+            hideSidebarLateral();
+						$('div#sidebar_main').removeClass('chargement');	
+						$('#sidebar_main').show('slow'); 		
+						});					
+				});});						
+				</script>
+				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+			</BOUCLE_sous_articles0>
+			<br />
+			</B_sous_articles0>
+			
+			</B_rubriques_ordre>
+				<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
 					<script type="text/javascript">
 					$().ready(function(){
-					$('#ajax#ID_ARTICLE').click(function() {
-						$('div#sidebar_main').addClass('chargement');
-						$('#menug li a.selected').removeClass('selected');
-						$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
-						$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-						, {limit: 25}, function(){ 
-              hideSidebarLateral();
-							$('div#sidebar_main').removeClass('chargement');	
-							$('#sidebar_main').show('slow'); 		
-							});					
-					});});						
+						$('#ajax#ID_ARTICLE').click(function() {
+							$('div#sidebar_main').addClass('chargement');
+							$('#menug li a.selected').removeClass('selected');
+							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
+							$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 
+							  {limit: 25}, 
+							  function(){ 
+                  hideSidebarLateral();
+  								$('div#sidebar_main').removeClass('chargement');	
+  								$('#sidebar_main').show('slow'); 		
+								}
+              );					
+						});
+					});						
 					</script>
 					<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
-				</BOUCLE_sous_articles0>
+				</BOUCLE_sous_articles1>
 				<br />
-				</B_sous_articles0>
-				
-				</B_rubriques_ordre>
-					<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
-						<script type="text/javascript">
-						$().ready(function(){
-  						$('#ajax#ID_ARTICLE').click(function() {
-  							$('div#sidebar_main').addClass('chargement');
-  							$('#menug li a.selected').removeClass('selected');
-  							$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');							
-  							$('#sidebar_main').load('[(#URL_PAGE{article}|parametre_url{id_article,#ID_ARTICLE}|parametre_url{mode,ajax-detail}|html_entity_decode)]', 
-  							  {limit: 25}, 
-  							  function(){ 
-                    hideSidebarLateral();
-    								$('div#sidebar_main').removeClass('chargement');	
-    								$('#sidebar_main').show('slow'); 		
-  								}
-                );					
-  						});
-						});						
-						</script>
-						<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
-					</BOUCLE_sous_articles1>
-					<br />
-					</B_sous_articles1>					
-				<//B_rubriques_ordre>
+				</B_sous_articles1>					
+			<//B_rubriques_ordre>
 
 
 			[(#REM)Déroulé de l'arborescence]

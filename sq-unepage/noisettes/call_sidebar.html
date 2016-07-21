@@ -4,29 +4,31 @@
   $().ready(function(){
     $('.call_sidebar_main').off('click').on('click', function(){
       if ($('body').hasClass('hasSidebarLateralVisible')) {
-        $('body').removeClass('hasSidebarLateralVisible');
+        hideSidebarLateral();
       } else {
-        $('body').addClass('hasSidebarLateralVisible');
+        showSidebarLateral();
       }
       
       console.log('toggle hasSidebarLateralVisible');
     });
   });
+  
+  console.log('Type_objet : #TYPE_OBJET');
 </script>
 
+[(#TYPE_OBJET|match{classes}|ou{#TYPE_OBJET|is_null}|oui)
 
 <div class="call_sidebar_main couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
   <div class="call_sidebar_main_inner">
-    [(#TYPE_OBJET|=={consignes}|oui)
-      Afficher toutes les consignes
-    ]
     
-    [(#TYPE_OBJET|=={travail_en_cours}|oui)
-      Afficher les réponses des classes
-    ]
-    
-    [(#TYPE_OBJET|=={classes}|oui)
+    [(#TYPE_OBJET|match{classes}|oui) 
       Afficher toutes les classes
+    ]
+    
+    [(#TYPE_OBJET|is_null|oui) 
+      &#9664; Retour
     ]
   </div>
 </div>
+
+]

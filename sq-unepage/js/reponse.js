@@ -15,7 +15,7 @@ function Reponse() {
   /**
    * Initialise la réponse.
    *
-   * @param {Object} data - Données à affecter à l'instance (TODO URGENT)
+   * @param {Object} data - Données à affecter à l'instance
    */
  
   this.init = function(data) {	

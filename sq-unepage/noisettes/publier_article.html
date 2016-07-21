@@ -1,6 +1,6 @@
 #CACHE{0}
 	
-[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
+<div class="popup [popup_(#GET{type_objet})]">
 	[(#ID_ARTICLE|non)
 		<script type="text/javascript">
 			$().ready(function(){
@@ -61,7 +61,7 @@
   			
   			[(#ID_ARTICLE|non) </div>]
   		</div>
-[(#MODE|!={ajax-detail}|oui)
+  		
 	[(#REM)<br /><br />PS : Après enregistrement, vous pourrez ajouter un texte et des documents. <br />Un mail sera envoyé à la mailing liste.]
 	</div>
-</div>]
+</div>

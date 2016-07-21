@@ -9,7 +9,22 @@ $().ready(function(){
       
       
   $('#sidebarExpand').on('click', function(){
-    $('body').toggleClass('hasSidebarExpanded');
+    if ($('body').hasClass('hasSidebarExpanded')) {
+      $('body').removeClass('hasSidebarExpanded');
+      
+      if ($('body').hasClass('hadSidebarLateralVisible')) {
+        $('body').removeClass('hadSidebarLateralVisible');
+        showSidebarLateral();
+      }
+    } else {
+      $('body').addClass('hasSidebarExpanded');
+      
+      if ($('body').hasClass('hasSidebarLateralVisible')) {
+        $('body').addClass('hadSidebarLateralVisible');
+      }
+      
+      hideSidebarLateral();
+    }
   });
   
   $('#sidebarCache').on('click', function(){
@@ -124,7 +139,7 @@ function popup(url,mode){
  * @param {string} cookie_valeur - Valeur du cookie
  */
 
-function reload_cookie(url,cookie_nom,cookie_valeur) {
+function reloadAndSetCookie(url,cookie_nom,cookie_valeur) {
   document.cookie = cookie_nom + "=" + escape(cookie_valeur);
   reload(url);
 }
@@ -135,7 +150,7 @@ function reload_cookie(url,cookie_nom,cookie_valeur) {
  *
  * @param {string} url - URL de la page à charger avec AJAX ou <tt>self</tt> pour recharger la même page
  *
- * @see reload_cookie
+ * @see reloadAndSetCookie
  */
 
 function reload(url) {

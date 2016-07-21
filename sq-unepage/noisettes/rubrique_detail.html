@@ -1,12 +1,12 @@
+[(#REM) Réponses de la classe]
+
+
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{doublons}{tout}>
 
 <div class="popup [popup_(#GET{type_objet})]">
   
-<INCLURE{fond=noisettes/call_sidebar}>  
+<INCLURE{fond=noisettes/call_sidebar}{type_objet=classes}>  
   
-<div id="sidebar_main_around">
-	<div id="sidebar_main">
-  	<div id="sidebar_content_inner">
 		
 		[(#REM) ---------------- entete publication ---------------- ]
 		#SET{type_objet,#TYPE_OBJET}
@@ -170,9 +170,6 @@
 	[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
 		</div>
 	]
-  	  </div>
-  	</div>
-	</div>
 
 </div>
 

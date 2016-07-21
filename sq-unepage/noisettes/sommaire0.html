@@ -39,7 +39,7 @@
 
 			<div class="sous-colonne" id="annee_scolaire0">
 				<form name="annee_scolaire0">
-				<select onchange="reload_cookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire0.annee_scolaire0.value)" name="annee_scolaire0">
+				<select onchange="reloadAndSetCookie('','[(#EVAL{_cookie_annee_scolaire})]',document.annee_scolaire0.annee_scolaire0.value)" name="annee_scolaire0">
 					<option value=''>Année scolaire</option>
 					<option value=''>----------------</option>
 					<BOUCLE_vieux(ARTICLES){par date}{date!=0000}{0,1}{tout}>
