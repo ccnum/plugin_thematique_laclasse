@@ -161,7 +161,8 @@ et/ou
 			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 			            </BOUCLE_a3>
 			            
-							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]}{onclick=classes_click([(#ID_RUBRIQUE)]);})]
+							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{id_travail_en_cours=#ID_PARENT}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
+							
 			            </B_a3>
 			            <//B_a3>
 			          </BOUCLE_c3>
@@ -182,7 +183,7 @@ et/ou
 	            <BOUCLE_select_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 	            </BOUCLE_select_a3>
 	            <li>			            
-					[(#MODELE{item_select}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_select_c3:TITRE)]}{class=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_select_c3:TITRE|couper{2})]}{onclick=callClasse([(#ID_RUBRIQUE)]);})]
+					[(#MODELE{item_select}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_select_c3:TITRE)]}{class=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_select_c3:TITRE|couper{2})]}{onclick=callClasse([(#ID_RUBRIQUE)]);})]+
 				
 	            </li>
 	            </B_select_a3>

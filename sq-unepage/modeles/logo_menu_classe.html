@@ -9,7 +9,7 @@
 -texte
 ]
 <li class="logo">
-  <a [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"] [onClick="(#ONCLICK)"] class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS logo_menu_classe" title="[(#TITLE|sinon{#VALEUR})]" style="#STYLE">
+  <a [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"] onClick="callClasse(#ID_RUBRIQUE,#ID_TRAVAIL_EN_COURS);" class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS logo_menu_classe" title="[(#TITLE|sinon{#VALEUR})]" style="#STYLE">
     <div class="logo_menu_classe_image" style="background-image:url([(#MODELE{logo_carre}{id_rubrique}{taille=35}|extraire_attribut{src})])">
       [(#TEXTE*|sinon{&nbsp;})]
     </div>

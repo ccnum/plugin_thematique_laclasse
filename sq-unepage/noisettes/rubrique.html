@@ -21,15 +21,13 @@
 	</div>
 		
 
-	<div class="sidebar_bubble">
 		[(#REM)Corps Menu Arborescent]
   <div id="listmenu">
-		<ul id="menug">
 			
 			[(#REM) 
 			|
 			|  On cherche :
-			|   Sous-rubriques qui ont les mots-clés chrono ||| enfants ||| de la rubrique #_principale
+			|   …à savoir si la rubrique #_principale a les mots-clés blog ou chrono
 			|
 			|  Note : 
 			|   Il n'y a aucun article/rubrique avec ces mots-clés,
@@ -41,11 +39,11 @@
 			
   			[(#REM) 
   			|
-  			|  S'il n'y a : 
-  			|   Sous-rubrique qui a les mots-clés chrono ou blog ||| enfant ||| de la rubrique #_principale,
+  			|  Si : 
+  			|   …la rubrique #_principale a les mots-clés blog ou chrono,
   			|
   			|  Alors on cherche :
-  			|   Articles ||| enfants ||| de la sous-rubrique qui a les mots-clés chrono ou blog ||| enfant ||| de la rubrique #_principale
+  			|   Articles ||| enfants ||| de la rubrique #_principale ayant les mots-clés blog ou chrono
   			|
   			|  Note : 
   			|   Il n'y a aucun article/rubrique avec ces mots-clés,
@@ -67,7 +65,7 @@
   						});					
   				});});						
 					
-					console.log('Rubrique : affichage des articles enfants d\'une sous-rubrique ayant les mots-clés blog ou chrono enfant de la rubrique #_principale');
+					console.log('Rubrique (#TYPE_OBJET) : Affichage des articles ||| enfants ||| de la rubrique #_principale ayant les mots-clés blog ou chrono');
   				</script>
   				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
   			</BOUCLE_sous_articles0>
@@ -78,11 +76,11 @@
 			
 			[(#REM) 
 			|
-			|  S'il n'y a pas de : 
-			|   Sous-rubrique qui a les mots-clés chrono ou blog ||| enfant ||| de la rubrique #_principale,
+			|  Si : 
+			|   …la rubrique #_principale n'a pas les mots-clés blog ou chrono,
 			|
 			|  Alors on cherche :
-			|   Articles ||| enfants ||| de la rubrique #_principale
+			|   Articles ||| enfants ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
       ]
 				
 				<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
@@ -103,10 +101,12 @@
 						});
 					});				
 					
-					console.log('Rubrique : affichage des articles enfants de la rubrique #_principale');
+					console.log('Rubrique (#TYPE_OBJET) : Affichage des articles ||| enfants ||| de la rubrique #_principale n\'ayant pas les mots-clés blog ou chrono');
 							
 					</script>
-					<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
+					<div class="sidebar_bubble">
+  					<a id="ajax#ID_ARTICLE" href="#" class="ressources_classe_nom ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a>
+  				</div>
 				</BOUCLE_sous_articles1>
 				<br />
 				</B_sous_articles1>		
@@ -116,31 +116,29 @@
 			[(#REM) 
 			|
 			|  Dans les doublons {doublons r} :
-			|  - Les éventuelles sous-rubriques enfants de la rubrique #_principale qui ont les mots-clés chrono ou blog
+			|  - La rubrique #_principale si elle a les mots-clés chrono ou blog (donc si la rubrique #_principale a un des mots-clés, cette boucle n'est pas exécutée)
 			|
 			|  On cherche :
-			|   Sous-rubriques (qui n'ont pas les mots-clés chrono ou blog) ||| enfants ||| de la rubrique #_principale
+			|   Sous-rubriques ||| enfants ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
       ]
 			
 			<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}{tout} {doublons r}>
 				<script type="text/javascript">
 					$().ready(function(){
-					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
-						$('div#sidebar_main').addClass('chargement');
-						$('#menug li a.selected').removeClass('selected');
-						$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
-						$('#sidebar_main').load('[(#URL_PAGE{rubrique}|parametre_url{id_rubrique,#ID_RUBRIQUE}|parametre_url{mode,ajax-detail}|html_entity_decode)]'
-						, {limit: 25}, function(){ 
-              hideSidebarLateral();
-							$('div#sidebar_main').removeClass('chargement');
-							$('#sidebar_main').show('slow'); 		
-							});					
-					});});		
+  					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
+    					call({
+      					'type':'rubrique',
+      					'id_rubrique':'#ID_RUBRIQUE',
+      					'mode':'ajax-detail'
+    					});				
+  					});
+					});		
 				
-          console.log('Rubrique : affichage des sous-rubriques (qui n\'ont pas les mots-clés chrono ou blog) enfants de la rubrique #_principale');				
+          console.log('Rubrique (#TYPE_OBJET) : Affichage de la sous-rubrique ##ID_RUBRIQUE ||| enfants ||| de la rubrique #_principale ##ID_PARENT n\'ayant pas les mots-clés blog ou chrono');				
 			  </script>
 					
-				<li class="couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)] ressources_classes">
+				<div class="sidebar_bubble ressources_classes_around">
+  				<div class="couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)] ressources_classes">
 				  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
 					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
 				  </a>
@@ -218,7 +216,8 @@
 							<li class="ressources_classe_consignes"><a id="ajax#ID_ARTICLE" href="#"  class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[(#TITRE|supprimer_numero|couper{80})]</a></li>
 						</BOUCLE_sous_articles>
 					</ul>
-				</li>
+					</div>
+				</div>
 			</BOUCLE_rubriques>
 
 			[(#REM)Déroulé des sites syndiqués]
@@ -268,13 +267,16 @@
 						</ul>
 					</li>
 				</BOUCLE_sites>
-			</ul>
 		</div>	
-  </div>
+  
 			
 	[(#REM)Pour ouverture directe si id_article ou publier présent]
 	<BOUCLE_rubart(ARTICLES){id_article}>
 		<script type="text/javascript">
+  	
+  	console.log('Rubrique : (old) AJAX de l\'article ##ID_ARTICLE');	
+  	
+  		/*
 		$().ready(function(){
 			$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
 			$('div#sidebar_main').addClass('chargement');
@@ -285,6 +287,7 @@
 				$('#sidebar_main').show('slow');
 				});					
 		});						
+		*/
 		</script>
 	</BOUCLE_rubart>
 
@@ -293,6 +296,9 @@
 	  [(#REM) N'est plus utilisé]
 	
 		<script type="text/javascript">
+  		
+  	console.log('Rubrique : (old) AJAX de la rubrique ##ID_RUBRIQUE_OUVRE');	
+  		/*
 		$().ready(function(){
 			$('#menug li a.selected').removeClass('selected');
 			$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
@@ -303,12 +309,15 @@
 				$('div#sidebar_main').removeClass('chargement');
 				$('#sidebar_main').show('slow'); 		
 		  });					
-		});						
+		});		
+		*/				
 		</script>
 	]
 	
 	[(#REM) #TYPE_OBJET|=={travail_en_cours}|oui
 		<script type="text/javascript">
+  	console.log('Rubrique : (old) AJAX de publier avec la rubrique ##ID_RUBRIQUE');	
+  	/*
 		$().ready(function(){
 			$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
 			$('div#sidebar_main').addClass('chargement');				
@@ -319,7 +328,8 @@
 				$('div#sidebar_main').removeClass('chargement');
 				$('#sidebar_main').show('slow'); 		
 				});
-		});						
+		});		
+		*/				
 		</script>
 	]
 	

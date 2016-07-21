@@ -395,6 +395,27 @@ function show_articles_blog(duration){
 
 
 /**
+ * Redirige vers la fonction la plus apprioriée
+ * pour charger l'élément
+ *
+ * @param {Object} opts - Données identifiant l'élément
+ * @param {string} opts.type - Le type de la page à charger (<tt>rubrique</tt>, <tt>article</tt>…)
+ * @param {string} opts.mode - La modalité d'affichage de la page (<tt>ajax</tt>, <tt>ajax-detail</tt>, <tt>detail</tt>)
+ * @param {string} [opts.id_rubrique] - L'id de la rubrique si c'est une <tt>rubrique</tt>
+ * @param {string} [opts.id_article] - L'id de la rubrique si c'est un <tt>article</tt>
+ *
+ * @see callConsigne
+ * @see callReponse
+ * @see callClasse
+ *
+ * @todo Compléter au maximum la fonction
+ */
+
+function call(opts) {
+  console.log(opts);
+}
+
+/**
  * Appelle le chargement de la consigne 
  * dans la sidebar principale et appelle 
  * l'affichage de la consigne dans la timeline.
@@ -453,8 +474,8 @@ function callReponse(id_consigne, id_reponse){
  * dans la sidebar principale et appelle 
  * le chargement de la classe dans la sidebar secondaire.
  *
- * @param {number} id_consigne - ID de la consigne parente
- * @param {number} id_reponse - ID de la réponse
+ * @param {number} id_rubrique_ouvre - ID de la consigne parente
+ * @param {number} id_travail_en_cours - ID de la réponse
  *
  * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
