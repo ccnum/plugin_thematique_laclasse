@@ -135,6 +135,8 @@ function loadClasses(fichier){
 			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
+			g_travail_en_cours_id = parseFloat(xmldoc.getElementsByTagName("travail_en_cours_id")[0].childNodes[0].nodeValue);
+			
 			var xml_classe = xmldoc.getElementsByTagName("classe");
 			
       // Pour chaque classe, on ajoute une entrée dans le tableau `g_classes`
@@ -223,7 +225,7 @@ function loadConsignes(fichier){
         dataForConsigne.titre = dataForConsigne.titre.replace("]", ">");
         dataForConsigne.image = xml_consigne[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
         					
-        // Positionnement en y de la consigne (sert encore ?) 
+        // Positionnement en y de la consigne
         
         dataForConsigne.y = parseFloat(xml_consigne[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
         
@@ -661,7 +663,7 @@ function initTimeline(){
     	for (k=0; k<g_consignes.length;k++){
     		for (l=0; l<g_consignes[k].reponses.length;l++){
     			if (g_consignes[k].reponses[l].id == g_u_id_objet){
-    				callReponse(g_consignes[k].id, g_u_id_objet);
+    				callReponse(g_u_id_objet, g_consignes[k].id);
     				showConsigneInTimeline(g_consignes[k].numero);
     			}
     		}

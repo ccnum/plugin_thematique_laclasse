@@ -403,6 +403,7 @@ function show_articles_blog(duration){
  * @param {string} opts.mode - La modalité d'affichage de la page (<tt>ajax</tt>, <tt>ajax-detail</tt>, <tt>detail</tt>)
  * @param {string} [opts.id_rubrique] - L'id de la rubrique si c'est une <tt>rubrique</tt>
  * @param {string} [opts.id_article] - L'id de l'article si c'est un <tt>article</tt>
+ * @param {string} [opts.id_consigne] - L'id de la consigne si c'est une réponse de classe
  *
  * @see callConsigne
  * @see callReponse
@@ -417,7 +418,14 @@ function call(opts) {
   if (opts.type == 'rubrique') {  
     if (opts.type_objet == 'travail_en_cours') {
       // Classe
-      callClasse(opts.id_rubrique, opts.id_parent);
+      callClasse(opts.id_rubrique);
+    }  
+  }
+  
+  if (opts.type == 'article') {  
+    if (opts.type_objet == 'travail_en_cours' && opts.id_consigne != null) {
+      // Réponse d'une classe
+      callReponse(opts.id_article, opts.id_consigne);
     }  
   }
   
@@ -458,7 +466,7 @@ function callConsigne(id_consigne){
  * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
-function callReponse(id_consigne, id_reponse){
+function callReponse(id_reponse, id_consigne){
 	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
@@ -483,7 +491,6 @@ function callReponse(id_consigne, id_reponse){
  * le chargement de la classe dans la sidebar secondaire.
  *
  * @param {number} id_classe - ID de la classe
- * @param {number} id_travail_en_cours - ID de la rubrique <tt>Travail en cours</tt>
  *
  * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
@@ -491,7 +498,7 @@ function callReponse(id_consigne, id_reponse){
  * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
-function callClasse(id_classe, id_travail_en_cours){
+function callClasse(id_classe){
 	if (id_classe==undefined) id_classe='';
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
@@ -501,7 +508,7 @@ function callClasse(id_classe, id_travail_en_cours){
 	
     // (TODO*1) Changer la page des consignes en la page (…?)
 	
-  	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+id_travail_en_cours;
+  	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+g_travail_en_cours_id;
   	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
     
 		$('#menug li a.selected').removeClass('selected');

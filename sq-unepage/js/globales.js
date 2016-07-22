@@ -5,6 +5,7 @@ var g_nom_mois = new Array("Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Ju
 var g_nom_mois_complet = new Array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
 var g_mousedown, g_mousex, g_mousey;
 var g_projet;
+var g_travail_en_cours_id;
 var g_classes, g_classe_index;
 var g_consignes, g_consigne_index;
 var g_reponses, g_reponse_index;

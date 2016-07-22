@@ -24,6 +24,9 @@
       
       
         <BOUCLE_archives_annee_classes(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre_mot==travail_en_cours}{tout}>
+        
+          <travail_en_cours_id>#ID_RUBRIQUE</travail_en_cours_id>
+          
           <BOUCLE_archives_annee_classes_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
           
           	<classe>
@@ -58,6 +61,9 @@
   
  
   <BOUCLE_classes(RUBRIQUES){racine}{titre_mot==travail_en_cours}{tout}{si #GET{dans_archives}|=={non}|oui}>
+  
+    <travail_en_cours_id>#ID_RUBRIQUE</travail_en_cours_id>
+    
     <BOUCLE_classes_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
   
       [(#REM) CCN courant]

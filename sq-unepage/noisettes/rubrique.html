@@ -136,7 +136,7 @@
   					});
 					});		
 				
-          console.log('(B) Rubrique (#TYPE_OBJET) : Affichage de la sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+          console.log("\r\n# # # # # # # # # # # # # # # # # # # # #\r\n\r\n(B) BOUCLE RUBRIQUES (#TYPE_OBJET) :\r\n-- Affichage de la sous-rubrique ##ID_RUBRIQUE\r\n- Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n\r\n# # # # # # # # # #\r\n\r\n");				
 			  </script>
 					
 				<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
@@ -184,7 +184,7 @@
             					});
           					});		
           				
-                    console.log('(B.a.a) Rubrique (#TYPE_OBJET) : Affichage de la sous-sous-sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la sous-sous-rubrique ##ID_PARENT ||| enfant ||| de la sous-rubrique ##_rubriques:ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+                    console.log("(B.a.a) BOUCLE RUBRIQUES (#TYPE_OBJET) :\r\n---- Affichage de la sous-sous-sous-rubrique ##ID_RUBRIQUE\r\n--- Enfant de la sous-sous-rubrique ##ID_PARENT\r\n-- Enfant de la sous-rubrique ##_rubriques:ID_RUBRIQUE\r\n- Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
           			  </script>
           			  
           			  
@@ -229,7 +229,7 @@
           					});
         					});		
         				
-                  console.log('(B.b) Rubrique (#TYPE_OBJET) : Affiche de l\'article ##ID_ARTICLE ||| enfant ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ayant les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+                  console.log("(B.b) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n--- Affichage de l'article ##ID_ARTICLE\r\n-- Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ayant les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
         			  </script>								
         			  
         			  <li class="ressources_classe_consignes">
@@ -256,13 +256,15 @@
             					call({
               					'type':'article',
               					'type_objet':'travail_en_cours',
-              					'id_rubrique':'#ID_ARTICLE',
+              					'id_article':'#ID_ARTICLE',
+                        'id_parent':'#ID_PARENT',
+                        [(#ID_CONSIGNE|oui) 'id_consigne':'#ID_CONSIGNE',]	
               					'mode':'ajax-detail'
             					});				
           					});
         					});		
         				
-                  console.log('(B.c) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfant ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+                  console.log("(B.c) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n——— Affichage de l'article ##ID_ARTICLE\r\n—— Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
         			  </script>
         			  
 								<li class="ressources_classe_consignes">
