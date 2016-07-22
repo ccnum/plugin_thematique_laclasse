@@ -4,7 +4,7 @@ var vue = 'timeline';
 
 $().ready(function(){
   $('#timeline_fixed').on('click', function(){
-  	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
+  	CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
   })
       
       
@@ -91,13 +91,6 @@ $().ready(function(){
     
     stop_action ();
     vue = 'classes';
-  });
-
-  // Fermeture du canvas
-  
-  $("#canvas_projet").click(function(){
-    //alert ('ok');
-    //g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
   });
 
   // Initialisation des logos-menus
@@ -190,7 +183,7 @@ function isotope_classes_ferme_tout(){
  */
 
 function isotope_consignes_ferme_tout(){
-  // g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
-  // var bouton = $(".filter a[onclick*='g_projet.showWholeTimeline']");
+  // CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
+  // var bouton = $(".filter a[onclick*='CCN.projet.showWholeTimeline']");
   // isotope_filtre(bouton);
 }

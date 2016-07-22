@@ -16,13 +16,21 @@
   console.log('Type_objet : #TYPE_OBJET');
 </script>
 
-[(#TYPE_OBJET|match{classes}|ou{#TYPE_OBJET|is_null}|oui)
+[(#TYPE_OBJET|match{classes|travail_en_cours|consignes}|ou{#TYPE_OBJET|is_null}|oui)
 
 <div class="call_sidebar_main couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
   <div class="call_sidebar_main_inner">
     
     [(#TYPE_OBJET|match{classes}|oui) 
       Afficher les autres classes
+    ]
+    
+    [(#TYPE_OBJET|match{travail_en_cours}|oui) 
+      Afficher les réponses des autres classes
+    ]
+    
+    [(#TYPE_OBJET|match{consignes}|oui) 
+      Afficher les réponses des classes
     ]
     
     [(#TYPE_OBJET|is_null|oui) 

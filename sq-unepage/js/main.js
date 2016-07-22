@@ -1,4 +1,9 @@
-var g_loaded = false;
+var indexClasse;
+var indexConsigne;
+var indexReponse;
+var indexArticleBlog;
+var indexArticleEvenement;
+var indexIntervenant;
 
 /**
  * Première fonction initialisant le document
@@ -9,25 +14,26 @@ var g_loaded = false;
  */   
 
 function init() {
-  g_zone                      = document.getElementById("zone");
-  g_click_reponse             = false;
+  indexClasse                 = 0;
+  indexConsigne               = 0;
+  indexReponse                = 0;
+  indexArticleBlog            = 0;
+  indexArticleEvenement       = 0;
+  indexIntervenant            = 0;
+  
   g_hide_travaux              = false;
   g_hide_articles_blog        = false;
   g_hide_articles_evenement   = false;
-  g_classes                   = [];
-  g_classe_index              = 0;
-  g_intervenants              = [];
-  g_intervenant_index         = 0;
-  g_consignes                 = [];
-  g_consigne_index            = 0;
-  g_reponses                  = [];
-  g_reponse_index             = 0;
-  g_articles_blog             = [];
-  g_article_blog_index        = 0;
-  g_articles_evenement        = [];
-  g_article_evenement_index   = 0;
-  g_couleur_blog              = '';
-  g_duration_def              = 800;
+  
+  CCN.classes                 = [];
+  CCN.intervenants            = [];
+  CCN.consignes               = [];
+  CCN.reponses                = [];
+  CCN.articlesBlog            = [];
+  CCN.articlesEvenement       = [];
+  
+  CCN.couleurBlog             = '';
+  CCN.dureeTransition         = 800;
   
   // Charge le projet
   
@@ -61,7 +67,7 @@ function loadProjet(fichier){
 			
 			// Récupération des données extraites du XML
 			
-			g_couleur_blog = xmldoc.getElementsByTagName("couleur_blog")[0].childNodes[0].nodeValue;			
+			CCN.couleurBlog = xmldoc.getElementsByTagName("couleur_blog")[0].childNodes[0].nodeValue;			
 			
 			var dataForProjet = {};
 			
@@ -101,8 +107,8 @@ function loadProjet(fichier){
 			
 			// Initialise le projet
 			
-      g_projet = new Projet();
-      g_projet.init(dataForProjet);
+      CCN.projet = new Projet();
+      CCN.projet.init(dataForProjet);
 			
 			// Lance le chargement des classes
 			
@@ -135,11 +141,11 @@ function loadClasses(fichier){
 			xmldoc0 = xmldoc0.trim();
 			var xmldoc = LoadXMLString(xmldoc0);
 			
-			g_travail_en_cours_id = parseFloat(xmldoc.getElementsByTagName("travail_en_cours_id")[0].childNodes[0].nodeValue);
+			CCN.travailEnCoursId = parseFloat(xmldoc.getElementsByTagName("travail_en_cours_id")[0].childNodes[0].nodeValue);
 			
 			var xml_classe = xmldoc.getElementsByTagName("classe");
 			
-      // Pour chaque classe, on ajoute une entrée dans le tableau `g_classes`
+      // Pour chaque classe, on ajoute une entrée dans le tableau `CCN.classes`
 			
 			for (i=0;i<xml_classe.length;i++){
   			var dataForClasse = {};
@@ -152,14 +158,14 @@ function loadClasses(fichier){
 				var nouvelle_classe = new Classe();
 				nouvelle_classe.init(dataForClasse);
 				
-				g_classes.push(nouvelle_classe);
-				g_classe_index++;
+				CCN.classes.push(nouvelle_classe);
+				indexClasse++;
 			}
 			
 			
 			var xml_intervenant = xmldoc.getElementsByTagName("intervenant");
 			
-      // Pour chaque intervenant, on ajoute une entrée dans le tableau `g_intervenants`
+      // Pour chaque intervenant, on ajoute une entrée dans le tableau `CCN.intervenants`
 			
 			for (i=0;i<xml_intervenant.length;i++){
   			var dataForIntervenant = {};
@@ -172,8 +178,8 @@ function loadClasses(fichier){
 				var nouvel_intervenant = new Intervenant();
 				    nouvel_intervenant.init(dataForIntervenant);
 				
-				g_intervenants.push(nouvel_intervenant);
-				g_intervenant_index++;
+				CCN.intervenants.push(nouvel_intervenant);
+				indexIntervenant++;
 			}
 			
 			// Lance le chargement des consignes
@@ -210,7 +216,7 @@ function loadConsignes(fichier){
 			var xml_consigne = xmldoc.getElementsByTagName("consigne");
 			var index_y = 0;	
 			
-			// Pour chaque consigne, on ajoute une entrée dans le tableau `g_consignes`
+			// Pour chaque consigne, on ajoute une entrée dans le tableau `CCN.consignes`
 			
 			for (i = 0; i < xml_consigne.length; i++){
   			
@@ -229,12 +235,12 @@ function loadConsignes(fichier){
         
         dataForConsigne.y = parseFloat(xml_consigne[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
         
-        if (index_y >= g_projet.liste_y_consignes.length){
+        if (index_y >= CCN.projet.liste_y_consignes.length){
         	index_y = 0;
         }
         
         if ((dataForConsigne.y <= 0) || (dataForConsigne.y >= 1.05)) {
-          dataForConsigne.y = g_projet.liste_y_consignes[index_y];
+          dataForConsigne.y = CCN.projet.liste_y_consignes[index_y];
         }
         
         index_y++;
@@ -247,7 +253,7 @@ function loadConsignes(fichier){
         dataForConsigne.date.setMonth(parseFloat(dataForConsigne.date_texte.substring(3, 5))-1);
         dataForConsigne.date.setFullYear(parseFloat(dataForConsigne.date_texte.substring(6, 10)));
         dataForConsigne.jour_consigne = parseFloat(Math.round((dataForConsigne.date)/(24*60*60*1000)));
-        dataForConsigne.nombre_jours = dataForConsigne.jour_consigne-g_projet.premier_jour; // Compte des jours avec le premier jour de la CCN comme 0
+        dataForConsigne.nombre_jours = dataForConsigne.jour_consigne-CCN.projet.premier_jour; // Compte des jours avec le premier jour de la CCN comme 0
         
         xml_reponses = xml_consigne[i].getElementsByTagName("reponse");
         
@@ -285,9 +291,9 @@ function loadConsignes(fichier){
         	dataForConsigne.nombre_jours_max = 30;
         }
         
-        dataForConsigne.classes = g_classes;
-        dataForConsigne.intervenants = g_intervenants;
-        dataForConsigne.numero = g_consigne_index;
+        dataForConsigne.classes = CCN.classes;
+        dataForConsigne.intervenants = CCN.intervenants;
+        dataForConsigne.numero = indexConsigne;
         
         // Initialise la consigne
         
@@ -326,14 +332,14 @@ function loadConsignes(fichier){
         
         // TO DO
         
-        var hauteur_utile_reponses = g_projet.hauteur-nouvelle_consigne.hauteur-140; 
+        var hauteur_utile_reponses = CCN.projet.hauteur-nouvelle_consigne.hauteur-140; 
         var hauteur_max_reponses = hauteur_utile_reponses/liste_y.length;
         
         // Nouvelles réponses ajoutées à la consigne en cours de traitement
         
         var nb_classe_reponse = 0;
         var nb_classe_commentaires = 0;
-        var g_reponse_index1 = 0;			
+        var indexReponseInConsigne = 0;			
         		
         for (j = 0;j < xml_reponses.length; j++){
           var dataForReponse = {};
@@ -367,9 +373,9 @@ function loadConsignes(fichier){
         	dataForReponse.y = (liste_y[j])/(xml_reponses.length+5)+0.12;
         
           dataForReponse.consigne = nouvelle_consigne;
-          dataForReponse.classes = g_classes;
-          dataForReponse.numero = g_reponse_index;
-          dataForReponse.index = g_reponse_index1;
+          dataForReponse.classes = CCN.classes;
+          dataForReponse.numero = indexReponse;
+          dataForReponse.index = indexReponseInConsigne;
           
           // Initialise la réponse de la consigne
           
@@ -391,8 +397,8 @@ function loadConsignes(fichier){
         			nb_classe_commentaires += nombre_commentaires_reponse;
         		}
         	}
-        	g_reponse_index1++;
-        	g_reponse_index++;
+        	indexReponseInConsigne++;
+        	indexReponse++;
         }
         
         // Ajoute le bouton de réponse si pas encore de réponse de la classe
@@ -400,8 +406,8 @@ function loadConsignes(fichier){
         
         // Consigne suivante
         
-        g_consignes.push(nouvelle_consigne);
-        g_consigne_index++;
+        CCN.consignes.push(nouvelle_consigne);
+        indexConsigne++;
 			}
 			
 			// Lance le chargement des articles de blog
@@ -452,11 +458,11 @@ function loadBlog(fichier){
 				
 				// Positionnement en y de l'article de blog
 				
-				if (index_y >= g_projet.liste_y_blogs.length){
+				if (index_y >= CCN.projet.liste_y_blogs.length){
 					index_y = 0;
 				}
 				if (dataForArticleBlog.y==0) {
-  				dataForArticleBlog.y = g_projet.liste_y_blogs[index_y];
+  				dataForArticleBlog.y = CCN.projet.liste_y_blogs[index_y];
   		  }
 				
 				index_y++;
@@ -471,12 +477,12 @@ function loadBlog(fichier){
 				date.setFullYear(parseFloat(dataForArticleBlog.date.substring(6, 10)));
 				
 				var jour_article = parseFloat(Math.round((date)/(24*60*60*1000)));
-				dataForArticleBlog.nombre_jours = jour_article-g_projet.premier_jour;
+				dataForArticleBlog.nombre_jours = jour_article-CCN.projet.premier_jour;
 				dataForArticleBlog.nombre_commentaires = parseFloat(xml_blog[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
 				
-				dataForArticleBlog.numero = g_article_blog_index;
-				dataForArticleBlog.index = g_article_blog_index;
-				dataForArticleBlog.y = dataForArticleBlog.y*(g_projet.hauteur);
+				dataForArticleBlog.numero = indexArticleBlog;
+				dataForArticleBlog.index = indexArticleBlog;
+				dataForArticleBlog.y = dataForArticleBlog.y*(CCN.projet.hauteur);
 				
 				
 				// Initialise l'article de blog
@@ -484,9 +490,9 @@ function loadBlog(fichier){
 				var nouvel_article = new ArticleBlog();
 				    nouvel_article.init(dataForArticleBlog);
 				
-				g_articles_blog.push(nouvel_article);
+				CCN.articlesBlog.push(nouvel_article);
 
-				g_article_blog_index++;
+				indexArticleBlog++;
 			}
 			
 			// Lance le chargement des articles d'événements
@@ -539,11 +545,11 @@ function loadEvenements(fichier){
         
         // Positionnement en y de l'article d'événement
 				
-				if (index_y >= g_projet.liste_y_evenements.length){
+				if (index_y >= CCN.projet.liste_y_evenements.length){
 					index_y = 0;
 				}
 				if (dataForEvenement.y==0) {
-  				dataForEvenement.y = g_projet.liste_y_evenements[index_y];
+  				dataForEvenement.y = CCN.projet.liste_y_evenements[index_y];
   		  }
 				//if (y!=0) alert (titre+date+y);
 				index_y++;
@@ -558,20 +564,20 @@ function loadEvenements(fichier){
 				date.setFullYear(parseFloat(dataForEvenement.date.substring(6, 10)));
 				
 				var jour_article = parseFloat(Math.round((date)/(24*60*60*1000)));
-				dataForEvenement.nombre_jours = jour_article-g_projet.premier_jour;
+				dataForEvenement.nombre_jours = jour_article-CCN.projet.premier_jour;
 				dataForEvenement.nombre_commentaires = parseFloat(xml_evenement[i].getElementsByTagName("commentaires")[0].childNodes[0].nodeValue);
 				
-				dataForEvenement.numero = g_article_evenement_index;
-				dataForEvenement.index = g_article_evenement_index;
-				dataForEvenement.y = dataForEvenement.y*(g_projet.hauteur-5);
+				dataForEvenement.numero = indexArticleEvenement;
+				dataForEvenement.index = indexArticleEvenement;
+				dataForEvenement.y = dataForEvenement.y*(CCN.projet.hauteur-5);
 				
 				// Initialise l'article d'événement
 				
 				var nouvel_article = new ArticleEvenement();
 				nouvel_article.init(dataForEvenement);
 				
-				g_articles_evenement.push(nouvel_article);
-				g_article_evenement_index++;
+				CCN.articlesEvenement.push(nouvel_article);
+				indexArticleEvenement++;
 			}
 			
 			////////////////////////////////////////////////////////////////
@@ -597,12 +603,12 @@ function initTimeline(){
   
   // Premier update pour initialiser certaines variables dont on a besoin
   
-  g_projet.initTimelineMonths();
+  CCN.projet.initTimelineMonths();
   
   // Ouverture des icones evts et blogs
   
-  hide_articles_blog(g_duration_def);
-  hide_articles_evenement(g_duration_def);
+  hide_articles_blog(CCN.dureeTransition);
+  hide_articles_evenement(CCN.dureeTransition);
   
 	updateConnecteurs();
   
@@ -619,7 +625,7 @@ function initTimeline(){
   });
   
   $('.mois').on('click',function(){
-    g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
+    CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
   });
   
 	// Zoom sur la date (TO DO)
@@ -636,13 +642,13 @@ function initTimeline(){
 		
 		// On est dans le temps du projet ?
 		
-		if (Math.round(date) >= Math.round(g_projet.date_debut) && Math.round(date) <= Math.round(g_projet.date_fin)){
-			var mois = Math.round((date-g_projet.date_debut)/(24*60*60*30.5*1000));
-			g_projet.mois_select = mois;
-			if (mois < g_projet.nombre_mois/2){
-				g_projet.showRangeOfTimeline(90, (mois*g_projet.largeur_mois), 0);
+		if (Math.round(date) >= Math.round(CCN.projet.date_debut) && Math.round(date) <= Math.round(CCN.projet.date_fin)){
+			var mois = Math.round((date-CCN.projet.date_debut)/(24*60*60*30.5*1000));
+			CCN.projet.mois_select = mois;
+			if (mois < CCN.projet.nombre_mois/2){
+				CCN.projet.showRangeOfTimeline(90, (mois*CCN.projet.largeur_mois), 0);
 			}else{
-				g_projet.showRangeOfTimeline(90, ((mois+1)*g_projet.largeur_mois), 0);
+				CCN.projet.showRangeOfTimeline(90, ((mois+1)*CCN.projet.largeur_mois), 0);
 			}
 		}
 	}
@@ -652,17 +658,17 @@ function initTimeline(){
 	if (g_u_id_objet != "0"){
 		// Consigne
 		if (g_u_type_popup == "consignes"){
-			for (k=0; k<g_consignes.length;k++){
-				if (g_consignes[k].id == g_u_id_objet){
+			for (k=0; k<CCN.consignes.length;k++){
+				if (CCN.consignes[k].id == g_u_id_objet){
 					callConsigne(g_u_id_objet);
 				}
 			}
 		}
     // Réponse
     if (g_u_type_popup == "travail_en_cours"){
-    	for (k=0; k<g_consignes.length;k++){
-    		for (l=0; l<g_consignes[k].reponses.length;l++){
-    			if (g_consignes[k].reponses[l].id == g_u_id_objet){
+    	for (k=0; k<CCN.consignes.length;k++){
+    		for (l=0; l<CCN.consignes[k].reponses.length;l++){
+    			if (CCN.consignes[k].reponses[l].id == g_u_id_objet){
     				callReponse(g_u_id_objet);
     			}
     		}
@@ -723,9 +729,9 @@ function updateConnecteurs() {
     var connecteur = $(this);
     
     var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth()-5;
-    var y1 = connecteur_consigne.offset().top+g_projet.timeline.offset().top+5;
+    var y1 = connecteur_consigne.offset().top+CCN.projet.timeline.offset().top+5;
     var x2 = connecteur_reponse.offset().left+5;
-    var y2 = connecteur_reponse.offset().top+g_projet.timeline.offset().top+5;
+    var y2 = connecteur_reponse.offset().top+CCN.projet.timeline.offset().top+5;
     
     var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;

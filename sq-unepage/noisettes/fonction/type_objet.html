@@ -1,8 +1,24 @@
 #HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
 #CACHE{0}
-[(#REM)Reversibilité du type d'article pour passage paramètre js > vue joel
-renvoie : consignes, travail_en_cours, blogs, evenements,ressource,classes
-paramètre : id_article ou id_syndic_article
+
+[(#REM) 
+
+  Reversibilité du type d'article pour passage paramètre js > vue joel
+  
+  Renvoie : 
+
+  - classes             : Classes participant au projet
+  - consignes           : Consignes du projet
+  - travail_en_cours    : Réponses des classes
+  - evenements          : Blog pédagogique (caché aux élèves, losanges bleu ciel)
+  - blogs               : Blog du projet (accessible par tous, bulles roses)
+  - ressource           : Bibliothèque du projet, ressources diverses, médias partagés
+    
+  Paramètre : 
+  
+  - id_article 
+  - ou id_syndic_article
+  
 ]
 <BOUCLE_art(ARTICLES){id_article}>
 <BOUCLE_hie_art(HIERARCHIE){id_article}>

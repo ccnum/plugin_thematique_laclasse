@@ -34,17 +34,18 @@ function updateTimeline() {
  */
 
 function showhide_travaux(mode){
+  console.log('showHideTravaux');
 	if (mode == undefined) if (g_hide_travaux == false) mode = 'hide'; else mode = 'show';
 	
 	if (mode == 'hide') {
-		for (i = 0 ; i < g_consignes.length ; i++) {
-			$(g_consignes[i].div_base).stop().fadeTo(2000,0.1);
+		for (i = 0 ; i < CCN.consignes.length ; i++) {
+			$(CCN.consignes[i].div_base).stop().fadeTo(2000,0.1);
 			
-			if (g_consignes[i].select == true) {
-				$(g_consignes[i].div_reponse_plus).fadeOut('slow');
+			if (CCN.consignes[i].select == true) {
+				$(CCN.consignes[i].div_reponse_plus).fadeOut('slow');
 				
-				for (j = 0 ; j < g_consignes[i].reponses.length ; j++) {
-					$(g_consignes[i].reponses[j].div_base).fadeOut('slow');
+				for (j = 0 ; j < CCN.consignes[i].reponses.length ; j++) {
+					$(CCN.consignes[i].reponses[j].div_base).fadeOut('slow');
 				}
 			}
 		}
@@ -55,15 +56,15 @@ function showhide_travaux(mode){
 		hide_articles_evenement();
 		hide_articles_blog();
 		
-		for (i = 0 ; i < g_consignes.length ; i++){
-			$(g_consignes[i].div_base).fadeTo('slow',1);
+		for (i = 0 ; i < CCN.consignes.length ; i++){
+			$(CCN.consignes[i].div_base).fadeTo('slow',1);
 			
-			if (g_consignes[i].select == true){
-				$(g_consignes[i].div_reponse_plus).fadeIn('slow');
-				g_consignes[i].hideConsignePastille();
+			if (CCN.consignes[i].select == true){
+				$(CCN.consignes[i].div_reponse_plus).fadeIn('slow');
+				CCN.consignes[i].hideConsignePastille();
 				
-				for (j = 0 ; j < g_consignes[i].reponses.length ; j++){
-					$(g_consignes[i].reponses[j].div_base).stop().fadeIn('slow');
+				for (j = 0 ; j < CCN.consignes[i].reponses.length ; j++){
+					$(CCN.consignes[i].reponses[j].div_base).stop().fadeIn('slow');
 				}
 			}
 		}
@@ -76,55 +77,48 @@ function showhide_travaux(mode){
 
 
 /**
- * Gère les événements lors du click sur une consigne et appelle {@link consigne#ouvre}.
+ * Gère les événements lors du click sur une consigne et appelle {@link consigne#showInTimeline}.
  *
- * @param {number} numero - Index de la consigne (voir ex.1) ou ID SPIP de l'objet (voir ex.2)
- * @param {boolean} [isIdOfObject] - Définit si le numéro passé avec le paramètre <tt>numero</tt> est l'ID SPIP de l'objet
- *
- * @example
- * // Avec l'index de la consigne
- * showConsigneInTimeline(0);
+ * @param {number} numero - ID SPIP de l'objet
  *
  * @example
- * // Avec l'ID SPIP de la consigne
+ * // Avec l'ID SPIP #146 de la consigne
+ * showConsigneInTimeline(146, true);
+ *
+ * @see callConsigne
+ * @see consigne#showInTimeline
+ */
+ 
+function showConsigneInTimeline(numero) {
+  for (var index_consigne in CCN.consignes) {
+    if (CCN.consignes[index_consigne].id == numero) {
+      CCN.consignes[index_consigne].showInTimeline();
+    }
+  }
+}
+
+
+/**
+ * Gère les événements lors du click sur une réponse et appelle {@link reponse#showInTimeline}.
+ *
+ * @param {number} numero - ID SPIP de l'objet
+ *
+ * @example
+ * // Avec l'ID SPIP #146 de la consigne
  * showConsigneInTimeline(146, true);
  *
  * @see callConsigne
  * @see consigne#ouvre
  */
  
-function showConsigneInTimeline(numero, isIdOfObject) {
-  
-  if (isIdOfObject == true) {
-    var numero = $('.consigne[data-id="'+numero+'"]').data('index');
-  }
-  
-  g_consignes[numero].showInTimeline(g_projet, g_consignes, g_articles_blog, g_articles_evenement);
-  
-  /*
-	var consigne_deja_select = 0;
-	
-	for (i=0; i<g_consignes.length;i++){
-		if (i != numero) {
-  		if (g_consignes[i].select == true) {
-    		consigne_deja_select++;
+function showReponseInTimeline(numero) {
+  for (var index_consigne in CCN.consignes) {
+    for (var index_reponse in CCN.consignes[index_consigne].reponses) {
+      if (CCN.consignes[index_consigne].reponses[index_reponse].id == numero) {
+        CCN.consignes[index_consigne].reponses[index_reponse].showInTimeline();
       }
     }
-	}
-	
-  if (consigne_deja_select != 0){
-  //	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
   }
-  */
-  
-  // Puis on ouvre la consigne
-  
-  
-  /*
-  // Propagation isotope
-  var bouton = $(".filter a[onclick*='showConsigneInTimeline("+numero+")']");
-  isotope_filtre(bouton);
-  */
 }
 
 
@@ -133,16 +127,16 @@ function showConsigneInTimeline(numero, isIdOfObject) {
  */
 
 function show_one_article_evenement(numero,duration){
-	for (j=0; j<g_articles_evenement.length;j++){
-		$(g_articles_evenement[j].img).stop(true);
-		$(g_articles_evenement[j].div_texte).stop(true);
+	for (j=0; j<CCN.articlesEvenement.length;j++){
+		$(CCN.articlesEvenement[j].img).stop(true);
+		$(CCN.articlesEvenement[j].div_texte).stop(true);
 		if (j != numero) hide_article_evenement(j,1,duration);
 		if (j == numero) show_article_evenement(j,1,duration);
 	}
 	
-	for (j=0; j<g_articles_blog.length;j++) {
-		$(g_articles_blog[j].img).stop(true);
-		$(g_articles_blog[j].div_texte).stop(true);
+	for (j=0; j<CCN.articlesBlog.length;j++) {
+		$(CCN.articlesBlog[j].img).stop(true);
+		$(CCN.articlesBlog[j].div_texte).stop(true);
 		hide_article_blog(j,1,duration);
   }
 }
@@ -153,8 +147,8 @@ function show_one_article_evenement(numero,duration){
  */
 
 function hide_article_evenement(i,delay,duration){
-	if (duration == undefined) duration = g_duration_def;
-	var th = g_articles_evenement[i];
+	if (duration == undefined) duration = CCN.dureeTransition;
+	var th = CCN.articlesEvenement[i];
 	var i = i;
 	$(th.div_texte).delay(delay).hide(duration/100, function() {
 		if (th.left == -1) th.left = $(th.img).position().left;
@@ -185,8 +179,8 @@ function hide_article_evenement(i,delay,duration){
  */
 
 function show_article_evenement(i,delay,duration){
-	if (duration == undefined) duration = g_duration_def;
-	var th = g_articles_evenement[i];
+	if (duration == undefined) duration = CCN.dureeTransition;
+	var th = CCN.articlesEvenement[i];
 	var i = i;
 	$(th.div_base).css('z-index','200');	
 	$(th.img).stop().delay(delay).animate({width:'150px', height:'94px', top:0, left:0, opacity: 1},duration, "easeInOutBack",function(){
@@ -206,10 +200,10 @@ function show_article_evenement(i,delay,duration){
  */
 
 function showhide_articles_evenement(duration){
-	if (duration == undefined) duration = g_duration_def;
+	if (duration == undefined) duration = CCN.dureeTransition;
 	
 	if (g_hide_articles_evenement == false) {
-			$.each(g_articles_evenement, function(index, value) {
+			$.each(CCN.articlesEvenement, function(index, value) {
 			var delay = Math.random()*duration*0;
 			hide_article_evenement(index,delay,duration);	
 		});
@@ -220,7 +214,7 @@ function showhide_articles_evenement(duration){
 		showhide_travaux('hide');
 		hide_articles_blog();
 		
-		$.each(g_articles_evenement, function(index, value) {	
+		$.each(CCN.articlesEvenement, function(index, value) {	
 			var delay = Math.random()*duration*0;
 			show_article_evenement(index,delay,duration);
 		});
@@ -235,9 +229,9 @@ function showhide_articles_evenement(duration){
  */
 
 function hide_articles_evenement(duration){
-	if (duration == undefined) duration = g_duration_def;
+	if (duration == undefined) duration = CCN.dureeTransition;
 	
-	$.each(g_articles_evenement, function(index, value) {	
+	$.each(CCN.articlesEvenement, function(index, value) {	
 		var delay = Math.random()*duration*0;
 		hide_article_evenement(index,0,duration);
 	});	
@@ -251,15 +245,14 @@ function hide_articles_evenement(duration){
  */
 
 function show_articles_evenement(duration){
-	if (duration == undefined) duration = g_duration_def;
-	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);
+	if (duration == undefined) duration = CCN.dureeTransition;
+	CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
 	showhide_travaux('hide');
 	hide_articles_blog();
-	$.each(g_articles_evenement, function(index, value) {	
+	$.each(CCN.articlesEvenement, function(index, value) {	
 			var delay = Math.random()*duration*0;
 			show_article_evenement(index,0,duration);
 		});	
-	$("#canvas_projet").unbind().click(function(){ showhide_travaux('show');});	
 }
 
 
@@ -268,15 +261,15 @@ function show_articles_evenement(duration){
  */ 
  
 function show_one_article_blog(numero,duration){
-	for (j=0; j<g_articles_blog.length;j++){
-		$(g_articles_blog[j].img).stop(true);
-		$(g_articles_blog[j].div_texte).stop(true);
+	for (j=0; j<CCN.articlesBlog.length;j++){
+		$(CCN.articlesBlog[j].img).stop(true);
+		$(CCN.articlesBlog[j].div_texte).stop(true);
 		if (j != numero) hide_article_blog(j,1,duration);
 		if (j == numero) show_article_blog(j,1,duration);
 	}
-	for (j=0; j<g_articles_evenement.length;j++) {
-		$(g_articles_evenement[j].img).stop(true);
-		$(g_articles_evenement[j].div_texte).stop(true);
+	for (j=0; j<CCN.articlesEvenement.length;j++) {
+		$(CCN.articlesEvenement[j].img).stop(true);
+		$(CCN.articlesEvenement[j].div_texte).stop(true);
 		hide_article_evenement(j,1,duration);
 	}
 }
@@ -289,8 +282,8 @@ function show_one_article_blog(numero,duration){
  */
 
 function hide_article_blog(i,delay,duration){
-	if (duration == undefined) duration = g_duration_def;
-	var th = g_articles_blog[i];
+	if (duration == undefined) duration = CCN.dureeTransition;
+	var th = CCN.articlesBlog[i];
 	var i = i;
 	$(th.div_texte).delay(delay).hide(duration/100, function() {
 		if (th.left == -1) th.left = $(th.img).position().left;
@@ -320,8 +313,8 @@ function hide_article_blog(i,delay,duration){
  */
 
 function show_article_blog(i,delay,duration){
-	if (duration == undefined) duration = g_duration_def;
-	var th = g_articles_blog[i];
+	if (duration == undefined) duration = CCN.dureeTransition;
+	var th = CCN.articlesBlog[i];
 	var i = i;
 	$(th.div_base).css('z-index','200');
 	$(th.img).stop().delay(delay).animate({width:'98px', height:'98px', left:0, top:0, opacity:1},duration,"easeInOutBack",function(){
@@ -341,10 +334,10 @@ function show_article_blog(i,delay,duration){
  */
 
 function showhide_articles_blog(duration){
-	if (duration == undefined) duration = g_duration_def;
+	if (duration == undefined) duration = CCN.dureeTransition;
 	//$('#blog a').fadeTo('fast',0);
 	if (g_hide_articles_blog == false){
-		$.each(g_articles_blog, function(index, value) {
+		$.each(CCN.articlesBlog, function(index, value) {
 			var delay = Math.random()*duration*0;
 			hide_article_blog(index,delay,duration);	
 		});
@@ -352,7 +345,7 @@ function showhide_articles_blog(duration){
 	}else{
 		showhide_travaux('hide');
 		hide_articles_evenement();
-		$.each(g_articles_blog, function(index, value) {
+		$.each(CCN.articlesBlog, function(index, value) {
 			var delay = Math.random()*duration*0;
 			show_article_blog(index,delay,duration);
 		});
@@ -367,8 +360,8 @@ function showhide_articles_blog(duration){
  */
 
 function hide_articles_blog(duration){
-	if (duration == undefined) duration = g_duration_def;
-	$.each(g_articles_blog, function(index, value) {	
+	if (duration == undefined) duration = CCN.dureeTransition;
+	$.each(CCN.articlesBlog, function(index, value) {	
 		var delay = Math.random()*duration*0;
 		hide_article_blog(index,0,duration);
 	});
@@ -382,15 +375,14 @@ function hide_articles_blog(duration){
  */
 
 function show_articles_blog(duration){
-	if (duration == undefined) duration = g_duration_def;
-	g_projet.showWholeTimeline(g_consignes, g_articles_blog, g_articles_evenement);	
+	if (duration == undefined) duration = CCN.dureeTransition;
+	CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);	
 	showhide_travaux('hide');
 	hide_articles_evenement();
-	$.each(g_articles_blog, function(index, value) {	
+	$.each(CCN.articlesBlog, function(index, value) {	
 		var delay = Math.random()*duration*0;
 		show_article_blog(index,0,duration);
 	});
-	$("#canvas_projet").unbind().click(function(){ showhide_travaux('show');});
 }
 
 
@@ -445,9 +437,12 @@ function call(opts) {
  */
 
 function callConsigne(id_consigne){
-	var url = g_projet.url_popup_consigne+"&id_article="+id_consigne;
+	var url = CCN.projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInMainSidebar(url, 'article', 'consignes');
-	showConsigneInTimeline(id_consigne, true);
+	showConsigneInTimeline(id_consigne);
+	
+	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
 }
 
 
@@ -462,28 +457,18 @@ function callConsigne(id_consigne){
  * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
  * @see showConsigneInTimeline
- *
- * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
 function callReponse(id_reponse){
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
   
-	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
+	var url = CCN.projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
+  showConsigneInTimeline(id_consigne);
 	
-	// (TODO*1) Changer la page des consignes en la page (…?)
-	/*
-	var url_consigne = g_projet.url_popup_consigne+"&id_article="+id_consigne;
-	loadContentInLateralSidebar(url_consigne, 'article', 'consignes');
-  */
-  showConsigneInTimeline(id_consigne, true);
-	
-	var reponse_DOM = $('.reponse_haute[data-reponse-id="'+id_reponse+'"]');
-	$('body').addClass('highlightReponse');
-  $('.reponse_haute, .connecteur_timeline').removeClass('current_select');
-  reponse_DOM.addClass('current_select');
-  $('#connecteur_consigne_'+id_consigne+'_reponse_'+id_reponse).addClass('current_select');
+	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+	showReponseInTimeline(id_reponse);
 }
 
 
@@ -504,13 +489,11 @@ function callClasse(id_classe){
 	if (id_classe==undefined) id_classe='';
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
-		var url = g_projet.url_popup_classes;
-		if (id_classe!='') url = g_projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
+		var url = CCN.projet.url_popup_classes;
+		if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
     loadContentInMainSidebar(url, 'rubrique', 'classes');
 	
-    // (TODO*1) Changer la page des consignes en la page (…?)
-	
-  	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+g_travail_en_cours_id;
+  	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
   	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
     
 		$('#menug li a.selected').removeClass('selected');
@@ -538,7 +521,7 @@ function callClasse(id_classe){
 
 function callRessource(id_objet,type_objet){
 	hide_popups();
-	var url = g_projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
+	var url = CCN.projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
 	popup(url,'ressource');
 	console.log('callRessource');
 }
@@ -561,7 +544,7 @@ function callRessource(id_objet,type_objet){
 
 function callEvenement(id_objet,type_objet){
 	hide_popups();
-	var url = g_projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
+	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');
 	console.log('callEvenement');
 }
@@ -584,7 +567,7 @@ function callEvenement(id_objet,type_objet){
 
 function callBlog(id_objet,type_objet){
 	hide_popups();	
-	var url = g_projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
+	var url = CCN.projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'blog');
 	console.log('callBlog');
 }
@@ -600,9 +583,9 @@ function callBlog(id_objet,type_objet){
 
 function createReponse(id_consigne, id_rubrique_classe, numero){
 	hide_popups();
-	var url = g_projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
+	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
 	popup(url,'edition');
-	if (numero!=undefined) g_consignes[numero].div_reponse_plus.style.visibility = "hidden"; // TO DO ?
+	if (numero!=undefined) CCN.consignes[numero].div_reponse_plus.style.visibility = "hidden"; // TO DO ?
 	console.log('createReponse');
 }
 
@@ -624,7 +607,7 @@ function ressources_click(){
 	if ($('#zone_classe').is(':hidden'))	{
 		hide_popups();
 		showhide_travaux('show');
-		var url = g_projet.url_popup_ressources;
+		var url = CCN.projet.url_popup_ressources;
 		popup(url,'edition');
     console.log('ressources_click');
 	}	
@@ -649,7 +632,7 @@ function callAgora(){
 		hide_popups();
 		showhide_travaux('show');
 		//popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressources','agora');
-		var url = g_projet.url_popup_agora;
+		var url = CCN.projet.url_popup_agora;
 		popup(url,'agora');
 		console.log('callAgora');
 	}
@@ -661,8 +644,8 @@ function callAgora(){
  */
 
 function callChat(type){
-	var url = g_projet.url_popup_chat;
-	if (type==2) url = g_projet.url_popup_chat2;
+	var url = CCN.projet.url_popup_chat;
+	if (type==2) url = CCN.projet.url_popup_chat2;
 	if (url.match("target=blank"))	window.open(url);
 	
 	else {
@@ -691,10 +674,10 @@ function callChat(type){
  */
  
 function getIdConsigneFromIdReponse(id_reponse) {
-  for (var index_consigne in g_consignes) {
-    for (var index_reponse in g_consignes[index_consigne].reponses) {
-      if (g_consignes[index_consigne].reponses[index_reponse].id == id_reponse) {
-        return g_consignes[index_consigne].id;
+  for (var index_consigne in CCN.consignes) {
+    for (var index_reponse in CCN.consignes[index_consigne].reponses) {
+      if (CCN.consignes[index_consigne].reponses[index_reponse].id == id_reponse) {
+        return CCN.consignes[index_consigne].id;
       }
     }
   }
@@ -722,7 +705,7 @@ function hide_popups(){
  */
 
 function stop_action(){
-	g_projet.frame=0;
+	CCN.projet.frame=0;
 }
 
 
@@ -731,5 +714,5 @@ function stop_action(){
  */
 
 function activate_action(){
-	g_projet.frame=0;
+	CCN.projet.frame=0;
 }

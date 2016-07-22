@@ -167,7 +167,7 @@ function Projet(){
 	  $('#menu-consignes .filter a, #menu-classes .filter a').removeClass('selected');
 	  $('#menu-consignes .logo_menu-tout, #menu-classes .logo_menu-tout').addClass('selected');
 	
-		this.showRangeOfTimeline(g_projet.nombre_jours, 0, 0);
+		this.showRangeOfTimeline(CCN.projet.nombre_jours, 0, 0);
 		
 		$('body').removeClass('hasSidebarOpen highlightReponse');
 		
@@ -230,9 +230,9 @@ function Projet(){
       
       // Si on entre dans une nouvelle année
       if (mois == 0){
-    		var texte = g_nom_mois_complet[mois]+" ";//+annee+" ";
+    		var texte = CCN.nomCompletMois[mois]+" ";//+annee+" ";
     	} else {
-    		var texte = g_nom_mois_complet[mois]+" ";
+    		var texte = CCN.nomCompletMois[mois]+" ";
     	}
     	
     	var mois_DOM = $('<div/>', {

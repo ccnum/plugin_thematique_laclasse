@@ -44,7 +44,7 @@
 			this.div_base.appendChild(this.img);
 		
       // Texte
-			var date_texte = this.date.substring(0, 2) + " " + g_nom_mois[parseFloat(this.date.substring(3, 5))-1];
+			var date_texte = this.date.substring(0, 2) + " " + CCN.nomMois[parseFloat(this.date.substring(3, 5))-1];
 			
 			this.div_texte = document.createElement("div");
 			this.div_texte.setAttribute("class","cache");			

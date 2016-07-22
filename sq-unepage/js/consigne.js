@@ -45,10 +45,10 @@ function Consigne(){
 		this.div_base.setAttribute('class','timeline_item consigne_haute');
 		this.div_base.setAttribute('id','consigne_haute'+this.id);
 		this.div_base.style.position = "absolute";			
-		this.div_base.style.left = (this.x/g_projet.nombre_jours*100)+'%';
+		this.div_base.style.left = (this.x/CCN.projet.nombre_jours*100)+'%';
 		this.div_base.style.top = (this.y*100)+"%";
 
-    g_projet.timeline.append(this.div_base);
+    CCN.projet.timeline.append(this.div_base);
 
 		for (k = 0; k < data.intervenants.length; k++){
 			if (data.intervenant_id == data.intervenants[k].id){
@@ -60,7 +60,7 @@ function Consigne(){
 	
     var date = data.date_texte;
 	
-		this.date_texte = date.substring(0, 2) + " " + g_nom_mois[parseFloat(date.substring(3, 5))-1] + " " + date.substring(6, 10);
+		this.date_texte = date.substring(0, 2) + " " + CCN.nomMois[parseFloat(date.substring(3, 5))-1] + " " + date.substring(6, 10);
 		this.div_titre = document.createElement("div");
 		this.div_titre.setAttribute("onClick","callConsigne("+this.id+")");
 		this.div_titre.setAttribute("id","consigne"+this.id);
@@ -70,7 +70,7 @@ function Consigne(){
 		var coul = coul.substr(coul.length-1,1);			
 		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
 
-		this.taille_titre = 9+12*g_projet.zoom_consignes/(0.3*data.nombre_reponses+1);
+		this.taille_titre = 9+12*CCN.projet.zoom_consignes/(0.3*data.nombre_reponses+1);
 		
 		var reponses_puces = '';
 		
@@ -132,7 +132,7 @@ function Consigne(){
 				},
 				
 				stop: function(event,ui) {
-  				yy = (ui.offset.top-g_projet.timeline.offset().top)/g_projet.timeline.height();
+  				yy = (ui.offset.top-CCN.projet.timeline.offset().top)/CCN.projet.timeline.height();
 					
 					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:data.id, type_objet:"article", X:0, Y:yy } );
 				  $(this).removeClass('no_event');
@@ -181,11 +181,6 @@ function Consigne(){
   /**
    * Affiche la consigne et les réponses associées.
    *
-   * @param {Object} projet - Projet global de la CCN
-   * @param {string[]} consignes - Liste des consignes
-   * @param {string[]} articles_blog - Liste des articles de blog
-   * @param {string[]} articles_evenements - Liste des événements
-   *
    * @see showConsigneInTimeline
    * @see callConsigne
    *
@@ -194,23 +189,20 @@ function Consigne(){
    * @todo *3 : Améliorer l'arrêt du <tt>clearInterval</tt>
    */
    
-  this.showInTimeline = function(projet, consignes, articles_blog, articles_evenement) {
-	
-	  projet.setIntervalConnecteurs = setInterval(function(){
+  this.showInTimeline = function() {
+	  
+	  CCN.projet.setIntervalConnecteurs = setInterval(function(){
   	  updateConnecteurs();
 	  },1);
-	  
-	  
-		var consigne_id = this.id;
   		
 		$('.connecteur_timeline').addClass('hide');
-		$('.connecteur_timeline[data-consigne-id="'+consigne_id+'"]').removeClass('hide');
+		$('.connecteur_timeline[data-consigne-id="'+this.id+'"]').removeClass('hide');
 		
 		var y_dest = 0;
 		
 		this.hideConsignePastille();	
 		
-		projet.showRangeOfTimeline(this.nombre_jours_max, this.x-3, y_dest);
+		CCN.projet.showRangeOfTimeline(this.nombre_jours_max, this.x-3, y_dest);
 		
 		$('.consigne_haute').not('#consigne_haute'+this.id).addClass('hide');
 		$('.reponse_haute').not('.reponse_haute_consigne_parent'+this.id).addClass('hide');
@@ -225,20 +217,20 @@ function Consigne(){
 		
     // (TODO*1) Cache les articles de blog
 	
-		for (i=0; i<articles_blog.length;i++){
-			$(articles_blog[i].div_base).hide();
+		for (i=0; i<CCN.articlesBlog.length;i++){
+			$(CCN.articlesBlog[i].div_base).hide();
 		}
     
     // (TODO*2) Cache les articles d'événement
 		
-		for (i=0; i<articles_evenement.length;i++){
-			$(articles_evenement[i].div_base).hide();
+		for (i=0; i<CCN.articlesEvenement.length;i++){
+			$(CCN.articlesEvenement[i].div_base).hide();
 		}
 		
 		// (TODO*3) Interrompre le clearInterval
 
 		setTimeout(function(){
-  		clearInterval(projet.setIntervalConnecteurs);
+  		clearInterval(CCN.projet.setIntervalConnecteurs);
 		},2300);
 		
 		stop_action();
