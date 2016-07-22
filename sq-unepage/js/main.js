@@ -331,9 +331,9 @@ function loadConsignes(fichier){
           
           // Initialise la réponse de la consigne
           
-        	var nouvelle_reponse = new Reponse();
-            	nouvelle_reponse.init(dataForReponse);
-            	nouvelleConsigne.reponses.push(nouvelle_reponse);
+        	var nouvelleReponse = new Reponse();
+            	nouvelleReponse.init(dataForReponse);
+            	nouvelleConsigne.reponses.push(nouvelleReponse);
         	
         	
           // Sélection de la classe prime sur classe logguée

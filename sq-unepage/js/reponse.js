@@ -19,62 +19,63 @@ function Reponse() {
    */
  
   this.init = function(data) {	
-    this.data = data;
-		this.id = data.id;
-		this.classe_id = data.classe_id;
-		this.titre = data.titre;
-		this.consigne = data.consigne;
-		this.date = data.date;
-		this.date_date = data.date_date;
-		this.nombre_commentaires = data.nombre_commentaires;
-		this.x = data.nombre_jours;
-		this.x_absolu = data.nombre_jours+this.consigne.x; // Le bloc réponse est relatif à la position x de la consigne
-		this.y = data.y;
+    this.data                     = data;
+		this.id                       = this.data.id;
+		this.classe_id                = this.data.classe_id;
+		this.titre                    = this.data.titre;
+		this.consigne                 = this.data.consigne;
+		this.date                     = this.data.date;
+		this.date_date                = this.data.date_date;
+		this.nombre_commentaires      = this.data.nombre_commentaires;
+		this.x                        = this.data.nombre_jours;
+		this.x_absolu                 = this.data.nombre_jours+this.consigne.x; // Le bloc réponse est relatif à la position x de la consigne
+		this.y                        = this.data.y;
+		this.index                    = this.data.index;
+		this.nom_classe               = '';
 		this.connecteur;
 		
-		this.index = data.index;
-
-		// Base			
-
-		this.div_base = document.createElement("div");
-		this.div_base.style.position = "absolute";
-		this.div_base.style.left = (this.x_absolu/CCN.projet.nombre_jours*100)+'%';
-		this.div_base.style.top = (this.y)*100+"%";
-
-		this.div_base.setAttribute("class","timeline_item reponse_haute reponse_haute_consigne_parent"+this.consigne.id+" hide");
-		this.div_base.setAttribute("id","reponse_haute"+this.id);
-		this.div_base.setAttribute("data-consigne-id",this.consigne.id);
-		this.div_base.setAttribute("data-reponse-id",this.id);
-		
-		for (k=0;k<data.classes.length;k++){
-			if (this.classe_id == data.classes[k].id){
-				var nom_classe = data.classes[k].nom;
+		for (k = 0 ; k < this.data.classes.length ; ++k){
+			if (this.classe_id == this.data.classes[k].id){
+				this.nom_classe = this.data.classes[k].nom;
 			}
 		}
-		
-  	CCN.projet.timeline.append(this.div_base);
 
-    // Texte
+    this.initDOM();
+	}
+
+
+  /**
+   * Crée l'élément DOM et l'intègre dans la timeline.
+   */   
+ 
+  this.initDOM = function() {
     
-		var date_texte = this.date.substring(0, 2) + " " + CCN.nomMois[parseFloat(this.date.substring(3, 5))-1];
-		this.div_texte = document.createElement("div");
-		this.div_texte.onSelectStart = null;
-		this.div_texte.setAttribute("onClick","callReponse("+this.id+")");
-		this.div_texte.setAttribute("id","reponse"+this.id);
-		
 		var coul = ""+this.classe_id+"";
-		var coul = coul.substr(coul.length-1,1);
-		this.div_texte.setAttribute("class","reponse couleur_texte_travail_en_cours couleur_travail_en_cours"+coul);
-		
-		this.div_texte.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+this.nombre_commentaires+"</div> "+
-			"<div class=\"photo\"><img src=\""+data.vignette+"\" /></div> "+
+		    coul = coul.substr(coul.length-1,1);
+
+    this.div_base = $('<div/>')
+      .attr('id','reponse_haute'+this.id)
+      .attr('class','timeline_item reponse_haute reponse_haute_consigne_parent'+this.consigne.id+' hide')
+      .attr('data-consigne-id',this.consigne.id)
+      .attr('data-reponse-id',this.id)
+      .css({
+        'top'   : (this.y*100)+'%',
+        'left'  : (this.x_absolu/CCN.projet.nombre_jours*100)+'%'
+      });
+      
+    var date_texte = this.date.substring(0, 2) + " " + CCN.nomMois[parseFloat(this.date.substring(3, 5))-1];
+    
+    this.div_texte = $('<div/>')
+      .attr('id','reponse'+this.id)
+      .attr('class','reponse couleur_texte_travail_en_cours couleur_travail_en_cours'+coul)
+      .html("<div class=\"picto_nombre_commentaires\">"+this.nombre_commentaires+"</div> "+
+			"<div class=\"photo\"><img src=\""+this.data.vignette+"\" /></div> "+
 			"<div class=\"texte\">"+
 			"<div class=\"titre\" class=\"\">"+this.titre+"</div> "+
-			"<div class=\"auteur_date\">"+nom_classe+" - "+date_texte+"</div> "+
+			"<div class=\"auteur_date\">"+this.nom_classe+" - "+date_texte+"</div> "+
 			"</div>"+
-			"<div class=\"nettoyeur\"></div> ";
+			"<div class=\"nettoyeur\"></div>");
 			
-		this.div_base.appendChild(this.div_texte);
 		
 		this.connecteur = $('<div/>', {
   		'id':'connecteur_consigne_'+this.consigne.id+'_reponse_'+this.id,
@@ -83,7 +84,16 @@ function Reponse() {
   		'data-reponse-id':this.id
 		});
 		
+		this.div_base.append(this.div_texte);
+		
+  	CCN.projet.timeline.append(this.div_base);
 		CCN.projet.timeline_fixed.append(this.connecteur);
+		
+		var _thisId = this.id;
+		
+		this.div_texte.on('click',function(){
+  		callReponse(_thisId);
+    });
 	
     // Calcul de la hauteur de la consigne
     
@@ -111,7 +121,7 @@ function Reponse() {
   			}
   		});
 		}
-	}
+  }
 	
   
   /**

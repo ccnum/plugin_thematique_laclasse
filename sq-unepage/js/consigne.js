@@ -52,7 +52,7 @@ function Consigne(){
    * Crée l'élément DOM et l'intègre dans la timeline.
    */   
  
-   this.initDOM = function() {
+  this.initDOM = function() {
 		var coul = ""+this.data.intervenant_id+"";
 		    coul = coul.substr(coul.length-1,1);
 		
@@ -136,7 +136,7 @@ function Consigne(){
 				}
 			});
 		}
-   }
+  }
 
   /**
    * Affiche le bouton <tt>Répondre à la question</tt>.
