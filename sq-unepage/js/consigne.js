@@ -123,7 +123,7 @@ function Consigne(){
 				stop: function(event,ui) {
   				yy = (ui.offset.top-CCN.projet.timeline.offset().top)/CCN.projet.timeline.height();
 					
-					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:this.data.id, type_objet:"article", X:0, Y:yy } );
+					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:this.id, type_objet:"article", X:0, Y:yy } );
 				  $(this).removeClass('no_event');
 					
 					this.y = yy;
