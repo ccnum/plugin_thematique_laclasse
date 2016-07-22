@@ -423,9 +423,9 @@ function call(opts) {
   }
   
   if (opts.type == 'article') {  
-    if (opts.type_objet == 'travail_en_cours' && opts.id_consigne != null) {
+    if (opts.type_objet == 'travail_en_cours' && opts.type_entite != null && opts.type_entite == 'reponse') {
       // Réponse d'une classe
-      callReponse(opts.id_article, opts.id_consigne);
+      callReponse(opts.id_article);
     }  
   }
   
@@ -456,8 +456,8 @@ function callConsigne(id_consigne){
  * dans la sidebar principale et appelle 
  * le chargement de la réponse dans la sidebar secondaire.
  *
- * @param {number} id_consigne - ID de la consigne parente
  * @param {number} id_reponse - ID de la réponse
+ * @param {number} id_consigne - ID de la consigne parente
  *
  * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
@@ -466,7 +466,9 @@ function callConsigne(id_consigne){
  * @todo *1 : Modifier le contenu de la sidebar secondaire
  */
  
-function callReponse(id_reponse, id_consigne){
+function callReponse(id_reponse){
+  var id_consigne = getIdConsigneFromIdReponse(id_reponse);
+  
 	var url = g_projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
 	
@@ -675,6 +677,28 @@ function callChat(type){
   		console.log('callChat');
   	}
 	}
+}
+
+
+/**
+ * Cherche l'ID de la consigne parente à une réponse de classe
+ * grâce à l'ID de la réponse
+ *
+ * @param {number} id_reponse - ID de la réponse
+ * @returns {number} Id de la consigne
+ *
+ * @see callReponse
+ */
+ 
+function getIdConsigneFromIdReponse(id_reponse) {
+  for (var index_consigne in g_consignes) {
+    for (var index_reponse in g_consignes[index_consigne].reponses) {
+      if (g_consignes[index_consigne].reponses[index_reponse].id == id_reponse) {
+        return g_consignes[index_consigne].id;
+      }
+    }
+  }
+  return null;
 }
 
 

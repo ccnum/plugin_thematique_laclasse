@@ -663,8 +663,7 @@ function initTimeline(){
     	for (k=0; k<g_consignes.length;k++){
     		for (l=0; l<g_consignes[k].reponses.length;l++){
     			if (g_consignes[k].reponses[l].id == g_u_id_objet){
-    				callReponse(g_u_id_objet, g_consignes[k].id);
-    				showConsigneInTimeline(g_consignes[k].numero);
+    				callReponse(g_u_id_objet);
     			}
     		}
     	}

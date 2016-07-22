@@ -57,7 +57,7 @@ function Reponse() {
 		var date_texte = this.date.substring(0, 2) + " " + g_nom_mois[parseFloat(this.date.substring(3, 5))-1];
 		this.div_texte = document.createElement("div");
 		this.div_texte.onSelectStart = null;
-		this.div_texte.setAttribute("onClick","callReponse("+this.id+","+data.consigne.id+");");
+		this.div_texte.setAttribute("onClick","callReponse("+this.id+")";
 		this.div_texte.setAttribute("id","reponse"+this.id);
 		
 		var coul = ""+this.classe_id+"";
