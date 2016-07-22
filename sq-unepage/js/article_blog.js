@@ -17,30 +17,29 @@
    */
    
 	this.init = function(data){
-    this.data = data;
-		this.id = data.id;
-		this.type_objet = data.type_objet;
-		this.id_objet = data.id_objet;					
-		this.titre = data.titre;
-		this.date = data.date;
-		this.nombre_commentaires = data.nombre_commentaires;
-		this.x = data.nombre_jours;
-		this.y = data.y;
-		this.left = -1;
-		this.top = -1;
-		this.index = data.index;
-		this.div_base = document.createElement("div");
-		this.div_base.style.position = "absolute";
-		this.div_base.style.left = "-1000px";
-		this.div_base.style.top = this.y+"px";
-		this.div_base.style.cursor = "pointer";
-		this.div_base.setAttribute("class","article_blog_container");
-	//	canvas.appendChild(this.div_base); (TO DO : append DOM)
-
-	// image
-		this.img = document.createElement("img");
-		this.img.setAttribute("src",CCN.urlImgBlog);
-		this.div_base.appendChild(this.img);
+    this.data                 = data;
+		this.id                   = this.data.id;
+		this.type_objet           = this.data.type_objet;
+		this.id_objet             = this.data.id_objet;					
+		this.titre                = this.data.titre;
+		this.date                 = this.data.date;
+		this.nombre_commentaires  = this.data.nombre_commentaires;
+		this.x                    = this.data.nombre_jours;
+		this.y                    = this.data.y;
+		this.index                = this.data.index;
+		this.left                 = -1;
+		this.top                  = -1;
+		
+		this.div_base = $('<div/>')
+		  .attr('class','timeline_item article_blog_container')
+		  .css({
+  		  'left':'-1000px',
+  		  'top':this.y+'px'
+		  });
+		
+		this.img = $('<img src="'+CCN.urlImgBlog+'">');
+		
+		this.div_base.append(this.img);
 
 	// texte
 		var date_texte = this.date.substring(0, 2) + " " + CCN.nomMois[parseFloat(this.date.substring(3, 5))-1];
@@ -55,8 +54,19 @@
 		if (nombre_commentaires > 0) html += "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div>";
 		html +=	"</div>";
 		this.div_texte.innerHTML = html;
-		this.div_base.appendChild(this.div_texte);
-
+		
+    this.div_base.append(this.div_texte);
+		
+  	CCN.projet.timeline.append(this.div_base);
+		
+		var _thisId = this.id;
+		
+		/*
+		this.div_texte.on('click',function(){
+  		callArticleBlog(_thisId);
+    });
+	*/
+	
 	// draggable
 		if (CCN.admin==0)
 		$(this.div_base).draggable({
