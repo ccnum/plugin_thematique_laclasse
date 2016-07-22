@@ -5,40 +5,64 @@
  */
  
 function Consigne(){
-	
-	var id, numero, titre, date, date_texte, nombre_reponses, nombre_commentaires, x, y, largeur, hauteur, select, taille_titre;
-	var div_base, div_titre, div_home, div_reponse_plus, div_reponses, div_reponses_classe;
-	var reponses;
-	var nombre_jours_max;
-	var nombre_jours;
-  
   
   /**
-   * Initialise la consigne, crée l'élément DOM et l'intègre dans la timeline.
+   * Initialise la consigne.
    *
-   * @param {Object} data - Données à affecter à l'instance (TODO URGENT)
+   * @param {Object} data - Données à affecter à l'instance
    */
   
   this.init = function(data) {
-		this.id = data.id;
-		this.intervenant_id = data.intervenant_id;
-		this.numero = data.numero;
-		this.titre = data.titre;
-		this.date = data.date;
-		this.nombre_reponses = data.nombre_reponses;
-		this.nombre_commentaires = data.nombre_commentaires;
-		this.nombre_jours = data.nombre_jours;
-		this.x = data.nombre_jours;
-		this.nombre_jours_max = data.nombre_jours_max;
+    this.data                         = data;
+		this.id                           = this.data.id;
+		this.intervenant_id               = this.data.intervenant_id;
+		this.numero                       = this.data.numero;
+		this.titre                        = this.data.titre;
+		this.date                         = this.data.date;
+		this.nombre_reponses              = this.data.nombre_reponses;
+		this.nombre_commentaires          = this.data.nombre_commentaires;
+		this.nombre_jours                 = this.data.nombre_jours;
+		this.x                            = this.data.nombre_jours;		
+		this.y                            = this.data.y; // Entre 0 et 1
+		this.image                        = this.data.image;
+		this.select                       = false;
+		this.date_texte                   = this.data.date_texte.substring(0, 2) + " " 
+		                                    + CCN.nomMois[parseFloat(this.data.date_texte.substring(3, 5))-1] + " " 
+		                                    + this.data.date_texte.substring(6, 10);
+		this.taille_titre                 = 9+12*CCN.projet.zoom_consignes/(0.3*this.data.nombre_reponses+1);
+		this.reponses                     = [];
+		this.intervenant_nom              = '';
+		this.nombre_jours_max             = this.data.nombre_jours_max;
+
+		for (k = 0; k < this.data.intervenants.length; k++){
+			if (this.data.intervenant_id == this.data.intervenants[k].id){
+				this.intervenant_nom = this.data.intervenants[k].nom;
+			}
+		}
 		
 		if (this.nombre_jours_max <= 0){
 			this.nombre_jours_max = data.nombre_jours;
 		}
-		
-		this.y = data.y; // Entre 0 et 1
-		this.image = data.image;
-		this.select = false;
 
+    this.initDOM();
+  }
+
+
+  /**
+   * Crée l'élément DOM et l'intègre dans la timeline.
+   */   
+ 
+   this.initDOM = function() {
+		var coul = ""+this.data.intervenant_id+"";
+		var coul = coul.substr(coul.length-1,1);
+		
+    this.div_titre = document.createElement("div");
+		this.div_titre.setAttribute("onClick","callConsigne("+this.id+")");
+		this.div_titre.setAttribute("id","consigne"+this.id);
+		this.div_titre.setAttribute("data-id",this.id);
+		this.div_titre.setAttribute("data-index",this.numero);
+		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
+    
     // Base
     			
 		this.div_base = document.createElement("div");
@@ -49,44 +73,22 @@ function Consigne(){
 		this.div_base.style.top = (this.y*100)+"%";
 
     CCN.projet.timeline.append(this.div_base);
-
-		for (k = 0; k < data.intervenants.length; k++){
-			if (data.intervenant_id == data.intervenants[k].id){
-				var nom_intervenant = data.intervenants[k].nom;
-			}
-		}
-
-    // Titre
-	
-    var date = data.date_texte;
-	
-		this.date_texte = date.substring(0, 2) + " " + CCN.nomMois[parseFloat(date.substring(3, 5))-1] + " " + date.substring(6, 10);
-		this.div_titre = document.createElement("div");
-		this.div_titre.setAttribute("onClick","callConsigne("+this.id+")");
-		this.div_titre.setAttribute("id","consigne"+this.id);
-		this.div_titre.setAttribute("data-id",this.id);
-		this.div_titre.setAttribute("data-index",this.numero);
-		var coul = ""+data.intervenant_id+"";
-		var coul = coul.substr(coul.length-1,1);			
-		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
-
-		this.taille_titre = 9+12*CCN.projet.zoom_consignes/(0.3*data.nombre_reponses+1);
+    
+    var reponses_puces = '';
 		
-		var reponses_puces = '';
-		
-		for (var j = 1;j <= data.nombre_reponses;j++) {
+		for (var j = 1;j <= this.data.nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce"></div>';
 		}
 		
-		for (var j = 1;j <= data.classes.length-data.nombre_reponses;j++) {
+		for (var j = 1;j <= this.data.classes.length-this.data.nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce disabled"></div>';
 		}
 				
-		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+data.nombre_commentaires+"</div> "+
-			"<div class=\"photo\"><img src=\""+data.image+"\" /></div> "+
+		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+this.data.nombre_commentaires+"</div> "+
+			"<div class=\"photo\"><img src=\""+this.data.image+"\" /></div> "+
 			"<div class=\"texte\">"+
 			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
-			"<div class=\"auteur_date\">"+nom_intervenant+"<!-- - "+this.date_texte+"-->"+
+			"<div class=\"auteur_date\">"+this.intervenant_nom+"<!-- - "+this.date_texte+"-->"+
 			"<div class=\"picto_nombre_reponses\">"+reponses_puces+"</div>"+
 			"</div> "+
 			"</div>"+
@@ -104,27 +106,14 @@ function Consigne(){
 		this.div_reponse_plus = document.createElement("div");
 		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='createReponse("+this.id+","+CCN.idRestreint+","+this.numero+");'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
 		
-		/*
-		this.div_reponse_plus.style.position = "absolute";
-		this.div_reponse_plus.style.visibility = "hidden";
-		this.div_reponse_plus.style.cursor = "pointer";
-		this.div_reponse_plus.left = (this.largeur+10)+"px";
-		this.div_reponse_plus.style.top = (this.hauteur-25)+"px";
-    */
-		
 		this.div_base.appendChild(this.div_reponse_plus);
-
-    // Prépare le tableau de réponse
 		
-		this.reponses = [];
-
-    // Draggable (admin)
+     // Draggable (admin)
 	
 		if (CCN.admin==0) {
 			$(this.div_base).draggable({
 				axis: "y" ,
 				start: function(event,ui){
-				//	$(this).removeAttr("onClick");
 				  $(this).addClass('no_event');
 				},
 				drag: function(event,ui) {
@@ -134,7 +123,7 @@ function Consigne(){
 				stop: function(event,ui) {
   				yy = (ui.offset.top-CCN.projet.timeline.offset().top)/CCN.projet.timeline.height();
 					
-					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:data.id, type_objet:"article", X:0, Y:yy } );
+					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:this.data.id, type_objet:"article", X:0, Y:yy } );
 				  $(this).removeClass('no_event');
 					
 					this.y = yy;
@@ -143,8 +132,7 @@ function Consigne(){
 				}
 			});
 		}
-  }
-
+   }
 
   /**
    * Affiche le bouton <tt>Répondre à la question</tt>.

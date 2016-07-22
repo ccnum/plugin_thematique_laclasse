@@ -19,6 +19,7 @@ function Reponse() {
    */
  
   this.init = function(data) {	
+    this.data = data;
 		this.id = data.id;
 		this.classe_id = data.classe_id;
 		this.titre = data.titre;

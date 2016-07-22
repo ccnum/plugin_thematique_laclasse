@@ -6,6 +6,7 @@
 #ENV{id_objet}
 <script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>
 <script language="Javascript">
+  
 	[(#REM)
 	  Variables globales JS
   ]
@@ -21,7 +22,7 @@
 	CCN.classeSelection = [(#ENV{restreint}|sinon{0})];
 
 	[(#REM)
-	  Vue forcée à l ouverture
+	  Vue forcée à l ouverture (TODO)
   ]
   
 	CCN.dateToShowAtInit = '[(#ENV{vue_date,0})]';

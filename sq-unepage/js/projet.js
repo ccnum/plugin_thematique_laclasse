@@ -24,6 +24,7 @@ function Projet(){
    */
   
   this.init = function(data) {
+    this.data = data;
 		this.x = 0;
 		this.xx = 0;
 		this.dzoom = 0;

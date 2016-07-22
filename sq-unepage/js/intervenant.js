@@ -16,6 +16,7 @@ function Intervenant(){
    */
 
 	this.init = function(data){
+    this.data = data;
 		this.id = data.id;
 		this.nom = data.nom;
 	}
