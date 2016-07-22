@@ -14,6 +14,7 @@ var CCN = {};
     CCN.articlesBlog;         // blogs        : Blog du projet    (accessible par tous, bulles roses)
     CCN.articlesEvenement;    // evenements   : Blog pédagogique  (caché aux élèves, losanges bleu ciel)
     
+    
 var g_hide_travaux;
 var g_hide_articles_blog;
 var g_hide_articles_evenement;
@@ -25,48 +26,6 @@ function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
 function log(message) {
 	console.log(message);
-}
-
-function GetBrowserType() {
-  var bname = "browser";
-  if (navigator.userAgent.indexOf("MSIE") != -1) {
-    bname = "Internet Explorer";
-  }
-  
-  else if (navigator.userAgent.indexOf("Opera") != -1) {
-    bname = "Opera";
-  }
-  
-  else if ((navigator.appName.indexOf("Netscape") != -1) || parseFloat(navigator.appVersion >= 3.0)) {
-    bname = "Netscape Navigator";
-  }
-  
-  else {
-    bname = "Unknown Browser";
-  }
-  
-  return bname;
-}
-
-function LoadXMLString(xmlString) {
-  var xDoc;
-  var bType = GetBrowserType();
-
-  switch(bType) {
-    case "Internet Explorer":
-      // This actually calls into a function that returns a DOMDocument 
-      // on the basis of the MSXML version installed.
-      // Simplified here for illustration.
-      xDoc = new ActiveXObject("MSXML2.DOMDocument")
-      xDoc.async = false;
-      xDoc.loadXML(xmlString);
-      break;
-    default:
-      var dp = new DOMParser();
-      xDoc = dp.parseFromString(xmlString, "text/xml");
-      break;
-  }
-  return xDoc;
 }
 
 

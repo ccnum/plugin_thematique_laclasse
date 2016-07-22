@@ -54,25 +54,21 @@ function Consigne(){
  
    this.initDOM = function() {
 		var coul = ""+this.data.intervenant_id+"";
-		var coul = coul.substr(coul.length-1,1);
+		    coul = coul.substr(coul.length-1,1);
 		
-    this.div_titre = document.createElement("div");
-		this.div_titre.setAttribute("onClick","callConsigne("+this.id+")");
-		this.div_titre.setAttribute("id","consigne"+this.id);
-		this.div_titre.setAttribute("data-id",this.id);
-		this.div_titre.setAttribute("data-index",this.numero);
-		this.div_titre.setAttribute("class","consigne couleur_texte_consignes couleur_consignes"+coul);
+		this.div_titre = $('<div/>')
+		  .attr('id','consigne'+this.id)
+		  .attr('class','consigne couleur_texte_consignes couleur_consignes'+coul)
+		  .attr('data-id',this.id)
+		  .attr('data-index',this.numero);
     
-    // Base
-    			
-		this.div_base = document.createElement("div");
-		this.div_base.setAttribute('class','timeline_item consigne_haute');
-		this.div_base.setAttribute('id','consigne_haute'+this.id);
-		this.div_base.style.position = "absolute";			
-		this.div_base.style.left = (this.x/CCN.projet.nombre_jours*100)+'%';
-		this.div_base.style.top = (this.y*100)+"%";
-
-    CCN.projet.timeline.append(this.div_base);
+    this.div_base = $('<div/>')
+      .attr('id','consigne_haute'+this.id)
+      .attr('class','timeline_item consigne_haute')
+      .css({
+        'top'   : (this.y*100)+'%',
+        'left'  : (this.x/CCN.projet.nombre_jours*100)+'%'
+      });
     
     var reponses_puces = '';
 		
@@ -84,17 +80,17 @@ function Consigne(){
   		reponses_puces += '<div class="reponse_puce disabled"></div>';
 		}
 				
-		this.div_titre.innerHTML  = "<div class=\"picto_nombre_commentaires\">"+this.data.nombre_commentaires+"</div> "+
-			"<div class=\"photo\"><img src=\""+this.data.image+"\" /></div> "+
-			"<div class=\"texte\">"+
-			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
-			"<div class=\"auteur_date\">"+this.intervenant_nom+"<!-- - "+this.date_texte+"-->"+
-			"<div class=\"picto_nombre_reponses\">"+reponses_puces+"</div>"+
-			"</div> "+
-			"</div>"+
-			"<div class=\"nettoyeur\"></div> ";
+		this.div_titre.html("<div class=\"picto_nombre_commentaires\">"+this.data.nombre_commentaires+"</div> "+
+                  			"<div class=\"photo\"><img src=\""+this.data.image+"\" /></div> "+
+                  			"<div class=\"texte\">"+
+                    			"<div class=\"titre\" style=\"font-size:"+this.taille_titre+"px;line-height:"+(this.taille_titre-2)+"px;\">"+this.titre+"</div> "+
+                    			"<div class=\"auteur_date\">"+this.intervenant_nom+"<!-- - "+this.date_texte+"-->"+
+                    			  "<div class=\"picto_nombre_reponses\">"+reponses_puces+"</div>"+
+                    			"</div> "+
+                  			"</div>"+
+                  			"<div class=\"nettoyeur\"></div>");
 			
-		this.div_base.appendChild(this.div_titre);	
+		this.div_base.append(this.div_titre);	
 
 	  // Calcul des tailles des consignes
 	  
@@ -103,10 +99,18 @@ function Consigne(){
 		
     // Préparation bouton réponse plus (crayon)
 	
-		this.div_reponse_plus = document.createElement("div");
-		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='createReponse("+this.id+","+CCN.idRestreint+","+this.numero+");'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
+		this.div_reponse_plus = $('<div />')
+		  .html("<div class='bouton_reponse_consigne' onclick='createReponse("+this.id+","+CCN.idRestreint+","+this.numero+");'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"); // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
 		
-		this.div_base.appendChild(this.div_reponse_plus);
+		this.div_base.append(this.div_reponse_plus);
+    
+    CCN.projet.timeline.append(this.div_base);
+		
+		var _thisId = this.id;
+		
+		this.div_titre.on('click', function(){
+  		callConsigne(_thisId);
+		});
 		
      // Draggable (admin)
 	
@@ -144,7 +148,7 @@ function Consigne(){
 		if ((CCN.idRestreint > 0)
 		  &&(CCN.typeRestreint != '')
 		  &&(CCN.typeRestreint == 'travail_en_cours')){
-			  this.div_reponse_plus.style.visibility = "visible";
+			  this.div_reponse_plus.css('visibility','hidden');
 		}
 	}
 
@@ -199,9 +203,6 @@ function Consigne(){
 		
 		$('#consigne_haute'+this.id).removeClass('hide');
 		$('.reponse_haute_consigne_parent'+this.id).removeClass('hide');
-		
-		this.div_titre.removeAttribute("onClick");
-		this.div_titre.setAttribute("onClick","callConsigne("+this.id+");");
 		
     // (TODO*1) Cache les articles de blog
 	

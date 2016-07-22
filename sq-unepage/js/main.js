@@ -5,6 +5,7 @@ var indexArticleBlog;
 var indexArticleEvenement;
 var indexIntervenant;
 
+
 /**
  * Première fonction initialisant le document
  * et les variables globales, puis appelant
