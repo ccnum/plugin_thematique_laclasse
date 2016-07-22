@@ -13,7 +13,7 @@ var indexIntervenant;
  * @see loadProjet
  */   
 
-function init() {
+function initCCN() {
   indexClasse                 = 0;
   indexConsigne               = 0;
   indexReponse                = 0;
@@ -50,71 +50,55 @@ function init() {
  */
 
 function loadProjet(fichier){  
-	var xmlhttp;
-	if (window.XMLHttpRequest){
-		xmlhttp = new XMLHttpRequest();
-	}else{
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.open("POST", fichier, true);
-	xmlhttp.send();
-	xmlhttp.onload = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-			var xmldoc0 = xmlhttp.responseText;
-			xmldoc0.async = false;
-			xmldoc0 = xmldoc0.trim();
-			var xmldoc = LoadXMLString(xmldoc0);
-			
-			// Récupération des données extraites du XML
-			
-			CCN.couleurBlog = xmldoc.getElementsByTagName("couleur_blog")[0].childNodes[0].nodeValue;			
-			
+  
+  $.ajax({
+    url: fichier,
+    dataType: 'xml',
+    success: function(xml) {			
 			var dataForProjet = {};
 			
-			dataForProjet.date_debut = xmldoc.getElementsByTagName("date_debut")[0].childNodes[0].nodeValue;
-			dataForProjet.date_fin = xmldoc.getElementsByTagName("date_fin")[0].childNodes[0].nodeValue;
-			dataForProjet.couleur_fond = xmldoc.getElementsByTagName("couleur_fond")[0].childNodes[0].nodeValue;
-			dataForProjet.couleur_base_texte = xmldoc.getElementsByTagName("couleur_base_texte")[0].childNodes[0].nodeValue;
-			dataForProjet.couleur_1erplan1 = xmldoc.getElementsByTagName("couleur_1erplan1")[0].childNodes[0].nodeValue;
-			dataForProjet.couleur_1erplan2 = xmldoc.getElementsByTagName("couleur_1erplan2")[0].childNodes[0].nodeValue;
-			dataForProjet.couleur_1erplan3 = xmldoc.getElementsByTagName("couleur_1erplan3")[0].childNodes[0].nodeValue;
+			dataForProjet.date_debut                = getXMLNodeValue('date_debut',xml);
+			dataForProjet.date_fin                  = getXMLNodeValue('date_fin',xml);
+			dataForProjet.couleur_fond              = getXMLNodeValue('couleur_fond',xml);
+			dataForProjet.couleur_base_texte        = getXMLNodeValue('couleur_base_texte',xml);
+			dataForProjet.couleur_1erplan1          = getXMLNodeValue('couleur_1erplan1',xml);
+			dataForProjet.couleur_1erplan2          = getXMLNodeValue('couleur_1erplan2',xml);
+			dataForProjet.couleur_1erplan3          = getXMLNodeValue('couleur_1erplan3',xml);
 			
-			dataForProjet.largeur = getLargeurZone();
-			dataForProjet.hauteur = getHauteurZone();
+			dataForProjet.largeur                   = getLargeurZone();
+			dataForProjet.hauteur                   = getHauteurZone();
 
-			dataForProjet.fps = parseFloat(xmldoc.getElementsByTagName("fps")[0].childNodes[0].nodeValue);
-			dataForProjet.zoom_consignes = xmldoc.getElementsByTagName("zoom_consignes")[0].childNodes[0].nodeValue;
-			dataForProjet.liste_y_consignes = xmldoc.getElementsByTagName("seq_posy_consignes")[0].childNodes[0].nodeValue;
-			dataForProjet.liste_y_blogs = xmldoc.getElementsByTagName("seq_posy_blogs")[0].childNodes[0].nodeValue;
-			dataForProjet.liste_y_evenements = xmldoc.getElementsByTagName("seq_posy_evenements")[0].childNodes[0].nodeValue;
+			dataForProjet.fps                       = parseFloat(getXMLNodeValue('fps',xml));
+			dataForProjet.zoom_consignes            = getXMLNodeValue('zoom_consignes',xml);
+			dataForProjet.liste_y_consignes         = getXMLNodeValue('seq_posy_consignes',xml);
+			dataForProjet.liste_y_blogs             = getXMLNodeValue('seq_posy_blogs',xml);
+			dataForProjet.liste_y_evenements        = getXMLNodeValue('seq_posy_evenements',xml);
 
-			dataForProjet.url_popup_consigne = xmldoc.getElementsByTagName("url_popup_consigne")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_reponse = xmldoc.getElementsByTagName("url_popup_reponse")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_reponseajout = xmldoc.getElementsByTagName("url_popup_reponseajout")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_blog = xmldoc.getElementsByTagName("url_popup_blog")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_evenement = xmldoc.getElementsByTagName("url_popup_evenement")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_ressources = xmldoc.getElementsByTagName("url_popup_ressources")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_agora = xmldoc.getElementsByTagName("url_popup_agora")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_classes = xmldoc.getElementsByTagName("url_popup_classes")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_chat = xmldoc.getElementsByTagName("url_popup_chat")[0].childNodes[0].nodeValue;
-			dataForProjet.url_popup_chat2 = xmldoc.getElementsByTagName("url_popup_chat2")[0].childNodes[0].nodeValue;
+			dataForProjet.url_popup_consigne        = getXMLNodeValue('url_popup_consigne',xml);
+			dataForProjet.url_popup_reponse         = getXMLNodeValue('url_popup_reponse',xml);
+			dataForProjet.url_popup_reponseajout    = getXMLNodeValue('url_popup_reponseajout',xml);
+			dataForProjet.url_popup_blog            = getXMLNodeValue('url_popup_blog',xml);
+			dataForProjet.url_popup_evenement       = getXMLNodeValue('url_popup_evenement',xml);
+			dataForProjet.url_popup_ressources      = getXMLNodeValue('url_popup_ressources',xml);
+			dataForProjet.url_popup_agora           = getXMLNodeValue('url_popup_agora',xml);
+			dataForProjet.url_popup_classes         = getXMLNodeValue('url_popup_classes',xml);
+			dataForProjet.url_popup_chat            = getXMLNodeValue('url_popup_chat',xml);
+			dataForProjet.url_popup_chat2           = getXMLNodeValue('url_popup_chat2',xml);
 
-			if (xmldoc.getElementsByTagName("image_fond")[0].childNodes[0]){
-				dataForProjet.image_fond = xmldoc.getElementsByTagName("image_fond")[0].childNodes[0].nodeValue;
-			}else{
-				dataForProjet.image_fond = "";
-			}
+			dataForProjet.image_fond                = (hasXMLNodeValue('image_fond',xml)) ? getXMLNodeValue('image_fond',xml) : '';
 			
 			// Initialise le projet
 			
       CCN.projet = new Projet();
-      CCN.projet.init(dataForProjet);
+      CCN.projet.init(dataForProjet);			
+      
+			CCN.couleurBlog = getXMLNodeValue('couleur_blog',xml);		
 			
 			// Lance le chargement des classes
 			
 			loadClasses(CCN.urlXml+"classes");
-		}
-	}
+    }
+  });
 }
 
 
@@ -711,42 +695,12 @@ function initTimeline(){
 }
 
 
-/**
- * Met à jour les connecteurs de la timeline.
- * <br>
- * La fonction est appelée de manière récursive (<tt>setInterval(…, 1)</tt>)
- * afin de mettre à jour en même temps que la transition CSS de la timeline.
- *
- * @todo Éléments autres que DOM ?
- */
- 
-function updateConnecteurs() {
-  $('.connecteur_timeline').each(function(){
-    
-    var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id'));
-    var connecteur_reponse = $('#reponse_haute'+$(this).data('reponse-id'));
-    
-    var connecteur = $(this);
-    
-    var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth()-5;
-    var y1 = connecteur_consigne.offset().top+CCN.projet.timeline.offset().top+5;
-    var x2 = connecteur_reponse.offset().left+5;
-    var y2 = connecteur_reponse.offset().top+CCN.projet.timeline.offset().top+5;
-    
-    var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
-    var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-    var transform = 'rotate('+angle+'deg)';
-    
-    connecteur.css({
-      'position': 'absolute',
-      'transform': transform,
-      'left': parseFloat(x1)+'px', 
-      'top': parseFloat(y1)+'px'
-    })
-    .width(parseFloat(length)+'px');
-  });
-}
+
 
 // C'est parti
 
-window.onload = init();
+// window.onload = init();
+
+$(function(){
+  initCCN();
+});

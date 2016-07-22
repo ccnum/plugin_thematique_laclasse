@@ -716,3 +716,39 @@ function stop_action(){
 function activate_action(){
 	CCN.projet.frame=0;
 }
+
+/**
+ * Met à jour les connecteurs de la timeline.
+ * <br>
+ * La fonction est appelée de manière récursive (<tt>setInterval(…, 1)</tt>)
+ * afin de mettre à jour en même temps que la transition CSS de la timeline.
+ *
+ * @todo Éléments autres que DOM ?
+ */
+ 
+function updateConnecteurs() {
+  $('.connecteur_timeline').each(function(){
+    
+    var connecteur_consigne = $('#consigne_haute'+$(this).data('consigne-id'));
+    var connecteur_reponse = $('#reponse_haute'+$(this).data('reponse-id'));
+    
+    var connecteur = $(this);
+    
+    var x1 = connecteur_consigne.offset().left+connecteur_consigne.outerWidth()-5;
+    var y1 = connecteur_consigne.offset().top+CCN.projet.timeline.offset().top+5;
+    var x2 = connecteur_reponse.offset().left+5;
+    var y2 = connecteur_reponse.offset().top+CCN.projet.timeline.offset().top+5;
+    
+    var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+    var transform = 'rotate('+angle+'deg)';
+    
+    connecteur.css({
+      'position': 'absolute',
+      'transform': transform,
+      'left': parseFloat(x1)+'px', 
+      'top': parseFloat(y1)+'px'
+    })
+    .width(parseFloat(length)+'px');
+  });
+}
