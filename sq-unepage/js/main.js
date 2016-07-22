@@ -37,7 +37,7 @@ function init() {
   
   // Charge le projet
   
-  loadProjet(g_u_xml+"projet");
+  loadProjet(CCN.urlXml+"projet");
 }
 
 
@@ -112,7 +112,7 @@ function loadProjet(fichier){
 			
 			// Lance le chargement des classes
 			
-			loadClasses(g_u_xml+"classes");
+			loadClasses(CCN.urlXml+"classes");
 		}
 	}
 }
@@ -184,7 +184,7 @@ function loadClasses(fichier){
 			
 			// Lance le chargement des consignes
 			
-			loadConsignes(g_u_xml+"consignes");
+			loadConsignes(CCN.urlXml+"consignes");
 		}
 	}
 }
@@ -386,13 +386,13 @@ function loadConsignes(fichier){
         	
           // Sélection de la classe prime sur classe logguée
         	
-        	if (g_u_classe_select > 0){
-        		if (g_u_classe_select == dataForReponse.classe_id){
+        	if (CCN.classeSelection > 0){
+        		if (CCN.classeSelection == dataForReponse.classe_id){
         			nb_classe_reponse++;
         			nb_classe_commentaires += nombre_commentaires_reponse;
         		}
         	} else {
-        		if (g_u_id_restreint == dataForReponse.classe_id){
+        		if (CCN.idRestreint == dataForReponse.classe_id){
         			nb_classe_reponse++;
         			nb_classe_commentaires += nombre_commentaires_reponse;
         		}
@@ -411,7 +411,7 @@ function loadConsignes(fichier){
 			}
 			
 			// Lance le chargement des articles de blog
-			loadBlog(g_u_xml+"articles_blog");
+			loadBlog(CCN.urlXml+"articles_blog");
 		}
 	}
 }
@@ -497,7 +497,7 @@ function loadBlog(fichier){
 			
 			// Lance le chargement des articles d'événements
 			
-			loadEvenements(g_u_xml+"articles_evenement");			
+			loadEvenements(CCN.urlXml+"articles_evenement");			
 		}
 	}
 }
@@ -628,12 +628,12 @@ function initTimeline(){
     CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
   });
   
-	// Zoom sur la date (TO DO)
+	// Zoom sur la date au chargement de la page
 	
-	if (g_u_date != "0"){
-		var jd = parseFloat(g_u_date.substring(0, 2));
-		var md = parseFloat(g_u_date.substring(3, 5));
-		var yd = parseFloat(g_u_date.substring(6, 10));
+	if (CCN.dateToShowAtInit != "0"){
+		var jd = parseFloat(CCN.dateToShowAtInit.substring(0, 2));
+		var md = parseFloat(CCN.dateToShowAtInit.substring(3, 5));
+		var yd = parseFloat(CCN.dateToShowAtInit.substring(6, 10));
 		
 		date = new Date();
 		date.setDate(jd);
@@ -655,36 +655,36 @@ function initTimeline(){
 	
 	// Ouverture au chargement d'un article, article événement, consigne ou réponse
 	
-	if (g_u_id_objet != "0"){
+	if (CCN.idObjetToShowAtInit != "0"){
 		// Consigne
-		if (g_u_type_popup == "consignes"){
+		if (CCN.typePopupToShowAtInit == "consignes"){
 			for (k=0; k<CCN.consignes.length;k++){
-				if (CCN.consignes[k].id == g_u_id_objet){
-					callConsigne(g_u_id_objet);
+				if (CCN.consignes[k].id == CCN.idObjetToShowAtInit){
+					callConsigne(CCN.idObjetToShowAtInit);
 				}
 			}
 		}
     // Réponse
-    if (g_u_type_popup == "travail_en_cours"){
+    if (CCN.typePopupToShowAtInit == "travail_en_cours"){
     	for (k=0; k<CCN.consignes.length;k++){
     		for (l=0; l<CCN.consignes[k].reponses.length;l++){
-    			if (CCN.consignes[k].reponses[l].id == g_u_id_objet){
-    				callReponse(g_u_id_objet);
+    			if (CCN.consignes[k].reponses[l].id == CCN.idObjetToShowAtInit){
+    				callReponse(CCN.idObjetToShowAtInit);
     			}
     		}
     	}
     }
     // Article de blog
-    if (g_u_type_popup == "blogs"){
-    	callBlog(g_u_id_objet,"article");
+    if (CCN.typePopupToShowAtInit == "blogs"){
+    	callBlog(CCN.idObjetToShowAtInit,"article");
     }
     // Article d'événement
-    if (g_u_type_popup == "evenements"){
-    	callEvenement(g_u_id_objet,"article");
+    if (CCN.typePopupToShowAtInit == "evenements"){
+    	callEvenement(CCN.idObjetToShowAtInit,"article");
     }
     // Ressource
-    if (g_u_type_popup == "ressources"){
-    	callRessource(g_u_id_objet,"article");
+    if (CCN.typePopupToShowAtInit == "ressources"){
+    	callRessource(CCN.idObjetToShowAtInit,"article");
     }
 	}
 	else {

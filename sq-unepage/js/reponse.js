@@ -91,7 +91,7 @@ function Reponse() {
 
     // Draggable
 	
-		if (g_u_admin==0) {
+		if (CCN.admin==0) {
   		$(this.div_base).draggable({
   			axis: "y" ,
   			start: function(event,ui){

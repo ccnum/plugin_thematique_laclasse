@@ -13,8 +13,8 @@ function bouton(){
 			// bouton plus pour ajout d'article
 			case 0:
 				this.div_base = document.createElement("div");
-				if ((g_u_id_restreint > 0)&&(g_u_type_restreint != '')&&(g_u_type_restreint != 'travail_en_cours')){
-				this.div_base.innerHTML = "<div id='reponse_plus2' class='bouton_article_plus' ><img src='"+g_u_chemin+"img/reponse_plus.png' onClick='createReponse(0, "+g_u_id_restreint+");' title='publier un nouvel article'></div>";
+				if ((CCN.idRestreint > 0)&&(CCN.typeRestreint != '')&&(CCN.typeRestreint != 'travail_en_cours')){
+				this.div_base.innerHTML = "<div id='reponse_plus2' class='bouton_article_plus' ><img src='"+CCN.urlRoot+"img/reponse_plus.png' onClick='createReponse(0, "+CCN.idRestreint+");' title='publier un nouvel article'></div>";
 				this.div_base.style.position = "absolute";
 				this.div_base.style.left = "195px";
 				this.div_base.style.bottom = "-105px";
@@ -24,8 +24,8 @@ function bouton(){
 			// bouton plus pour ajout dans le canvas
 			case 1:
 				this.div_base = document.createElement("div");
-				if ((g_u_id_restreint > 0)&&(g_u_type_restreint != '')&&(g_u_type_restreint != 'travail_en_cours')){
-				this.div_base.innerHTML = "<div id='reponse_plus2' class='bouton_article_plus' ><img src='"+g_u_chemin+"img/reponse_plus.png' onClick='createReponse(0, "+g_u_id_restreint+");' title='publier un nouvel article'></div>";
+				if ((CCN.idRestreint > 0)&&(CCN.typeRestreint != '')&&(CCN.typeRestreint != 'travail_en_cours')){
+				this.div_base.innerHTML = "<div id='reponse_plus2' class='bouton_article_plus' ><img src='"+CCN.urlRoot+"img/reponse_plus.png' onClick='createReponse(0, "+CCN.idRestreint+");' title='publier un nouvel article'></div>";
 				this.div_base.style.position = "absolute";
 				this.div_base.style.left = "20px";
 				this.div_base.style.bottom = "60px";

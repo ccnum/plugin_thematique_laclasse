@@ -4,26 +4,31 @@
 <![endif]-->
 #ENV{type_objet}
 #ENV{id_objet}
+<script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>
 <script language="Javascript">
-	[(#REM)Variables globales JS]
-		var g_u_chemin = "[(#ENV{chemin})]";
-		var g_u_xml = "spip.php?page=xml&annee_scolaire=#ENV{annee_scolaire}&mode=";
-		var g_u_admin = [(#ENV{admin})];
-		var g_u_id_restreint = [(#ENV{restreint}|sinon{0})];
-		var g_u_type_restreint = '[(#ENV{type_restreint})]';
-		var g_u_classe_select = [(#ENV{restreint}|sinon{0})];
-		var g_u_img_blog = "[(#CHEMIN{#ENV{chemin}/img/logo_blog_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_blog.png}|image_reduire{98}|extraire_attribut{src})]";
-		var g_u_img_evt = "[(#CHEMIN{#ENV{chemin}/img/logo_evenement_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_evenement.png}|image_reduire{150,94}|extraire_attribut{src})]";			
-		var g_u_mode_popup = '#ENV{mode_popup}'
+	[(#REM)
+	  Variables globales JS
+  ]
+  
+	CCN.urlRoot = "[(#ENV{chemin})]";
+	CCN.urlXml = "spip.php?page=xml&annee_scolaire=#ENV{annee_scolaire}&mode=";
+	CCN.urlImgBlog = "[(#CHEMIN{#ENV{chemin}/img/logo_blog_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_blog.png}|image_reduire{98}|extraire_attribut{src})]";
+	CCN.urlImgEvenement = "[(#CHEMIN{#ENV{chemin}/img/logo_evenement_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_evenement.png}|image_reduire{150,94}|extraire_attribut{src})]";	
+	
+	CCN.admin = [(#ENV{admin})];
+	CCN.idRestreint = [(#ENV{restreint}|sinon{0})];
+	CCN.typeRestreint = '[(#ENV{type_restreint})]';
+	CCN.classeSelection = [(#ENV{restreint}|sinon{0})];
 
-	[(#REM)Vue forcée à l ouverture]
-		var g_u_date = '[(#ENV{vue_date,0})]';
-		var g_u_type_popup = '[(#ENV{type_objet,0})]';
-		//var g_u_type_objet = '[(#ENV{page})]';
-		var g_u_id_objet = '[(#ENV{id_objet,0})]';
+	[(#REM)
+	  Vue forcée à l ouverture
+  ]
+  
+	CCN.dateToShowAtInit = '[(#ENV{vue_date,0})]';
+	CCN.typePopupToShowAtInit = '[(#ENV{type_objet,0})]';
+	CCN.idObjetToShowAtInit = '[(#ENV{id_objet,0})]';
 </script>
 <script type="application/javascript" src="#CHEMIN{js/jquery.isotope.min.js}"></script>
-<script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/classe.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/intervenant.js}"></script>
@@ -36,5 +41,4 @@
 <script type="application/javascript" src="#CHEMIN{js/controleurs-timeline.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/controleurs-affichage.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/controleurs-sidebar.js}"></script>
-
 <script type="application/javascript" src="#CHEMIN{js/main.js}"></script>

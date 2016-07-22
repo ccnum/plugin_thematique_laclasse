@@ -40,7 +40,7 @@
 		  // Image
 		  
 			this.img = document.createElement("img");
-			this.img.setAttribute("src",g_u_img_evt);
+			this.img.setAttribute("src",CCN.urlImgEvenement);
 			this.div_base.appendChild(this.img);
 		
       // Texte
@@ -55,7 +55,7 @@
 			this.div_texte.innerHTML = html;
 			this.div_base.appendChild(this.div_texte);
 		
-		if (g_u_admin==0)
+		if (CCN.admin==0)
 		$(this.div_base).draggable({
 			axis: "y" ,
 			start: function(event,ui){

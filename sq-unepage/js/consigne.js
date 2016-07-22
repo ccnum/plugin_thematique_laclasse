@@ -102,7 +102,7 @@ function Consigne(){
     // Préparation bouton réponse plus (crayon)
 	
 		this.div_reponse_plus = document.createElement("div");
-		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='ajoutcallReponse("+this.id+","+g_u_id_restreint+","+this.numero+");'><img src='"+g_u_chemin+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
+		this.div_reponse_plus.innerHTML = "<div class='bouton_reponse_consigne' onClick='createReponse("+this.id+","+CCN.idRestreint+","+this.numero+");'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"; // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
 		
 		/*
 		this.div_reponse_plus.style.position = "absolute";
@@ -120,7 +120,7 @@ function Consigne(){
 
     // Draggable (admin)
 	
-		if (g_u_admin==0) {
+		if (CCN.admin==0) {
 			$(this.div_base).draggable({
 				axis: "y" ,
 				start: function(event,ui){
@@ -153,9 +153,9 @@ function Consigne(){
    */   
  
   this.showNewReponseButtonInTimeline = function(){
-		if ((g_u_id_restreint > 0)
-		  &&(g_u_type_restreint != '')
-		  &&(g_u_type_restreint == 'travail_en_cours')){
+		if ((CCN.idRestreint > 0)
+		  &&(CCN.typeRestreint != '')
+		  &&(CCN.typeRestreint == 'travail_en_cours')){
 			  this.div_reponse_plus.style.visibility = "visible";
 		}
 	}

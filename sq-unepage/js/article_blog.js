@@ -38,7 +38,7 @@
 
 		// image
 			this.img = document.createElement("img");
-			this.img.setAttribute("src",g_u_img_blog);
+			this.img.setAttribute("src",CCN.urlImgBlog);
 			this.div_base.appendChild(this.img);
 
 		// texte
@@ -57,7 +57,7 @@
 			this.div_base.appendChild(this.div_texte);
 
 		// draggable
-			if (g_u_admin==0)
+			if (CCN.admin==0)
 			$(this.div_base).draggable({
 				axis: "y" ,
 				start: function(event,ui){
