@@ -223,7 +223,6 @@ function Consigne(){
   		clearInterval(CCN.projet.setIntervalConnecteurs);
 		},2300);
 		
-		stop_action();
 		this.select = true;
 	}
 }

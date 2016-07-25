@@ -80,7 +80,7 @@ et/ou
 		    <div id="menu-ressources" class="bloc_view col">
 				<h3><span>Blogs</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=changeTimelineMode('consignes');showhide_travaux('show');}{title=Toutes les ressources})]
+					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=changeTimelineMode('consignes');}{title=Toutes les ressources})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -88,11 +88,9 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');show_articles_blog();}{title=#GET{blog}})]
-					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');show_articles_evenement();}{title=Le blog pédagogique})]
-					<!--[(#MODELE{logo_menu}{valeur=ressource_classes}{filter=.ressource_classes}{title=Les classes}{onclick=callClasse();})]-->
-					[(#MODELE{logo_menu}{valeur=consigne}{filter=.ressource_consignes}{onclick=showhide_travaux('show');}{title=Les consignes})]
-					[(#MODELE{logo_menu}{valeur=reponse}{filter=.ressource_reponses}{title=Les réponses des classes})]
+					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
+					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
+					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
 		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
 					</BOUCLE_j>

@@ -22,10 +22,6 @@ function initCCN() {
   indexArticleEvenement       = 0;
   indexIntervenant            = 0;
   
-  g_hide_travaux              = false;
-  g_hide_articles_blog        = false;
-  g_hide_articles_evenement   = false;
-  
   CCN.classes                 = [];
   CCN.intervenants            = [];
   CCN.consignes               = [];
@@ -387,8 +383,6 @@ function loadBlog(fichier){
     dataType: 'xml',
     success: function(xml) {	
       
-      console.log(xml);
-			
 			var xmlArticlesBlog = xml.getElementsByTagName("article");
 			var indexY = 0;	
 			for (i = 0; i < xmlArticlesBlog.length; i++){
@@ -413,8 +407,6 @@ function loadBlog(fichier){
 				if (dataForArticleBlog.y==0) {
   				dataForArticleBlog.y = CCN.projet.liste_y_blogs[indexY];
   		  }
-  		  
-  		  console.log(dataForArticleBlog.id + ' : ' + dataForArticleBlog.y);
   		  
 				indexY++;
 				

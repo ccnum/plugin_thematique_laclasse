@@ -63,7 +63,6 @@
 			axis: "y" ,
 			start: function(event,ui){
 					$(this).children('div').children('div').removeAttr("onClick");
-					stop_action ();
 				},
 			stop: function(event,ui) {
 				y_parent = $(this).parent().height();

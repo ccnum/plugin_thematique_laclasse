@@ -26,9 +26,7 @@
 		this.nombre_commentaires  = this.data.nombre_commentaires;
 		this.x                    = this.data.nombre_jours;
 		this.y                    = this.data.y;
-		this.index                = this.data.index;
-		
-		console.log(this.id + ' : ' + this.y);
+		this.index                = this.data.index
 		
 		this.div_base = $('<div/>')
 		  .attr('class','timeline_item article_blog_container')
@@ -70,7 +68,6 @@
   			axis: "y" ,
   			start: function(event,ui){
   				$(this).children('div').children('div').removeAttr("onClick");
-  				stop_action ();
   				},
   			stop: function(event,ui) {
   				y_parent = $(this).parent().height();

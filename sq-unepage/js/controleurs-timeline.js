@@ -52,57 +52,6 @@ function changeTimelineMode(type) {
 
 
 /**
- * Afficher/cacher les travaux.
- *
- * @todo Documenter
- */
- 
-function showhide_travaux(mode){
-  console.log('showHideTravaux');
-  /*
-	if (mode == undefined) if (g_hide_travaux == false) mode = 'hide'; else mode = 'show';
-	
-	if (mode == 'hide') {
-		for (i = 0 ; i < CCN.consignes.length ; i++) {
-			$(CCN.consignes[i].div_base).stop().fadeTo(2000,0.1);
-			
-			if (CCN.consignes[i].select == true) {
-				$(CCN.consignes[i].div_reponse_plus).fadeOut('slow');
-				
-				for (j = 0 ; j < CCN.consignes[i].reponses.length ; j++) {
-					$(CCN.consignes[i].reponses[j].div_base).fadeOut('slow');
-				}
-			}
-		}
-		g_hide_travaux = true;
-	}
-	
-	else {
-		hide_articles_evenement();
-		hide_articles_blog();
-		
-		for (i = 0 ; i < CCN.consignes.length ; i++){
-			$(CCN.consignes[i].div_base).fadeTo('slow',1);
-			
-			if (CCN.consignes[i].select == true){
-				$(CCN.consignes[i].div_reponse_plus).fadeIn('slow');
-				CCN.consignes[i].hideConsignePastille();
-				
-				for (j = 0 ; j < CCN.consignes[i].reponses.length ; j++){
-					$(CCN.consignes[i].reponses[j].div_base).stop().fadeIn('slow');
-				}
-			}
-		}
-		g_hide_travaux = false;
-
-		// Propagation isotope
-		isotope_ressources_ferme_tout();
-	}
-	*/
-}
-
-
-/**
  * Gère les événements lors du click sur une consigne et appelle {@link consigne#showInTimeline}.
  *
  * @param {number} numero - ID SPIP de l'objet
@@ -146,296 +95,6 @@ function showReponseInTimeline(numero) {
       }
     }
   }
-}
-
-
-/**
- * @deprecated
- */
-
-function show_one_article_evenement(numero,duration){
-  /*
-	for (j=0; j<CCN.articlesEvenement.length;j++){
-		$(CCN.articlesEvenement[j].img).stop(true);
-		$(CCN.articlesEvenement[j].div_texte).stop(true);
-		if (j != numero) hide_article_evenement(j,1,duration);
-		if (j == numero) show_article_evenement(j,1,duration);
-	}
-	
-	for (j=0; j<CCN.articlesBlog.length;j++) {
-		$(CCN.articlesBlog[j].img).stop(true);
-		$(CCN.articlesBlog[j].div_texte).stop(true);
-		hide_article_blog(j,1,duration);
-  }
-  */
-}
-
-
-/**
- * @deprecated
- */
-
-function hide_article_evenement(i,delay,duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	var th = CCN.articlesEvenement[i];
-	var i = i;
-	$(th.div_texte).delay(delay).hide(duration/100, function() {
-		if (th.left == -1) th.left = $(th.img).position().left;
-		if (th.top == -1) th.top = $(th.img).position().top;
-		var w = 150;
-		var h = 94;
-		if (th.left == 0) th.left = w/4;
-		if (th.top == 0) th.top = h/3;
-		var ll = w/3 + "px";
-		var tt = h/3 + "px";
-		$(th.div_base).css('z-index','90');
-		$(th.div_texte).css('display','none');
-		$(th.img).stop().animate({opacity: 0.2, width:ll, height:tt, top:th.top, left:th.left},duration,"easeInOutBack",function(){
-			if ($('.article_evenement:visible').length == 0) {
-				//$('#evenements a').html($('#evenements a').html().replace("Masquer", "Afficher"));
-				g_hide_articles_evenement = true;
-				//$('#evenements a').fadeTo('fast',1);
-			}
-		});
-	});
-	*/
-}
-
-
-/**
- * Affiche un événement.
- *
- * @todo Documenter
- */
-
-function show_article_evenement(i,delay,duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	var th = CCN.articlesEvenement[i];
-	var i = i;
-	$(th.div_base).css('z-index','200');	
-	$(th.img).stop().delay(delay).animate({width:'150px', height:'94px', top:0, left:0, opacity: 1},duration, "easeInOutBack",function(){
-		$(th.div_texte).show(duration/1000,function(){
-			if ($('.article_evenement:visible').length == $('.article_evenement').length) {
-				//$('#evenements a').html($('#evenements a').html().replace("Afficher", "Masquer"));
-				g_hide_articles_evenement = false;
-				//$('#evenements a').fadeTo('fast',1);
-			}
-		});
-	});
-	*/
-}
-
-
-/**
- * @deprecated
- */
-
-function showhide_articles_evenement(duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	
-	if (g_hide_articles_evenement == false) {
-			$.each(CCN.articlesEvenement, function(index, value) {
-			var delay = Math.random()*duration*0;
-			hide_article_evenement(index,delay,duration);	
-		});
-		
-		showhide_travaux('show');
-	}
-	else {
-		showhide_travaux('hide');
-		hide_articles_blog();
-		
-		$.each(CCN.articlesEvenement, function(index, value) {	
-			var delay = Math.random()*duration*0;
-			show_article_evenement(index,delay,duration);
-		});
-	}
-	*/
-}
-
-
-/**
- * Cache un événement.
- *
- * @todo Documenter
- */
-
-function hide_articles_evenement(duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	
-	$.each(CCN.articlesEvenement, function(index, value) {	
-		var delay = Math.random()*duration*0;
-		hide_article_evenement(index,0,duration);
-	});	
-	*/
-}
-
-
-/**
- * Affiche les événements
- *
- * @todo Documenter
- */
-
-function show_articles_evenement(duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	CCN.projet.showWholeTimeline();
-	showhide_travaux('hide');
-	hide_articles_blog();
-	$.each(CCN.articlesEvenement, function(index, value) {	
-			var delay = Math.random()*duration*0;
-			show_article_evenement(index,0,duration);
-		});	
-		*/
-}
-
-
-/**
- * @deprecated
- */ 
- 
-function show_one_article_blog(numero,duration){
-  /*
-	for (j=0; j<CCN.articlesBlog.length;j++){
-		$(CCN.articlesBlog[j].img).stop(true);
-		$(CCN.articlesBlog[j].div_texte).stop(true);
-		if (j != numero) hide_article_blog(j,1,duration);
-		if (j == numero) show_article_blog(j,1,duration);
-	}
-	for (j=0; j<CCN.articlesEvenement.length;j++) {
-		$(CCN.articlesEvenement[j].img).stop(true);
-		$(CCN.articlesEvenement[j].div_texte).stop(true);
-		hide_article_evenement(j,1,duration);
-	}
-	*/
-}
-
-
-/**
- * Cache l'article du blog [Note : n'existera sûrement plus une fois le append DOM]
- *
- * @todo Documenter
- */
-
-function hide_article_blog(i,delay,duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	var th = CCN.articlesBlog[i];
-	var i = i;
-	$(th.div_texte).delay(delay).hide(duration/100, function() {
-		if (th.left == -1) th.left = $(th.img).position().left;
-		if (th.top == -1) th.top = $(th.img).position().top;
-		var w = 98;
-		var h = 98;
-		if (th.left == 0) th.left = w/4;
-		if (th.top == 0) th.top = h/3;
-		var ll = w/3 + "px";
-		var tt = h/3 + "px";
-		$(th.div_base).css('z-index','90');
-		$(th.div_texte).css('display','none');		
-		$(th.img).stop().animate({opacity:0.2, width:ll, height:tt, top:th.top, left:th.left},duration,"easeInOutBack",function(){
-			if ($('.article_blog:visible').length == 0) {
-				//$('#blog a').html($('#blog a').html().replace("Masquer", "Afficher"));
-				g_hide_articles_blog = true;
-				//$('#blog a').fadeTo('fast',1);
-			}
-			//$(th.div_base).bind('mouseleave',function(){hide_article_blog(i,0)});
-		});
-	});
-	*/
-}
-
-
-/**
- * @deprecated
- */
-
-function show_article_blog(i,delay,duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	var th = CCN.articlesBlog[i];
-	var i = i;
-	$(th.div_base).css('z-index','200');
-	$(th.img).stop().delay(delay).animate({width:'98px', height:'98px', left:0, top:0, opacity:1},duration,"easeInOutBack",function(){
-		$(th.div_texte).show(duration/1000,function(){
-			if ($('.article_blog:visible').length == $('.article_blog').length) {
-				//$('#blog a').html($('#blog a').html().replace("Afficher", "Masquer"));
-				g_hide_articles_blog = false;
-				//$('#blog a').fadeTo('fast',1);
-			}
-		});
-	});
-	*/
-}
-
-
-/**
- * @deprecated
- */
-
-function showhide_articles_blog(duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	//$('#blog a').fadeTo('fast',0);
-	
-	if (g_hide_articles_blog == false){
-		$.each(CCN.articlesBlog, function(index, value) {
-			var delay = Math.random()*duration*0;
-			hide_article_blog(index,delay,duration);	
-		});
-		showhide_travaux('show');
-	}else{
-		showhide_travaux('hide');
-		hide_articles_evenement();
-		$.each(CCN.articlesBlog, function(index, value) {
-			var delay = Math.random()*duration*0;
-			show_article_blog(index,delay,duration);
-		});
-	}
-	*/
-}
-
-
-/**
- * Cache les articles de blog
- *
- * @todo Documenter
- */
-
-function hide_articles_blog(duration){
-  /*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	$.each(CCN.articlesBlog, function(index, value) {	
-		var delay = Math.random()*duration*0;
-		hide_article_blog(index,0,duration);
-	});
-	*/
-}
-
-
-/**
- * Affiche les articles de blog
- *
- * @todo Documenter
- */
-
-function show_articles_blog(duration){
-	/*
-	if (duration == undefined) duration = CCN.dureeTransition;
-	CCN.projet.showWholeTimeline();	
-	
-	showhide_travaux('hide');
-	hide_articles_evenement();
-	$.each(CCN.articlesBlog, function(index, value) {	
-		var delay = Math.random()*duration*0;
-		show_article_blog(index,0,duration);
-	});
-	*/
 }
 
 
@@ -543,7 +202,6 @@ function callReponse(id_reponse){
 function callClasse(id_classe){
 	if (id_classe==undefined) id_classe='';
 	if ($('#zone_classe').is(':hidden'))	{
-		hide_popups();
 		var url = CCN.projet.url_popup_classes;
 		if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
     loadContentInMainSidebar(url, 'rubrique', 'classes');
@@ -575,7 +233,6 @@ function callClasse(id_classe){
  */
 
 function callRessource(id_objet,type_objet){
-	hide_popups();
 	var url = CCN.projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
 	popup(url,'ressource');
 	console.log('callRessource');
@@ -598,7 +255,6 @@ function callRessource(id_objet,type_objet){
  */
 
 function callArticleEvenement(id_objet,type_objet){
-	hide_popups();
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');
 	console.log('callArticleEvenement');
@@ -642,7 +298,6 @@ function callArticleBlog(id_article){
  */
 
 function createReponse(id_consigne, id_rubrique_classe, numero){
-	hide_popups();
 	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
 	popup(url,'edition');
 	if (numero!=undefined) CCN.consignes[numero].div_reponse_plus.css('visibility','hidden'); // TO DO ?
@@ -665,8 +320,7 @@ function createReponse(id_consigne, id_rubrique_classe, numero){
 
 function ressources_click(){
 	if ($('#zone_classe').is(':hidden'))	{
-		hide_popups();
-		showhide_travaux('show');
+		
 		var url = CCN.projet.url_popup_ressources;
 		popup(url,'edition');
     console.log('ressources_click');
@@ -689,8 +343,7 @@ function ressources_click(){
 
 function callAgora(){
 	if ($('#zone_classe').is(':hidden'))	{
-		hide_popups();
-		showhide_travaux('show');
+		
 		//popup('spip.php?page=rubrique&id_rubrique=33&mode=detail&type_objet=ressources','agora');
 		var url = CCN.projet.url_popup_agora;
 		popup(url,'agora');
@@ -710,12 +363,10 @@ function callChat(type){
 	
 	else {
   	if (url.match("<"))	{
-  		hide_popups();
   	//	popup_html(url,'chat'); 
     } 
     
     else {
-  		hide_popups();
   		popup(url,'chat');
   		console.log('callChat');
   	}
@@ -742,39 +393,6 @@ function getIdConsigneFromIdReponse(id_reponse) {
     }
   }
   return null;
-}
-
-
-/**
- * Cache les popups. 
- *
- * @todo Documenter
- *
- * @deprecated Sert pour Isotope (donc ne sert pas pour l'instant) 
- */
-
-function hide_popups(){
-	
-	// Propagation isotope
-	isotope_ressources_ferme_tout();
-}
-
-
-/**
- * @deprecated
- */
-
-function stop_action(){
-	CCN.projet.frame=0;
-}
-
-
-/**
- * @deprecated
- */
-
-function activate_action(){
-	CCN.projet.frame=0;
 }
 
 /**

@@ -17,11 +17,6 @@ var CCN = {};
     CCN.timelineLayerConsignes;
     CCN.timelineLayerBlogs;
     CCN.timelineLayerEvenements;
-    
-    
-var g_hide_travaux;
-var g_hide_articles_blog;
-var g_hide_articles_evenement;
 
 function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
 function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}

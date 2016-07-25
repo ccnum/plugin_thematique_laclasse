@@ -89,7 +89,6 @@ $().ready(function(){
       isotope_ressources_ferme_tout();
     }
     
-    stop_action ();
     vue = 'classes';
   });
 
@@ -160,9 +159,6 @@ function reload(url) {
  */
 
 function isotope_ressources_ferme_tout(){
-  // showhide_travaux('show');
-  // var bouton = $(".filter a[onclick*='showhide_travaux'][class*='tout']");
-  // isotope_filtre(bouton);
   // $('#menu_haut ul li a').removeClass('selected');
 }
 

@@ -65,14 +65,12 @@
 				[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,le blog de Flavie Jones} ]
 				[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,les actualités} ]
 				[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_blog_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_blog_petit.png})]})]
-				<img src="#GET{img}">&nbsp;<a href="#" onClick="showhide_articles_blog();" data-filter-value=".ressource_blogs">Afficher #GET{blog}</a>
 			</div>
 
 			<div id="evenements" class="filter option-set" data-filter-group="ressource">
 				[(#ADMIN|>={0}|oui)
 					#SET{blog,le blog pédagogique}
 					[(#SET{img,[(#CHEMIN{#ENV{chemin}/img/logo_evenement_petit_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_evenement_petit.png})]})]
-					<img src="#GET{img}">&nbsp;<a href="#" onClick="showhide_articles_evenement();" data-filter-value=".ressource_blogs">Afficher #GET{blog}</a>
 				]				
 			</div>
 
