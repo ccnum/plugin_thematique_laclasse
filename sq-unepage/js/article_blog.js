@@ -45,7 +45,7 @@
 		
 		var html = "<div id='article_blog"+this.id+"' class='article_blog ";
 		if ((this.titre.match("gazette"))||(this.titre.match("novamag"))||(this.titre.match("magazine"))) html = html+" article_blog2 ";
-		html = html + "'><span><b>"+this.titre+"</b><br/>"+date_texte+"</span>";
+		html = html + "'><div class=\"article_blog_inner\"><b>"+this.titre+"</b><br/><span class=\"article_blog_date\">"+date_texte+"</span></div>";
 		
 		if (this.nombre_commentaires > 0) html += "<div class=\"picto_nombre_commentaires\">"+this.nombre_commentaires+"</div>";
 		html +=	"</div>";

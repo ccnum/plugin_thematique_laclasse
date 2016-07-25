@@ -620,11 +620,16 @@ function callArticleEvenement(id_objet,type_objet){
  * @todo Documenter
  */
 
-function callArticleBlog(id_objet,type_objet){
-	hide_popups();	
-	var url = CCN.projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
-	popup(url,'blog');
+function callArticleBlog(id_article){
 	console.log('callArticleBlog');
+	
+	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
+	loadContentInMainSidebar(url, 'article', 'blogs');
+	/*
+	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+	showReponseInTimeline(id_reponse);
+	*/
 }
 
 
