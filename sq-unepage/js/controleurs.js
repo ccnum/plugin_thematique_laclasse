@@ -184,7 +184,7 @@ function showConsigneInTimeline(numero) {
  *
  * @example
  * // Avec l'ID SPIP #146 de la consigne
- * showConsigneInTimeline(146, true);
+ * showConsigneInTimeline(146);
  *
  * @see callConsigne
  * @see consigne#ouvre
@@ -252,6 +252,8 @@ function call(opts) {
  */
 
 function callConsigne(id_consigne){
+  changeModeTimeline('consignes');
+  
 	var url = CCN.projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInMainSidebar(url, 'article', 'consignes');
 	showConsigneInTimeline(id_consigne);
@@ -277,6 +279,8 @@ function callConsigne(id_consigne){
  */
  
 function callReponse(id_reponse){
+  changeModeTimeline('consignes');
+  
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
   
 	var url = CCN.projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
@@ -303,18 +307,45 @@ function callReponse(id_reponse){
  */
  
 function callClasse(id_classe){
-	if (id_classe==undefined) id_classe='';
-	if ($('#zone_classe').is(':hidden'))	{
-		var url = CCN.projet.url_popup_classes;
-		if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
-    loadContentInMainSidebar(url, 'rubrique', 'classes');
+  changeModeTimeline('consignes');
+  
+	var url = CCN.projet.url_popup_classes;
+	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
+  loadContentInMainSidebar(url, 'rubrique', 'classes');
+
+	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+  
+	$('#menug li a.selected').removeClass('selected');
+	$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
+}
+
+
+/**
+ * Appelle le chargement de l'article de blog
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @param {number} id_objet
+ * @param {string} type_objet
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
+
+function callArticleBlog(id_article){
+  changeModeTimeline('blogs');
 	
-  	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
-  	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
-    
-		$('#menug li a.selected').removeClass('selected');
-		$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
-	}
+	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
+	loadContentInMainSidebar(url, 'article', 'blogs');
+	/*
+	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+	showReponseInTimeline(id_reponse);
+	*/
 }
 
 /* * * * * * Below : to convert into loadXXXInSidebar * * * * * */
@@ -358,53 +389,11 @@ function callRessource(id_objet,type_objet){
  */
 
 function callArticleEvenement(id_objet,type_objet){
+  changeModeTimeline('evenements');
+  
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');
 	console.log('callArticleEvenement');
-}
-
-
-/**
- * Appelle le chargement de l'article de blog
- * dans la sidebar principale et appelle
- * (…)
- *
- * @param {number} id_objet
- * @param {string} type_objet
- *
- * @see loadContentInMainSidebar
- * @see loadContentInLateralSidebar
- *
- * @todo Modifier le contenu de la sidebar secondaire
- * @todo Documenter
- */
-
-function callArticleBlog(id_article){
-	console.log('callArticleBlog');
-	
-	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
-	loadContentInMainSidebar(url, 'article', 'blogs');
-	/*
-	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
-	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
-	showReponseInTimeline(id_reponse);
-	*/
-}
-
-
-/**
- * @param {number} id_consigne
- * @param {number} id_rubrique_classe
- * @param {number} numero
- *
- * @todo Documenter
- */
-
-function createReponse(id_consigne, id_rubrique_classe, numero){
-	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
-	popup(url,'edition');
-	if (numero!=undefined) CCN.consignes[numero].div_reponse_plus.css('visibility','hidden'); // TO DO ?
-	console.log('createReponse');
 }
 
 
@@ -432,24 +421,18 @@ function callAgora(){
 
 
 /**
- * @deprecated
+ * @param {number} id_consigne
+ * @param {number} id_rubrique_classe
+ * @param {number} numero
+ *
+ * @todo Documenter
  */
 
-function callChat(type){
-	var url = CCN.projet.url_popup_chat;
-	if (type==2) url = CCN.projet.url_popup_chat2;
-	if (url.match("target=blank"))	window.open(url);
-	
-	else {
-  	if (url.match("<"))	{
-  	//	popup_html(url,'chat'); 
-    } 
-    
-    else {
-  		popup(url,'chat');
-  		console.log('callChat');
-  	}
-	}
+function createReponse(id_consigne, id_rubrique_classe, numero){
+	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
+	popup(url,'edition');
+	if (numero!=undefined) CCN.consignes[numero].div_reponse_plus.css('visibility','hidden'); // TO DO ?
+	console.log('createReponse');
 }
 
 
@@ -612,11 +595,6 @@ function loadContentInLateralSidebar(url, typePage, typeObjet) {
               'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
   
   $('#sidebar_lateral_inner').load(url, function(response, status, xhr){
-    if ( status == "error" ) {
-      var msg = "Sorry but there was an error: ";
-      console.log( msg + xhr.status + " " + xhr.statusText );
-    }
-    
     $('#sidebar_content').scrollTop(0);
     showSidebar();
       
