@@ -2,29 +2,30 @@
 <div class="sidebar_bubble">
 
 	<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum_all-#ID_ARTICLE}>
+	
 	<div class="bloc_option_doc nettoyeur">
 		<a id="bloc_option_forum_all-#ID_ARTICLE" class="hac liens_voir bloc_option_doc_comment" title="Forum">
 			Forum
 		</a>
 			
+		<div style="clear:both" class='bloc_option_forum'>
   <B_forum>
 	<BOUCLE_forum(FORUMS){id_article}>
 	</BOUCLE_forum>
 		
-		<div style="clear:both" class='bloc_option_forum'>
 			<div class="nettoyeur"></div>
 			<INCLURE{fond=noisettes/ajax/article-forum-detail}{id_article}{admin}>
 			<div class="introduction nettoyeur"></div>
-		</div>
 	
   </B_forum>
-  <div class="forum_vide">
-    Personne n'a encore commenté.
-  </div>
+    <div class="forum_vide">
+      Personne n'a encore commenté.
+    </div>
   <//B_forum>
 
   	<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_forum-#ID_ARTICLE}>
-  	<div class="nettoyeur forum_commenter">
+  	
+  	<div class="forum_commenter">
   		<a id="bloc_option_forum-#ID_ARTICLE" class="forum_commenter_head hac liens_voir bloc_option_doc_comment" title="Commenter">
   			Commenter
   		</a>
@@ -33,5 +34,6 @@
   		</div>
     </div>
     
+    </div>
   </div>
 </div> <!-- fin commentaires bubble -->
