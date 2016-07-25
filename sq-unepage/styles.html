@@ -2069,13 +2069,61 @@ div.donnees_classe {
   margin-top:0;
 }
 
+.timeline_item.article_blog_container {
+  overflow:hidden;
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  box-sizing: border-box;
+  transform: scale(0.4);
+  -webkit-transition: transform 500ms ease;
+     -moz-transition: transform 500ms ease;
+       -o-transition: transform 500ms ease;
+          transition: transform 500ms ease;
+}
+
+.showBlogs .article_blog_container{
+  transform: scale(1);
+}
+
+.article_blog_container:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background: #E91E63;
+  z-index: -1;
+  left: 6%;
+  bottom: 6%;
+  -webkit-transition: all 500ms ease;
+     -moz-transition: all 500ms ease;
+       -o-transition: all 500ms ease;
+          transition: all 500ms ease;
+}
+
+.showBlogs .article_blog_container:before {
+  
+}
 
 .article_blog_container .article_blog{
-	font-size: #GET{font-size1}px;
-	color: #FFFFFF;
-	position: absolute;
-	top: 0px;
-	left: 0px;
+	font-size: 12px;
+  color: #E91E63;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #E91E63;
+  border-radius: 50%;
+  -webkit-transition: all 500ms ease;
+     -moz-transition: all 500ms ease;
+       -o-transition: all 500ms ease;
+          transition: all 500ms ease;
+}
+
+.showBlogs .article_blog_container .article_blog {
+  color:white;
 }
 
 .article_blog_container .article_blog2{
@@ -2085,12 +2133,14 @@ div.donnees_classe {
 }
 
 .article_blog_container .article_blog span {
-	text-align: center;
-	vertical-align: middle;
-	display: table-cell;	
-	height: 98px;
-	width: 98px;
-	margin: 5px;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  height: 100px;
+  width: 100px;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .article_evenement_container .article_evenement{
@@ -2134,6 +2184,7 @@ div.donnees_classe {
 	top: 32px;
 	width: 0px;
 	height: 0px;
+	display:none;
 }
 
 /* ---------------------------------------------------------------- */
@@ -3808,44 +3859,37 @@ input.crayon-active {
 #cboxOverlay {
   background:black !important
 }
-/*
-#colorbox, #cboxOverlay, #cboxWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 4999;
-    overflow: hidden;
-    height: 100% !important;
-    top: 0px !important;
-    left: 0% !important;
-    width: 100% !important;
-    padding: 20px !important;
-    box-sizing: border-box;
-}
-#cboxWrapper > div:nth-child(2) {
-    height: 100%;
+
+.timeline_layer {
+  opacity:.2;
+
+  -webkit-transition:opacity 300ms ease;
+     -moz-transition:opacity 300ms ease;
+       -o-transition:opacity 300ms ease;
+          transition:opacity 300ms ease;
+          
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events:none;
 }
 
-#cboxLoadedContent {
-  padding: 0;
-  margin: 0;
-  width: 100% !important;
-  height: 100% !important;
+.showConsignes #timeline_layer_consignes,
+.showBlogs #timeline_layer_blogs,
+.showEvenements #timeline_layer_evenements {
+  opacity:1;
+  z-index:101;
+  pointer-events:all;
 }
 
-#cboxContent {
-  background: transparent;
-  width: 100% !important;
-  height: 100% !important;
+.showBlogs .connecteur_timeline,
+.showEvenements .connecteur_timeline {
+  -webkit-transition:opacity 300ms ease;
+     -moz-transition:opacity 300ms ease;
+       -o-transition:opacity 300ms ease;
+          transition:opacity 300ms ease;
+  opacity:0;
 }
-.cboxPhoto {
-    float: left;
-    margin: auto;
-    border: 0;
-    display: block;
-    max-width: 100%;
-    height: 100%;
-    width: auto;
-}
-
-*/

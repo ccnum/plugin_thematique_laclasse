@@ -4,7 +4,7 @@ var vue = 'timeline';
 
 $().ready(function(){
   $('#timeline_fixed').on('click', function(){
-  	CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
+  	CCN.projet.showWholeTimeline();
   })
       
       
@@ -183,7 +183,7 @@ function isotope_classes_ferme_tout(){
  */
 
 function isotope_consignes_ferme_tout(){
-  // CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
+  // CCN.projet.showWholeTimeline();
   // var bouton = $(".filter a[onclick*='CCN.projet.showWholeTimeline']");
   // isotope_filtre(bouton);
 }

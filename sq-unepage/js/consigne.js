@@ -104,9 +104,10 @@ function Consigne(){
 		
 		this.div_base.append(this.div_reponse_plus);
     
-    CCN.projet.timeline.append(this.div_base);
+    CCN.timelineLayerConsignes.append(this.div_base);
 		
 		var _thisId = this.id;
+		var _thisIdObjet = this.id;
 		
 		this.div_titre.on('click', function(){
   		callConsigne(_thisId);
@@ -127,7 +128,7 @@ function Consigne(){
 				stop: function(event,ui) {
   				yy = (ui.offset.top-CCN.projet.timeline.offset().top)/CCN.projet.timeline.height();
 					
-					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:this.id, type_objet:"article", X:0, Y:yy } );
+					$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:_thisIdObjet, type_objet:"article", X:0, Y:yy } );
 				  $(this).removeClass('no_event');
 					
 					this.y = yy;

@@ -28,13 +28,34 @@ function updateTimeline() {
 
 
 /**
+ * Change le mode d'affichage de la timeline.
+ *
+ * @param {string} type - Peut être <tt>consignes</tt>, <tt>blogs</tt> ou <tt>evenements</tt>
+ */
+ 
+function changeTimelineMode(type) {
+  var classCss = {};
+      classCss.consignes = 'showConsignes';
+      classCss.blogs = 'showBlogs';
+      classCss.evenements = 'showEvenements';  
+  
+  for (var index in classCss) {
+    $('body').removeClass(classCss[index]);
+  }
+  
+  $('body').addClass(classCss[type]);
+} 
+
+
+/**
  * Afficher/cacher les travaux.
  *
  * @todo Documenter
  */
-
+ 
 function showhide_travaux(mode){
   console.log('showHideTravaux');
+  /*
 	if (mode == undefined) if (g_hide_travaux == false) mode = 'hide'; else mode = 'show';
 	
 	if (mode == 'hide') {
@@ -73,6 +94,7 @@ function showhide_travaux(mode){
 		// Propagation isotope
 		isotope_ressources_ferme_tout();
 	}
+	*/
 }
 
 
@@ -93,6 +115,7 @@ function showConsigneInTimeline(numero) {
   for (var index_consigne in CCN.consignes) {
     if (CCN.consignes[index_consigne].id == numero) {
       CCN.consignes[index_consigne].showInTimeline();
+      CCN.projet.showWholeTimeline();
     }
   }
 }
@@ -127,6 +150,7 @@ function showReponseInTimeline(numero) {
  */
 
 function show_one_article_evenement(numero,duration){
+  /*
 	for (j=0; j<CCN.articlesEvenement.length;j++){
 		$(CCN.articlesEvenement[j].img).stop(true);
 		$(CCN.articlesEvenement[j].div_texte).stop(true);
@@ -139,6 +163,7 @@ function show_one_article_evenement(numero,duration){
 		$(CCN.articlesBlog[j].div_texte).stop(true);
 		hide_article_blog(j,1,duration);
   }
+  */
 }
 
 
@@ -147,6 +172,7 @@ function show_one_article_evenement(numero,duration){
  */
 
 function hide_article_evenement(i,delay,duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	var th = CCN.articlesEvenement[i];
 	var i = i;
@@ -169,6 +195,7 @@ function hide_article_evenement(i,delay,duration){
 			}
 		});
 	});
+	*/
 }
 
 
@@ -179,6 +206,7 @@ function hide_article_evenement(i,delay,duration){
  */
 
 function show_article_evenement(i,delay,duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	var th = CCN.articlesEvenement[i];
 	var i = i;
@@ -192,6 +220,7 @@ function show_article_evenement(i,delay,duration){
 			}
 		});
 	});
+	*/
 }
 
 
@@ -200,6 +229,7 @@ function show_article_evenement(i,delay,duration){
  */
 
 function showhide_articles_evenement(duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	
 	if (g_hide_articles_evenement == false) {
@@ -219,6 +249,7 @@ function showhide_articles_evenement(duration){
 			show_article_evenement(index,delay,duration);
 		});
 	}
+	*/
 }
 
 
@@ -229,12 +260,14 @@ function showhide_articles_evenement(duration){
  */
 
 function hide_articles_evenement(duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	
 	$.each(CCN.articlesEvenement, function(index, value) {	
 		var delay = Math.random()*duration*0;
 		hide_article_evenement(index,0,duration);
 	});	
+	*/
 }
 
 
@@ -245,14 +278,16 @@ function hide_articles_evenement(duration){
  */
 
 function show_articles_evenement(duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
-	CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
+	CCN.projet.showWholeTimeline();
 	showhide_travaux('hide');
 	hide_articles_blog();
 	$.each(CCN.articlesEvenement, function(index, value) {	
 			var delay = Math.random()*duration*0;
 			show_article_evenement(index,0,duration);
 		});	
+		*/
 }
 
 
@@ -261,6 +296,7 @@ function show_articles_evenement(duration){
  */ 
  
 function show_one_article_blog(numero,duration){
+  /*
 	for (j=0; j<CCN.articlesBlog.length;j++){
 		$(CCN.articlesBlog[j].img).stop(true);
 		$(CCN.articlesBlog[j].div_texte).stop(true);
@@ -272,6 +308,7 @@ function show_one_article_blog(numero,duration){
 		$(CCN.articlesEvenement[j].div_texte).stop(true);
 		hide_article_evenement(j,1,duration);
 	}
+	*/
 }
 
 
@@ -282,6 +319,7 @@ function show_one_article_blog(numero,duration){
  */
 
 function hide_article_blog(i,delay,duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	var th = CCN.articlesBlog[i];
 	var i = i;
@@ -305,6 +343,7 @@ function hide_article_blog(i,delay,duration){
 			//$(th.div_base).bind('mouseleave',function(){hide_article_blog(i,0)});
 		});
 	});
+	*/
 }
 
 
@@ -313,6 +352,7 @@ function hide_article_blog(i,delay,duration){
  */
 
 function show_article_blog(i,delay,duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	var th = CCN.articlesBlog[i];
 	var i = i;
@@ -326,6 +366,7 @@ function show_article_blog(i,delay,duration){
 			}
 		});
 	});
+	*/
 }
 
 
@@ -334,8 +375,10 @@ function show_article_blog(i,delay,duration){
  */
 
 function showhide_articles_blog(duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	//$('#blog a').fadeTo('fast',0);
+	
 	if (g_hide_articles_blog == false){
 		$.each(CCN.articlesBlog, function(index, value) {
 			var delay = Math.random()*duration*0;
@@ -350,6 +393,7 @@ function showhide_articles_blog(duration){
 			show_article_blog(index,delay,duration);
 		});
 	}
+	*/
 }
 
 
@@ -360,11 +404,13 @@ function showhide_articles_blog(duration){
  */
 
 function hide_articles_blog(duration){
+  /*
 	if (duration == undefined) duration = CCN.dureeTransition;
 	$.each(CCN.articlesBlog, function(index, value) {	
 		var delay = Math.random()*duration*0;
 		hide_article_blog(index,0,duration);
 	});
+	*/
 }
 
 
@@ -375,14 +421,17 @@ function hide_articles_blog(duration){
  */
 
 function show_articles_blog(duration){
+	/*
 	if (duration == undefined) duration = CCN.dureeTransition;
-	CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);	
+	CCN.projet.showWholeTimeline();	
+	
 	showhide_travaux('hide');
 	hide_articles_evenement();
 	$.each(CCN.articlesBlog, function(index, value) {	
 		var delay = Math.random()*duration*0;
 		show_article_blog(index,0,duration);
 	});
+	*/
 }
 
 
@@ -542,11 +591,11 @@ function callRessource(id_objet,type_objet){
  * @todo Documenter
  */
 
-function callEvenement(id_objet,type_objet){
+function callArticleEvenement(id_objet,type_objet){
 	hide_popups();
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');
-	console.log('callEvenement');
+	console.log('callArticleEvenement');
 }
 
 
@@ -565,11 +614,11 @@ function callEvenement(id_objet,type_objet){
  * @todo Documenter
  */
 
-function callBlog(id_objet,type_objet){
+function callArticleBlog(id_objet,type_objet){
 	hide_popups();	
 	var url = CCN.projet.url_popup_blog+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'blog');
-	console.log('callBlog');
+	console.log('callArticleBlog');
 }
 
 

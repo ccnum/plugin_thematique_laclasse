@@ -21,6 +21,9 @@ et/ou
     <div id="timeline_responsive">
       <div id="timeline_fixed"></div>
       <div id="timeline_wrapin">
+        <div class="timeline_layer" id="timeline_layer_consignes"></div>
+        <div class="timeline_layer" id="timeline_layer_blogs"></div>
+        <div class="timeline_layer" id="timeline_layer_evenements"></div>
         <div id="timeline_background"></div>
       </div>
     </div>
@@ -63,20 +66,21 @@ et/ou
 		[(#REM)Col 1]
 			<!--<h3 class="first">Général</h3>-->
 
+<!--
 		[(#REM)Vues]
 			<div id="menu-vues" class="bloc_view col">
 				<h3><span>Vues</span></h3>
 			    <ul class="filter clearfix option-set vue">
 					[(#MODELE{logo_menu}{valeur=timeline}{class=selected}{title=Vue Ligne de temps})]
-				<!--	[(#MODELE{logo_menu}{valeur=classe}{title=Vue Classes})]-->
+					[(#MODELE{logo_menu}{valeur=classe}{title=Vue Classes})]
 			    </ul>
 			</div>
-
+-->
 		[(#REM)Ressources]
 		    <div id="menu-ressources" class="bloc_view col">
 				<h3><span>Blogs</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=showhide_travaux('show');}{title=Toutes les ressources})]
+					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=changeTimelineMode('consignes');showhide_travaux('show');}{title=Toutes les ressources})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -84,8 +88,8 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=show_articles_blog();}{title=#GET{blog}})]
-					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=show_articles_evenement();}{title=Le blog pédagogique})]
+					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');show_articles_blog();}{title=#GET{blog}})]
+					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');show_articles_evenement();}{title=Le blog pédagogique})]
 					<!--[(#MODELE{logo_menu}{valeur=ressource_classes}{filter=.ressource_classes}{title=Les classes}{onclick=callClasse();})]-->
 					[(#MODELE{logo_menu}{valeur=consigne}{filter=.ressource_consignes}{onclick=showhide_travaux('show');}{title=Les consignes})]
 					[(#MODELE{logo_menu}{valeur=reponse}{filter=.ressource_reponses}{title=Les réponses des classes})]
@@ -128,7 +132,7 @@ et/ou
 			<div id="menu-consignes" class="bloc_view col">
 				<h3><span>Consignes</span></h3>
 				<ul class="filter clearfix option-set" data-filter-group="consigne">
-					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);})]
+					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline();})]
 				  #SET{num,0}
 
 					<BOUCLE_consignes0(RUBRIQUES mots mots_liens){mots.titre=consignes}{rubriques.id_rubrique=mots_liens.id_objet}>

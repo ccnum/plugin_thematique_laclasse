@@ -36,6 +36,10 @@ function initCCN() {
   CCN.couleurBlog             = '';
   CCN.dureeTransition         = 800;
   
+  CCN.timelineLayerConsignes  = $('#timeline_layer_consignes');
+  CCN.timelineLayerBlogs      = $('#timeline_layer_blogs');
+  CCN.timelineLayerEvenements = $('#timeline_layer_evenements');
+  
   // Charge le projet
   
   loadProjet(CCN.urlXml+"projet");
@@ -398,15 +402,16 @@ function loadBlog(fichier){
 				dataForArticleBlog.titre            = dataForArticleBlog.titre.replace("[", "<");
 				dataForArticleBlog.titre            = dataForArticleBlog.titre.replace("]", ">");
 				dataForArticleBlog.y                = getXMLNodeValue('y',xmlArticlesBlog[i]);
-				dataForArticleBlog.date = getXMLNodeValue('date',xmlArticlesBlog[i]);;
+				dataForArticleBlog.date             = getXMLNodeValue('date',xmlArticlesBlog[i]);;
 				
 				if (indexY >= CCN.projet.liste_y_blogs.length){
 					indexY = 0;
 				}
+				
 				if (dataForArticleBlog.y==0) {
   				dataForArticleBlog.y = CCN.projet.liste_y_blogs[indexY];
   		  }
-				
+  		  
 				indexY++;
 				
 				var date = new Date();
@@ -421,7 +426,6 @@ function loadBlog(fichier){
 				
 				dataForArticleBlog.numero         = indexArticleBlog;
 				dataForArticleBlog.index          = indexArticleBlog;
-				dataForArticleBlog.y              = dataForArticleBlog.y*(CCN.projet.hauteur);
 				
 				var nouvelArticleBlog = new ArticleBlog();
 				    nouvelArticleBlog.init(dataForArticleBlog);
@@ -530,11 +534,7 @@ function initTimeline(){
   // Premier update pour initialiser certaines variables dont on a besoin
   
   CCN.projet.initTimelineMonths();
-  
-  // Ouverture des icones evts et blogs
-  
-  hide_articles_blog(CCN.dureeTransition);
-  hide_articles_evenement(CCN.dureeTransition);
+  CCN.projet.showWholeTimeline();
   
 	updateConnecteurs();
   
@@ -551,7 +551,7 @@ function initTimeline(){
   });
   
   $('.mois').on('click',function(){
-    CCN.projet.showWholeTimeline(CCN.consignes, CCN.articlesBlog, CCN.articlesEvenement);
+    CCN.projet.showWholeTimeline();
   });
   
 	// Zoom sur la date au chargement de la page
@@ -582,16 +582,21 @@ function initTimeline(){
 	// Ouverture au chargement d'un article, article événement, consigne ou réponse
 	
 	if (CCN.idObjetToShowAtInit != "0"){
+  	
 		// Consigne
 		if (CCN.typePopupToShowAtInit == "consignes"){
+  		changeTimelineMode('consignes');
 			for (k=0; k<CCN.consignes.length;k++){
 				if (CCN.consignes[k].id == CCN.idObjetToShowAtInit){
 					callConsigne(CCN.idObjetToShowAtInit);
 				}
 			}
 		}
+		
+		
     // Réponse
     if (CCN.typePopupToShowAtInit == "travail_en_cours"){
+      changeTimelineMode('consignes');
     	for (k=0; k<CCN.consignes.length;k++){
     		for (l=0; l<CCN.consignes[k].reponses.length;l++){
     			if (CCN.consignes[k].reponses[l].id == CCN.idObjetToShowAtInit){
@@ -600,20 +605,27 @@ function initTimeline(){
     		}
     	}
     }
+    
+    
     // Article de blog
     if (CCN.typePopupToShowAtInit == "blogs"){
-    	callBlog(CCN.idObjetToShowAtInit,"article");
+		  changeTimelineMode('blogs');
+    	callArticleBlog(CCN.idObjetToShowAtInit,"article");
     }
+    
     // Article d'événement
     if (CCN.typePopupToShowAtInit == "evenements"){
-    	callEvenement(CCN.idObjetToShowAtInit,"article");
+		  changeTimelineMode('evenements');
+    	callArticleEvenement(CCN.idObjetToShowAtInit,"article");
     }
     // Ressource
     if (CCN.typePopupToShowAtInit == "ressources"){
+  		changeTimelineMode('consignes');
     	callRessource(CCN.idObjetToShowAtInit,"article");
     }
 	}
 	else {
+		changeTimelineMode('consignes');
 		// Ouverture de la popup projet si première fois
 		$().ready(function(){
 			if (document.cookie.indexOf('visited=true') === -1) {

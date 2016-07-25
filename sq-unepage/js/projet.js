@@ -163,7 +163,7 @@ function Projet(){
    * @todo Gérer l'affichage/le masquage des événements et des blogs
    */   
  
-	this.showWholeTimeline = function(consignes, articles_blog, articles_evenement) {
+	this.showWholeTimeline = function() {
 	  
 	  $('#menu-consignes .filter a, #menu-classes .filter a').removeClass('selected');
 	  $('#menu-consignes .logo_menu-tout, #menu-classes .logo_menu-tout').addClass('selected');
@@ -175,22 +175,22 @@ function Projet(){
 		this.mois_select = -1;
 		this.mois_rollover = -1;
 		
-		for (i=0; i<consignes.length;i++){
-			consignes[i].showConsignePastille();
-			consignes[i].select = false;				
+		for (i=0; i<CCN.consignes.length;i++){
+			CCN.consignes[i].showConsignePastille();
+			CCN.consignes[i].select = false;				
 		}
 		
 		$('.consigne_haute').removeClass('hide');
 		$('.reponse_haute').addClass('hide');
 		
 		// affiche tous les articles de blog
-			for (i=0; i<articles_blog.length;i++){
-				$(articles_blog[i].div_base).fadeIn(3000);
+			for (i=0; i<CCN.articlesBlog.length;i++){
+				$(CCN.articlesBlog[i].div_base).fadeIn(3000);
 				//articles_blog[i].div_base.style.visibility = "visible";
 		}
 		// affiche tous les articles d'événement
-			for (i=0; i<articles_evenement.length;i++){
-				$(articles_evenement[i].div_base).fadeIn(3000);
+			for (i=0; i<CCN.articlesEvenement.length;i++){
+				$(CCN.articlesEvenement[i].div_base).fadeIn(3000);
 				//articles_evenement[i].div_base.style.visibility = "visible";
 		}
 		
