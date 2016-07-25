@@ -28,6 +28,8 @@
 		this.y                    = this.data.y;
 		this.index                = this.data.index;
 		
+		console.log(this.id + ' : ' + this.y);
+		
 		this.div_base = $('<div/>')
 		  .attr('class','timeline_item article_blog_container')
       .css({
@@ -39,14 +41,13 @@
 		
 		this.div_base.append(this.img);
 
-	// texte
 		var date_texte = this.date.substring(0, 2) + " " + CCN.nomMois[parseFloat(this.date.substring(3, 5))-1];
 		
 		var html = "<div id='article_blog"+this.id+"' class='article_blog ";
 		if ((this.titre.match("gazette"))||(this.titre.match("novamag"))||(this.titre.match("magazine"))) html = html+" article_blog2 ";
 		html = html + "'><span><b>"+this.titre+"</b><br/>"+date_texte+"</span>";
 		
-		if (nombre_commentaires > 0) html += "<div class=\"picto_nombre_commentaires\">"+nombre_commentaires+"</div>";
+		if (this.nombre_commentaires > 0) html += "<div class=\"picto_nombre_commentaires\">"+this.nombre_commentaires+"</div>";
 		html +=	"</div>";
 		
 		this.div_texte = $('<div/>')
@@ -68,15 +69,15 @@
   		this.div_base.draggable({
   			axis: "y" ,
   			start: function(event,ui){
-    			console.log('start drag');
   				$(this).children('div').children('div').removeAttr("onClick");
   				stop_action ();
   				},
   			stop: function(event,ui) {
-    			console.log('end drag');
   				y_parent = $(this).parent().height();
   				yy = ui.position.top / y_parent;
-  				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:_thisId, type_objet:_thisTypeObjet, X:0, Y:yy } );
+  				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:_thisId, type_objet:"article", X:0, Y:yy }, function(data) {
+    				console.log(data);
+    		  } );
   			}
   		});
     }

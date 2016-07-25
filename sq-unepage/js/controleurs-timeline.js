@@ -39,11 +39,15 @@ function changeTimelineMode(type) {
       classCss.blogs = 'showBlogs';
       classCss.evenements = 'showEvenements';  
   
-  for (var index in classCss) {
-    $('body').removeClass(classCss[index]);
-  }
   
-  $('body').addClass(classCss[type]);
+  if (!$('body').hasClass(classCss[type])) {
+    for (var index in classCss) {
+      $('body').removeClass(classCss[index]);
+    }
+    
+    $('body').addClass(classCss[type]);
+    CCN.projet.showWholeTimeline();
+  }
 } 
 
 
@@ -114,8 +118,8 @@ function showhide_travaux(mode){
 function showConsigneInTimeline(numero) {
   for (var index_consigne in CCN.consignes) {
     if (CCN.consignes[index_consigne].id == numero) {
+    //  CCN.projet.showWholeTimeline();
       CCN.consignes[index_consigne].showInTimeline();
-      CCN.projet.showWholeTimeline();
     }
   }
 }
@@ -492,6 +496,8 @@ function callConsigne(id_consigne){
 	
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+	
+	console.log('callConsigne');
 }
 
 

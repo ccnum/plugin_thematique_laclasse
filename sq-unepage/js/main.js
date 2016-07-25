@@ -386,6 +386,8 @@ function loadBlog(fichier){
     url: fichier,
     dataType: 'xml',
     success: function(xml) {	
+      
+      console.log(xml);
 			
 			var xmlArticlesBlog = xml.getElementsByTagName("article");
 			var indexY = 0;	
@@ -411,6 +413,8 @@ function loadBlog(fichier){
 				if (dataForArticleBlog.y==0) {
   				dataForArticleBlog.y = CCN.projet.liste_y_blogs[indexY];
   		  }
+  		  
+  		  console.log(dataForArticleBlog.id + ' : ' + dataForArticleBlog.y);
   		  
 				indexY++;
 				

@@ -15,7 +15,7 @@ X,Y
 				if (($id_objet = sql_getfetsel("id_#TYPE_OBJET", "spip_#TYPE_OBJETs", "id_#TYPE_OBJET=$id_objet"))
 				&&(is_numeric($x))
 				&&(is_numeric($y)))
-				{	sql_updateq("spip_#TYPE_OBJETs",
+				{ sql_updateq("spip_#TYPE_OBJETs",
 					array("X" => $x, "Y" => $y),
 					"id_#TYPE_OBJET=$id_objet");
 				}
