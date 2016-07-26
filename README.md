@@ -1,4 +1,4 @@
-### Outil d'administration et d'animation des classes culturelles numériques liées à l'ENT laclasse.com
+# Outil d'administration et d'animation des classes culturelles numériques liées à l'ENT laclasse.com
 
 **Plugin pour SPIP 3**
 
@@ -18,11 +18,9 @@
 
 Ce programme est un logiciel libre distribue sous licence AGPL : https://fr.wikipedia.org/wiki/GNU_Affero_General_Public_License  
 Vous pouvez l'utiliser, le distribuer et le modifier selon les termes de cette license.
-Pour plus de details voir le fichier LICENSE.txt ou l'aide en ligne : http://gitlab.erasme.org/plugin_thematique_laclasse
+Pour plus de détails, voir le fichier LICENSE.txt ou l'aide en ligne : http://gitlab.erasme.org/plugin_thematique_laclasse
 
 Copyright (c) 2005-2015   
 Concept : Erasme
-
 Développement : Erasme - Trafik
-
 Produit par Erasme, laboratoire d'expérimentation numérique de la métropole de Lyon

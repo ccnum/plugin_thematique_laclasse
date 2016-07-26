@@ -252,7 +252,7 @@ function call(opts) {
  */
 
 function callConsigne(id_consigne){
-  changeModeTimeline('consignes');
+  changeTimelineMode('consignes');
   
 	var url = CCN.projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInMainSidebar(url, 'article', 'consignes');
@@ -279,7 +279,7 @@ function callConsigne(id_consigne){
  */
  
 function callReponse(id_reponse){
-  changeModeTimeline('consignes');
+  changeTimelineMode('consignes');
   
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
   
@@ -307,7 +307,7 @@ function callReponse(id_reponse){
  */
  
 function callClasse(id_classe){
-  changeModeTimeline('consignes');
+  changeTimelineMode('consignes');
   
 	var url = CCN.projet.url_popup_classes;
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
@@ -337,7 +337,7 @@ function callClasse(id_classe){
  */
 
 function callArticleBlog(id_article){
-  changeModeTimeline('blogs');
+  changeTimelineMode('blogs');
 	
 	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
 	loadContentInMainSidebar(url, 'article', 'blogs');
@@ -389,7 +389,7 @@ function callRessource(id_objet,type_objet){
  */
 
 function callArticleEvenement(id_objet,type_objet){
-  changeModeTimeline('evenements');
+  changeTimelineMode('evenements');
   
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	popup(url,'evenement');

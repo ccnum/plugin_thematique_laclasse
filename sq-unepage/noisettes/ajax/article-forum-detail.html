@@ -20,16 +20,13 @@
 			[(#GET{type_objet}|=={ressources}|oui) #SET{type_objet,consignes} ]
 			
 		<div class="intervention_item_around">	
-			
-  				
-  				
       <div class="intervention_item couleur_travail_en_cours[(#MODELE{nb2col}{id_auteur})]">
 		  			
   			<div class="triggertoggleshow intervention couleur_texte[_(#GET{type_objet})] [couleur_(#GET{type_objet})[(#MODELE{nb2col}{id_auteur})]]">
       		<B_forums_fils_compteur>
       			<div class="intervention_nb_reponses">#TOTAL_BOUCLE</div>
       			
-      			<BOUCLE_forums_fils_compteur(FORUMS){id_parent}{par date}> </BOUCLE_forums_fils_compteur>
+      		<BOUCLE_forums_fils_compteur(FORUMS){id_parent}{par date}> </BOUCLE_forums_fils_compteur>
       			
       		</B_forums_fils_compteur>
 
@@ -38,7 +35,10 @@
     				<div class="photo">
     					[(#MODELE{logo_carre}{taille=40}{id_auteur}{titre=#TITRE})]
     				</div>
-						[<div class="intervention_auteur">(#NOM)</div>]
+    				
+            <BOUCLE_forum_billet_auteur(AUTEURS){id_auteur}{tout}>
+              [<div class="intervention_auteur">(#NOM)</div>]
+            </BOUCLE_forum_billet_auteur>
 						[<div class="intervention_date">(#DATE|affdate)</div>]
   				</div>
   			</div>

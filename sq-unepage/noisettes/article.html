@@ -101,6 +101,7 @@
   					|et{#ADMIN|=={-1}|non}
   					|oui)
   						<script type="text/javascript">
+    						/*
   							$().ready(function(){
   								$('.bloc_article').fadeTo('fast', 0.2);
   								$('#entete_publication').delay(1000).slideDown('slow');
@@ -113,6 +114,7 @@
   								$('#entete_publication').click(cache);
   								window.setTimeout(cache, 2000);
   							});
+  							*/
   						</script>
   						
   						
@@ -349,16 +351,17 @@
   				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
   					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
   					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
-  					[<div class="sidebar_bubble">
-    						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
-  					<div class="bloc_option_doc nettoyeur">
-  						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
-  							Partager le lien
-  						</a>
-  						<div class="cache">
-  							<code><a href="#URL_SITE_SPIP/(#GET{url})" target="_blank">#URL_SITE_SPIP/#GET{url}</a></code>
-  						</div>
-  					</div>
+  					[
+  					<div class="sidebar_bubble">
+    				  <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
+    					<div class="bloc_option_doc nettoyeur">
+    						<a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
+    							Partager le lien
+    						</a>
+    						<div class="cache">
+    							<code><a href="#URL_SITE_SPIP/(#GET{url})" target="_blank">#URL_SITE_SPIP/#GET{url}</a></code>
+    						</div>
+    					</div>
   					</div>
   					]
   <!--
@@ -383,11 +386,11 @@
   					[
   						<div class="sidebar_bubble">
     						<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_donnees-#ID_ARTICLE}>
-  					<div class="bloc_option_doc nettoyeur cache">
+  					<div class="bloc_option_doc nettoyeur">
   						<a id="bloc_donnees-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_about" title="À propos de la classe" href="#">
   							À propos de la classe
   						</a>
-  						<div class=" ">
+  						<div class="cache">
   							<div class="donnees_classe">(#GET{donnees_classe})</div>
   						</div>
   					</div></div>
@@ -396,7 +399,7 @@
   
   				[(#REM)Bloc suppression]
   					[(#AUTORISER{modifier, article, #ID_ARTICLE})
-  						[(#SET{confirmation,Etes vous sûr de vouloir supprimer l\'article [\'(#TITRE|attribut_html)\']})]
+  						[(#SET{confirmation,Étes-vous sûr de vouloir supprimer l\'article [\'(#TITRE|attribut_html)\']})]
   						<!--
   						<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
   						-->
