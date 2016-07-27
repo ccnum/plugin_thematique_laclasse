@@ -39,7 +39,7 @@
 
 [(#ENV**{afficher_texte}|choixsiegal{'non', ' ',''})
 [<input type="hidden" name="titre" value="(#ENV{titre})" />]
-<p class="spip_bouton"><input type="submit" class="submit" value="<:forum_valider:>" /></p>]
+<p class="spip_bouton"><input type="submit" class="ajax submit" value="<:forum_valider:>" /></p>]
 
 [(#ENV**{afficher_texte}|choixsiegal{'non', '',' '})
 
@@ -121,7 +121,7 @@
 		<label for="nobot_forum"><:antispam_champ_vide:></label>
 		<input type="text" class="text" name="nobot" id="nobot_forum" value="#ENV{nobot}" size="10" />
 	</p>
-	<p class="boutons"><input type="submit" class="submit" value="<:forum_voir_avant:>" /></p>
+	<p class="boutons"><input type="submit" class="ajax submit" value="<:forum_voir_avant:>" /></p> [(#REM) Prévisualiser]
 ]
 </div>
 </form>

@@ -11,6 +11,9 @@
 				var visibility = $('div#ajax_callback_forum_#ID_ARTICLE').css("display");
 				if (visibility == 'none'){
 				$(this).addClass('chargement');
+				
+				console.log('FORUM : [(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{mode,ajax-detail}|html_entity_decode)]');
+				
 				$('#ajax_callback_forum_#ID_ARTICLE').load('[(#PARAMETRES_FORUM|url_reponse_forum|parametre_url{mode,ajax-detail}|html_entity_decode)]'
 				, {limit: 25}, function(){ 
 					$('#ajax_callback_forum_#ID_ARTICLE').show('slow'); 

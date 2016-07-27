@@ -3,8 +3,10 @@ var vue = 'timeline';
 
 
 $().ready(function(){
-  $('#timeline_fixed').on('click', function(){
-  	CCN.projet.showWholeTimeline();
+  $('#timeline_fixed, .timeline_layer').on('click', function(event){
+    console.log('show everything');
+  //  event.stopPropagation();
+  //	CCN.projet.showWholeTimeline();
   })
       
       
@@ -429,9 +431,15 @@ function callAgora(){
  */
 
 function createReponse(id_consigne, id_rubrique_classe, numero){
+  
+  changeTimelineMode('consignes');
+	
 	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
+	loadContentInMainSidebar(url, 'article', 'blogs');
+	/*
 	popup(url,'edition');
 	if (numero!=undefined) CCN.consignes[numero].div_reponse_plus.css('visibility','hidden'); // TO DO ?
+	*/
 	console.log('createReponse');
 }
 

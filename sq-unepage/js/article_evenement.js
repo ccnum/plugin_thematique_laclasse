@@ -17,19 +17,25 @@
    */
    
 	this.init = function(data){
-    this.data = data;
-		this.id = data.id;
-		this.type_objet = data.type_objet;
-		this.id_objet = data.id_objet;
-		this.titre = data.titre;
-		this.date = data.date;
-		this.nombre_commentaires = data.nombre_commentaires;
-		this.x = data.nombre_jours;
-		this.y = data.y;
-		this.left = -1;
-		this.top = -1;			
-		this.index = data.index;
+    this.data                   = data;
+		this.id                     = data.id;
+		this.type_objet             = data.type_objet;
+		this.id_objet               = data.id_objet;
+		this.titre                  = data.titre;
+		this.date                   = data.date;
+		this.nombre_commentaires    = data.nombre_commentaires;
+		this.x                      = data.nombre_jours;
+		this.y                      = data.y;
+		this.left                   = -1;
+		this.top                    = -1;			
+		this.index                  = data.index;
 		this.show = false;
+		
+		/*
+  		
+  		*/
+		
+		
 		this.div_base = document.createElement("div");
 		this.div_base.style.position = "absolute";
 		this.div_base.style.left = "-1000px";
