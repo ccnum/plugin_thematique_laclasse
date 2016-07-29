@@ -16,7 +16,7 @@
 	Si on valide la prévisualisation, on n'envoie pas en ajax car, si le post réussit
 	il faudra certainement redessiner toute la page pour afficher le nouveau forum
 
-][<form action="#ENV{action}#formulaire_forum" method="post" class="noajax">
+][<form action="#ENV{action}#formulaire_forum" method="post" class="ajax">
 	<div>
 	[(#ACTION_FORMULAIRE{#ENV{action}})]
 	<input type='hidden' name='titre' value="#ENV{titre}" />
@@ -115,6 +115,7 @@
 ]
 
 	<INCLURE{fond=formulaires/inc-login_forum}{env} />
+
 
 	[(#REM) Piege a robots spammeurs ]
 	<p style="display: none;">
