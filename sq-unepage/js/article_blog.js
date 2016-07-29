@@ -54,7 +54,7 @@
 		
     this.div_base.append(this.div_texte);
 		
-  	CCN.timelineLayerBlogs.append(this.div_base);
+  	CCN.timelineLayerBlogs.prepend(this.div_base);
 		
 	  var _thisId = this.id_objet;
 	  var _thisTypeObjet = this.type_objet;

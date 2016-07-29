@@ -62,7 +62,7 @@
 		this.div_texte.innerHTML = html;
 		this.div_base.appendChild(this.div_texte);
 		
-	//	CCN.timelineLayerEvenements.append(this.div_base);
+	//	CCN.timelineLayerEvenements.prepend(this.div_base);
 	
 	if (CCN.admin==0)
 		$(this.div_base).draggable({

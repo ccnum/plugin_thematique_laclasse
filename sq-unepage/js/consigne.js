@@ -104,7 +104,7 @@ function Consigne(){
 		
 		this.div_base.append(this.div_reponse_plus);
     
-    CCN.timelineLayerConsignes.append(this.div_base);
+    CCN.timelineLayerConsignes.prepend(this.div_base);
 		
 		var _thisId = this.id;
 		var _thisIdObjet = this.id;

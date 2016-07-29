@@ -546,7 +546,7 @@ function initTimeline(){
     $('.connecteur_timeline').removeClass('hover');
   });
   
-  $('.mois').on('click',function(){
+  $('.mois, .timeline_trigger').on('click',function(){
     CCN.projet.showWholeTimeline();
   });
   

@@ -86,7 +86,7 @@ function Reponse() {
 		
 		this.div_base.append(this.div_texte);
 		
-  	CCN.timelineLayerConsignes.append(this.div_base);
+  	CCN.timelineLayerConsignes.prepend(this.div_base);
 		CCN.projet.timeline_fixed.append(this.connecteur);
 		
 		var _thisId = this.id;
