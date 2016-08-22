@@ -260,8 +260,10 @@ function callConsigne(id_consigne){
 	loadContentInMainSidebar(url, 'article', 'consignes');
 	showConsigneInTimeline(id_consigne);
 	
+	/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+	*/
 	
 	console.log('callConsigne');
 }
@@ -289,8 +291,10 @@ function callReponse(id_reponse){
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
   showConsigneInTimeline(id_consigne);
 	
+/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+*/
 	showReponseInTimeline(id_reponse);
 }
 
@@ -315,8 +319,10 @@ function callClasse(id_classe){
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
   loadContentInMainSidebar(url, 'rubrique', 'classes');
 
+/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+*/
   
 	$('#menug li a.selected').removeClass('selected');
 	$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
