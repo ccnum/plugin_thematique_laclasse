@@ -36,17 +36,17 @@
 		<seq_posy_blogs>0.45, 0.75, 0.25, 0.35, 0.65, 0.15</seq_posy_blogs>
 		[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) <seq_posy_evenements>0.05, 0.65, 0.75, 0.45</seq_posy_evenements> ]
 		[(#NOM_SITE_SPIP|=={air.laclasse.com}|non) <seq_posy_evenements>0.45, 0.05, 0.65, 0.25</seq_posy_evenements> ]
-		<url_popup_consigne>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=consignes</url_popup_consigne>
-		<url_popup_reponse>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=travail_en_cours</url_popup_reponse>
-		<url_popup_reponseajout>spip.php?page=publier&amp;mode=#EVAL{_mode_popup}&amp;type_objet=travail_en_cours</url_popup_reponseajout>
-		<url_popup_blog>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=blogs</url_popup_blog>
-		<url_popup_evenement>spip.php?page=article&amp;mode=#EVAL{_mode_popup}&amp;type_objet=evenements</url_popup_evenement>
-		<url_popup_ressources>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=ressources})]&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_ressources>
-		<url_popup_agora>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=agora})]&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_agora>
-		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources</url_popup_classes>
+		<url_popup_consigne>spip.php?page=article&amp;mode=ajax-detail&amp;type_objet=consignes</url_popup_consigne>
+		<url_popup_reponse>spip.php?page=article&amp;mode=ajax-detail&amp;type_objet=travail_en_cours</url_popup_reponse>
+		<url_popup_reponseajout>spip.php?page=publier&amp;mode=ajax-detail&amp;type_objet=travail_en_cours</url_popup_reponseajout>
+		<url_popup_blog>spip.php?page=article&amp;mode=ajax-detail&amp;type_objet=blogs</url_popup_blog>
+		<url_popup_evenement>spip.php?page=article&amp;mode=ajax-detail&amp;type_objet=evenements</url_popup_evenement>
+		<url_popup_ressources>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=ressources})]&amp;mode=ajax-detail&amp;type_objet=ressources</url_popup_ressources>
+		<url_popup_agora>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=agora})]&amp;mode=ajax-detail&amp;type_objet=ressources</url_popup_agora>
+		<url_popup_classes>spip.php?page=rubrique&amp;id_rubrique=[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]&amp;mode=ajax-detail&amp;type_objet=ressources</url_popup_classes>
 		<url_popup_chat>
 			[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui)
-				spip.php?page=groupe_mot&amp;id_groupe=5&amp;mode=#EVAL{_mode_popup}&amp;type_objet=ressources
+				spip.php?page=groupe_mot&amp;id_groupe=5&amp;mode=ajax-detail&amp;type_objet=ressources
 			]
 			[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui)
 				#SET{gid,8}

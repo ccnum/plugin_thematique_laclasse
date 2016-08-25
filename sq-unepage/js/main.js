@@ -606,6 +606,18 @@ function initTimeline(){
     		}
     	}
     }
+		
+		
+    // Classe
+    if (CCN.typePopupToShowAtInit == "classes"){
+      changeTimelineMode('consignes');
+    	for (k=0; k<CCN.classes.length;k++){
+      	console.log(CCN.idObjetToShowAtInit);
+  			if (CCN.classes[k].id == CCN.idObjetToShowAtInit){
+  				callClasse(CCN.idObjetToShowAtInit);
+    		}
+    	}
+    }
     
     
     // Article de blog

@@ -253,11 +253,14 @@ function call(opts) {
  */
 
 function callConsigne(id_consigne){
+  
   changeTimelineMode('consignes');
   
 	var url = CCN.projet.url_popup_consigne+"&id_article="+id_consigne;
 	loadContentInMainSidebar(url, 'article', 'consignes');
 	showConsigneInTimeline(id_consigne);
+	
+  window.history.pushState("object", "Consigne", "./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
 	
 	/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
@@ -286,10 +289,11 @@ function callReponse(id_reponse){
   
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
   
-	var url = CCN.projet.url_popup_reponse+"&id_consigne="+id_consigne+"&id_article="+id_reponse;
+	var url = CCN.projet.url_popup_reponse+"&id_article="+id_reponse;
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours');
   showConsigneInTimeline(id_consigne);
 	
+  window.history.pushState("object", "Réponse", "./spip.php?page=article&id_article="+id_reponse+"&mode=complet");
 /*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
@@ -317,6 +321,8 @@ function callClasse(id_classe){
 	var url = CCN.projet.url_popup_classes;
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
   loadContentInMainSidebar(url, 'rubrique', 'classes');
+  
+  window.history.pushState("object", "Classe", "./spip.php?page=rubrique&id_objet="+id_classe+"&mode=complet&type_objet=classes");
 
 /*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
