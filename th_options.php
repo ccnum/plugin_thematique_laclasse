@@ -18,7 +18,7 @@
 	define('_hauteur',800);
 	define('_largeur',1500);
 	//Type d'affichage des popups : detail (iframe), ajax (modalbox sans iframe)
-	define('_mode_popup','ajax-detail');
+	define('_mode_popup','complet');
 	//Fin vérification
 
 	$annee_scolaire = 2015;
