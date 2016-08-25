@@ -1201,7 +1201,7 @@ a:hover{
 	height: 100%;
 	width: 100%;
 	margin: 0px auto;
-	font-size: #GET{font-size1};
+	font-size: 12px;
 	vertical-align: middle;
 	text-align: center;
 	display: block;
@@ -1758,7 +1758,9 @@ div.donnees_classe {
   color: #58AB27;
   text-align: center;
   border-bottom:solid 2px #ddd;
+  /*
   visibility:hidden;
+  */
 }
 
 .bouton_reponse_consigne img {
@@ -2128,6 +2130,77 @@ div.donnees_classe {
   color:white;
 }
 
+
+
+
+
+
+
+
+.timeline_item.article_evenement_container {
+  width: 150px;
+  height: 100px;
+  padding: 0;
+  box-sizing: border-box;
+  transform: scale(0.4);
+  -webkit-transition: transform 500ms ease;
+     -moz-transition: transform 500ms ease;
+       -o-transition: transform 500ms ease;
+          transition: transform 500ms ease;
+}
+
+.showEvenements .article_evenement_container{
+  transform: scale(1);
+}
+
+.article_evenement_container:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgb(71, 152, 154);
+  z-index: -1;
+  left: 25px;
+  bottom: 0;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+  transform: rotate(45deg) skew(-10deg, -10deg);
+}
+
+.showEvenements .article_evenement_container:before {
+  
+}
+
+.article_evenement_container .article_evenement{
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0);
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 30px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0);
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.showEvenements .article_evenement_container .article_evenement {
+  color:white;
+}
+
+
+
+
+
+
+
 .article_blog_container .article_blog2{
 	color: yellow;
 	font-family: Courier, "Courier New", FreeMono, "Liberation Mono", monospace;	
@@ -2153,12 +2226,12 @@ div.donnees_classe {
 	left: 0px;	
 }
 
-.article_evenement_container .article_evenement span {
+.article_evenement_container .article_evenement_texte {
 	text-align: center;
 	vertical-align: middle;
 	display: table-cell;	
 	width: 150px;
-	height: 94px;
+	height: 99px;
 	margin: 20px 15px;
 }
 
@@ -2189,7 +2262,8 @@ div.donnees_classe {
   transform: scale(1);
 }
 
-.article_blog_date {
+.article_blog_date,
+.article_evenement_date {
   text-transform: uppercase;
   color: transparent;
   font-size: 10px;
@@ -2201,7 +2275,8 @@ div.donnees_classe {
           transition: all 500ms ease;
 }
 
-.showBlogs .article_blog_date {
+.showBlogs .article_blog_date,
+.showEvenements .article_evenement_date {
   color: rgba(255,255,255,.6);
 }
 

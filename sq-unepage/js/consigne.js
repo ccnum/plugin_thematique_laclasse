@@ -73,7 +73,9 @@ function Consigne(){
     var reponses_puces = '';
 		
 		for (var j = 1;j <= this.data.nombre_reponses;j++) {
-  		reponses_puces += '<div class="reponse_puce"></div>';
+  		if (j <= this.data.classes.length) {
+  		  reponses_puces += '<div class="reponse_puce"></div>';
+  		}
 		}
 		
 		for (var j = 1;j <= this.data.classes.length-this.data.nombre_reponses;j++) {
@@ -149,7 +151,7 @@ function Consigne(){
 		if ((CCN.idRestreint > 0)
 		  &&(CCN.typeRestreint != '')
 		  &&(CCN.typeRestreint == 'travail_en_cours')){
-			  this.div_reponse_plus.css('visibility','hidden');
+			//  this.div_reponse_plus.css('visibility','hidden');
 		}
 	}
 

@@ -468,8 +468,6 @@ function loadEvenements(fichier){
 				dataForEvenement.y = getXMLNodeValue('y',xmlArticlesEvenement[i]);
 				dataForEvenement.titre = dataForEvenement.titre.replace("[", "<");
 				dataForEvenement.titre = dataForEvenement.titre.replace("]", ">");
-        
-        // Positionnement en y de l'article d'événement
 				
 				if (indexY >= CCN.projet.liste_y_evenements.length){
 					indexY = 0;
@@ -477,10 +475,8 @@ function loadEvenements(fichier){
 				if (dataForEvenement.y==0) {
   				dataForEvenement.y = CCN.projet.liste_y_evenements[indexY];
   		  }
-				//if (y!=0) alert (titre+date+y);
+  		  
 				indexY++;
-			
-        // Date
 				
 				dataForEvenement.date = getXMLNodeValue('date',xmlArticlesEvenement[i]);
 				var date = new Date();
@@ -495,14 +491,14 @@ function loadEvenements(fichier){
 				
 				dataForEvenement.numero = indexArticleEvenement;
 				dataForEvenement.index = indexArticleEvenement;
-				dataForEvenement.y = dataForEvenement.y*(CCN.projet.hauteur-5);
 				
 				// Initialise l'article d'événement
 				
 				var nouvelArticleEvenement = new ArticleEvenement();
-				nouvelArticleEvenement.init(dataForEvenement);
+				    nouvelArticleEvenement.init(dataForEvenement);
 				
 				CCN.articlesEvenement.push(nouvelArticleEvenement);
+				
 				indexArticleEvenement++;
 			}
 			

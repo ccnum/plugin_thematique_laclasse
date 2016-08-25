@@ -396,11 +396,12 @@ function callRessource(id_objet,type_objet){
  * @todo Documenter
  */
 
-function callArticleEvenement(id_objet,type_objet){
+function callArticleEvenement(id_objet, type_objet){
   changeTimelineMode('evenements');
-  
+	
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
-	popup(url,'evenement');
+	loadContentInMainSidebar(url, 'article', 'evenements');
+	
 	console.log('callArticleEvenement');
 }
 
