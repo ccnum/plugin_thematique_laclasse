@@ -2843,6 +2843,34 @@ div.donnees_classe {
   width:30%;
 }
 
+#loading_feedback {
+  position: absolute;
+  top: 14px;
+  right: 0;
+  margin-right: 17px;
+  width: 45px;
+  height: 45px;
+  background: url(#CHEMIN{img/sidebar_loading.gif}) no-repeat 7px 7px / 30px auto rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  z-index: 1000000000000;
+  text-align: left;
+  padding: 0;
+  font-size: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.47);
+  -webkit-transition: all 300ms ease;
+     -moz-transition: all 300ms ease;
+       -o-transition: all 300ms ease;
+          transition: all 300ms ease;
+  transform: scale(0);
+}
+
+.loading #loading_feedback {
+  transform:scale(1)
+}
+
 .ressources_classes_around {
   padding:10px;
   background-color:white;

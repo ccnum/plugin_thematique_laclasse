@@ -1,14 +1,13 @@
 var vue = 'timeline';
 
 
-
 $().ready(function(){
+  /*
   $('#timeline_fixed, .timeline_layer').on('click', function(event){
-    console.log('show everything');
   //  event.stopPropagation();
   //	CCN.projet.showWholeTimeline();
   })
-      
+  */
       
   $('#sidebarExpand').on('click', function(){
     if ($('body').hasClass('hasSidebarExpanded')) {
@@ -576,13 +575,17 @@ function reload(url) {
  */
 
 function loadContentInMainSidebar(url, typePage, typeObjet) {
+  
+  $('body').addClass('loading');
+  showSidebar();
+  hideSidebarLateral();
+  
   console.log('%c Main'+' %c '+url+' ', 
               'background:#8BC34A;color:#fff;padding:2px;border-radius:2px;', 
               'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
   
   $('#sidebar_main_inner').load(url, function() {
-    showSidebar();
-    hideSidebarLateral();
+    $('body').removeClass('loading');
     $('#sidebar_content').scrollTop(0);
       
     console.log('%c Main'+' %c Loaded ', 
