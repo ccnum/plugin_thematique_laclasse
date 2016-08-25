@@ -84,7 +84,7 @@ et/ou
 -->
 		[(#REM)Ressources]
 		    <div id="menu-ressources" class="bloc_view col">
-				<h3><span>Blogs</span></h3>
+				<h3><span>Timeline</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
 					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=changeTimelineMode('consignes');}{title=Toutes les ressources})]
 						#SET{blog,Le blog du projet}
@@ -114,22 +114,28 @@ et/ou
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
 					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=changeTimelineMode('ressources');}{title=L'espace ressource})]
-				</ul>
-		    </div>
-		    
-		    <div id="menu-ressources" class="bloc_view col">
-				<h3><span>Forums</span></h3>
-		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-						#SET{blog,Le blog du projet}
+					
+					#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
 						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]			
+					[(#MODELE{logo_menu}{valeur=agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
 				</ul>
 		    </div>
+		    
+		    <!--
+		    
+		    <div id="menu-ressources" class="bloc_view col">
+				<h3><span>Forums</span></h3>
+		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
+							
+				</ul>
+		    </div>
+		    
+		    -->
 
 
 		[(#REM)Consignes]
