@@ -72,6 +72,8 @@ function formulaires_public_editer_article_traiter_dist($id_article='new', $id_r
 	//Redirection
 	//	$res['redirect']="spip.php?page=article&id_article=$id_article1&id_consigne=$id_consigne";
 	
+	// $res['redirect']="spip.php?google=yahoo";
+	
 	// TODO
 	
 	return $res;

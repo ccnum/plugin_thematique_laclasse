@@ -79,10 +79,12 @@
   				</div>
   			]
   			[(#GET{type_objet}|match{blogs|evenements}|oui)
-  				<div class="popup_titre">
+  				<div class="popup_titre [popup_titre_(#GET{type_objet})]">
   					<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
-  					<span class="date #EDIT{date}">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
-  					<span class="auteur">[ - (#LESAUTEURS)]</span>								
+  					<div class="auteur_date">
+    					<span class="date #EDIT{date}">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
+    					[<span class="auteur">(#LESAUTEURS)</span>]
+  					</div>			
   				</div>
   			]
   			

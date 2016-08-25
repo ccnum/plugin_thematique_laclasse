@@ -19,6 +19,8 @@
 			*/
 		</script>
 		
+		
+		
 		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
 		
 		<div class="sidebar_bubble bloc_publier_repondre">
@@ -53,10 +55,10 @@
   	
     	[(#REM)Impossible de passer l'url de retour en paramètre... donc forcée en dur dans le formulaire]
     		[(#ID_ARTICLE|non)
-    			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{new},#ENV{id_rubrique},#URL_ARTICLE}
+    			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{new},#ENV{id_rubrique},#URL_ARTICLE|parametre_url{mode,complet}}
     		]
     		[(#ID_ARTICLE|oui)
-    			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{id_article},#ENV{id_rubrique},#URL_ARTICLE}
+    			#FORMULAIRE_PUBLIC_EDITER_ARTICLE{#ENV{id_article},#ENV{id_rubrique},#URL_ARTICLE|parametre_url{mode,complet}}
     		]
   			
   			
