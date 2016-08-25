@@ -2,12 +2,12 @@ var vue = 'timeline';
 
 
 $().ready(function(){
-  /*
-  $('#timeline_fixed, .timeline_layer').on('click', function(event){
-  //  event.stopPropagation();
-  //	CCN.projet.showWholeTimeline();
+  
+  $('#timeline_fixed').on('click', function(event){
+    event.stopPropagation();
+  	CCN.projet.showWholeTimeline();
   })
-  */
+  
       
   $('#sidebarExpand').on('click', function(){
     if ($('body').hasClass('hasSidebarExpanded')) {
@@ -137,7 +137,7 @@ function updateTimeline() {
  * @param {string} type - Peut être <tt>consignes</tt>, <tt>blogs</tt> ou <tt>evenements</tt>
  */
  
-function changeTimelineMode(type) {
+function changeTimelineMode(type) {  
   var classCss = {};
       classCss.consignes = 'showConsignes';
       classCss.blogs = 'showBlogs';
@@ -354,6 +354,8 @@ function callArticleBlog(id_article){
 	
 	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
 	loadContentInMainSidebar(url, 'article', 'blogs');
+	
+  window.history.pushState("object", "Blog", "./spip.php?page=article&id_article="+id_article+"&mode=complet");
 	/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
@@ -406,6 +408,8 @@ function callArticleEvenement(id_objet, type_objet){
 	
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	loadContentInMainSidebar(url, 'article', 'evenements');
+	
+  window.history.pushState("object", "Événement", "./spip.php?page="+type_objet+"&id_article="+id_article+"&mode=complet");
 	
 	console.log('callArticleEvenement');
 }

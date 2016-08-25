@@ -23,8 +23,7 @@
 
 ][<form action="#ENV{action}#formulaire_forum" method="post" class="ajax">
   <div class="ajax">
-    ---#ENV{action}&mode=complet---
-	[(#ACTION_FORMULAIRE{#ENV{action}&mode=complet})]
+	[(#ACTION_FORMULAIRE{#ENV{action}})]
 	<input type='hidden' name='titre' value="#ENV{titre}" />
 	<input type='hidden' name='texte' value="#ENV{texte}" />
 	<input type='hidden' name='url_site' value="#ENV{url_site}" />
