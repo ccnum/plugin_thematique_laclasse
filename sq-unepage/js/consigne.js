@@ -78,6 +78,8 @@ function Consigne(){
   		}
 		}
 		
+		console.log('nb classes : '+this.data.classes.length);
+		
 		for (var j = 1;j <= this.data.classes.length-this.data.nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce disabled"></div>';
 		}
@@ -101,10 +103,12 @@ function Consigne(){
 		
     // Préparation bouton réponse plus (crayon)
 	
-		this.div_reponse_plus = $('<div />')
-		  .html("<div class='bouton_reponse_consigne' onclick='createReponse("+this.id+","+CCN.idRestreint+","+this.numero+");'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>"); // TODO : Répondre > puis > Modifier ma réponse (voir le TO SEE de main.js)
+		this.div_reponse_plus = $("<div class='bouton_reponse_consigne' onclick='createReponse("+this.id+","+CCN.idRestreint+","+this.numero+");'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Répondre à la consigne'> Répondre à la consigne</div>");
+	
+		this.div_reponse_see = $("<div class='bouton_reponse_consigne'><img src='"+CCN.urlRoot+"img/reponse_plus.png' title='Accéder à ma réponse'> Accéder à ma réponse</div>"); 
 		
 		this.div_base.append(this.div_reponse_plus);
+		this.div_base.append(this.div_reponse_see);
     
     CCN.timelineLayerConsignes.prepend(this.div_base);
 		
@@ -151,7 +155,25 @@ function Consigne(){
 		if ((CCN.idRestreint > 0)
 		  &&(CCN.typeRestreint != '')
 		  &&(CCN.typeRestreint == 'travail_en_cours')){
-			//  this.div_reponse_plus.css('visibility','hidden');
+			  this.div_reponse_plus.addClass('show');
+		}
+	}
+
+  /**
+   * Affiche le bouton <tt>Consulter ma réponse</tt>.
+   *
+   * @param {Number} answerId - Id de la réponse de la classe courante
+   *
+   * @see loadConsignes
+   */   
+ 
+  this.showMyReponseButtonInTimeline = function(answerId){
+		if ((CCN.idRestreint > 0)
+		  &&(CCN.typeRestreint != '')
+		  &&(CCN.typeRestreint == 'travail_en_cours')){
+			  this.div_reponse_see.on('click', function(){
+  			  callReponse(answerId);
+  		  }).addClass('show');
 		}
 	}
 

@@ -295,7 +295,9 @@ function loadConsignes(fichier){
         
         var nb_classe_reponse = 0;
         var nb_classe_commentaires = 0;
-        var indexReponseInConsigne = 0;			
+        var indexReponseInConsigne = 0;	
+        var has_current_classe_already_answer = false;		
+        var answer_id_of_current_classe = null;
         		
         for (j = 0;j < xmlReponses.length; j++){
           var dataForReponse = {};
@@ -340,9 +342,12 @@ function loadConsignes(fichier){
         	
         	if (CCN.classeSelection > 0){
         		if (CCN.classeSelection == dataForReponse.classe_id){
+          		has_current_classe_already_answer = true;
+          		answer_id_of_current_classe = dataForReponse.id;
+          		
         			nb_classe_reponse++;
         			nb_classe_commentaires += nombre_commentaires_reponse;
-        		}
+        		}        		
         	} else {
         		if (CCN.idRestreint == dataForReponse.classe_id){
         			nb_classe_reponse++;
@@ -355,7 +360,11 @@ function loadConsignes(fichier){
         
         // Ajoute le bouton de réponse si pas encore de réponse de la classe
         
-        if (nb_classe_reponse == 0)	nouvelleConsigne.showNewReponseButtonInTimeline(); // TO SEE
+        if (has_current_classe_already_answer) {
+        //  nouvelleConsigne.showMyReponseButtonInTimeline(answer_id_of_current_classe);
+        } else {
+          nouvelleConsigne.showNewReponseButtonInTimeline();
+        }
         
         // Consigne suivante
         

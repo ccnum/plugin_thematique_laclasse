@@ -31,9 +31,6 @@
 		this.top                    = -1;			
 		this.show = false;
 		
-		console.log(this.data);
-		console.log(this.y);
-		
 		this.div_base = $('<div/>')
 		  .attr('class','timeline_item article_evenement_container')
       .css({
@@ -65,7 +62,6 @@
 	  var _thisTypeObjet = this.type_objet;
 		
 		this.div_texte.on('click',function(){
-  		console.log('click');
   		callArticleEvenement(_thisId, _thisTypeObjet);
     });
 	
