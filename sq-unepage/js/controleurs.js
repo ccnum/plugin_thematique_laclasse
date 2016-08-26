@@ -409,7 +409,7 @@ function callArticleEvenement(id_objet, type_objet){
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	loadContentInMainSidebar(url, 'article', 'evenements');
 	
-  window.history.pushState("object", "Événement", "./spip.php?page="+type_objet+"&id_article="+id_article+"&mode=complet");
+  window.history.pushState("object", "Événement", "./spip.php?page="+type_objet+"&id_article="+id_objet+"&mode=complet");
 	
 	console.log('callArticleEvenement');
 }
