@@ -10,22 +10,7 @@ $().ready(function(){
   
       
   $('#sidebarExpand').on('click', function(){
-    if ($('body').hasClass('hasSidebarExpanded')) {
-      $('body').removeClass('hasSidebarExpanded');
-      
-      if ($('body').hasClass('hadSidebarLateralVisible')) {
-        $('body').removeClass('hadSidebarLateralVisible');
-        showSidebarLateral();
-      }
-    } else {
-      $('body').addClass('hasSidebarExpanded');
-      
-      if ($('body').hasClass('hasSidebarLateralVisible')) {
-        $('body').addClass('hadSidebarLateralVisible');
-      }
-      
-      hideSidebarLateral();
-    }
+    toggleSidebarExpand();
   });
   
   $('#sidebarCache').on('click', function(){
@@ -99,6 +84,28 @@ $().ready(function(){
   $('#menu_bas a[data-filter-value=".ressource_consignes"]').parent().stop().fadeOut(1000);
   $('#menu_bas a[data-filter-value=".ressource_reponses"]').parent().stop().fadeOut(1000);
 });
+
+/**
+ * Affiche ou réduit l'affichage plein écran des sidebars.
+ */
+
+function toggleSidebarExpand() {
+  if ($('body').hasClass('hasSidebarExpanded')) {
+    $('body').removeClass('hasSidebarExpanded');
+    
+    if ($('body').hasClass('hadSidebarLateralVisible')) {
+      $('body').removeClass('hadSidebarLateralVisible');
+      showSidebarLateral();
+    }
+  } else {
+    $('body').addClass('hasSidebarExpanded');
+    
+    if ($('body').hasClass('hasSidebarLateralVisible')) {
+      $('body').addClass('hadSidebarLateralVisible');
+    }
+    hideSidebarLateral();
+  }
+}
 
 
 
@@ -363,8 +370,6 @@ function callArticleBlog(id_article){
 	*/
 }
 
-/* * * * * * Below : to convert into loadXXXInSidebar * * * * * */
-
 
 /**
  * Appelle le chargement de la ressource
@@ -374,17 +379,74 @@ function callArticleBlog(id_article){
  * @param {number} id_objet
  * @param {string} type_objet
  *
- * @see loadContentInMainSidebar
  * @see loadContentInLateralSidebar
  *
  * @todo Modifier le contenu de la sidebar secondaire
  * @todo Documenter
  */
 
-function callRessource(id_objet,type_objet){
+function callRessource(){
+  changeTimelineMode('consignes');
+  toggleSidebarExpand();
+	
+	var url = CCN.projet.url_popup_ressources;
+	loadContentInLateralSidebar(url, 'rubrique', 'ressources');
+	
+  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&mode=complet");
+	
+	console.log('callRessource');
+	
+	/*
 	var url = CCN.projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
 	popup(url,'ressource');
 	console.log('callRessource');
+	*/
+}
+
+
+/**
+ * Appelle le chargement d'un article ressource
+ * dans la sidebar secondaire
+ *
+ * @param {number} id_article
+ *
+ * @see loadContentInMainSidebar
+ *
+ * @todo Documenter
+ */
+
+function callRessourceArticle(id_article){
+  changeTimelineMode('consignes');
+	
+	var url = "./spip.php?page=article&id_article="+id_article+"&mode=ajax-detail";
+	loadContentInMainSidebar(url, 'article', 'ressources');
+	
+  window.history.pushState("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&mode=complet");
+	
+	console.log('callRessourceArticle');
+}
+
+
+/**
+ * Appelle le chargement d'une rubrique ressource
+ * dans la sidebar secondaire
+ *
+ * @param {number} id_rubrique
+ *
+ * @see loadContentInMainSidebar
+ *
+ * @todo Documenter
+ */
+
+function callRessourceRubrique(id_rubrique){
+  changeTimelineMode('consignes');
+	
+	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
+	loadContentInMainSidebar(url, 'rubrique', 'ressources');
+	
+  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=complet");
+	
+	console.log('callRessourceRubrique');
 }
 
 
@@ -413,6 +475,8 @@ function callArticleEvenement(id_objet, type_objet){
 	
 	console.log('callArticleEvenement');
 }
+
+/* * * * * * Below : to convert into loadXXXInSidebar * * * * * */
 
 
 /**

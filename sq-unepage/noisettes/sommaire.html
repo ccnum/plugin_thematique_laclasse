@@ -116,7 +116,7 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=changeTimelineMode('ressources');}{title=L'espace ressource})]
+					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
 					
 					#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]

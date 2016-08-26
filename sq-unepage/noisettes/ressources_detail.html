@@ -1,0 +1,167 @@
+[(#REM) "Espace ressources" et rubriques des ressources]
+
+#SET{is_ressource,'non'}
+
+<BOUCLE_principale0(RUBRIQUES){id_rubrique}{titre_mot=ressources}{tout}>
+  #SET{is_ressource,'oui'}
+</BOUCLE_principale0>
+  
+
+
+<BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
+
+<div class="popup [popup_(#GET{type_objet})]">
+  
+  <INCLURE{fond=noisettes/call_sidebar}{type_objet=classes}>  
+  
+		
+		[(#REM) ---------------- entete publication ---------------- ]
+		#SET{type_objet,#TYPE_OBJET}
+		[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax}|oui})#SET{type_objet,ressources}]
+		
+		[(#REM) ---------------- entete publication ---------------- ] 
+			<BOUCLE_nb_doc(DOCUMENTS) {id_rubrique} {mode=document}>
+			</BOUCLE_nb_doc>
+				#SET{nb_doc,#TOTAL_BOUCLE}
+			</B_nb_doc>
+				#SET{nb_doc,0}
+			<//B_nb_doc>
+			
+		[(#REM) ---------------- titre & logo ---------------- ] 
+		<div class="sidebar_bubble">  		
+			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
+			    <div class="texte">
+			        <div class="titre">[(#TITRE|supprimer_numero)]</div>
+			        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
+			    </div>
+			</div>
+		</div>
+		
+		
+		
+		
+		<div class="sidebar_bubble">
+  		
+			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_RUBRIQUE}>
+			<div class="bloc_option_doc nettoyeur">
+				<a id="bloc_option_reponses_consignes_classe-#ID_RUBRIQUE" class="hac liens_voir bloc_option_doc_ressources" title="Ressources">
+					Ressources
+				</a>
+				<div style="clear:both" class='bloc_option_reponses_consignes_classe'>
+					<div class="nettoyeur"></div>
+					
+    			<BOUCLE_rubrique(RUBRIQUES){id_parent=#ID_RUBRIQUE}{par id_rubrique}{inverse}{tout}>
+    			  <div id="ajax_go_to_ressources_rubrique_#ID_RUBRIQUE" href="#URL_RUBRIQUE"><h3>#TITRE</h3></div>
+          	  
+						<script type="text/javascript">
+  						$().ready(function(){
+    						$('#ajax_go_to_ressources_rubrique_#ID_RUBRIQUE').on('click',function() {
+    							callRessourceRubrique('#ID_RUBRIQUE');			
+    						});
+  						});						
+						</script> 
+						
+          	<BOUCLE_article(ARTICLES){id_rubrique}{par date}>
+          	  <div id="ajax_go_to_ressources_article_#ID_ARTICLE" href="#URL_ARTICLE">#TITRE</div>
+          	  
+  						<script type="text/javascript">
+    						$().ready(function(){
+      						$('#ajax_go_to_ressources_article_#ID_ARTICLE').on('click',function() {
+      							callRessourceArticle('#ID_ARTICLE');			
+      						});
+    						});						
+  						</script> 
+          		
+          	</BOUCLE_article>
+          </BOUCLE_rubrique>
+          
+          <BOUCLE_article2(ARTICLES){id_rubrique}{par date}>
+        	  <div id="ajax_go_to_ressources_article_#ID_ARTICLE" href="#URL_ARTICLE">#TITRE</div>
+        	  
+						<script type="text/javascript">
+  						$().ready(function(){
+    						$('#ajax_go_to_ressources_article_#ID_ARTICLE').on('click',function() {
+    							callRessourceArticle('#ID_ARTICLE');			
+    						});
+  						});						
+						</script> 
+        		
+        	</BOUCLE_article2>
+
+					<div class="introduction nettoyeur"></div>
+				</div>
+		  </div>
+  		
+  		
+		</div>
+		
+		
+		[(#REM) ---------------- bloc rubrique ---------------- ] 
+		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
+		
+		[(#GET{is_ressource}|=={non}|oui)
+		
+		
+    <div id="bloc_article" class="edit_groupe_travail [(#GET{police})]">
+    		
+				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
+		  <div class="sidebar_bubble">
+  			<div style="clear: both;display:none;" class="introduction"></div>
+  			
+  			<div class="bloc_option_doc nettoyeur #EDIT{logo}">
+          <a id="bloc_option_doc-160" class="hac lien_ajouter bloc_option_doc_edit" title="Ajouter un document">
+            Modifier le logo
+            <span class="photo">[(#MODELE{logo_carre}{id_rubrique}{taille=40})]</span>
+          </a>
+  			</div>
+      </div>
+  		
+  		
+  		
+		  <div class="sidebar_bubble">
+  			<div style="clear: both;display:none;" class="introduction"></div>
+  			
+  			<div class="bloc_option_doc nettoyeur #EDIT{titre}">
+          <a id="bloc_option_doc-160" class="hac lien_ajouter bloc_option_doc_edit" title="Ajouter un document">
+            Modifier le nom du groupe de travail</span>
+          </a>
+  			</div>
+      </div>
+  		
+  		
+  		
+		  <div class="sidebar_bubble">
+  			<div style="clear: both;display:none;" class="introduction"></div>
+  			
+  			<div class="bloc_option_doc nettoyeur #EDIT{texte}">
+          <a id="bloc_option_doc-160" class="hac lien_ajouter bloc_option_doc_edit" title="Ajouter un document">
+            Modifier le descriptif du groupe de travail</span>
+          </a>
+  			</div>
+      </div>
+      ]
+      
+      
+				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non)
+				
+    		  <div class="sidebar_bubble">
+      		  <div class="bloc_texte">
+    					[(#TEXTE)]
+      		  </div>
+    		  </div>
+				]				
+		</div>
+		]
+  		
+		</div>
+
+		</div>
+		</div>
+
+	[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
+		</div>
+	]
+
+</div>
+
+</BOUCLE_principale>

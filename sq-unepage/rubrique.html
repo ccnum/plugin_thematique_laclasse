@@ -23,15 +23,28 @@
 	[(#GET{mode}|=={detail}|oui)
 		<INCLURE{fond=noisettes/rubrique}{type_objet=#GET{type_objet}}{env} />
   ]
-	[(#GET{mode}|=={complet}|oui)<INCLURE{fond=layout}{id_rubrique}{env}{page=sommaire}{type_objet=#GET{type_objet}}{id_objet=#ID_ARTICLE} />]
+	[(#GET{mode}|=={complet}|oui)
+	  <INCLURE{fond=layout}{id_rubrique}{env}{page=sommaire}{type_objet=#GET{type_objet}}{id_objet=#ID_ARTICLE} />
+  ]
+	
 	[(#GET{mode}|match{ajax}|oui)
 		[(#REM)Type d'admin : 0 : total / autrement : nb de rubriques restreintes / -1 : pas admin]	
 		[(#SET{admin,[(#INCLURE{fond=noisettes/fonction/admin,mode=admin})]})]
 		[(#GET{mode}|=={ajax}|oui)
-		<INCLURE{fond=noisettes/rubrique}{type_objet=#GET{type_objet}}{admin=#GET{admin}}{env} />
+		  [(#GET{type_objet}|=={ressources}|oui)
+        <INCLURE{fond=noisettes/ressources}{type_objet=#GET{type_objet}}{admin=#GET{admin}}{env} />
+      ]
+		  [(#GET{type_objet}|=={ressources}|non)
+        <INCLURE{fond=noisettes/rubrique}{type_objet=#GET{type_objet}}{admin=#GET{admin}}{env} />
+      ]
 		]
 		[(#GET{mode}|=={ajax-detail}|oui)
-		<INCLURE{fond=noisettes/rubrique_detail}{type_objet=#GET{type_objet}}{admin=#GET{admin}}{env} />
+		  [(#GET{type_objet}|=={ressources}|oui)
+        <INCLURE{fond=noisettes/ressources_detail}{type_objet=#GET{type_objet}}{admin=#GET{admin}}{env} />
+      ]
+		  [(#GET{type_objet}|=={ressources}|non)
+        <INCLURE{fond=noisettes/rubrique_detail}{type_objet=#GET{type_objet}}{admin=#GET{admin}}{env} />
+      ]
 		]
 	]
 

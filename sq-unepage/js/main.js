@@ -29,6 +29,8 @@ function initCCN() {
   CCN.articlesBlog            = [];
   CCN.articlesEvenement       = [];
   
+  CCN.idRubriqueRessources    = null;
+  
   CCN.couleurBlog             = '';
   CCN.dureeTransition         = 800;
   
@@ -85,6 +87,7 @@ function loadProjet(fichier){
 			dataForProjet.url_popup_classes         = getXMLNodeValue('url_popup_classes',xml);
 			dataForProjet.url_popup_chat            = getXMLNodeValue('url_popup_chat',xml);
 			dataForProjet.url_popup_chat2           = getXMLNodeValue('url_popup_chat2',xml);
+			
 
 			dataForProjet.image_fond                = (hasXMLNodeValue('image_fond',xml)) ? getXMLNodeValue('image_fond',xml) : '';
 			
@@ -94,6 +97,7 @@ function loadProjet(fichier){
       CCN.projet.init(dataForProjet);			
       
 			CCN.couleurBlog = getXMLNodeValue('couleur_blog',xml);		
+			CCN.idRubriqueRessources = getXMLNodeValue('id_rubrique_ressources',xml);
 			
 			// Lance le chargement des classes
 			
