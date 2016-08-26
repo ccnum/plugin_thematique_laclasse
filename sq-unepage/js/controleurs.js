@@ -428,6 +428,30 @@ function callRessourceArticle(id_article){
 
 
 /**
+ * Appelle le chargement d'un article syndic
+ * dans la sidebar secondaire
+ *
+ * @param {number} id_syndic_article
+ *
+ * @see loadContentInMainSidebar
+ *
+ * @todo Documenter
+ */
+
+function callRessourceSyndicArticle(id_syndic_article){
+  changeTimelineMode('consignes');
+	
+	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
+	loadContentInMainSidebar(url, 'syndic_article', 'ressources');
+	
+  window.history.pushState("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=complet");
+	
+	console.log('callRessourceSyndicArticle');
+}
+
+
+
+/**
  * Appelle le chargement d'une rubrique ressource
  * dans la sidebar secondaire
  *

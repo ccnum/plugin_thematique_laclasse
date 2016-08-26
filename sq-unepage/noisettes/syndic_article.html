@@ -1,5 +1,12 @@
 #CACHE{0}
 <BOUCLE_principale(SYNDIC_ARTICLES){id_syndic_article}>
+
+ <div class="popup [popup_(#ENV{type_objet})]">
+     
+    <div id="bloc_syndic_article-#ID_ARTICLE" class="bloc_syndic_article [(#GET{police})]">
+    	
+    <div class="sidebar_bubble">
+      
 	[(#MODE|!={ajax-detail}|oui)<div class="popup [popup_(#GET{type_objet})]">]
 
 		[(#REM) ---------------- titre & logo ----------------
@@ -10,10 +17,16 @@
 			        <div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>
 			    </div>
 			</div>]
-			<div class="popup_titre">
+			
+			
+			
+			
+			<div class="fiche_titre">
 				<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
-				<span class="date #EDIT{date}">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
-				<span class="auteur">[ - (#LESAUTEURS)]</span>	
+				<div class="auteur_date">
+						[<div>(#LESAUTEURS)</div>]
+						[<span class="#EDIT{date}">(#DATE|affdate)</span>]
+				</div>
 			</div>
 		
 		[(#REM) ---------------- bloc article ---------------- ]
@@ -22,10 +35,13 @@
 			
 				[(#REM)Texte]
 				<div id="bloc_texte">
-				<p class="spip">[(#DESCRIPTIF|liens_ouvrants|replace{href, target="_blank" href})]</p>
-				<p class="spip droite"><a href="[(#URL_ARTICLE)]" target="_blank">Lire la suite</a</p>		
+  				<p class="spip">[(#DESCRIPTIF|liens_ouvrants|replace{href, target="_blank" href})]</p>
+  				<p class="spip droite"><a href="[(#URL_ARTICLE)]" target="_blank" class="syndic_article_lire_suite">Lire la suite</a</p>	
 				</div>
 	 		</div>
 	
 	[(#MODE|!={ajax-detail}|oui)</div>]
+	</div>
+	</div>
+	</div>
 </BOUCLE_principale>
