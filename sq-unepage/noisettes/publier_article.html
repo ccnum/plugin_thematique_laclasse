@@ -24,26 +24,26 @@
 		[(#SET{type_objet,[(#INCLURE{fond=noisettes/fonction/type_objet,id_rubrique})]})]
 		
 		<div class="sidebar_bubble bloc_publier_repondre">
-			
-			[(#GET{type_objet}|=={travail_en_cours}|oui)
-			<div class="fiche_titre couleur_texte_[(#GET{type_objet})] couleur_[(#GET{type_objet})][(#MODELE{nb2col}{#ENV{id_article}})]">
-				<div class="photo">[(#MODELE{logo_carre}{id_article})]</div>
+  		[(#GET{type_objet}|=={travail_en_cours}|oui)
+  		
+			<div class="fiche_titre couleur_texte_[(#GET{type_objet})] couleur_[(#GET{type_objet})][(#ENV{id_rubrique}|nb2col)]">
+				<div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
 				<div class="texte">
 					<div class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</div>
 					<div class="auteur_date">[(#GET{titre_parent}) - ][<span class="#EDIT{date}">(#DATE|affdate)</span>]</div>
 				</div>
 			</div>
-			]
+  		]
 	
 			<div class="popup_titre">
 				<div class="titre">
 					[(#GET{type_objet}|=={travail_en_cours}|oui) Répondre à la consigne]
-					[(#GET{type_objet}|=={travail_en_cours}|non) Publier un nouvel article]
+					[(#GET{type_objet}|=={travail_en_cours}|non) Publier une nouvelle consigne]
 				</div>
 				<div class="date" id="entete_publication" style="display: block;">
 					<!-- <img class='img_titre' src="#CHEMIN{images}/puce_titrecouleur6.gif"> -->					
 					[(#GET{type_objet}|=={travail_en_cours}|oui) Etape 1 : Pour répondre à la consigne, choisissez un titre et validez-le ci-dessous]
-					[(#GET{type_objet}|=={travail_en_cours}|non) Etape 1 : Pour créer votre article, choisissez un titre et validez-le ci-dessous]
+					[(#GET{type_objet}|=={travail_en_cours}|non) Etape 1 : Pour créer votre consigne, choisissez un titre et validez-le ci-dessous]
 				</div>
 			</div>
 	

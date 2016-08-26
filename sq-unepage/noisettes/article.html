@@ -122,7 +122,7 @@
   						
   	
   						<div class="popup_titre">
-  							<div class="date" id="entete_publication" style="display: none;">
+  							<div class="date" id="entete_publication" style="display: block;">
   								Etape 2 : vous pouvez ajouter un texte et des documents à votre article<br />
   							</div>
   						</div>
@@ -157,6 +157,26 @@
   			[(#REM) ---------------- documents ---------------- ]
   			
   		</div>
+  		
+  		[(#REM)Ajouter un texte]
+  		
+			[(#GET{blocs_cplt}|=={non}|non)
+				[(#TEXTE|non)
+				  [(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
+						<div class="sidebar_bubble">
+							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_texte-#ID_ARTICLE}>
+							<div class="bloc_option_doc nettoyeur">
+								<a id="bloc_option_texte-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un texte">
+									Ajouter un texte
+								</a>
+								<div class='nettoyeur cache bloc_option_doc' style="display:block">
+									<INCLURE{fond=noisettes/publier_article,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	
+								</div>
+							</div>
+						</div>
+				  ]
+				]
+			]
   		
   		<B_documents_joints_compteur>
       <div class="sidebar_bubble">
@@ -288,24 +308,7 @@
   					]
   					-->
   				
-  				[(#REM)Ajouter un texte]
-  					[(#GET{blocs_cplt}|=={non}|non)
-  						[(#TEXTE|non)[(#AUTORISER{modifier, article, #ID_ARTICLE}|oui)
-  						
-  						
-  						<div class="sidebar_bubble">
-  							<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_texte-#ID_ARTICLE}>
-  							<div class="bloc_option_doc nettoyeur">
-  								<a id="bloc_option_texte-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un texte">
-  									Ajouter un texte
-  								</a>
-  								<div class='nettoyeur cache bloc_option_doc'>
-  									<INCLURE{fond=noisettes/publier_article,mode=ajax-detail,id_article=#ID_ARTICLE,env} />	
-  								</div>
-  							</div>
-  						</div>
-  						]]
-  					]
+  				
   				
   				[(#REM)Ajouter un document]
   				

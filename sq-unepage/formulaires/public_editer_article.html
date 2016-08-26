@@ -6,9 +6,6 @@
 	<form method='post' action='#ENV{action}' enctype='multipart/form-data' class="ajax heyhey"><div>
 		[(#REM) declarer les hidden qui declencheront le service du formulaire 
 		parametre : url d'action ]
-		<br>
-		Action : #ENV{action}
-		<br>
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type='hidden' name='id_article' value='#ENV{id_article}' />
 		[(#ENV{id_consigne}|oui)

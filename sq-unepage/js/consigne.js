@@ -78,8 +78,6 @@ function Consigne(){
   		}
 		}
 		
-		console.log('nb classes : '+this.data.classes.length);
-		
 		for (var j = 1;j <= this.data.classes.length-this.data.nombre_reponses;j++) {
   		reponses_puces += '<div class="reponse_puce disabled"></div>';
 		}
