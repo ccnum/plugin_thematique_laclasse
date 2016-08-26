@@ -1,4 +1,5 @@
-<fieldset class="previsu">
+<div class="bloc_previsu">
+  <fieldset class="previsu">
 	<legend><:previsualisation:></legend>
 	<ul>
 		<li>
@@ -6,13 +7,8 @@
 				<li class="forum-fil">
 					<div class="comment">
 						<div class="comment-meta">
-  						Prévisualisation du message : n'oubliez pas de valider !
-  						<br>
-  						<br>
-  						<hr>
-  						<br>
 							[<strong class="comment-titre">(#ENV*{titre})</strong>]
-							[<small><:par_auteur:> <span>(#SESSION{session_nom}|safehtml|sinon{[(#SESSION{nom}|typo)]}|sinon{<span class="erreur_message blink">?</span>})</span></small>]
+							[<small class="comment-auteur"><:par_auteur:> <span>(#SESSION{session_nom}|safehtml|sinon{[(#SESSION{nom}|typo)]}|sinon{<span class="erreur_message blink">?</span>})</span></small>]
 						</div>
 						<div class="comment-content">
 							[<div class="comment-texte">(#ENV*{texte}|lignes_longues)</div>]
@@ -29,6 +25,7 @@
 	</ul>
 	[<p class="boutons"><input type="submit" class="submit" onclick="jQuery(window).unbind();" name="confirmer_previsu_forum" value="(#ENV*{bouton})" /></p>]
 </fieldset>
+</div>
 <br class="clear" />
 <script type="text/javascript">/*<![CDATA[*/
 if (window.jQuery){ jQuery(function(){
