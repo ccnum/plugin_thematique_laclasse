@@ -392,7 +392,7 @@ function callRessource(){
 	var url = CCN.projet.url_popup_ressources;
 	loadContentInLateralSidebar(url, 'rubrique', 'ressources');
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&type_objet=ressources&mode=complet");
 	
 	console.log('callRessource');
 	
@@ -421,7 +421,7 @@ function callRessourceArticle(id_article){
 	var url = "./spip.php?page=article&id_article="+id_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'article', 'ressources');
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet=ressources&mode=complet");
 	
 	console.log('callRessourceArticle');
 }
@@ -444,7 +444,7 @@ function callRessourceSyndicArticle(id_syndic_article){
 	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'syndic_article', 'ressources');
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet=ressources&mode=complet");
 	
 	console.log('callRessourceSyndicArticle');
 }
@@ -468,7 +468,7 @@ function callRessourceRubrique(id_rubrique){
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'rubrique', 'ressources');
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet=ressources&mode=complet");
 	
 	console.log('callRessourceRubrique');
 }

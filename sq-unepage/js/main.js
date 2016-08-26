@@ -586,6 +586,28 @@ function initTimeline(){
 	
 	// Ouverture au chargement d'un article, article événement, consigne ou réponse
 	
+	
+  // Ressource
+  if (CCN.typePopupToShowAtInit == "ressources"){
+		changeTimelineMode('consignes');
+		callRessource();
+		
+		if (CCN.pageToShowAtInit == 'rubrique') {
+  		if (CCN.idRubriqueToShowAtInit != CCN.idRubriqueRessources) {
+  	    callRessourceRubrique(CCN.idRubriqueToShowAtInit);
+  	  }
+		}
+		
+		if (CCN.pageToShowAtInit == 'article') {
+  	  callRessourceArticle(CCN.idArticleToShowAtInit);
+		}
+		
+		if (CCN.pageToShowAtInit == 'syndic_article') {
+  	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit);
+		}
+  }
+	
+	
 	if (CCN.idObjetToShowAtInit != "0"){
   	
 		// Consigne
@@ -635,14 +657,16 @@ function initTimeline(){
 		  changeTimelineMode('evenements');
     	callArticleEvenement(CCN.idObjetToShowAtInit,"article");
     }
+	}
+	else { // CCN.idObjetToShowAtInit == 0)
+  	
     // Ressource
     if (CCN.typePopupToShowAtInit == "ressources"){
-  		changeTimelineMode('consignes');
-    	callRessource(CCN.idObjetToShowAtInit,"article");
-    }
-	}
-	else {
-		changeTimelineMode('consignes');
+      
+    } else {
+		  changeTimelineMode('consignes');
+		}
+		
 		// Ouverture de la popup projet si première fois
 		$().ready(function(){
 			if (document.cookie.indexOf('visited=true') === -1) {

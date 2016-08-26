@@ -1,5 +1,6 @@
 #ENV{type_objet}
 #ENV{id_objet}
+#ENV{page}
 
 <script type="application/javascript" src="#CHEMIN{js/globales.js}"></script>
 <script language="Javascript">
@@ -17,14 +18,14 @@
 	CCN.idRestreint = [(#ENV{restreint}|sinon{0})];
 	CCN.typeRestreint = '[(#ENV{type_restreint})]';
 	CCN.classeSelection = [(#ENV{restreint}|sinon{0})];
-
-	[(#REM)
-	  Vue forcée à l ouverture (TODO)
-  ]
   
 	CCN.dateToShowAtInit = '[(#ENV{vue_date,0})]';
 	CCN.typePopupToShowAtInit = '[(#ENV{type_objet,0})]';
 	CCN.idObjetToShowAtInit = '[(#ENV{id_objet,0})]';
+	CCN.pageToShowAtInit = '[(#SELF|parametre_url{page})]';
+	CCN.idRubriqueToShowAtInit = '[(#SELF|parametre_url{id_rubrique})]';
+	CCN.idArticleToShowAtInit = '[(#SELF|parametre_url{id_article})]';
+	CCN.idSyndicArticleToShowAtInit = '[(#SELF|parametre_url{id_syndic_article})]';
 </script>
 <script type="application/javascript" src="#CHEMIN{js/jquery.isotope.min.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>
