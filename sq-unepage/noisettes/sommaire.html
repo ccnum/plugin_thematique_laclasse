@@ -41,9 +41,11 @@ et/ou
 		<INCLURE{fond=noisettes/timeline}{env}>
 	</div>
 
-	<div id="zone_classe" class="zone_classe zone" [(#VUE|=={classe}|oui) style="display:block;"]>
-		<INCLURE{fond=noisettes/isotope}{env}>
-	</div>
+  [(#REM)
+  	<div id="zone_classe" class="zone_classe zone" [(#VUE|=={classe}|oui) style="display:block;"]>
+  		<INCLURE{fond=noisettes/isotope}{env}>
+  	</div>
+	]
 	
 	<div id="loading_feedback">Chargement</div>
 	
