@@ -58,7 +58,9 @@ function loadProjet(fichier){
   $.ajax({
     url: fichier,
     dataType: 'xml',
-    success: function(xml) {			
+    success: function(xml) {		
+      console.log(fichier+' loadé en jQuery : OK');
+      	
 			var dataForProjet = {};
 			
 			dataForProjet.date_debut                = getXMLNodeValue('date_debut',xml);
@@ -125,6 +127,7 @@ function loadClasses(fichier){
     url: fichier,
     dataType: 'xml',
     success: function(xml) {	
+      console.log(fichier+' loadé en jQuery : OK');
 			
 			var xmlClasses = xml.getElementsByTagName("classe");
 			
@@ -170,7 +173,10 @@ function loadClasses(fichier){
 			// Lance le chargement des consignes
 			
 			loadConsignes(CCN.urlXml+"consignes");
-		}
+		},
+    fail: function( jqXHR, textStatus ) {
+      alert( "Request failed: " + textStatus );
+    }
 	});
 }
 
