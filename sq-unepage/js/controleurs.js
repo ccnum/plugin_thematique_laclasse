@@ -6,8 +6,11 @@ $().ready(function(){
   $('#timeline_fixed').on('click', function(event){
     event.stopPropagation();
   	CCN.projet.showWholeTimeline();
-  })
+  });
   
+  $(window).on('resize', function(){ onResize(); });
+  
+  onResize();
       
   $('#sidebarExpand').on('click', function(){
     toggleSidebarExpand();
@@ -85,6 +88,16 @@ $().ready(function(){
   $('#menu_bas a[data-filter-value=".ressource_reponses"]').parent().stop().fadeOut(1000);
 });
 
+
+/**
+ * Gère la mise à jour des styles lorsque l'écran est resizé
+ */
+
+function onResize() {
+  $('#crayons-surcharge-styles').text('.crayon-active.markItUpEditor { height: '+(parseInt($(window).height())-228)+'px !important; } .resizehandle { display:none !important; }');
+}
+
+
 /**
  * Affiche ou réduit l'affichage plein écran des sidebars.
  */
@@ -106,7 +119,6 @@ function toggleSidebarExpand() {
     hideSidebarLateral();
   }
 }
-
 
 
 /**
