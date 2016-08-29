@@ -356,7 +356,7 @@
   
   				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
   					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
-  					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_RUBRIQUE|concat{&id_article=#ID_ARTICLE&mode=complet})]})]]
+  					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
   					[
   					<div class="sidebar_bubble">
     				  <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>

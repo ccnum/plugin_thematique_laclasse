@@ -388,6 +388,7 @@ function callArticleBlog(id_article){
 function callRessource(){
   changeTimelineMode('consignes');
   toggleSidebarExpand();
+	emptyMainSidebar();
 	
 	var url = CCN.projet.url_popup_ressources;
 	loadContentInLateralSidebar(url, 'rubrique', 'ressources');
@@ -677,6 +678,7 @@ function loadContentInMainSidebar(url, typePage, typeObjet) {
   $('body').addClass('loading');
   showSidebar();
   hideSidebarLateral();
+  emptyMainSidebar();
   
   console.log('%c Main'+' %c '+url+' ', 
               'background:#8BC34A;color:#fff;padding:2px;border-radius:2px;', 
@@ -710,14 +712,40 @@ function loadContentInLateralSidebar(url, typePage, typeObjet) {
               'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
               'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
   
+  $('body').addClass('loading');
+  showSidebar();
+  emptyLateralSidebar();
+  
   $('#sidebar_lateral_inner').load(url, function(response, status, xhr){
+    $('body').removeClass('loading');
     $('#sidebar_content').scrollTop(0);
-    showSidebar();
       
     console.log('%c Lateral'+' %c Loaded ', 
                 'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
   });
+}
+
+
+/**
+ * Vide la sidebar principale.
+ *
+ * @see loadContentInMainSidebar
+ */
+
+function emptyMainSidebar() {
+  $('#sidebar_main_inner').empty();
+}
+
+
+/**
+ * Vide la sidebar latérale.
+ *
+ * @see loadContentInLateralSidebar
+ */
+
+function emptyLateralSidebar() {
+  $('#sidebar_lateral_inner').empty();
 }
 
 
