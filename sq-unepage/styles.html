@@ -2840,14 +2840,25 @@ div.donnees_classe {
   display:none;
 }
 
-.hasSidebarExpanded #sidebar_main_around {
+.hasSidebarExpanded.modeCols #sidebar_main_around {
   width: 70%;
   height: 100%;
   overflow: auto;
 }
 
-.hasSidebarExpanded #sidebar_lateral_around {
+.hasSidebarExpanded.modeFullscreen #sidebar_main_around {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.hasSidebarExpanded.modeCols #sidebar_lateral_around {
   width:30%;
+}
+
+.hasSidebarExpanded.modeFullscreen #sidebar_lateral_around {
+  width:0%;
+  display:none;
 }
 
 .hasSidebarExpanded #sidebar_lateral {
