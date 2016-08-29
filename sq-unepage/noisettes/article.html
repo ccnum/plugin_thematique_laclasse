@@ -98,28 +98,8 @@
   			
   			</div>
   			
-  			[(#GET{classe_iframe}|textebrut|=={''}|non)
-      		<div class="sidebar_bubble">
-        		
-      			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_iframe}>
-      			<div class="bloc_option_doc nettoyeur">
-      				<a id="bloc_option_classe_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Production transversale">
-      					Production transversale
-      				</a>
-      				<div style="clear:both" class='bloc_classe_iframe'>
-      					<div class="nettoyeur"></div>
-      					<iframe src="[(#GET{classe_iframe}|textebrut)]" width="100%" height="100%"></iframe>
-      				</div>
-      			</div>
-      		
-      		</div>		
-    		]
-  			
   			<div class="sidebar_bubble">
   			
-  			
-  			
-  
   			[(#REM) ---------------- entete publication ---------------- ]
   					<BOUCLE_nb_doc(DOCUMENTS) {id_article} {tout}>
   					</BOUCLE_nb_doc>
@@ -184,6 +164,42 @@
   			[(#REM) ---------------- documents ---------------- ]
   			
   		</div>
+  		
+  		
+  			
+  			[(#DESCRIPTIF|textebrut|=={''}|non)
+      		<div class="sidebar_bubble">
+        		
+      			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_reponse_iframe}>
+      			<div class="bloc_option_doc nettoyeur">
+      				<a id="bloc_option_classe_reponse_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Contenu lié">
+      					Contenu lié
+      				</a>
+      				<div style="clear:both" class='bloc_classe_iframe'>
+      					<div class="nettoyeur"></div>
+      					<iframe src="[(#DESCRIPTIF|textebrut)]" width="100%" height="100%"></iframe>
+      				</div>
+      			</div>
+      		
+      		</div>		
+    		]
+  			
+  			[(#GET{classe_iframe}|textebrut|=={''}|non)
+      		<div class="sidebar_bubble">
+        		
+      			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_iframe}>
+      			<div class="bloc_option_doc nettoyeur">
+      				<a id="bloc_option_classe_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Production transversale">
+      					Production transversale
+      				</a>
+      				<div style="clear:both" class='bloc_classe_iframe'>
+      					<div class="nettoyeur"></div>
+      					<iframe src="[(#GET{classe_iframe}|textebrut)]" width="100%" height="100%"></iframe>
+      				</div>
+      			</div>
+      		
+      		</div>		
+    		]
   		
   		[(#REM)Ajouter un texte]
   		
