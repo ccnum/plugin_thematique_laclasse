@@ -14,7 +14,7 @@
 	[(#REM) #ENV{action}#formulaire_joindre_document-#ENV{id,new} ]
 	
 	<form action="[(#URL_PAGE|parametre_url{mode,complet})]" method="post" enctype='multipart/form-data'><div>
-		[(#ACTION_FORMULAIRE{#ENV{action}})]
+		[(#ACTION_FORMULAIRE{#URL_PAGE|parametre_url{mode,complet}})]
 		
 		[(#INCLURE{fond=formulaires/inc-upload_document, env, mediatheque=#ENV{objet,''}|et{#ENV{id_objet,''}}|et{#ENV{proposer_media}}})]
 		

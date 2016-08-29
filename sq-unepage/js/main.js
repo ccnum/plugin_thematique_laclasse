@@ -594,6 +594,7 @@ function initTimeline(){
 	
 	// Ouverture au chargement d'un article, article événement, consigne ou réponse
 	
+	// TO DO : gérer les #ancres dans sidebar_main_inner
 	
   // Ressource
   

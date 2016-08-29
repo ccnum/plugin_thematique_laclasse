@@ -565,12 +565,9 @@ function createReponse(id_consigne, id_rubrique_classe, numero){
   
   changeTimelineMode('consignes');
 	
-	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe;
+	var url = CCN.projet.url_popup_reponseajout +"&id_consigne="+id_consigne+"&id_rubrique="+id_rubrique_classe; // TODO Check infinite loading icon
 	loadContentInMainSidebar(url, 'article', 'blogs');
-	/*
-	popup(url,'edition');
-	if (numero!=undefined) CCN.consignes[numero].div_reponse_plus.css('visibility','hidden'); // TO DO ?
-	*/
+	
 	console.log('createReponse');
 }
 
