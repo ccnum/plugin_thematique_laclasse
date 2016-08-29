@@ -90,6 +90,14 @@ $().ready(function(){
 
 
 /**
+ * Initialise les binds jQuery des sidebars
+ */
+  
+function initLocalEvents(parent) {
+}
+
+
+/**
  * Gère la mise à jour des styles lorsque l'écran est resizé
  */
 
@@ -705,7 +713,8 @@ function loadContentInMainSidebar(url, typePage, typeObjet) {
   $('#sidebar_main_inner').load(url, function() {
     $('body').removeClass('loading');
     $('#sidebar_content').scrollTop(0);
-      
+    initLocalEvents($('#sidebar_main_inner'));
+
     console.log('%c Main'+' %c Loaded ', 
                 'background:#8BC34A;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
@@ -737,11 +746,13 @@ function loadContentInLateralSidebar(url, typePage, typeObjet) {
   $('#sidebar_lateral_inner').load(url, function(response, status, xhr){
     $('body').removeClass('loading');
     $('#sidebar_content').scrollTop(0);
+    initLocalEvents($('#sidebar_lateral_inner'));
       
     console.log('%c Lateral'+' %c Loaded ', 
                 'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
-  });
+                
+      });
 }
 
 
@@ -772,7 +783,6 @@ function emptyLateralSidebar() {
  */
 
 function setFullscreenModeToCols(setCols) {
-  console.log('here : '+setCols);
   if (setCols == true) {
     $('body').addClass('modeCols').removeClass('modeFullscreen');
   } else {
