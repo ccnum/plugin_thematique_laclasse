@@ -188,6 +188,44 @@ et/ou
 			          </BOUCLE_r3>
 				</ul>
 			</div>
+
+			
+			
+		[(#REM)Actualités]
+			<div id="menu-actualites" class="bloc_view col" >
+				<h3><span>Actualités</span></h3>
+    		<div class="menu-actualites-inner filter clearfix option-set" data-filter-group="actualites">
+          <BOUCLE_actus(ARTICLES){tout}{par date}{inverse}{0,5}>
+          
+            <div class="menu-actualites-actu">
+          
+            <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}>
+            
+              <BOUCLE_actus_mots(MOTS){id_rubrique=#ID_PARENT}{0,1}>
+                #SET{actu_mot_cle,#TITRE}
+              </BOUCLE_actus_mots>
+                <BOUCLE_actus_mots2(MOTS){id_rubrique=#ID_RUBRIQUE}{0,1}>
+                  #SET{actu_mot_cle,#TITRE}
+                </BOUCLE_actus_mots2>
+              <//B_actus_mots>
+              
+              #SET{actu_auteur,#TITRE}
+              
+            </BOUCLE_actus_rub>
+            
+            [(#GET{actu_mot_cle}|=={consignes}|oui)
+              #GET{actu_auteur} a publié une nouvelle consigne.
+            ]
+            
+            [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
+              #GET{actu_auteur} a répondu à une consigne.
+            ]
+            
+            </div>
+            
+          </BOUCLE_actus>
+				</div>
+			</div>
 			
 			<!--
 		[(#REM)Classes]

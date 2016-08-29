@@ -104,6 +104,9 @@ function loadProjet(fichier){
 			// Lance le chargement des classes
 			
 			loadClasses(CCN.urlXml+"classes");
+    },
+    fail: function( jqXHR, textStatus ) {
+      alert( "Request failed: " + textStatus );
     }
   });
 }
