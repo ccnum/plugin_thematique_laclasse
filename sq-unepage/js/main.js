@@ -54,12 +54,12 @@ function initCCN() {
  */
 
 function loadProjet(fichier){  
-  
+  console.log('loadProjet');
   $.ajax({
     url: fichier,
-    dataType: 'xml',
+    dataType: 'text',
     success: function(xml) {		
-      console.log(fichier+' loadé en jQuery : OK');
+      xml = $.parseXML(xml.trim());
       	
 			var dataForProjet = {};
 			
@@ -106,9 +106,6 @@ function loadProjet(fichier){
 			// Lance le chargement des classes
 			
 			loadClasses(CCN.urlXml+"classes");
-    },
-    fail: function( jqXHR, textStatus ) {
-      alert( "Request failed: " + textStatus );
     }
   });
 }
@@ -125,9 +122,9 @@ function loadClasses(fichier){
   
   $.ajax({
     url: fichier,
-    dataType: 'xml',
-    success: function(xml) {	
-      console.log(fichier+' loadé en jQuery : OK');
+    dataType: 'text',
+    success: function(xml) {		
+      xml = $.parseXML(xml.trim());
 			
 			var xmlClasses = xml.getElementsByTagName("classe");
 			
@@ -173,10 +170,7 @@ function loadClasses(fichier){
 			// Lance le chargement des consignes
 			
 			loadConsignes(CCN.urlXml+"consignes");
-		},
-    fail: function( jqXHR, textStatus ) {
-      alert( "Request failed: " + textStatus );
-    }
+		}
 	});
 }
 
@@ -191,8 +185,9 @@ function loadClasses(fichier){
 function loadConsignes(fichier){
   $.ajax({
     url: fichier,
-    dataType: 'xml',
-    success: function(xml) {	
+    dataType: 'text',
+    success: function(xml) {		
+      xml = $.parseXML(xml.trim());
 			
 			var xmlConsignes = xml.getElementsByTagName("consigne");
 			var indexY = 0;	
@@ -404,8 +399,9 @@ function loadConsignes(fichier){
 function loadBlog(fichier){
   $.ajax({
     url: fichier,
-    dataType: 'xml',
-    success: function(xml) {	
+    dataType: 'text',
+    success: function(xml) {		
+      xml = $.parseXML(xml.trim());
       
 			var xmlArticlesBlog = xml.getElementsByTagName("article");
 			var indexY = 0;	
@@ -473,8 +469,9 @@ function loadBlog(fichier){
 function loadEvenements(fichier){
   $.ajax({
     url: fichier,
-    dataType: 'xml',
-    success: function(xml) {	
+    dataType: 'text',
+    success: function(xml) {		
+      xml = $.parseXML(xml.trim());
 			
 			var xmlArticlesEvenement = xml.getElementsByTagName("article");
 			var indexY = 0;	
