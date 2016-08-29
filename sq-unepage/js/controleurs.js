@@ -388,7 +388,7 @@ function callArticleBlog(id_article){
 function callRessource(){
   changeTimelineMode('consignes');
   toggleSidebarExpand();
-	emptyMainSidebar();
+	blankMainSidebar('Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.');
 	
 	var url = CCN.projet.url_popup_ressources;
 	loadContentInLateralSidebar(url, 'rubrique', 'ressources');
@@ -746,6 +746,18 @@ function emptyMainSidebar() {
 
 function emptyLateralSidebar() {
   $('#sidebar_lateral_inner').empty();
+}
+
+
+/**
+ * Ajoute un bloc blanc vide dans la sidebar principale.
+ *
+ * @see loadContentInMainSidebar
+ */
+
+function blankMainSidebar(msg) {
+  var message = (msg) ? msg : '';
+  $('#sidebar_main_inner').html('<div class="popup popup_blank"><div class="sidebar_bubble">'+msg+'</div></div>');
 }
 
 
