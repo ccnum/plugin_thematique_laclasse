@@ -30,6 +30,7 @@ function initCCN() {
   CCN.articlesEvenement       = [];
   
   CCN.idRubriqueRessources    = null;
+  CCN.idRubriqueAgora         = null;
   
   CCN.couleurBlog             = '';
   CCN.dureeTransition         = 800;
@@ -98,6 +99,7 @@ function loadProjet(fichier){
       
 			CCN.couleurBlog = getXMLNodeValue('couleur_blog',xml);		
 			CCN.idRubriqueRessources = getXMLNodeValue('id_rubrique_ressources',xml);
+			CCN.idRubriqueAgora = getXMLNodeValue('id_rubrique_agora',xml);
 			
 			// Lance le chargement des classes
 			
@@ -588,22 +590,44 @@ function initTimeline(){
 	
 	
   // Ressource
+  
   if (CCN.typePopupToShowAtInit == "ressources"){
 		changeTimelineMode('consignes');
 		callRessource();
 		
 		if (CCN.pageToShowAtInit == 'rubrique') {
   		if (CCN.idRubriqueToShowAtInit != CCN.idRubriqueRessources) {
-  	    callRessourceRubrique(CCN.idRubriqueToShowAtInit);
+  	    callRessourceRubrique(CCN.idRubriqueToShowAtInit, 'ressources');
   	  }
 		}
 		
 		if (CCN.pageToShowAtInit == 'article') {
-  	  callRessourceArticle(CCN.idArticleToShowAtInit);
+  	  callRessourceArticle(CCN.idArticleToShowAtInit, 'ressources');
 		}
 		
 		if (CCN.pageToShowAtInit == 'syndic_article') {
-  	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit);
+  	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit, 'ressources');
+		}
+  }
+  
+  // Agora
+  
+  if (CCN.typePopupToShowAtInit == "agora"){
+		changeTimelineMode('consignes');
+		callAgora();
+		
+		if (CCN.pageToShowAtInit == 'rubrique') {
+  		if (CCN.idRubriqueToShowAtInit != CCN.idRubriqueAgora) {
+  	    callRessourceRubrique(CCN.idRubriqueToShowAtInit, 'agora');
+  	  }
+		}
+		
+		if (CCN.pageToShowAtInit == 'article') {
+  	  callRessourceArticle(CCN.idArticleToShowAtInit, 'agora');
+		}
+		
+		if (CCN.pageToShowAtInit == 'syndic_article') {
+  	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit, 'agora');
 		}
   }
 	
@@ -611,6 +635,7 @@ function initTimeline(){
 	if (CCN.idObjetToShowAtInit != "0"){
   	
 		// Consigne
+		
 		if (CCN.typePopupToShowAtInit == "consignes"){
   		changeTimelineMode('consignes');
 			for (k=0; k<CCN.consignes.length;k++){
@@ -622,6 +647,7 @@ function initTimeline(){
 		
 		
     // Réponse
+    
     if (CCN.typePopupToShowAtInit == "travail_en_cours"){
       changeTimelineMode('consignes');
     	for (k=0; k<CCN.consignes.length;k++){
@@ -647,12 +673,14 @@ function initTimeline(){
     
     
     // Article de blog
+    
     if (CCN.typePopupToShowAtInit == "blogs"){
 		  changeTimelineMode('blogs');
     	callArticleBlog(CCN.idObjetToShowAtInit,"article");
     }
     
     // Article d'événement
+    
     if (CCN.typePopupToShowAtInit == "evenements"){
 		  changeTimelineMode('evenements');
     	callArticleEvenement(CCN.idObjetToShowAtInit,"article");

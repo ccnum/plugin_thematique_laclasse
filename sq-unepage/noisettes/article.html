@@ -2,6 +2,12 @@
 
 <BOUCLE_principale(ARTICLES){id_article}{doublons}>
 
+#SET{is_agora,'non'}
+
+<BOUCLE_principale00(RUBRIQUES){id_rubrique}{titre_mot=agora}{tout}>
+  #SET{is_agora,'oui'}
+</BOUCLE_principale00>
+
 <INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}>
 
  <div class="popup [popup_(#ENV{type_objet})]">
@@ -355,8 +361,9 @@
   					]
   
   				[(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
-  					[(#GET{type_objet}|=={ressources}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
-  					[(#GET{type_objet}|=={ressources}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
+  				
+  					[(#GET{is_agora}|=={oui}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
+  					[(#GET{is_agora}|=={oui}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&type_objet=agora&mode=complet})]})]]
   					[
   					<div class="sidebar_bubble">
     				  <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>

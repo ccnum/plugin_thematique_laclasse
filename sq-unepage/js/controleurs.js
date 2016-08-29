@@ -396,12 +396,6 @@ function callRessource(){
   window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&type_objet=ressources&mode=complet");
 	
 	console.log('callRessource');
-	
-	/*
-	var url = CCN.projet.url_popup_ressources+"&id_"+type_objet+"="+id_objet;
-	popup(url,'ressource');
-	console.log('callRessource');
-	*/
 }
 
 
@@ -416,13 +410,13 @@ function callRessource(){
  * @todo Documenter
  */
 
-function callRessourceArticle(id_article){
+function callRessourceArticle(id_article, type_objet){
   changeTimelineMode('consignes');
 	
 	var url = "./spip.php?page=article&id_article="+id_article+"&mode=ajax-detail";
-	loadContentInMainSidebar(url, 'article', 'ressources');
+	loadContentInMainSidebar(url, 'article', type_objet);
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet=ressources&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet="+type_objet+"&mode=complet");
 	
 	console.log('callRessourceArticle');
 }
@@ -439,13 +433,13 @@ function callRessourceArticle(id_article){
  * @todo Documenter
  */
 
-function callRessourceSyndicArticle(id_syndic_article){
+function callRessourceSyndicArticle(id_syndic_article, type_objet){
   changeTimelineMode('consignes');
 	
 	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
-	loadContentInMainSidebar(url, 'syndic_article', 'ressources');
+	loadContentInMainSidebar(url, 'syndic_article', type_objet);
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet=ressources&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet="+type_objet+"&mode=complet");
 	
 	console.log('callRessourceSyndicArticle');
 }
@@ -463,13 +457,13 @@ function callRessourceSyndicArticle(id_syndic_article){
  * @todo Documenter
  */
 
-function callRessourceRubrique(id_rubrique){
+function callRessourceRubrique(id_rubrique, type_objet){
   changeTimelineMode('consignes');
 	
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
-	loadContentInMainSidebar(url, 'rubrique', 'ressources');
+	loadContentInMainSidebar(url, 'rubrique', type_objet);
 	
-  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet=ressources&mode=complet");
+  window.history.pushState("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet="+type_objet+"&mode=complet");
 	
 	console.log('callRessourceRubrique');
 }
@@ -518,12 +512,16 @@ function callArticleEvenement(id_objet, type_objet){
  */
 
 function callAgora(){
-	if ($('#zone_classe').is(':hidden'))	{
-		
-		var url = CCN.projet.url_popup_agora;
-		popup(url,'agora');
-		console.log('callAgora');
-	}
+  changeTimelineMode('consignes');
+  toggleSidebarExpand();
+	blankMainSidebar('Naviguez dans l\'agora grâce à la barre latérale sur votre droite.');
+	
+	var url = CCN.projet.url_popup_agora;
+	loadContentInLateralSidebar(url, 'rubrique', 'agora');
+	
+  window.history.pushState("object", "Agora", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueAgora+"&type_objet=agora&mode=complet");
+	
+	console.log('callAgora');
 }
 
 

@@ -1,10 +1,18 @@
 [(#REM) "Espace ressources" et rubriques des ressources]
 
 #SET{is_ressource,'non'}
+#SET{is_agora,'non'}
+#SET{sous_type,''}
 
 <BOUCLE_principale0(RUBRIQUES){id_rubrique}{titre_mot=ressources}{tout}>
   #SET{is_ressource,'oui'}
+  #SET{sous_type,'ressources'}
 </BOUCLE_principale0>
+
+<BOUCLE_principale00(RUBRIQUES){id_rubrique}{titre_mot=agora}{tout}>
+  #SET{is_agora,'oui'}
+  #SET{sous_type,'agora'}
+</BOUCLE_principale00>
   
 
 
@@ -44,9 +52,16 @@
   		
 			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_RUBRIQUE}>
 			<div class="bloc_option_doc nettoyeur">
+  			[(#GET{sous_type}|=={ressources}|oui)
 				<a id="bloc_option_reponses_consignes_classe-#ID_RUBRIQUE" class="hac liens_voir bloc_option_doc_ressources" title="Ressources">
 					Ressources
 				</a>
+				]
+  			[(#GET{sous_type}|=={agora}|oui)
+				<a id="bloc_option_reponses_consignes_classe-#ID_RUBRIQUE" class="hac liens_voir bloc_option_doc_comment" title="Agora">
+					Agora
+				</a>
+				]
 				<div style="clear:both" class='bloc_option_reponses_consignes_classe'>
 					<div class="nettoyeur"></div>
 					
@@ -59,7 +74,7 @@
               <script type="text/javascript">
               	$().ready(function(){
               		$('#ajax_go_to_ressources_rubrique_#ID_RUBRIQUE').on('click',function() {
-              			callRessourceRubrique('#ID_RUBRIQUE');			
+              			callRessourceRubrique('#ID_RUBRIQUE','#GET{sous_type}');			
               		});
               	});						
               </script> 
@@ -70,7 +85,7 @@
               	<script type="text/javascript">
               		$().ready(function(){
               			$('#ajax_go_to_ressources_article_#ID_ARTICLE').on('click',function() {
-              				callRessourceArticle('#ID_ARTICLE');			
+              				callRessourceArticle('#ID_ARTICLE','#GET{sous_type}');			
               			});
               		});						
               	</script> 
@@ -104,7 +119,7 @@
               	<script type="text/javascript">
               		$().ready(function(){
               			$('#ajax_go_to_ressources_syndic_article_#ID_SYNDIC_ARTICLE').on('click',function() {
-              				callRessourceSyndicArticle('#ID_SYNDIC_ARTICLE');			
+              				callRessourceSyndicArticle('#ID_SYNDIC_ARTICLE','#GET{sous_type}');			
               			});
               		});						
               	</script> 
@@ -130,7 +145,7 @@
 						<script type="text/javascript">
   						$().ready(function(){
     						$('#ajax_go_to_ressources_article_#ID_ARTICLE').on('click',function() {
-    							callRessourceArticle('#ID_ARTICLE');			
+    							callRessourceArticle('#ID_ARTICLE','#GET{sous_type}');			
     						});
   						});						
 						</script> 
@@ -150,7 +165,7 @@
 		[(#REM) ---------------- bloc rubrique ---------------- ] 
 		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
 		
-		[(#GET{is_ressource}|=={non}|oui)
+		[(#GET{is_ressource}|=={non}|oui|et{#GET{is_agora}}|=={non}|oui)
 		
 		
     <div id="bloc_article" class="edit_groupe_travail [(#GET{police})]">
