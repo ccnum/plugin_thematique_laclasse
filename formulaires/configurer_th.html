@@ -10,7 +10,7 @@
             #SET{fl,th}
             <fieldset>
                 <legend><:th:legend:></legend>
-                <p class="explication">Paramétres généraux</p>
+                <p class="explication">Paramètres généraux</p>
                 <ul>
                     #SET{name,site_ent_nom}#SET{obli,''}#SET{defaut,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
                     <li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
