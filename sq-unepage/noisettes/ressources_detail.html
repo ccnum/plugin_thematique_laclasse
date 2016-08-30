@@ -20,8 +20,9 @@
 
 <div class="popup [popup_(#GET{type_objet})]">
   
-  <INCLURE{fond=noisettes/call_sidebar}{type_objet=classes}>  
-  
+  [(#GET{is_ressource}|=={oui}|non)
+    <INCLURE{fond=noisettes/call_sidebar}{type_objet=ressources}>  
+  ]
 		
 		[(#REM) ---------------- entete publication ---------------- ]
 		#SET{type_objet,#TYPE_OBJET}
