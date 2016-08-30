@@ -8,7 +8,8 @@
   #SET{is_agora,'oui'}
 </BOUCLE_principale00>
 
-<INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}>
+[(#GET{is_agora}|=={oui}|oui) <INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=agora}/>]
+[(#GET{is_agora}|=={oui}|non) <INCLURE{fond=noisettes/call_sidebar}{id_article=#ID_ARTICLE}{type_objet=#TYPE_OBJET}/>]
 
  <div class="popup [popup_(#ENV{type_objet})]">
      
@@ -44,7 +45,7 @@
 			    #SET{id_consigne,#ID_ARTICLE}
 			  </BOUCLE_consigne_de_la_reponse>
   			
-  			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes}|oui)
+  			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes|agora}|oui)
   			  [(#GET{type_objet}|match{travail_en_cours|classes}|oui)
 				  
   				<script type="text/javascript">

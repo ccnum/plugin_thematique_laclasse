@@ -1,5 +1,5 @@
 #CACHE{0}
-<BOUCLE_principale(SYNDIC_ARTICLES){id_syndic_article}>
+<BOUCLE_principale(SYNDIC_ARTICLES){id_syndic_article}{0,1}>
 
  <div class="popup [popup_(#ENV{type_objet})]">
      
@@ -38,7 +38,7 @@
 				[(#REM)Texte]
 				<div id="bloc_texte">
   				<p class="spip">[(#DESCRIPTIF|liens_ouvrants|replace{href, target="_blank" href})]</p>
-  				<p class="spip droite"><a href="[(#URL_ARTICLE)]" target="_blank" class="syndic_article_lire_suite">Lire la suite</a</p>	
+  				<p class="spip droite"><a href="[(#URL_ARTICLE)]" target="_blank" class="syndic_article_lire_suite">Lire la suite</a></p>	
 				</div>
 	 		</div>
 	
