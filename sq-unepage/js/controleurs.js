@@ -358,7 +358,6 @@ function callClasse(id_classe){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
 	updateMenuIcon('classes');
-  CCN.projet.showWholeTimeline();
   
 	var url = CCN.projet.url_popup_classes;
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
