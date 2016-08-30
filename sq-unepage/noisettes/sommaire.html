@@ -197,8 +197,11 @@ et/ou
 		[(#REM)Actualités]
 			<div id="menu-actualites" class="bloc_view col" >
 				<h3><span>Actualités</span></h3>
+	      		<ul class="menu-actualites-ul filter clearfix option-set" data-filter-group="classe">
+			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les actualités}{class=menu_logo_actualites}{onclick=callActualites();})]
+	      		</ul>
     		<div class="menu-actualites-inner filter clearfix option-set" data-filter-group="actualites">
-          <BOUCLE_actus(ARTICLES){tout}{par date}{inverse}{0,5}>
+          <BOUCLE_actus(ARTICLES){tout}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{inverse}{0,5}>
           
             <div class="menu-actualites-actu">
           
@@ -212,16 +215,16 @@ et/ou
                 </BOUCLE_actus_mots2>
               <//B_actus_mots>
               
-              #SET{actu_auteur,#TITRE}
+              [(#SET{actu_auteur,[(#TITRE|couper{50})]})]
               
             </BOUCLE_actus_rub>
-            
+            #GET{actu_auteur} 
             [(#GET{actu_mot_cle}|=={consignes}|oui)
-              #GET{actu_auteur} a publié une nouvelle consigne.
+              a publié une nouvelle consigne.
             ]
             
             [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
-              #GET{actu_auteur} a répondu à une consigne.
+              a répondu à une consigne.
             ]
             
             </div>

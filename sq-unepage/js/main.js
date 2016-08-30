@@ -54,7 +54,6 @@ function initCCN() {
  */
 
 function loadProjet(fichier){  
-  console.log('loadProjet');
   $.ajax({
     url: fichier,
     dataType: 'text',
@@ -333,7 +332,6 @@ function loadConsignes(fichier){
         	dataForReponse.y = parseFloat(getXMLNodeValue('y',xmlReponses[j]));
         	
         	if ((dataForReponse.y === 0)||(dataForReponse.y > 0.8)||(dataForReponse.y < -0.2)) {
-            console.log('ouch, i changed it');
         		dataForReponse.y = (liste_y[j])/(xmlReponses.length);
         	}
         	dataForReponse.y = (liste_y[j])/(xmlReponses.length+5)+0.12;
@@ -636,6 +634,12 @@ function initTimeline(){
 		if (CCN.pageToShowAtInit == 'syndic_article') {
   	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit, 'agora');
 		}
+  }
+  
+  // Actualités
+  
+  if (CCN.pageToShowAtInit == "actualites"){
+		callActualites();
   }
 	
 	

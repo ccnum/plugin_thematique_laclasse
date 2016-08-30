@@ -610,7 +610,7 @@ function callActualites(){
 	
 	var url = './spip.php?page=actualites&type_objet=actualites&mode=ajax-detail';
 	loadContentInMainSidebar(url, 'rubrique', 'actualites', function(){
-  	updateUrl("object", "Actualites", "./spip.php?page=actualites&type_objet=actualites&mode=complet");
+  	updateUrl("object", "Actualites", "./spip.php?page=actualites&mode=complet");
 	});
 	
 	console.log('callActualites');
@@ -856,7 +856,6 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
  */
 
 function updateMenuIcon(id) {
-  console.log('update '+id);
   $('#menu_bas .logo a').removeClass('selected');
   $('.menu_logo_'+id).addClass('selected');
 }
