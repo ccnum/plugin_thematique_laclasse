@@ -583,13 +583,37 @@ function callAgora(){
 	
 	var url = CCN.projet.url_popup_agora;
 	loadContentInLateralSidebar(url, 'rubrique', 'agora', function(){
-  	console.log('after loading haha');
   	updateUrl("object", "Agora", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueAgora+"&type_objet=agora&mode=complet");
 	});
 	
-  
-	
 	console.log('callAgora');
+}
+
+
+/**
+ * Appelle le chargement de l'agora
+ * dans la sidebar principale et appelle
+ * (…)
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ *
+ * @todo Modifier le contenu de la sidebar principale
+ * @todo Modifier le contenu de la sidebar secondaire
+ * @todo Documenter
+ */
+
+function callActualites(){
+  changeTimelineMode('consignes');
+	updateMenuIcon('actualites');
+	setFullscreenModeToCols(false);
+	
+	var url = './spip.php?page=actualites&type_objet=actualites&mode=ajax-detail';
+	loadContentInMainSidebar(url, 'rubrique', 'actualites', function(){
+  	updateUrl("object", "Actualites", "./spip.php?page=actualites&type_objet=actualites&mode=complet");
+	});
+	
+	console.log('callActualites');
 }
 
 
@@ -845,7 +869,8 @@ function updateMenuIcon(id) {
  */
 
 function emptyMainSidebar() {
-  $('#sidebar_main_inner').empty();
+//   $('#sidebar_main_inner').empty();
+  $('#sidebar_main_inner').html('<div class="popup"><div class="sidebar_bubble sidebar_bubble_empty"></div></div>');
 }
 
 
@@ -856,7 +881,8 @@ function emptyMainSidebar() {
  */
 
 function emptyLateralSidebar() {
-  $('#sidebar_lateral_inner').empty();
+//   $('#sidebar_lateral_inner').empty();
+  $('#sidebar_lateral_inner').html('<div class="popup"><div class="sidebar_bubble sidebar_bubble_empty"></div></div>');
 }
 
 
