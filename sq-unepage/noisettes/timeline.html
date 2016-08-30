@@ -9,6 +9,8 @@
 	  Variables globales JS
   ]
   
+  var hash = window.location.hash;
+  
 	CCN.urlRoot = "[(#ENV{chemin})]";
 	CCN.urlXml = "spip.php?page=xml&annee_scolaire=#ENV{annee_scolaire}&mode=";
 	CCN.urlImgBlog = "[(#CHEMIN{#ENV{chemin}/img/logo_blog_#NOM_SITE_SPIP.png}|sinon{#ENV{chemin}/img/logo_blog.png}|image_reduire{98}|extraire_attribut{src})]";
@@ -26,6 +28,7 @@
 	CCN.idRubriqueToShowAtInit = '[(#SELF|parametre_url{id_rubrique})]';
 	CCN.idArticleToShowAtInit = '[(#SELF|parametre_url{id_article})]';
 	CCN.idSyndicArticleToShowAtInit = '[(#SELF|parametre_url{id_syndic_article})]';
+	CCN.hash = (hash.length > 0) ? hash.substr(1,hash.length) : '';
 </script>
 <script type="application/javascript" src="#CHEMIN{js/jquery.isotope.min.js}"></script>
 <script type="application/javascript" src="#CHEMIN{js/projet.js}"></script>
