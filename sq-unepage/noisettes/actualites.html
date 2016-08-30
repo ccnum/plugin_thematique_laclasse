@@ -11,37 +11,7 @@
 	</div>
 		
 	<div class="sidebar_bubble">
-    <BOUCLE_actus(ARTICLES){tout}{par date}{inverse}{0,5}>
-    
-      <div class="sidebar-actualites-actu">
-    
-      <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}>
-      
-        <BOUCLE_actus_mots(MOTS){id_rubrique=#ID_PARENT}{0,1}>
-          #SET{actu_mot_cle,#TITRE}
-        </BOUCLE_actus_mots>
-          <BOUCLE_actus_mots2(MOTS){id_rubrique=#ID_RUBRIQUE}{0,1}>
-            #SET{actu_mot_cle,#TITRE}
-          </BOUCLE_actus_mots2>
-        <//B_actus_mots>
-        
-        #SET{actu_auteur,#TITRE}
-        
-      </BOUCLE_actus_rub>
-      
-      [(#GET{actu_mot_cle}|=={consignes}|oui)
-        #GET{actu_auteur}&nbsp;a publié une nouvelle consigne.
-      ]
-      
-      [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
-        #GET{actu_auteur}&nbsp;a répondu à une consigne.
-      ]
-      <br>
-      [(#DATE|affdate)]
-      <hr>
-      </div>
-      
-    </BOUCLE_actus>
+    <INCLURE{fond=noisettes/inc/actus_timeline}{nb_actus=20} />
 	</div>		
 
 </div>

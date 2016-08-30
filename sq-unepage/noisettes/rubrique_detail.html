@@ -8,11 +8,9 @@
 <INCLURE{fond=noisettes/call_sidebar}{type_objet=classes}>  
   
 		
-		[(#REM) ---------------- entete publication ---------------- ]
 		#SET{type_objet,#TYPE_OBJET}
 		[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax}|oui})#SET{type_objet,ressources}]
 		
-		[(#REM) ---------------- entete publication ---------------- ] 
 			<BOUCLE_nb_doc(DOCUMENTS) {id_rubrique} {mode=document}>
 			</BOUCLE_nb_doc>
 				#SET{nb_doc,#TOTAL_BOUCLE}
@@ -20,7 +18,6 @@
 				#SET{nb_doc,0}
 			<//B_nb_doc>
 			
-		[(#REM) ---------------- titre & logo ---------------- ] 
 		<div class="sidebar_bubble">  		
 			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
 			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
