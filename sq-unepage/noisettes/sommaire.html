@@ -89,11 +89,11 @@ et/ou
 			    </ul>
 			</div>
 -->
-		[(#REM)Ressources]
-		    <div id="menu-ressources" class="bloc_view col">
+		[(#REM)Timeline]
+		    <div id="menu-timeline" class="bloc_view col">
 				<h3><span>Timeline</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{onclick=changeTimelineMode('consignes');}{title=Toutes les ressources})]
+					[(#MODELE{logo_menu}{valeur=tout}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');}{title=Toutes les ressources})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -101,8 +101,8 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=blog}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
-					[(#MODELE{logo_menu}{valeur=evenement}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
+					[(#MODELE{logo_menu}{valeur=blog}{class=menu_logo_blogs}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
+					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
 					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
 		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
@@ -110,6 +110,7 @@ et/ou
 				</ul>
 		    </div>
 		    
+		[(#REM)Ressources]
 		    <div id="menu-ressources" class="bloc_view col">
 				<h3><span>Ressources</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
@@ -120,7 +121,7 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=ressource}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
+					[(#MODELE{logo_menu}{valeur=ressource}{class=menu_logo_ressources}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
 					
 					#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
@@ -129,7 +130,7 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
+					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
 				</ul>
 		    </div>
 		    
@@ -149,21 +150,21 @@ et/ou
 			<div id="menu-consignes" class="bloc_view col">
 				<h3><span>Consignes</span></h3>
 				<ul class="filter clearfix option-set" data-filter-group="consigne">
-					[(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline();})]
+					[(#MODELE{logo_menu}{valeur=tout}{class=menu_logo_consignes}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline();})]
 				  #SET{num,0}
 
 					<BOUCLE_consignes0(RUBRIQUES mots mots_liens){mots.titre=consignes}{rubriques.id_rubrique=mots_liens.id_objet}>
-				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=callConsigne('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)] menu_logo_consignes-[(#GET{num}|plus{1})] menu_logo_consignes-#ID_ARTICLE}{onclick=callConsigne('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
 				      [(#SET{num,[(#GET{num}|plus{1})]})]
 					</BOUCLE_consignes0>						
 					<BOUCLE_consignes(ARTICLES mots_liens rubriques){rubriques.id_rubrique=mots_liens.id_objet}{mots_liens.id_mot=2}{tout}>
-				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=callConsigne('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)] menu_logo_consignes-[(#GET{num}|plus{1})] menu_logo_consignes-#ID_ARTICLE}{onclick=callConsigne('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
 				      [(#SET{num,[(#GET{num}|plus{1})]})]
 					</BOUCLE_consignes>
 
 				  <BOUCLE_r4(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
 				    <BOUCLE_a4(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
-				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)]}{onclick=callConsigne('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
+				      [(#MODELE{logo_menu}{valeur=[(#GET{num})]}{filter=.consigne_#ID_ARTICLE}{class=hover_couleur_consignes[(#ID_RUBRIQUE|nb2col)] menu_logo_consignes-[(#GET{num}|plus{1})] menu_logo_consignes-#ID_ARTICLE}{onclick=callConsigne('#ID_ARTICLE');}{title=#TITRE}{texte=[(#GET{num}|plus{1})]})]
 				      [(#SET{num,[(#GET{num}|plus{1})]})]
 				    </BOUCLE_a4>
 				  </BOUCLE_r4>
@@ -176,7 +177,7 @@ et/ou
 			<div id="menu-classes" class="bloc_view col" >
 				<h3><span>Classes</span></h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
-			        [(#MODELE{logo_menu}{valeur=tout}{class=selected}{title=Toutes les classes})]
+			        <!--[(#MODELE{logo_menu}{valeur=tout}{title=Toutes les classes})]-->
 			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
   			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
