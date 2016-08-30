@@ -2720,19 +2720,43 @@ div.donnees_classe {
 
 
 
-.separation_binome {
-	width: 50%;
-	height: 50px;
-	line-height: 50px;
-	position: relative;
-	float: right;
-	border-left: 4px solid #GET{gris_fonce};
-	margin: 10px 0px 10px 0px;
-	padding-left: 10px;
-	font-weight: bold;
-	font-size: #GET{font-size2}px;
-	color: #GET{gris_fonce};
-	vertical-align: center;
+.sidebar_bubble.separation_binome {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  float: right;
+  margin: 0;
+  font-weight: bold;
+  font-size: 15.6px;
+  text-align: center;
+  box-sizing: border-box;
+  color: rgb(216, 216, 216);
+  background: rgb(62, 62, 62);
+}
+
+.popup_separation_binome {
+  padding: 0 0 8px 0;
+  margin-top: -15px;
+}
+/*
+.sidebar_bubble.reponse_binome_entete_bubble {
+  background:rgb(62, 62, 62);
+}
+
+.reponse_binome_entete_texte {
+  height: 35px;
+  line-height: 40px;
+  font-weight: bold;
+  font-size: 15.6px;
+  text-align: center;
+  color: rgb(216, 216, 216);
+  padding-top: 5px;
+}
+*/
+
+.popup_reponse_binome_entete {
+  padding-bottom:30px
 }
 
 #ressources_wrap {
@@ -3449,6 +3473,12 @@ li a, li a:hover {
 
 .bloc_option_doc_reply {
   background-image: url([(#CHEMIN{img/reply.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-size: 27px auto;
+  background-position: 22px 49% !important;
+}
+
+.bloc_option_doc_people {
+  background-image: url([(#CHEMIN{img/people.svg}|image_reduire{25}|extraire_attribut{src})]);
   background-size: 27px auto;
   background-position: 22px 49% !important;
 }

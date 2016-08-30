@@ -1,0 +1,59 @@
+<div class="popup popup_reponse_binome_entete">
+  
+  <div class="sidebar_bubble reponse_binome_entete_bubble">
+        		
+		<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_binome}>
+		<div class="bloc_option_doc nettoyeur">
+			<a id="bloc_option_reponses_binome" class="hac liens_voir bloc_option_doc_people" title="Réponses du binôme">
+			  Réponses du binôme
+			</a>
+			<div style="clear:both">
+				<div class="nettoyeur"></div>
+				
+				  <BOUCLE_classe_2(ARTICLES){id_article=#ID_ARTICLE_LIEN_BIS}>
+            <div class="classe_consigne couleur_[(#TYPE_OBJET)][(#ID_RUBRIQUE|substr{[(#GET{id_to_check}|strlen|moins{1})],1})]">
+            	<div id="goto_reponse_binome_1" class="classe_consigne_reponse">
+            	  <div class="classe_consigne_reponse_photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+            		<div class="classe_consigne_reponse_titre">[(#TITRE)]</div>
+            	  <div class="classe_consigne_reponse_classe">
+            		  <BOUCLE_classe_de_la_reponse_2(RUBRIQUES){id_rubrique=#ID_RUBRIQUE_LIEN_BIS}>
+            		    #TITRE
+            		  </BOUCLE_classe_de_la_reponse_2>
+            		</div>
+            	</div>
+            	
+            	<script type="text/javascript">
+              	$('#goto_reponse_binome_1').on('click', function(){
+                	var anchor = $('#reponse_binome_1');
+                  $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-4},'slow');
+              	})
+              </script>
+            </div>
+          </BOUCLE_classe_2>
+          
+          <BOUCLE_classe_1(ARTICLES){id_article=#ID_ARTICLE_LIEN}>
+            <div class="classe_consigne couleur_[(#TYPE_OBJET)][(#ID_RUBRIQUE|substr{[(#GET{id_to_check}|strlen|moins{1})],1})]">
+            	<div id="goto_reponse_binome_2" class="classe_consigne_reponse">
+            	  <div class="classe_consigne_reponse_photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+            		<div class="classe_consigne_reponse_titre">[(#TITRE)]</div>
+            	  <div class="classe_consigne_reponse_classe">
+            		  <BOUCLE_classe_de_la_reponse(RUBRIQUES){id_rubrique=#ID_RUBRIQUE_LIEN}>
+            		    #TITRE
+            		  </BOUCLE_classe_de_la_reponse>
+            		</div>
+            	</div>
+            	
+            	<script type="text/javascript">
+              	$('#goto_reponse_binome_2').on('click', function(){
+                	var anchor = $('#reponse_binome_2');
+                  $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-4},'slow');
+              	})
+              </script>
+            </div>
+          </BOUCLE_classe_1>
+				
+			</div>
+		</div>
+	
+	</div>	
+</div>
