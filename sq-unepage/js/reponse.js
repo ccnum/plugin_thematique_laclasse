@@ -115,6 +115,8 @@ function Reponse() {
   			stop: function(event,ui) {
   				yy = (ui.offset.top-CCN.projet.timeline.offset().top)/CCN.projet.timeline.height();
   				
+  				console.log('Ajax to save : '+yy);
+  				
   				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:_thisIdObjet, type_objet:"article", X:0, Y:yy } );
   				
   				$(this).removeClass('no_event');		

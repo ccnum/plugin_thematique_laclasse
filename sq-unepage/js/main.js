@@ -331,7 +331,9 @@ function loadConsignes(fichier){
           // Positionnement en hauteur (TO DO)
         	
         	dataForReponse.y = parseFloat(getXMLNodeValue('y',xmlReponses[j]));
+        	
         	if ((dataForReponse.y === 0)||(dataForReponse.y > 0.8)||(dataForReponse.y < -0.2)) {
+            console.log('ouch, i changed it');
         		dataForReponse.y = (liste_y[j])/(xmlReponses.length);
         	}
         	dataForReponse.y = (liste_y[j])/(xmlReponses.length+5)+0.12;

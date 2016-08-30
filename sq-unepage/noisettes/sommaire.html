@@ -177,7 +177,7 @@ et/ou
 			<div id="menu-classes" class="bloc_view col" >
 				<h3><span>Classes</span></h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
-			        <!--[(#MODELE{logo_menu}{valeur=tout}{title=Toutes les classes})]-->
+			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les classes}{class=menu_logo_classes}{onclick=callClasses();})]
 			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
   			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>

@@ -18,7 +18,7 @@
 
 [(#REM) Crochet Parenthèse #TYPE_OBJET|match{classes|travail_en_cours|consignes}|ou{#TYPE_OBJET|is_null}|oui Parenthèse ]
 
-[(#TYPE_OBJET|match{ressources}|ou{#TYPE_OBJET|is_null}|oui)
+[(#TYPE_OBJET|match{ressources}|oui)
 
 <div class="call_sidebar_main couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
   <div class="call_sidebar_main_inner">
@@ -39,9 +39,10 @@
     [(#TYPE_OBJET|match{ressources}|oui) 
       Afficher les ressources
     ]
-    
-    [(#TYPE_OBJET|is_null|oui) 
-      &#9664; Retour
+    [(#REM)
+      [(#TYPE_OBJET|is_null|oui) 
+        &#9664; Retour
+      ]
     ]
   </div>
 </div>

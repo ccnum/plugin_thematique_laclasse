@@ -6,8 +6,11 @@ X,Y
 ]
 
 [(#SESSION{statut}|=={0minirezo}|oui)
+  Minizero : OK
 	[(#TYPE_OBJET|match{article|syndic_article}|oui)
+	  Is an article
 		[(#AUTORISER{modifier, #TYPE_OBJET, #ID_OBJET}|oui)
+		  Est autorise
 			<?php
 				$id_objet = #ID_OBJET;
 				$x = #ENV{X};

@@ -366,9 +366,28 @@ function callClasse(id_classe){
 
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+}
+
+
+/**
+ * Appelle le chargement des classes 
+ * dans la sidebar principale
+ *
+ * @see loadContentInMainSidebar
+ * @see loadContentInLateralSidebar
+ */
+ 
+function callClasses(){
+  changeTimelineMode('consignes');
+	setFullscreenModeToCols(false);
+	updateMenuIcon('classes');
   
-	$('#menug li a.selected').removeClass('selected');
-	$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
+	
+	var url = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	
+  loadContentInMainSidebar(url, 'rubrique', 'travail_en_cours', function(){
+  	updateUrl("object", "Classe", "./spip.php?page=rubrique&id_rubrique="+CCN.travailEnCoursId+"&mode=complet");
+  });
 }
 
 
@@ -424,7 +443,7 @@ function callRessource(){
   toggleSidebarExpand();
 	updateMenuIcon('ressources');
 	
-	blankMainSidebar('Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.');
+	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.</div>');
 	setFullscreenModeToCols(true);
 	
 	var url = CCN.projet.url_popup_ressources;
@@ -559,7 +578,7 @@ function callAgora(){
   toggleSidebarExpand();
 	updateMenuIcon('agora');
 	
-	blankMainSidebar('Naviguez dans l\'agora grâce à la barre latérale sur votre droite.');
+	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'agora grâce à la barre latérale sur votre droite.</div>');
 	setFullscreenModeToCols(true);
 	
 	var url = CCN.projet.url_popup_agora;
@@ -862,7 +881,7 @@ function setFullscreenModeToCols(setCols) {
 
 function blankMainSidebar(msg) {
   var message = (msg) ? msg : '';
-  $('#sidebar_main_inner').html('<div class="popup popup_blank"><div class="sidebar_bubble">'+msg+'</div></div>');
+  $('#sidebar_main_inner').html('<div class="popup popup_blank">'+msg+'</div>');
 }
 
 
