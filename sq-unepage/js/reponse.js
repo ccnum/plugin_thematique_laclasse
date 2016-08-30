@@ -90,7 +90,7 @@ function Reponse() {
 		CCN.projet.timeline_fixed.append(this.connecteur);
 		
 		var _thisId = this.id;
-		var _thisIdObjet = this.id_objet;
+		var _thisIdObjet = this.id;
 		
 		this.div_texte.on('click',function(){
   		callReponse(_thisId);
@@ -114,8 +114,6 @@ function Reponse() {
 				},
   			stop: function(event,ui) {
   				yy = (ui.offset.top-CCN.projet.timeline.offset().top)/CCN.projet.timeline.height();
-  				
-  				console.log('Ajax to save : '+yy);
   				
   				$.get("spip.php?page=ajax&mode=article-sauve-coordonnees", {id_objet:_thisIdObjet, type_objet:"article", X:0, Y:yy } );
   				
