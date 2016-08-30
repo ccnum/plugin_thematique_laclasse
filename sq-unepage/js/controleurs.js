@@ -1,4 +1,5 @@
 var vue = 'timeline';
+var canShowConsigneSidebar = false;
 
 
 $().ready(function(){
@@ -299,9 +300,14 @@ function callConsigne(id_consigne){
 	setFullscreenModeToCols(false);
 	updateMenuIcon('consignes-'+id_consigne);
 	
-	loadContentInMainSidebar(url, 'article', 'consignes', function(){
-  	updateUrl('object','Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
-  });
+	if ((CCN.admin == -2 && canShowConsigneSidebar == true) || CCN.admin != -2) {
+  	loadContentInMainSidebar(url, 'article', 'consignes', function(){
+    	updateUrl('object','Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
+    });
+  }
+  if (CCN.admin == -2 && canShowConsigneSidebar == false) {
+    canShowConsigneSidebar = true;
+  }
 	
 	/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;

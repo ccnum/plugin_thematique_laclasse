@@ -164,7 +164,8 @@ function Projet(){
    */   
  
 	this.showWholeTimeline = function() {
-  	console.log('show whole');
+  	canShowConsigneSidebar = false;
+  	
     window.history.pushState("object", "CCN", "./");
 	  
 	  $('#menu-consignes .filter a, #menu-classes .filter a').removeClass('selected');
