@@ -93,6 +93,12 @@ $().ready(function(){
 });
 
 
+function onHashChange() {
+  console.log('TODO : interpréter l\'url pour appliquer l\'état précédent');
+}
+
+window.onpopstate = onHashChange;
+
 /**
  * Initialise les binds jQuery des sidebars
  */
@@ -470,15 +476,15 @@ function callRessource(){
 function callRessourceArticle(id_article, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon('ressources');
+	updateMenuIcon(type_objet);
 	
 	var url = "./spip.php?page=article&id_article="+id_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'article', type_objet, function(){
   	updateUrl("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet="+type_objet+"&mode=complet");
 	});
 	
-	var url_lateral = CCN.projet.url_popup_ressources;
-	loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
+	var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
   });
 	
 	console.log('callRessourceArticle');
@@ -499,15 +505,16 @@ function callRessourceArticle(id_article, type_objet){
 function callRessourceSyndicArticle(id_syndic_article, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon('ressources');
+	updateMenuIcon(type_objet);
 	
 	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'syndic_article', type_objet, function(){
   	updateUrl("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet="+type_objet+"&mode=complet");
   });
 	
-	var url_lateral = CCN.projet.url_popup_ressources;
-	loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
+	
+	var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
   });
 	
 	console.log('callRessourceSyndicArticle');
@@ -529,15 +536,16 @@ function callRessourceSyndicArticle(id_syndic_article, type_objet){
 function callRessourceRubrique(id_rubrique, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon('ressources');
+	updateMenuIcon(type_objet);
 	
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'rubrique', type_objet, function(){
   	updateUrl("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet="+type_objet+"&mode=complet");
   });
 	
-	var url_lateral = CCN.projet.url_popup_ressources;
-	loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
+	
+	var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
   });
 	
 	console.log('callRessourceRubrique');
@@ -588,16 +596,20 @@ function callArticleEvenement(id_objet, type_objet){
 
 function callAgora(){
   changeTimelineMode('consignes');
-  toggleSidebarExpand();
+//  toggleSidebarExpand();
 	updateMenuIcon('agora');
 	
-	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'agora grâce à la barre latérale sur votre droite.</div>');
+//	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'agora grâce à la barre latérale sur votre droite.</div>');
 	setFullscreenModeToCols(true);
 	
 	var url = CCN.projet.url_popup_agora;
-	loadContentInLateralSidebar(url, 'rubrique', 'agora', function(){
+	loadContentInMainSidebar(url, 'rubrique', 'agora', function(){
   	updateUrl("object", "Agora", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueAgora+"&type_objet=agora&mode=complet");
 	});
+	
+	var url_lateral = CCN.projet.url_popup_agora;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', 'agora', function(){
+  });
 	
 	console.log('callAgora');
 }

@@ -18,9 +18,8 @@
 
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
 
-<div class="popup [popup_(#GET{type_objet})]">
-  
-  [(#GET{is_ressource}|=={oui}|non)
+<div class="popup [popup_(#GET{type_objet})]">  
+  [(#GET{sous_type}|match{ressources|agora}|non)
     <INCLURE{fond=noisettes/call_sidebar}{type_objet=ressources}>  
   ]
 		
