@@ -564,6 +564,7 @@ function initTimeline(){
   });
   
   $('.mois, .timeline_trigger').on('click',function(){
+    changeTimelineMode('consignes');
     CCN.projet.showWholeTimeline();
   });
   

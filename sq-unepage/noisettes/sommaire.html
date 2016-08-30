@@ -110,30 +110,7 @@ et/ou
 				</ul>
 		    </div>
 		    
-		[(#REM)Ressources]
-		    <div id="menu-ressources" class="bloc_view col">
-				<h3><span>Ressources</span></h3>
-		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-						#SET{blog,Le blog du projet}
-						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
-						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
-						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
-						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
-						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
-						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=ressource}{class=menu_logo_ressources}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
-					
-					#SET{blog,Le blog du projet}
-						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
-						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
-						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
-						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
-						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
-						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
-				</ul>
-		    </div>
-		    
+				    
 		    <!--
 		    
 		    <div id="menu-ressources" class="bloc_view col">
@@ -193,7 +170,31 @@ et/ou
 			</div>
 
 			
-			
+			[(#REM)Ressources]
+		    <div id="menu-ressources" class="bloc_view col">
+				<h3><span>Ressources</span></h3>
+		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
+			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les consignes}{class=menu_logo_consignes}{onclick=CCN.projet.showWholeTimeline();})]
+						#SET{blog,Le blog du projet}
+						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
+						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
+						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
+						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
+						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
+						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
+					[(#MODELE{logo_menu}{valeur=ressource}{class=menu_logo_ressources}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
+					
+					#SET{blog,Le blog du projet}
+						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
+						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
+						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
+						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
+						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
+						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
+					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
+				</ul>
+		    </div>
+
 		[(#REM)Actualités]
 			<div id="menu-actualites" class="bloc_view col" >
 				<h3><span>Actualités</span></h3>

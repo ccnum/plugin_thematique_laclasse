@@ -6,6 +6,7 @@ $().ready(function(){
   $('#timeline_fixed').on('click', function(event){
     event.stopPropagation();
   	CCN.projet.showWholeTimeline();
+  	changeTimelineMode('consignes');
   });
   
   $(window).on('resize', function(){ onResize(); });
@@ -357,6 +358,7 @@ function callClasse(id_classe){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
 	updateMenuIcon('classes');
+  CCN.projet.showWholeTimeline();
   
 	var url = CCN.projet.url_popup_classes;
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
@@ -440,14 +442,14 @@ function callArticleBlog(id_article){
 
 function callRessource(){
   changeTimelineMode('consignes');
-  toggleSidebarExpand();
+//  toggleSidebarExpand();
 	updateMenuIcon('ressources');
 	
-	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.</div>');
+//	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.</div>');
 	setFullscreenModeToCols(true);
 	
 	var url = CCN.projet.url_popup_ressources;
-	loadContentInLateralSidebar(url, 'rubrique', 'ressources', function(){
+	loadContentInMainSidebar(url, 'rubrique', 'ressources', function(){
   	updateUrl("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&type_objet=ressources&mode=complet");
   });
 	
@@ -476,6 +478,10 @@ function callRessourceArticle(id_article, type_objet){
   	updateUrl("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet="+type_objet+"&mode=complet");
 	});
 	
+	var url_lateral = CCN.projet.url_popup_ressources;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
+  });
+	
 	console.log('callRessourceArticle');
 }
 
@@ -499,6 +505,10 @@ function callRessourceSyndicArticle(id_syndic_article, type_objet){
 	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'syndic_article', type_objet, function(){
   	updateUrl("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet="+type_objet+"&mode=complet");
+  });
+	
+	var url_lateral = CCN.projet.url_popup_ressources;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
   });
 	
 	console.log('callRessourceSyndicArticle');
@@ -525,6 +535,10 @@ function callRessourceRubrique(id_rubrique, type_objet){
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'rubrique', type_objet, function(){
   	updateUrl("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet="+type_objet+"&mode=complet");
+  });
+	
+	var url_lateral = CCN.projet.url_popup_ressources;
+	loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
   });
 	
 	console.log('callRessourceRubrique');
@@ -717,9 +731,11 @@ function updateUrl(object, title, url) {
     
     var anchor = $("#"+ CCN.hash);
     
+    anchor.find('.triggertoggleshow').trigger('click');
+    anchor.closest('.intervention_item_around').find('.triggertoggleshow').trigger('click');
+    
     $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-60},'slow');
     
-    anchor.find('.triggertoggleshow').trigger('click');
     
     CCN.hash = '';
   } else { 
@@ -841,7 +857,7 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
     $('#sidebar_content').scrollTop(0);
     initLocalEvents($('#sidebar_lateral_inner'));
       
-    callback(response);  
+    if (callback) callback(response);
       
     console.log('%c Lateral'+' %c Loaded ', 
                 'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
