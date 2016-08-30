@@ -1,7 +1,7 @@
 <BOUCLE_consigne(ARTICLES){id_article=#ID_OBJET}>#SET{titre_reponse,#TITRE} #SET{date_reponse,#DATE}</BOUCLE_consigne>
 <BOUCLE_auteur(RUBRIQUES){id_rubrique=#ID_AUTEUR}>#SET{titre_classe,#TITRE}</BOUCLE_auteur>
 
-<div class="actualites-actu">
+<div class="actualites-actu" onclick="callReponse(#ID_OBJET);">
   #GET{titre_classe}&nbsp;a répondu à une consigne.
   <div class="actualites-actu-date">[(#GET{date_reponse}|affdate)]</div>
 </div>
