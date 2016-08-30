@@ -355,7 +355,7 @@ function callReponse(id_reponse){
  
 function callClasse(id_classe){
   changeTimelineMode('consignes');
-	setFullscreenModeToCols(false);
+	setFullscreenModeToCols(true);
 	updateMenuIcon('classes');
   
 	var url = CCN.projet.url_popup_classes;
@@ -364,10 +364,8 @@ function callClasse(id_classe){
   	updateUrl("object", "Classe", "./spip.php?page=rubrique&id_objet="+id_classe+"&mode=complet&type_objet=classes");
   });
 
-/*
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
-*/
   
 	$('#menug li a.selected').removeClass('selected');
 	$('#ajax_rub_#ID_RUBRIQUE_OUVRE').addClass('selected');
