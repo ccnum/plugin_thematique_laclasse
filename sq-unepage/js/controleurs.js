@@ -17,10 +17,6 @@ $().ready(function(){
   function slideshowActualites(actu) {
     var posY = actu.offset().top-$('#menu_bas .actualites-inner').offset().top;
     
-   // console.log(posY);
-    
-    console.log((32*actu.index()));
-    
     $('#menu_bas .actualites-inner').animate({scrollTop: (32*actu.index())},500);
     
     var _actu = actu;
