@@ -117,8 +117,6 @@ function onHashChange() {
   setContentFromState(History.getState());
 }
 
-window.onpopstate = onHashChange;
-
 
 /**
  * Initialise la vue depuis l'URL donnée
@@ -128,6 +126,8 @@ window.onpopstate = onHashChange;
 var currentState = {};
   
 function setContentFromState(state) {
+  
+  console.log('>>> setContentFromState');
   
   if (typeof state.data !== 'object' || state.data == null) return;
   
@@ -147,10 +147,10 @@ function setContentFromState(state) {
   if (currentState.id_syndic_article == undefined) { currentState.id_syndic_article = ''; }
   if (currentState.id_objet == undefined)          { currentState.id_objet = ''; }
   
-  /*
+  
   console.log(currentState);
   console.log(state);
-  */
+  
   
   isSamePage = true;
   
@@ -368,18 +368,19 @@ function updateTimeline() {
  
 function changeTimelineMode(type) {  
   var classCss = {};
-      classCss.consignes = 'showConsignes';
-      classCss.blogs = 'showBlogs';
-      classCss.evenements = 'showEvenements';  
+      classCss.consignes = 'show_consignes';
+      classCss.blogs = 'show_blogs';
+      classCss.evenements = 'show_evenements';  
   
   
   if (!$('body').hasClass(classCss[type])) {
+    CCN.projet.showWholeTimeline();
+    
     for (var index in classCss) {
       $('body').removeClass(classCss[index]);
     }
     
     $('body').addClass(classCss[type]);
-    CCN.projet.showWholeTimeline();
     updateMenuIcon(type);
   }
 } 
@@ -405,6 +406,8 @@ function showConsigneInTimeline(numero) {
       CCN.consignes[index_consigne].showInTimeline();
     }
   }
+  
+  // TODO : icones
 }
 
 
@@ -500,15 +503,6 @@ function callConsigne(id_consigne){
         'page':'article'	
       },'Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
     });
-    
-    /*
-    updateUrl({
-        'type_objet':'consignes',
-        'id_objet':id_consigne,
-        'id_rubrique':id_consigne,
-        'page':'article'	
-      },'Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
-      */
   }
   if (CCN.admin == -2 && canShowConsigneSidebar == false) {
     canShowConsigneSidebar = true;
@@ -541,7 +535,6 @@ function callReponse(id_reponse){
 	setFullscreenModeToCols(false);
   
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
-	updateMenuIcon('consignes-'+id_consigne);
   
 	var url = CCN.projet.url_popup_reponse+"&id_article="+id_reponse;
   showConsigneInTimeline(id_consigne);
@@ -997,27 +990,23 @@ function updateUrl(object, title, url) {
   currentState = object;
   
   if (CCN.hash != '') {
-    if (!antiPushState) {
-      History.pushState(object, title, url+'#'+CCN.hash);
-    } /*else {
-      window.history.replaceState(object, title, url+'#'+CCN.hash);
-    }*/
+    console.log('has hash');
+    History.pushState(object, title, url+'#'+CCN.hash);
     
     var anchor = $("#"+ CCN.hash);
     
+    // TODO : cela est appelé deux fois minimum à cause de History.js (donc un trigger('click') sur .triggertoggleshow ne fonctionne pas car il ouvre puis ferme)
+    
     // Forum : ouvre les items
-    anchor.find('.triggertoggleshow').trigger('click');
-    anchor.closest('.intervention_item_around').find('.triggertoggleshow').trigger('click');
+    anchor.find('.toggleshow').show();
+    anchor.closest('.intervention_item_around').find('.toggleshow').show();
     
     $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-60},'slow');
     
     CCN.hash = '';
   } else { 
-    if (!antiPushState) {
-      History.pushState(object, title, url);
-    }/* else {
-      window.history.replaceState(object, title, url);
-    }*/
+    console.log('no hash');
+    History.pushState(object, title, url);
   }
   antiPushState = false;
 }

@@ -93,7 +93,7 @@ et/ou
 		    <div id="menu-timeline" class="bloc_view col">
 				<h3><span>Timeline</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-					[(#MODELE{logo_menu}{valeur=tout}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();}{title=Toutes les consignes})]
+					[(#MODELE{logo_menu}{valeur=consignes}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();}{title=Toutes les consignes})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -127,7 +127,7 @@ et/ou
 			<div id="menu-consignes" class="bloc_view col">
 				<h3><span>Consignes</span></h3>
 				<ul class="filter clearfix option-set" data-filter-group="consigne">
-					[(#MODELE{logo_menu}{valeur=tout}{class=menu_logo_consignes}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline();})]
+					[(#MODELE{logo_menu}{valeur=consignes}{class=menu_logo_consignes}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline();})]
 				  #SET{num,0}
 
 					<BOUCLE_consignes0(RUBRIQUES mots mots_liens){mots.titre=consignes}{rubriques.id_rubrique=mots_liens.id_objet}>
@@ -174,7 +174,7 @@ et/ou
 		    <div id="menu-ressources" class="bloc_view col">
 				<h3><span>Ressources</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les consignes}{class=menu_logo_consignes}{onclick=CCN.projet.showWholeTimeline();})]
+			        [(#MODELE{logo_menu}{valeur=consignes}{title=Toutes les consignes}{class=menu_logo_consignes}{onclick=CCN.projet.showWholeTimeline();})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -199,7 +199,7 @@ et/ou
 			<div id="menu-actualites" class="bloc_view col" >
 				<h3><span>Actualités</span></h3>
     		<ul class="actualites-ul filter clearfix option-set" data-filter-group="classe">
-	        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les actualités}{class=menu_logo_actualites}{onclick=callActualites();})]
+	        [(#MODELE{logo_menu}{valeur=actualites}{title=Toutes les actualités}{class=menu_logo_actualites}{onclick=callActualites();})]
     		</ul>
     		<div class="actualites-inner filter clearfix option-set" data-filter-group="actualites">
       		<INCLURE{fond=noisettes/inc/actus_timeline}{nb_actus=5} />
