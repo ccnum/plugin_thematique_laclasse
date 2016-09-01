@@ -93,7 +93,7 @@ et/ou
 		    <div id="menu-timeline" class="bloc_view col">
 				<h3><span>Timeline</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-					[(#MODELE{logo_menu}{valeur=tout}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');}{title=Toutes les ressources})]
+					[(#MODELE{logo_menu}{valeur=tout}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();}{title=Toutes les consignes})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]

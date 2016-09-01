@@ -1,5 +1,6 @@
 var vue = 'timeline';
 var canShowConsigneSidebar = false;
+var antiPushState = false;
 
 
 $().ready(function(){
@@ -13,7 +14,7 @@ $().ready(function(){
   $(window).on('resize', function(){ onResize(); });
   
   onResize();
-  
+    
   function slideshowActualites(actu) {
     var posY = actu.offset().top-$('#menu_bas .actualites-inner').offset().top;
     
@@ -113,10 +114,182 @@ $().ready(function(){
 
 
 function onHashChange() {
-  console.log('TODO : interpréter l\'url pour appliquer l\'état précédent');
+  setContentFromState(History.getState());
 }
 
 window.onpopstate = onHashChange;
+
+
+/**
+ * Initialise la vue depuis l'URL donnée
+ * ou depuis l'état de l'historique donné
+ */
+ 
+var currentState = {};
+  
+function setContentFromState(state) {
+  
+  if (typeof state.data !== 'object' || state.data == null) return;
+  
+  var state = state.data;  
+  
+  if (state.type_objet == undefined)        { state.type_objet = ''; }
+  if (state.page == undefined)              { state.page = ''; }
+  if (state.id_rubrique == undefined)       { state.id_rubrique = ''; }
+  if (state.id_article == undefined)        { state.id_article = ''; }
+  if (state.id_syndic_article == undefined) { state.id_syndic_article = ''; }
+  if (state.id_objet == undefined)          { state.id_objet = ''; }
+  
+  if (currentState.type_objet == undefined)        { currentState.type_objet = ''; }
+  if (currentState.page == undefined)              { currentState.page = ''; }
+  if (currentState.id_rubrique == undefined)       { currentState.id_rubrique = ''; }
+  if (currentState.id_article == undefined)        { currentState.id_article = ''; }
+  if (currentState.id_syndic_article == undefined) { currentState.id_syndic_article = ''; }
+  if (currentState.id_objet == undefined)          { currentState.id_objet = ''; }
+  
+  /*
+  console.log(currentState);
+  console.log(state);
+  */
+  
+  isSamePage = true;
+  
+  for (var index in state) { 
+    if (state[index] != currentState[index]) {
+      isSamePage = false;
+      break;
+    } 
+  }
+  
+  currentState = state;
+  
+  if (isSamePage) { return; }
+  
+  // Ressource
+  
+  if ((state.type_objet == '0'
+   && state.id_objet == '0')
+   || (state.type_objet == ''
+   && state.id_objet == '')) {
+     CCN.projet.showWholeTimeline();
+   }
+  
+  if (state.type_objet == "ressources"){
+		changeTimelineMode('consignes');
+		callRessource();
+		
+		if (state.page == 'rubrique') {
+  		if (state.id_rubrique != CCN.idRubriqueRessources) {
+  	    callRessourceRubrique(state.id_rubrique, 'ressources');
+  	  }
+		}
+		
+		if (state.page == 'article') {
+  	  callRessourceArticle(state.id_article, 'ressources');
+		}
+		
+		if (state.page == 'syndic_article') {
+  	  callRessourceSyndicArticle(state.id_syndic_article, 'ressources');
+		}
+  }
+  
+  // Agora
+  
+  if (state.type_objet == "agora"){
+		changeTimelineMode('consignes');
+		callAgora();
+		
+		if (state.page == 'rubrique') {
+  		if (state.id_rubrique != CCN.idRubriqueAgora) {
+  	    callRessourceRubrique(state.id_rubrique, 'agora');
+  	  }
+		}
+		
+		if (state.page == 'article') {
+  	  callRessourceArticle(state.id_article, 'agora');
+		}
+		
+		if (state.page == 'syndic_article') {
+  	  callRessourceSyndicArticle(state.id_syndic_article, 'agora');
+		}
+  }
+  
+  // Actualités
+  
+  if (state.page == "actualites"){
+		callActualites();
+  }
+	
+	
+	if (state.id_objet != "0"){
+  	
+		// Consigne
+		
+		if (state.type_objet == "consignes"){
+  		changeTimelineMode('consignes');
+			for (k=0; k<CCN.consignes.length;k++){
+				if (CCN.consignes[k].id == state.id_objet){
+					callConsigne(state.id_objet);
+				}
+			}
+		}
+		
+		
+    // Réponse
+    
+    if (state.type_objet == "travail_en_cours"){
+      changeTimelineMode('consignes');
+    	for (k=0; k<CCN.consignes.length;k++){
+    		for (l=0; l<CCN.consignes[k].reponses.length;l++){
+    			if (CCN.consignes[k].reponses[l].id == state.id_objet){
+    				callReponse(state.id_objet);
+    			}
+    		}
+    	}
+    }
+		
+		
+    // Classe
+    if (state.type_objet == "classes"){
+      changeTimelineMode('consignes');
+    	for (k=0; k<CCN.classes.length;k++){
+  			if (CCN.classes[k].id == state.id_objet){
+  				callClasse(state.id_objet);
+    		}
+    	}
+    }
+    
+    
+    // Article de blog
+    
+    if (state.type_objet == "blogs"){
+		  changeTimelineMode('blogs');
+    	callArticleBlog(state.id_objet,"article");
+    }
+    
+    // Article d'événement
+    
+    if (state.type_objet == "evenements"){
+		  changeTimelineMode('evenements');
+    	callArticleEvenement(state.id_objet,"article");
+    }
+	}
+	else { // state.id_objet == 0)
+  	
+    // Ressource
+    if (state.type_objet == "ressources"){
+      
+    } else if (state.type_objet == 'travail_en_cours') {
+      if (state.page == 'rubrique') {
+        callClasses();
+      }
+    } else {
+		  changeTimelineMode('consignes');
+		}
+	}
+}
+
+
 
 /**
  * Initialise les binds jQuery des sidebars
@@ -320,8 +493,22 @@ function callConsigne(id_consigne){
 	
 	if ((CCN.admin == -2 && canShowConsigneSidebar == true) || CCN.admin != -2) {
   	loadContentInMainSidebar(url, 'article', 'consignes', function(){
-    	updateUrl('object','Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
+    	updateUrl({
+        'type_objet':'consignes',
+        'id_objet':id_consigne,
+        'id_rubrique':id_consigne,
+        'page':'article'	
+      },'Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
     });
+    
+    /*
+    updateUrl({
+        'type_objet':'consignes',
+        'id_objet':id_consigne,
+        'id_rubrique':id_consigne,
+        'page':'article'	
+      },'Consigne',"./spip.php?page=article&id_article="+id_consigne+"&mode=complet");
+      */
   }
   if (CCN.admin == -2 && canShowConsigneSidebar == false) {
     canShowConsigneSidebar = true;
@@ -360,7 +547,12 @@ function callReponse(id_reponse){
   showConsigneInTimeline(id_consigne);
 	
 	loadContentInMainSidebar(url, 'article', 'travail_en_cours', function(){
-  	updateUrl("object", "Réponse", "./spip.php?page=article&id_article="+id_reponse+"&mode=complet");
+  	updateUrl({
+        'type_objet':'travail_en_cours',
+        'id_objet':id_reponse,
+        'id_article':id_reponse,
+        'page':'article'	
+      }, "Réponse", "./spip.php?page=article&id_article="+id_reponse+"&mode=complet");
   });
   
 /*
@@ -392,7 +584,12 @@ function callClasse(id_classe){
 	var url = CCN.projet.url_popup_classes;
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
   loadContentInMainSidebar(url, 'rubrique', 'classes', function(){
-  	updateUrl("object", "Classe", "./spip.php?page=rubrique&id_objet="+id_classe+"&mode=complet&type_objet=classes");
+  	updateUrl({
+        'type_objet':'classes',
+        'id_objet':id_classe,
+        'id_rubrique':id_classe,
+        'page':'rubrique'	
+      }, "Classe", "./spip.php?page=rubrique&id_objet="+id_classe+"&mode=complet&type_objet=classes");
   });
 
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
@@ -417,7 +614,11 @@ function callClasses(){
 	var url = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	
   loadContentInMainSidebar(url, 'rubrique', 'travail_en_cours', function(){
-  	updateUrl("object", "Classe", "./spip.php?page=rubrique&id_rubrique="+CCN.travailEnCoursId+"&mode=complet");
+  	updateUrl({
+        'type_objet':'travail_en_cours',
+        'id_rubrique':CCN.travailEnCoursId,
+        'page':'rubrique'	
+      }, "Classe", "./spip.php?page=rubrique&id_rubrique="+CCN.travailEnCoursId+"&mode=complet");
   });
 }
 
@@ -444,7 +645,12 @@ function callArticleBlog(id_article){
 	
 	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
 	loadContentInMainSidebar(url, 'article', 'blogs', function(){
-  	updateUrl("object", "Blog", "./spip.php?page=article&id_article="+id_article+"&mode=complet");
+  	updateUrl({
+        'type_objet':'blogs',
+        'id_objet':id_article,
+        'id_article':id_article,
+        'page':'article'	
+      }, "Blog", "./spip.php?page=article&id_article="+id_article+"&mode=complet");
   });
   
 	/*
@@ -479,7 +685,11 @@ function callRessource(){
 	
 	var url = CCN.projet.url_popup_ressources;
 	loadContentInMainSidebar(url, 'rubrique', 'ressources', function(){
-  	updateUrl("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&type_objet=ressources&mode=complet");
+  	updateUrl({
+        'type_objet':'ressources',
+        'id_rubrique':CCN.idRubriqueRessources,
+        'page':'rubrique'	
+      }, "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&type_objet=ressources&mode=complet");
   });
 	
 	console.log('callRessource');
@@ -504,7 +714,11 @@ function callRessourceArticle(id_article, type_objet){
 	
 	var url = "./spip.php?page=article&id_article="+id_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'article', type_objet, function(){
-  	updateUrl("object", "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet="+type_objet+"&mode=complet");
+  	updateUrl({
+        'type_objet':type_objet,
+        'id_article':id_article,
+        'page':'article'	
+      }, "Ressources", "./spip.php?page=article&id_article="+id_article+"&type_objet="+type_objet+"&mode=complet");
 	});
 	
 	var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
@@ -533,7 +747,11 @@ function callRessourceSyndicArticle(id_syndic_article, type_objet){
 	
 	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'syndic_article', type_objet, function(){
-  	updateUrl("object", "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet="+type_objet+"&mode=complet");
+  	updateUrl({
+        'type_objet':type_objet,
+        'id_syndic_article':id_syndic_article,
+        'page':'article'	
+      }, "Ressources", "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&type_objet="+type_objet+"&mode=complet");
   });
 	
 	
@@ -564,7 +782,11 @@ function callRessourceRubrique(id_rubrique, type_objet){
 	
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'rubrique', type_objet, function(){
-  	updateUrl("object", "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet="+type_objet+"&mode=complet");
+  	updateUrl({
+        'type_objet':type_objet,
+        'id_rubrique':id_rubrique,
+        'page':'rubrique'	
+      }, "Ressources", "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&type_objet="+type_objet+"&mode=complet");
   });
 	
 	
@@ -598,7 +820,11 @@ function callArticleEvenement(id_objet, type_objet){
 	
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	loadContentInMainSidebar(url, 'article', 'evenements', function(){
-  	updateUrl("object", "Événement", "./spip.php?page="+type_objet+"&id_article="+id_objet+"&mode=complet");
+  	updateUrl({
+        'type_objet':'evenements',
+        'id_article':id_objet,
+        'page':type_objet	
+      }, "Événement", "./spip.php?page="+type_objet+"&id_article="+id_objet+"&mode=complet");
   });
 	
 	console.log('callArticleEvenement');
@@ -628,7 +854,11 @@ function callAgora(){
 	
 	var url = CCN.projet.url_popup_agora;
 	loadContentInMainSidebar(url, 'rubrique', 'agora', function(){
-  	updateUrl("object", "Agora", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueAgora+"&type_objet=agora&mode=complet");
+  	updateUrl({
+        'type_objet':'agora',
+        'id_rubrique':CCN.idRubriqueAgora,
+        'page':'rubrique'	
+      }, "Agora", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueAgora+"&type_objet=agora&mode=complet");
 	});
 	
 	var url_lateral = CCN.projet.url_popup_agora;
@@ -659,7 +889,10 @@ function callActualites(){
 	
 	var url = './spip.php?page=actualites&type_objet=actualites&mode=ajax-detail';
 	loadContentInMainSidebar(url, 'rubrique', 'actualites', function(){
-  	updateUrl("object", "Actualites", "./spip.php?page=actualites&mode=complet");
+  	updateUrl({
+        'type_objet':'actualites',
+        'page':'actualites'	
+      }, "Actualites", "./spip.php?page=actualites&mode=complet");
 	});
 	
 	console.log('callActualites');
@@ -761,22 +994,32 @@ function changeCouleurLogoMenu(val){
  */
 
 function updateUrl(object, title, url) {
+  currentState = object;
+  
   if (CCN.hash != '') {
-    window.history.pushState(object, title, url+'#'+CCN.hash);
+    if (!antiPushState) {
+      History.pushState(object, title, url+'#'+CCN.hash);
+    } /*else {
+      window.history.replaceState(object, title, url+'#'+CCN.hash);
+    }*/
     
     var anchor = $("#"+ CCN.hash);
     
+    // Forum : ouvre les items
     anchor.find('.triggertoggleshow').trigger('click');
     anchor.closest('.intervention_item_around').find('.triggertoggleshow').trigger('click');
     
     $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-60},'slow');
     
-    
     CCN.hash = '';
   } else { 
-    window.history.pushState(object, title, url);
+    if (!antiPushState) {
+      History.pushState(object, title, url);
+    }/* else {
+      window.history.replaceState(object, title, url);
+    }*/
   }
-  
+  antiPushState = false;
 }
 
 /*

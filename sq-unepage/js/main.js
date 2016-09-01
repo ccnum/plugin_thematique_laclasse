@@ -595,118 +595,7 @@ function initTimeline(){
 	
 	// Ouverture au chargement d'un article, article événement, consigne ou réponse
 	
-  // Ressource
-  
-  if (CCN.typePopupToShowAtInit == "ressources"){
-		changeTimelineMode('consignes');
-		callRessource();
-		
-		if (CCN.pageToShowAtInit == 'rubrique') {
-  		if (CCN.idRubriqueToShowAtInit != CCN.idRubriqueRessources) {
-  	    callRessourceRubrique(CCN.idRubriqueToShowAtInit, 'ressources');
-  	  }
-		}
-		
-		if (CCN.pageToShowAtInit == 'article') {
-  	  callRessourceArticle(CCN.idArticleToShowAtInit, 'ressources');
-		}
-		
-		if (CCN.pageToShowAtInit == 'syndic_article') {
-  	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit, 'ressources');
-		}
-  }
-  
-  // Agora
-  
-  if (CCN.typePopupToShowAtInit == "agora"){
-		changeTimelineMode('consignes');
-		callAgora();
-		
-		if (CCN.pageToShowAtInit == 'rubrique') {
-  		if (CCN.idRubriqueToShowAtInit != CCN.idRubriqueAgora) {
-  	    callRessourceRubrique(CCN.idRubriqueToShowAtInit, 'agora');
-  	  }
-		}
-		
-		if (CCN.pageToShowAtInit == 'article') {
-  	  callRessourceArticle(CCN.idArticleToShowAtInit, 'agora');
-		}
-		
-		if (CCN.pageToShowAtInit == 'syndic_article') {
-  	  callRessourceSyndicArticle(CCN.idSyndicArticleToShowAtInit, 'agora');
-		}
-  }
-  
-  // Actualités
-  
-  if (CCN.pageToShowAtInit == "actualites"){
-		callActualites();
-  }
-	
-	
-	if (CCN.idObjetToShowAtInit != "0"){
-  	
-		// Consigne
-		
-		if (CCN.typePopupToShowAtInit == "consignes"){
-  		changeTimelineMode('consignes');
-			for (k=0; k<CCN.consignes.length;k++){
-				if (CCN.consignes[k].id == CCN.idObjetToShowAtInit){
-					callConsigne(CCN.idObjetToShowAtInit);
-				}
-			}
-		}
-		
-		
-    // Réponse
-    
-    if (CCN.typePopupToShowAtInit == "travail_en_cours"){
-      changeTimelineMode('consignes');
-    	for (k=0; k<CCN.consignes.length;k++){
-    		for (l=0; l<CCN.consignes[k].reponses.length;l++){
-    			if (CCN.consignes[k].reponses[l].id == CCN.idObjetToShowAtInit){
-    				callReponse(CCN.idObjetToShowAtInit);
-    			}
-    		}
-    	}
-    }
-		
-		
-    // Classe
-    if (CCN.typePopupToShowAtInit == "classes"){
-      changeTimelineMode('consignes');
-    	for (k=0; k<CCN.classes.length;k++){
-      	console.log(CCN.idObjetToShowAtInit);
-  			if (CCN.classes[k].id == CCN.idObjetToShowAtInit){
-  				callClasse(CCN.idObjetToShowAtInit);
-    		}
-    	}
-    }
-    
-    
-    // Article de blog
-    
-    if (CCN.typePopupToShowAtInit == "blogs"){
-		  changeTimelineMode('blogs');
-    	callArticleBlog(CCN.idObjetToShowAtInit,"article");
-    }
-    
-    // Article d'événement
-    
-    if (CCN.typePopupToShowAtInit == "evenements"){
-		  changeTimelineMode('evenements');
-    	callArticleEvenement(CCN.idObjetToShowAtInit,"article");
-    }
-	}
-	else { // CCN.idObjetToShowAtInit == 0)
-  	
-    // Ressource
-    if (CCN.typePopupToShowAtInit == "ressources"){
-      
-    } else {
-		  changeTimelineMode('consignes');
-		}
-		
+  if (CCN.idObjetToShowAtInit == 0) {
 		// Ouverture de la popup projet si première fois
 		$().ready(function(){
 			if (document.cookie.indexOf('visited=true') === -1) {
@@ -716,8 +605,29 @@ function initTimeline(){
 				//$('.presentation').colorbox({width:'900px',height: '600px',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false, open: true}); (TO DO ?)
 			}			
 		});
-	}
-
+  }
+  
+  /*
+  // Bind to StateChange Event
+  History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+    var State = History.getState(); // Note: We are using History.getState() instead of event.state
+    onHashChange();
+  });
+*/
+  
+  CCN.projet.showWholeTimeline();
+  
+	setContentFromState({
+  	data: {
+      'type_objet':CCN.typePopupToShowAtInit,
+      'id_objet':CCN.idObjetToShowAtInit,
+      'page':CCN.pageToShowAtInit,
+      'id_rubrique':CCN.idRubriqueToShowAtInit,
+      'id_article':CCN.idArticleToShowAtInit,
+      'id_syndic_article':CCN.idSyndicArticleToShowAtInit
+    }
+	});
+  
 	// Les listeners pour l'affichage timeline
 	
 	$().ready(function(){

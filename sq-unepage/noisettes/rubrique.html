@@ -65,7 +65,7 @@
   						});					
   				});});						
 					
-					console.log('(A) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE ayant les mots-clés blog ou chrono');
+					// console.log('(A) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE ayant les mots-clés blog ou chrono');
   				</script>
   				<li><a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">[- (#TITRE|supprimer_numero|couper{80})]</a></li>
   			</BOUCLE_sous_articles0>
@@ -101,7 +101,7 @@
 						});
 					});				
 					
-					console.log('(A.a) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfants ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');
+					// console.log('(A.a) Rubrique (#TYPE_OBJET) : Affichage de l\'article ##ID_ARTICLE ||| enfants ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');
 							
 					</script>
 					<div class="sidebar_bubble">
@@ -136,7 +136,7 @@
   					});
 					});		
 				
-          console.log("\r\n# # # # # # # # # # # # # # # # # # # # #\r\n\r\n(B) BOUCLE RUBRIQUES (#TYPE_OBJET) :\r\n-- Affichage de la sous-rubrique ##ID_RUBRIQUE\r\n- Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n\r\n# # # # # # # # # #\r\n\r\n");				
+        // console.log("\r\n# # # # # # # # # # # # # # # # # # # # #\r\n\r\n(B) BOUCLE RUBRIQUES (#TYPE_OBJET) :\r\n-- Affichage de la sous-rubrique ##ID_RUBRIQUE\r\n- Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n\r\n# # # # # # # # # #\r\n\r\n");				
 			  </script>
 					
 				<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
@@ -162,7 +162,7 @@
         					});
       					});		
       				
-                console.log('(B.a) Rubrique (#TYPE_OBJET) : Affichage de la sous-sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la sous-rubrique ##ID_PARENT ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
+                // console.log('(B.a) Rubrique (#TYPE_OBJET) : Affichage de la sous-sous-rubrique ##ID_RUBRIQUE ||| enfant ||| de la sous-rubrique ##ID_PARENT ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE n\'ayant pas les mots-clés blog ou chrono');				
       			  </script>
       			  
 							<li class="ressources_classe_consignes">
@@ -184,7 +184,7 @@
             					});
           					});		
           				
-                    console.log("(B.a.a) BOUCLE RUBRIQUES (#TYPE_OBJET) :\r\n---- Affichage de la sous-sous-sous-rubrique ##ID_RUBRIQUE\r\n--- Enfant de la sous-sous-rubrique ##ID_PARENT\r\n-- Enfant de la sous-rubrique ##_rubriques:ID_RUBRIQUE\r\n- Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
+                    // console.log("(B.a.a) BOUCLE RUBRIQUES (#TYPE_OBJET) :\r\n---- Affichage de la sous-sous-sous-rubrique ##ID_RUBRIQUE\r\n--- Enfant de la sous-sous-rubrique ##ID_PARENT\r\n-- Enfant de la sous-rubrique ##_rubriques:ID_RUBRIQUE\r\n- Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
           			  </script>
           			  
           			  
@@ -229,7 +229,7 @@
           					});
         					});		
         				
-                  console.log("(B.b) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n--- Affichage de l'article ##ID_ARTICLE\r\n-- Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ayant les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
+                  // console.log("(B.b) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n--- Affichage de l'article ##ID_ARTICLE\r\n-- Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ayant les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
         			  </script>								
         			  
         			  <li class="ressources_classe_consignes">
@@ -264,7 +264,7 @@
           					});
         					});		
         				
-                  console.log("(B.c) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n——— Affichage de l'article ##ID_ARTICLE\r\n—— Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
+                  // console.log("(B.c) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n——— Affichage de l'article ##ID_ARTICLE\r\n—— Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
         			  </script>
         			  
 								<li class="ressources_classe_consignes">
@@ -296,7 +296,7 @@
         					});
       					});		
       				
-                console.log('(B.d) Rubrique (#TYPE_OBJET) : Affichage de tous les autres articles (ici ##ID_ARTICLE) ||| enfants ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE');				
+                // console.log('(B.d) Rubrique (#TYPE_OBJET) : Affichage de tous les autres articles (ici ##ID_ARTICLE) ||| enfants ||| de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE ||| enfant ||| de la rubrique #_principale ##_principale:ID_RUBRIQUE');				
       			  </script>
       			  				
 							<li class="ressources_classe_consignes">
@@ -364,7 +364,7 @@
 	<BOUCLE_rubart(ARTICLES){id_article}>
 		<script type="text/javascript">
   	
-  	console.log('Rubrique : (old) AJAX de l\'article ##ID_ARTICLE');	
+  	// console.log('Rubrique : (old) AJAX de l\'article ##ID_ARTICLE');	
   	
   		/*
 		$().ready(function(){
@@ -387,7 +387,7 @@
 	
 		<script type="text/javascript">
   		
-  	console.log('Rubrique : (old) AJAX de la rubrique ##ID_RUBRIQUE_OUVRE');	
+  	// console.log('Rubrique : (old) AJAX de la rubrique ##ID_RUBRIQUE_OUVRE');	
   		/*
 		$().ready(function(){
 			$('#menug li a.selected').removeClass('selected');
@@ -406,7 +406,7 @@
 	
 	[(#REM) #TYPE_OBJET|=={travail_en_cours}|oui
 		<script type="text/javascript">
-  	console.log('Rubrique : (old) AJAX de publier avec la rubrique ##ID_RUBRIQUE');	
+  	// console.log('Rubrique : (old) AJAX de publier avec la rubrique ##ID_RUBRIQUE');	
   	/*
 		$().ready(function(){
 			$('#ajax_rub_#ID_RUBRIQUE').addClass('selected');
