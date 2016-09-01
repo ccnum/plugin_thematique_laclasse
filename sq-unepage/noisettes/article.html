@@ -166,8 +166,6 @@
   			
   		</div>
   		
-  		
-  			
   			[(#URL_SITE|textebrut|=={''}|non)
       		<div class="sidebar_bubble">
         		
@@ -225,12 +223,12 @@
   		<B_documents_joints_compteur>
       <div class="sidebar_bubble">
   			<div class="bloc_documents">
-  		<BOUCLE_documents_joints_compteur(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur>
+  		<BOUCLE_documents_joints_compteur(DOCUMENTS){vu=non} {id_article}> </BOUCLE_documents_joints_compteur>
   			
   			
   				[(#REM)Documents joints]
   				<B_documents_joints1>
-  					<BOUCLE_documents_joints1(DOCUMENTS) {media IN audio,video,image} {id_article} {doublons d}>
+  					<BOUCLE_documents_joints1(DOCUMENTS){vu=non} {media IN audio,video,image} {id_article} {doublons d}>
     						<div class="portfolio_grand">
     
                   [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
@@ -262,7 +260,7 @@
   					</BOUCLE_documents_joints1>
   
   					<B_documents_joints>
-  					<BOUCLE_documents_joints(DOCUMENTS) {id_article} {doublons d}>
+  					<BOUCLE_documents_joints(DOCUMENTS) {vu=non}{id_article} {doublons d}>
               <div class="portfolio">
                 <div onclick="location.href='#URL_DOCUMENT'" title="[(#TITRE|supprimer_numero)]" type="#MIME_TYPE" class="portfolio_lien">
                   [<div class="portfolio_logo_around">(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{class,'portfolio_logo'})</div>]
@@ -292,7 +290,7 @@
   		<B_documents_joints_compteur2>
   				</div>	
   		  </div> [(#REM) Fin bubble ]
-  		<BOUCLE_documents_joints_compteur2(DOCUMENTS) {id_article}> </BOUCLE_documents_joints_compteur2>
+  		<BOUCLE_documents_joints_compteur2(DOCUMENTS) {vu=non}{id_article}> </BOUCLE_documents_joints_compteur2>
   				
   		
   		[(#GET{type_objet}|match{consignes}|oui)
