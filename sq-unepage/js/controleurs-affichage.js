@@ -122,25 +122,25 @@ $().ready(function(){
     if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
     if ((mode=='consigne0')||(mode=='reponse'))
     {
-       $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
+       $.colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true });
     }
     else 
     if (mode=='classes')
     {
 
-        $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true, 
+        $.colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true, 
         onClosed:function(){isotope_classes_ferme_tout(); isotope_ressources_ferme_tout();}
         });
     }
     else
-      $().colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true,
+      $.colorbox({width:'85%',height: '85%', iframe: iframe, returnFocus: false, href:url, scrolling: true,
       onClosed:function(){isotope_ressources_ferme_tout();}
       });
   }
 
   function popup_html(url){
       if (g_u_mode_popup == 'detail') var iframe = true; else var iframe = false;
-      $().colorbox({width:'85%',height: '85%', html:url,
+      $.colorbox({width:'85%',height: '85%', html:url,
           onClosed:function(){isotope_ressources_ferme_tout();isotope_classes_ferme_tout();}
       });
   }

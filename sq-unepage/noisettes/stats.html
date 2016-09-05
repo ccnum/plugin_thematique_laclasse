@@ -1,0 +1,64 @@
+#CACHE{0}
+<div id="offset"></div>
+<div id="global">
+
+	<INCLURE{fond=noisettes/inc/no_ie6}>
+
+	<div id="menu_haut" class="zone-menu ">
+	<INCLURE{fond=noisettes/menu_haut}{env}>
+	</div>
+	<div class="clearfix combo-filters zone-menu">
+		<h1 style="clear: both;"><br />#ANNEE_SCOLAIRE</h1>
+
+	    <BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{tout}>
+	      <BOUCLE_art(ARTICLES){branche}{par date}{inverse}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+				#SET{consignes,#GET{consignes}|plus{1}}
+	            <BOUCLE_reponse(ARTICLES){id_consigne=#ID_ARTICLE}>
+	   					#SET{reponses,#GET{reponses}|plus{1}}
+	  				<BOUCLE_documents_joints2(DOCUMENTS) {extension IN png,jpg,gif} {id_article} {tout} {doublons}>
+	   					#SET{images,#GET{images}|plus{1}}
+					</BOUCLE_documents_joints2>
+	  				<BOUCLE_documents_joints3(DOCUMENTS) {extension IN mp3,wav,ogg} {id_article} {tout} {doublons}>
+	   					#SET{sons,#GET{sons}|plus{1}}
+					</BOUCLE_documents_joints3>
+	            	<BOUCLE_documents_joints1(DOCUMENTS) {id_article} {tout} {doublons}>
+	   					#SET{documents,#GET{documents}|plus{1}}
+	            	</BOUCLE_documents_joints1>
+	            	[(#TEXTE|match{vimeo|youtube}|oui)
+	            		#SET{videos,#GET{videos}|plus{1}}
+					]
+					<BOUCLE_forum(FORUMS) {id_article} {tout} {doublons}>
+	   					#SET{forums,#GET{forums}|plus{1}}
+	            	</BOUCLE_forum>
+
+	            </BOUCLE_reponse>
+	      </BOUCLE_art>
+	    </BOUCLE_rubrique>
+	    </B_rubrique>
+
+	    <BOUCLE_mot(MOTS){titre IN blogs,evenements,ressources}>
+	      <BOUCLE_rubrique1(RUBRIQUES){id_mot}{tout}>
+	        <BOUCLE_art1(ARTICLES){branche}{par date}{inverse}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{0,20}>
+	            #SET{publications,#GET{publications}|plus{1}}
+	        	<BOUCLE_documents_joints6(DOCUMENTS) {id_article} {tout} {doublons}>
+						#SET{documents2,#GET{documents2}|plus{1}}
+	        	</BOUCLE_documents_joints6>            
+	        </BOUCLE_art1>
+	      </BOUCLE_rubrique1>
+	    </BOUCLE_mot>
+
+	<table>
+
+	 	<tr><td>#GET{consignes}  </td><td>Consignes</td>
+	 	<tr><td>#GET{reponses}  </td><td>Réponses</td></tr>
+	  	<tr><td>#GET{images}  </td><td>Images</td></tr>
+	  	<tr><td>#GET{sons}  </td><td>Sons</td></tr>
+	  	<tr><td>#GET{videos}  </td><td>Videos</td></tr>
+	  	<tr><td>#GET{documents}  </td><td>Documents autres</td></tr>
+	  	<tr><td>#GET{forums}  </td><td>Forums</td></tr>
+	  	<tr><td>#GET{publications}  </td><td>Publications</td></tr>
+	  	<tr><td>#GET{documents2}  </td><td>Documents ressources</td></tr>
+	</table>
+
+	</div>
+</div>
