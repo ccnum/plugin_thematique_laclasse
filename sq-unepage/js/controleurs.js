@@ -381,7 +381,6 @@ function changeTimelineMode(type) {
     }
     
     $('body').addClass(classCss[type]);
-    updateMenuIcon(type);
   }
 } 
 
@@ -418,7 +417,7 @@ function showConsigneInTimeline(numero) {
  *
  * @example
  * // Avec l'ID SPIP #146 de la consigne
- * showConsigneInTimeline(146);
+ * showReponseInTimeline(146);
  *
  * @see callConsigne
  * @see consigne#ouvre
@@ -1130,7 +1129,7 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
                 'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
                 
-      });
+  });
 }
 
 

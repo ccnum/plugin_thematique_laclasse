@@ -1235,7 +1235,7 @@ a:hover{
 	#SET{col,#GET{gris_fonce}}
 	[(#GET{col1}|substr{0,2}|=={#GET{col1}|substr{2,2}}|oui|et{#GET{col1}|substr{2,2}|=={#GET{col1}|substr{4,2}}|oui}|non) [(#SET{col,[#(#GET{col1})]})] ]
 	#menu_bas.zone-menu li a.[logo_menu-(#VALEUR)]{background-image: url(#GET{img});}
-	#menu_bas.zone-menu li a.[logo_menu-(#VALEUR)]:hover, .zone-menu li a.[logo_menu-(#VALEUR)].selected, .show_#VALEUR #menu_bas.zone-menu li a.[logo_menu-(#VALEUR)] {background-color: #GET{col};}
+	#menu_bas.zone-menu li a.[logo_menu-(#VALEUR)]:hover, .zone-menu li a.[logo_menu-(#VALEUR)].selected, .show_#VALEUR #menu_bas.zone-menu li a.[logo_menu-(#VALEUR)], .show_#VALEUR #menu_bas.zone-menu li a.[menu_logo_(#VALEUR)] {background-color: #GET{col};}
 </BOUCLE_vue>
 
 /* Pictos haut */
