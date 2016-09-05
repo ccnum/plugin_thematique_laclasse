@@ -112,9 +112,14 @@ $().ready(function(){
   */
 });
 
+var antifloodHashChange = false;
+
 
 function onHashChange() {
-  setContentFromState(History.getState());
+  console.log('[ ONHASHCHANGE ] Antiflood : '+antifloodHashChange);
+  if (antifloodHashChange == false) {
+    setContentFromState(History.getState());
+  }
 }
 
 
@@ -127,7 +132,7 @@ var currentState = {};
   
 function setContentFromState(state) {
   
-  console.log('>>> setContentFromState');
+  console.log('>>> setContentFromState()');
   
   if (typeof state.data !== 'object' || state.data == null) return;
   
@@ -164,6 +169,8 @@ function setContentFromState(state) {
   currentState = state;
   
   if (isSamePage) { return; }
+  
+  antifloodHashChange = true;
   
   // Ressource
   
@@ -287,6 +294,7 @@ function setContentFromState(state) {
 		  changeTimelineMode('consignes');
 		}
 	}
+	
 }
 
 
@@ -992,17 +1000,25 @@ function updateUrl(object, title, url) {
     console.log('has hash');
     History.pushState(object, title, url+'#'+CCN.hash);
     
-    var anchor = $("#"+ CCN.hash);
+    setTimeout(function(){
     
-    // TODO : cela est appelé deux fois minimum à cause de History.js (donc un trigger('click') sur .triggertoggleshow ne fonctionne pas car il ouvre puis ferme)
-    
-    // Forum : ouvre les items
-    anchor.find('.toggleshow').show();
-    anchor.closest('.intervention_item_around').find('.toggleshow').show();
-    
-    $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-60},'slow');
-    
-    CCN.hash = '';
+      var anchor = $("#"+ CCN.hash);
+      
+      console.log(anchor);
+      
+      if (anchor.length > 0) {
+      
+        // TODO : cela est appelé deux fois minimum à cause de History.js (donc un trigger('click') sur .triggertoggleshow ne fonctionne pas car il ouvre puis ferme)
+        
+        // Forum : ouvre les items
+        anchor.find('.toggleshow').show();
+        anchor.closest('.intervention_item_around').find('.toggleshow').show();
+        
+        $('#sidebar_content, #sidebar_main_inner, #sidebar_lateral_inner').animate({scrollTop: anchor.offset().top-60},'slow');
+      }
+      
+      CCN.hash = '';
+    },500);
   } else { 
     console.log('no hash');
     History.pushState(object, title, url);
@@ -1084,6 +1100,7 @@ function loadContentInMainSidebar(url, typePage, typeObjet, callback) {
               'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
   
   $('#sidebar_main_inner').load(url, function(response) {
+    console.log('Callback MainSidebar --- start');
     $('body').removeClass('loading');
     $('#sidebar_content').scrollTop(0);
     initLocalEvents($('#sidebar_main_inner'));
@@ -1093,6 +1110,10 @@ function loadContentInMainSidebar(url, typePage, typeObjet, callback) {
     console.log('%c Main'+' %c Loaded ', 
                 'background:#8BC34A;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
+    
+    antifloodHashChange = false;
+    console.log('antiflood free');
+    console.log('Callback MainSidebar --- end');
   });
 }
 
@@ -1125,6 +1146,8 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
       
     if (callback) callback(response);
       
+    antifloodHashChange = false;
+    console.log('antiflood free');
     console.log('%c Lateral'+' %c Loaded ', 
                 'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');

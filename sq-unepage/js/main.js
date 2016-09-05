@@ -611,6 +611,8 @@ function initTimeline(){
   
 //  CCN.projet.showWholeTimeline();
   
+  console.log('[ INIT TIMELINE ]');
+  
 	setContentFromState({
   	data: {
       'type_objet':CCN.typePopupToShowAtInit,

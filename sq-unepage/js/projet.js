@@ -166,12 +166,14 @@ function Projet(){
 	this.showWholeTimeline = function() {
   	canShowConsigneSidebar = false;
   
+  
     setContentFromState({
       'data':{
         'type_objet':'0',
         'id_objet':'0'
       }
     },'CCN','./');
+    
 	 
 	  $('#menu-consignes .filter a, #menu-classes .filter a').removeClass('selected');
 	  $('#menu-consignes .logo_menu-tout, #menu-classes .logo_menu-tout').addClass('selected');
