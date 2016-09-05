@@ -2,7 +2,7 @@
     prefix="th"
     categorie="squelette"
     version="3.0.0"
-    etat="dev"
+    etat="stable"
     logo="th.png"
     schema="3.0.0"
     documentation="http://www.laclasse.com"
