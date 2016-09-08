@@ -16,6 +16,8 @@
     <div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
     	
     <div class="sidebar_bubble">
+      
+      <div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
   		
   		[(#REM) ---------------- Entete publication ---------------- ]
   			#SET{type_objet,#TYPE_OBJET}
@@ -146,7 +148,6 @@
       	
   		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
   
-  				<div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
   				<div class="nettoyeur0"></div>
   
   			[(#REM)Texte]
