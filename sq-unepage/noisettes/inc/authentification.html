@@ -1,6 +1,7 @@
 #CACHE{0}
 <BOUCLE_restreint(RUBRIQUES){id_rubrique=#RESTREINT}>#SET{titre,#TITRE}</BOUCLE_restreint>
 [(#MODELE{logo_menu}{rel=presentation}{valeur=aide}{class=presentation noir bordure_gauche}{title=Le projet}{href=#CHEMIN{img/presentation/01.png}})]
+
 [(#REM)Mire authentification]
 	[(#REM)Ajouter des images]
 		[(#SESSION{statut}|oui)
