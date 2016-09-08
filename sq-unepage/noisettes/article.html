@@ -174,9 +174,18 @@
       				<a id="bloc_option_classe_reponse_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Contenu lié">
       					Contenu lié
       				</a>
-      				<div style="clear:both" class='bloc_classe_iframe'>
-      					<div class="nettoyeur"></div>
+      				<div class="nettoyeur bloc_classe_iframe">
+      					 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                    [<div class="#EDIT{url_site} spip_doc_titre">(#URL_SITE|textebrut|sinon{<div class="ajouter_couleur">Modifier…</div>})</div>]
+                ]
+                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                    [<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>]
+                ]
+                                    [<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>]
+
+                <div class="nettoyeur"></div>
       					<iframe src="[(#URL_SITE|textebrut)]" width="100%" height="100%"></iframe>
+               
       				</div>
       			</div>
       		
@@ -194,7 +203,13 @@
       				<div style="clear:both" class='bloc_classe_iframe'>
       					<div class="nettoyeur"></div>
       					<iframe src="[(#GET{classe_iframe}|textebrut)]" width="100%" height="100%"></iframe>
-      				</div>
+      				  [(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
+                    [<div class="#EDIT{descriptif} spip_doc_titre">(#GET{classe_iframe}|sinon{<div class="ajouter_couleur">Modifier…</div>})</div>]
+                ]
+                [(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non)
+                    [<a class="spip_doc_titre" href="[(#GET{classe_iframe}|textebrut)]">(#GET{classe_iframe}|textebrut)</a>]
+                ]
+              </div>
       			</div>
       		
       		</div>		
