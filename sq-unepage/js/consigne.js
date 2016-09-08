@@ -20,6 +20,7 @@ function Consigne(){
 		this.titre                        = this.data.titre;
 		this.date                         = this.data.date;
 		this.nombre_reponses              = this.data.nombre_reponses;
+		this.reponses_id                  = this.data.reponses;
 		this.nombre_commentaires          = this.data.nombre_commentaires;
 		this.nombre_jours                 = this.data.nombre_jours;
 		this.x                            = this.data.nombre_jours;		
@@ -44,6 +45,8 @@ function Consigne(){
 			this.nombre_jours_max = data.nombre_jours;
 		}
 
+    console.log(this.reponses_id);
+    
     this.initDOM();
   }
 
@@ -74,7 +77,8 @@ function Consigne(){
 		
 		for (var j = 1;j <= this.data.nombre_reponses;j++) {
   		if (j <= this.data.classes.length) {
-  		  reponses_puces += '<div class="reponse_puce"></div>';
+    		var couleur = this.reponses_id[j-1].substr(this.reponses_id[j-1].length-1);
+  		  reponses_puces += '<div class="reponse_puce couleur_travail_en_cours'+couleur+'"></div>';
   		}
 		}
 		
