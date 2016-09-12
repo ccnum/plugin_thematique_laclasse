@@ -1,13 +1,10 @@
 #SET{dans_archives,non}
 
 <datas>
-
-  <BOUCLE_archives(RUBRIQUES){titre==Archives$}{tout}>
   
-    
     #SET{titre_rubrique_archive,#EVAL{_annee_scolaire}}
     
-    <BOUCLE_archives_annee(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre==^#GET{titre_rubrique_archive}}{tout}>
+    <BOUCLE_archives_annee(RUBRIQUES){titre==^#GET{titre_rubrique_archive}}{tout}{0,1}>
     
       #SET{dans_archives,oui}
       
@@ -39,7 +36,6 @@
         
     
     </BOUCLE_archives_annee>
-  </BOUCLE_archives>
   
   
   
