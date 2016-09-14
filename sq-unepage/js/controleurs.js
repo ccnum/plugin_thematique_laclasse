@@ -105,7 +105,7 @@ $().ready(function(){
 
   // Initialisation des logos-menus
   
-  $("#menu_bas li.logo a.selected").each(function (){ changeCouleurLogoMenu(this); });
+  // $("#menu_bas li.logo a.selected").each(function (){ changeCouleurLogoMenu(this); });
   /*
   $('#menu_bas a[data-filter-value=".ressource_consignes"]').parent().stop().fadeOut(1000);
   $('#menu_bas a[data-filter-value=".ressource_reponses"]').parent().stop().fadeOut(1000);
@@ -116,7 +116,6 @@ var antifloodHashChange = false;
 
 
 function onHashChange() {
-  console.log('[ ONHASHCHANGE ] Antiflood : '+antifloodHashChange);
   if (antifloodHashChange == false) {
     setContentFromState(History.getState());
   }
@@ -131,8 +130,6 @@ function onHashChange() {
 var currentState = {};
   
 function setContentFromState(state) {
-  
-  console.log('>>> setContentFromState()');
   
   if (typeof state.data !== 'object' || state.data == null) return;
   
@@ -151,11 +148,6 @@ function setContentFromState(state) {
   if (currentState.id_article == undefined)        { currentState.id_article = ''; }
   if (currentState.id_syndic_article == undefined) { currentState.id_syndic_article = ''; }
   if (currentState.id_objet == undefined)          { currentState.id_objet = ''; }
-  
-  
-  console.log(currentState);
-  console.log(state);
-  
   
   isSamePage = true;
   
@@ -389,7 +381,12 @@ function changeTimelineMode(type) {
     }
     
     $('body').addClass(classCss[type]);
+    
+    updateMenuIcon([type], 'timelineMode');
   }
+  
+  $('#menu_bas .logo a.menu_logo_type_sidebarView').removeClass('selected');
+  
 } 
 
 
@@ -499,7 +496,7 @@ function callConsigne(id_consigne){
 	var url = CCN.projet.url_popup_consigne+"&id_article="+id_consigne;
 	showConsigneInTimeline(id_consigne);
 	setFullscreenModeToCols(false);
-	updateMenuIcon('consignes-'+id_consigne);
+	updateMenuIcon(['consignes-'+id_consigne], 'mainView');
 	
 	if ((CCN.admin == -2 && canShowConsigneSidebar == true) || CCN.admin != -2) {
   	loadContentInMainSidebar(url, 'article', 'consignes', function(){
@@ -542,6 +539,9 @@ function callReponse(id_reponse){
 	setFullscreenModeToCols(false);
   
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
+	var id_classe = getIdClasseFromIdReponse(id_reponse);
+	
+	updateMenuIcon(['consignes-'+id_consigne, 'classes-'+id_classe], 'mainView');
   
 	var url = CCN.projet.url_popup_reponse+"&id_article="+id_reponse;
   showConsigneInTimeline(id_consigne);
@@ -579,7 +579,7 @@ function callReponse(id_reponse){
 function callClasse(id_classe){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon('classes');
+	updateMenuIcon(['classes','classes-'+id_classe],'sidebarView');
   
 	var url = CCN.projet.url_popup_classes;
 	if (id_classe!='') url = CCN.projet.url_popup_classes+'&id_rubrique='+id_classe+'&type_objet=travail_en_cours';
@@ -608,7 +608,7 @@ function callClasse(id_classe){
 function callClasses(){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(false);
-	updateMenuIcon('classes');
+	updateMenuIcon(['classes'], 'sidebarView');
   
 	
 	var url = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
@@ -641,7 +641,7 @@ function callClasses(){
 function callArticleBlog(id_article){
   changeTimelineMode('blogs');
 	setFullscreenModeToCols(false);
-	updateMenuIcon('blogs');
+	updateMenuIcon(['blogs'],'mainView');
 	
 	var url = CCN.projet.url_popup_blog+"&page=article&id_article="+id_article;
 	loadContentInMainSidebar(url, 'article', 'blogs', function(){
@@ -678,7 +678,7 @@ function callArticleBlog(id_article){
 function callRessource(){
   changeTimelineMode('consignes');
 //  toggleSidebarExpand();
-	updateMenuIcon('ressources');
+	updateMenuIcon(['ressources'], 'sidebarView');
 	
 //	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.</div>');
 	setFullscreenModeToCols(true);
@@ -710,7 +710,7 @@ function callRessource(){
 function callRessourceArticle(id_article, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon(type_objet);
+	updateMenuIcon([type_objet],'sidebarView');
 	
 	var url = "./spip.php?page=article&id_article="+id_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'article', type_objet, function(){
@@ -743,7 +743,7 @@ function callRessourceArticle(id_article, type_objet){
 function callRessourceSyndicArticle(id_syndic_article, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon(type_objet);
+	updateMenuIcon([type_objet],'sidebarView');
 	
 	var url = "./spip.php?page=syndic_article&id_syndic_article="+id_syndic_article+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'syndic_article', type_objet, function(){
@@ -778,7 +778,7 @@ function callRessourceSyndicArticle(id_syndic_article, type_objet){
 function callRessourceRubrique(id_rubrique, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
-	updateMenuIcon(type_objet);
+	updateMenuIcon([type_objet],'sidebarView');
 	
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'rubrique', type_objet, function(){
@@ -816,7 +816,7 @@ function callRessourceRubrique(id_rubrique, type_objet){
 function callArticleEvenement(id_objet, type_objet){
   changeTimelineMode('evenements');
 	setFullscreenModeToCols(false);
-	updateMenuIcon('evenements');
+	updateMenuIcon(['evenements'],'mainView');
 	
 	var url = CCN.projet.url_popup_evenement+"&page="+type_objet+"&id_"+type_objet+"="+id_objet;
 	loadContentInMainSidebar(url, 'article', 'evenements', function(){
@@ -847,7 +847,7 @@ function callArticleEvenement(id_objet, type_objet){
 function callAgora(){
   changeTimelineMode('consignes');
 //  toggleSidebarExpand();
-	updateMenuIcon('agora');
+	updateMenuIcon(['agora'],'sidebarView');
 	
 //	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'agora grâce à la barre latérale sur votre droite.</div>');
 	setFullscreenModeToCols(true);
@@ -884,7 +884,7 @@ function callAgora(){
 
 function callActualites(){
   changeTimelineMode('consignes');
-	updateMenuIcon('actualites');
+	updateMenuIcon(['actualites'],'sidebarView');
 	setFullscreenModeToCols(false);
 	
 	var url = './spip.php?page=actualites&type_objet=actualites&mode=ajax-detail';
@@ -933,6 +933,29 @@ function getIdConsigneFromIdReponse(id_reponse) {
     for (var index_reponse in CCN.consignes[index_consigne].reponses) {
       if (CCN.consignes[index_consigne].reponses[index_reponse].id == id_reponse) {
         return CCN.consignes[index_consigne].id;
+      }
+    }
+  }
+  return null;
+}
+
+
+
+/**
+ * Cherche l'ID de la classe parente à une réponse de classe
+ * grâce à l'ID de la réponse
+ *
+ * @param {number} id_reponse - ID de la réponse
+ * @returns {number} Id de la classe
+ *
+ * @see callReponse
+ */
+ 
+function getIdClasseFromIdReponse(id_reponse) {
+  for (var index_consigne in CCN.consignes) {
+    for (var index_reponse in CCN.consignes[index_consigne].reponses) {
+      if (CCN.consignes[index_consigne].reponses[index_reponse].id == id_reponse) {
+        return CCN.consignes[index_consigne].reponses[index_reponse].classe_id;
       }
     }
   }
@@ -997,14 +1020,11 @@ function updateUrl(object, title, url) {
   currentState = object;
   
   if (CCN.hash != '') {
-    console.log('has hash');
     History.pushState(object, title, url+'#'+CCN.hash);
     
     setTimeout(function(){
     
       var anchor = $("#"+ CCN.hash);
-      
-      console.log(anchor);
       
       if (anchor.length > 0) {
       
@@ -1020,7 +1040,6 @@ function updateUrl(object, title, url) {
       CCN.hash = '';
     },500);
   } else { 
-    console.log('no hash');
     History.pushState(object, title, url);
   }
   antiPushState = false;
@@ -1100,7 +1119,6 @@ function loadContentInMainSidebar(url, typePage, typeObjet, callback) {
               'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
   
   $('#sidebar_main_inner').load(url, function(response) {
-    console.log('Callback MainSidebar --- start');
     $('body').removeClass('loading');
     $('#sidebar_content').scrollTop(0);
     initLocalEvents($('#sidebar_main_inner'));
@@ -1112,8 +1130,6 @@ function loadContentInMainSidebar(url, typePage, typeObjet, callback) {
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
     
     antifloodHashChange = false;
-    console.log('antiflood free');
-    console.log('Callback MainSidebar --- end');
   });
 }
 
@@ -1147,7 +1163,6 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
     if (callback) callback(response);
       
     antifloodHashChange = false;
-    console.log('antiflood free');
     console.log('%c Lateral'+' %c Loaded ', 
                 'background:#FFA000;color:#fff;padding:2px;border-radius:2px;', 
                 'background:#009688;color:#fff;padding:2px;display:block;margin-top:5px;border-radius:2px;');
@@ -1160,9 +1175,40 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
  * Update le menu
  */
 
-function updateMenuIcon(id) {
+function updateMenuIcon(ids, mode) {
+  if (mode == 'timelineMode') {
+    $('#menu_bas .logo a').removeClass('selected');
+    for (var i in ids) {
+      $('.menu_logo_'+ids[i]).addClass('selected');
+    }
+  }
+  
+  // mainView :
+  // on clean tous les items
+  // et on active les ids
+  
+  if (mode == 'mainView') {
+    $('#menu_bas .logo a').removeClass('selected');
+    for (var i in ids) {
+      $('.menu_logo_'+ids[i]).addClass('selected');
+    }
+  }
+  
+  
+  // sidebarView :
+  // on clean uniquement les items sidebarView
+  // et on active les ids
+  
+  if (mode == 'sidebarView') {
+    $('#menu_bas .logo a.menu_logo_type_sidebarView').removeClass('selected');
+    for (var i in ids) {
+      $('.menu_logo_'+ids[i]).addClass('selected');
+    }
+  }
+  /*
   $('#menu_bas .logo a').removeClass('selected');
   $('.menu_logo_'+id).addClass('selected');
+  */
 }
 
 

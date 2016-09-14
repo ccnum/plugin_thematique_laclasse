@@ -44,8 +44,6 @@ function Consigne(){
 		if (this.nombre_jours_max <= 0){
 			this.nombre_jours_max = data.nombre_jours;
 		}
-
-    console.log(this.reponses_id);
     
     this.initDOM();
   }

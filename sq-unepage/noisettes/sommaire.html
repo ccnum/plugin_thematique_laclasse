@@ -52,7 +52,6 @@ et/ou
 	<div id="sidebar">
   	<div id="sidebarCache"></div>
   	<div id="sidebarExpand">Agrandir/réduire</div>
-    <!--<iframe id="sidebar_iframe"></iframe>-->
     
     <div id="sidebar_content">
       
@@ -94,6 +93,7 @@ et/ou
 				<h3><span>Timeline</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
 					[(#MODELE{logo_menu}{valeur=consignes}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();}{title=Toutes les consignes})]
+					
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -102,6 +102,7 @@ et/ou
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
 					[(#MODELE{logo_menu}{valeur=blog}{class=menu_logo_blogs}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
+					
 					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
 					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
@@ -127,7 +128,7 @@ et/ou
 			<div id="menu-consignes" class="bloc_view col">
 				<h3><span>Consignes</span></h3>
 				<ul class="filter clearfix option-set" data-filter-group="consigne">
-					[(#MODELE{logo_menu}{valeur=consignes}{class=menu_logo_consignes}{title=Toutes les consignes}{onclick=CCN.projet.showWholeTimeline();})]
+					[(#MODELE{logo_menu}{valeur=consignes}{class=menu_logo_consignes}{title=Toutes les consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();})]
 				  #SET{num,0}
 
 					<BOUCLE_consignes0(RUBRIQUES mots mots_liens){mots.titre=consignes}{rubriques.id_rubrique=mots_liens.id_objet}>
@@ -154,13 +155,13 @@ et/ou
 			<div id="menu-classes" class="bloc_view col" >
 				<h3><span>Classes</span></h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
-			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les classes}{class=menu_logo_classes}{onclick=callClasses();})]
+			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les classes}{class=menu_logo_consignes menu_logo_classes menu_logo_type_sidebarView}{onclick=callClasses();})]
 			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
   			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
   			            </BOUCLE_a3>
   			            
-  							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
+  							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
   							
   			            </B_a3>
   			            <//B_a3>
@@ -174,7 +175,7 @@ et/ou
 		    <div id="menu-ressources" class="bloc_view col">
 				<h3><span>Ressources</span></h3>
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
-			        [(#MODELE{logo_menu}{valeur=consignes}{title=Toutes les consignes}{class=menu_logo_consignes}{onclick=CCN.projet.showWholeTimeline();})]
+			        [(#MODELE{logo_menu}{valeur=consignes}{title=Toutes les consignes}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();})]
 						#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
@@ -182,7 +183,8 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=ressource}{class=menu_logo_ressources}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
+						
+					[(#MODELE{logo_menu}{valeur=ressource}{class=menu_logo_ressources menu_logo_type_sidebarView}{filter=.ressource_ressources}{onclick=callRessource();}{title=L'espace ressource})]
 					
 					#SET{blog,Le blog du projet}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
@@ -191,7 +193,8 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
+						
+					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora menu_logo_type_sidebarView}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
 				</ul>
 		    </div>
 
@@ -199,7 +202,7 @@ et/ou
 			<div id="menu-actualites" class="bloc_view col" >
 				<h3><span>Actualités</span></h3>
     		<ul class="actualites-ul filter clearfix option-set" data-filter-group="classe">
-	        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les actualités}{class=menu_logo_actualites}{onclick=callActualites();})]
+	        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les actualités}{class=menu_logo_type_sidebarView menu_logo_actualites}{onclick=callActualites();})]
     		</ul>
     		<div class="actualites-inner filter clearfix option-set" data-filter-group="actualites">
       		<INCLURE{fond=noisettes/inc/actus_timeline}{nb_actus=5} />
