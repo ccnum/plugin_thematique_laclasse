@@ -371,6 +371,22 @@ body {
 	border-bottom:2px solid #000; */
 }
 
+#menu_haut_logos {
+  overflow:hidden;
+}
+
+#menu_haut_logos li {
+}
+
+#menu_haut_logos img {
+  height: 21px;
+  margin: 6px 6px;
+}
+
+#menu_haut_logos a {
+  background:transparent !important;
+}
+
 #menu_haut .bloc_titre,
 .bloc_view {
 	position:relative;
@@ -383,6 +399,7 @@ body {
 #menu_haut_titre_fixed,
 #menu_haut_user,
 #menu_haut_publier_consigne,
+#menu_haut_logos,
 .bloc_view {
 	background-color: white;
 	border-radius:3px;
@@ -518,7 +535,8 @@ body {
   transition:all 200ms ease-in-out;
 }
 
-.logo:hover .logo_menu_classe_couleur {
+.logo:hover .logo_menu_classe_couleur,
+.logo a.selected .logo_menu_classe_couleur {
   height:100%;     
   opacity: .5;
 }
@@ -1664,7 +1682,7 @@ div.donnees_classe {
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.6);
   background: rgba(0,0,0,0.07);
-  margin: 12px -10px -10px;
+  margin: 12px -10px 8px;
 }
 
 .consigne .texte {
@@ -1703,23 +1721,28 @@ div.donnees_classe {
 }
 
 .consigne .picto_nombre_reponses {
-	background-repeat:no-repeat;
-	z-index:10px;
-	padding:8px 0 0 0;
-	font-size:14px;
-	font-weight:bold;
-	text-align:center;
-	
-	text-align:center;
+  background-repeat: no-repeat;
+  z-index: 10;
+  padding: 7px 0 6px 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  margin-top: 5px;
+  border-radius: 0 0 3px 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .consigne .reponse_puce {
-  width:6px;
-  height:6px;
-  background:rgba(255,255,255,1);
-  margin:0px 5px 1px 5px;
-  display:inline-block;
-  border-radius:50%
+  width: 8px;
+  height: 8px;
+  /* background: rgb(255, 255, 255); */
+  margin: 0px 5px 1px 5px;
+  display: inline-block;
+  border-radius: 50%;
 }
 
 .consigne .reponse_puce.disabled {
@@ -3882,7 +3905,7 @@ ul#forum, .lien_forum {
   right: 0; 
   bottom: 0;
   width:550px;
-  z-index:999;
+  z-index:4000;
   margin-right:-570px;
   
   -webkit-transition:margin 1000ms ease, width 1000ms ease;
@@ -4301,7 +4324,7 @@ input.crayon-active {
   opacity:0;
 }
 .bloc_classe_iframe {
-  height: 400px;
+  /*min-height: 620px;*/
 }
 .bloc_classe_iframe iframe {
   border:none;

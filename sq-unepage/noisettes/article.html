@@ -16,8 +16,11 @@
     <div id="bloc_article-#ID_ARTICLE" class="bloc_article [(#GET{police})]">
     	
     <div class="sidebar_bubble">
+      
+      <div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
   		
   		[(#REM) ---------------- Entete publication ---------------- ]
+
   			#SET{type_objet,#TYPE_OBJET}
   			[(#TYPE_OBJET|=={travail_en_cours}|et{#MODE|=={ajax0}|oui})#SET{type_objet,ressources}]
   			<BOUCLE_auteur(auteurs_liens){id_rubrique}>
@@ -26,15 +29,30 @@
   			</B_auteur>
   			<//B_auteur>
   
-  		[(#REM) ---------------- Hack temporaire ? ---------------- ]
-  			<div class="cache">
-  				<INCLURE{fond=noisettes/objet/objet-supprimer}{objet=article}{id_objet=#ID_ARTICLE}{id_parent=#ID_RUBRIQUE}{confirmation=#GET{confirmation}}{url=#URL_PAGE{sommaire_recharge}}>
-  			</div>
-  		
-  		[(#REM) ---------------- Titre & logo ---------------- ]
+  		  [(#REM) ---------------- Inclusion/iframe des urls liées aux classes ---------------- ]
+
   			<BOUCLE_rub(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}{tout}>
-  			  #SET{classe_iframe,#DESCRIPTIF}
-  			  #SET{titre_parent,#TITRE} #SET{id_parent,#ID_RUBRIQUE}
+  			  <BOUCLE_artc(ARTICLES){id_rubrique}>
+          </BOUCLE_artc>
+            #SET{artc,#TOTAL_BOUCLE}
+          </B_artc>
+     
+[(#REM) Hack temporaire pour compter nombre de lignes ]
+
+[(#DESCRIPTIF*|=={''}|non)
+[(#DESCRIPTIF*|substr_count{'
+'}|>{1}|non)
+#SET{classe_iframe,#DESCRIPTIF*}
+]                                                                                             
+[(#DESCRIPTIF*|substr_count{'
+'}|>{1}|oui)
+[(#SET{tab,[(#DESCRIPTIF*|explode{'
+'})]})]
+#SET{classe_iframe,#GET{tab}|table_valeur{#GET{artc}|moins{1}}}
+]
+]
+  			  #SET{titre_parent,#TITRE}
+          #SET{id_parent,#ID_RUBRIQUE}
   			  <BOUCLE_rub00(RUBRIQUES){id_rubrique=#ID_PARENT}{tout}>
   			    #SET{id_travail_en_cours,#ID_RUBRIQUE}
   			  </BOUCLE_rub00>
@@ -44,6 +62,8 @@
 			    #SET{titre_consigne,#TITRE}
 			    #SET{id_consigne,#ID_ARTICLE}
 			  </BOUCLE_consigne_de_la_reponse>
+
+      [(#REM) ---------------- Titre & logo ---------------- ]
   			
   			[(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes|agora}|oui)
   			  [(#GET{type_objet}|match{travail_en_cours|classes}|oui)
@@ -138,33 +158,23 @@
   						</div>  						
   					]
   					
-  					
-  
-  		[(#REM) ---------------- bloc article ---------------- ]
-  		
-  		
+  		[(#REM) ---------------- Texte ---------------- ]
       	
-  		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
-  
-  				<div class="formulaire_jaime_flottant">#FORMULAIRE_JAIME</div>
+  		    <BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
   				<div class="nettoyeur0"></div>
-  
-  			[(#REM)Texte]
-  				
+    				
   				[(#TEXTE|oui)
   					<div class="bloc_texte">
   						[[(#GET{police}|=={monospace}|et{#NOM_SITE_SPIP|=={novaterra.laclasse.com}}|oui) <p>ordinateur@novaterra:~$</p>]						
   						<span class="spip #EDIT{texte}">(#TEXTE|liens_ouvrants|image_reduire{500})</span>]
   					</div>
   				]
-  				
-  
-  			[(#REM) ---------------- Champs personnalisés ---------------- ]
-  				<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
+    			[(#REM) ---------------- Champs personnalisés ---------------- ]
+    				<INCLURE{fond=noisettes/inc/article-design.laclasse.com}{id_consigne=#ID_CONSIGNE}{id_article}>
        
-  			[(#REM) ---------------- documents ---------------- ]
-  			
   		</div>
+      
+      [(#REM) ---------------- Productions transversales ---------------- ]
   		
   			[(#URL_SITE|textebrut|=={''}|non)
       		<div class="sidebar_bubble">
@@ -174,9 +184,18 @@
       				<a id="bloc_option_classe_reponse_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Contenu lié">
       					Contenu lié
       				</a>
-      				<div style="clear:both" class='bloc_classe_iframe'>
-      					<div class="nettoyeur"></div>
+      				<div class="nettoyeur bloc_classe_iframe">
+      					 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                    [<div class="#EDIT{url_site} spip_doc_titre">(#URL_SITE|textebrut|sinon{<div class="ajouter_couleur">Modifier…</div>})</div>]
+                ]
+                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                    [<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>]
+                ]
+                [<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>]
+
+                <div class="nettoyeur"></div>
       					<iframe src="[(#URL_SITE|textebrut)]" width="100%" height="100%"></iframe>
+               
       				</div>
       			</div>
       		
@@ -187,14 +206,17 @@
       		<div class="sidebar_bubble">
         		
       			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_iframe}>
-      			<div class="bloc_option_doc nettoyeur">
+      			<div class="bloc_option_doc nettoyeur bloc_texte">
       				<a id="bloc_option_classe_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Production transversale">
-      					Production transversale
+      					Production de la classe
       				</a>
       				<div style="clear:both" class='bloc_classe_iframe'>
-      					<div class="nettoyeur"></div>
+      					[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
+                    [<a class="spip_doc_titre" href="[(#GET{classe_iframe}|replace{embed,})]" target="_blank">(#GET{classe_iframe}|replace{embed,})</a>]
+                ]
+                <div class="nettoyeur"></div>
       					<iframe src="[(#GET{classe_iframe}|textebrut)]" width="100%" height="100%"></iframe>
-      				</div>
+              </div>
       			</div>
       		
       		</div>		

@@ -16,10 +16,10 @@
 		
 		<image_fond>
 			<BOUCLE_rub(RUBRIQUES){titre_mot=images_background}{titre IN #ANNEE_SCOLAIRE,Images,Background,Images Background,Contenu Editorial}{par hasard}{0,1}{tout}>
-				<BOUCLE_images(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1024}|extraire_attribut{src})]})]</BOUCLE_images>
+				<BOUCLE_images(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1600}|extraire_attribut{src})]})]</BOUCLE_images>
 			</BOUCLE_rub>
 				<BOUCLE_rub1(RUBRIQUES){titre_mot=images_background}{par hasard}{0,1}{tout}>
-					<BOUCLE_images1(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1024}|extraire_attribut{src})]})]</BOUCLE_images1>
+					<BOUCLE_images1(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1600}|extraire_attribut{src})]})]</BOUCLE_images1>
 				</BOUCLE_rub1>
 			<//B_rub>
 			[(#GET{url}|non)[(#SET{url,[(#CHEMIN{img/fond_#NOM_SITE_SPIP.png}|sinon{#CHEMIN{img/fond.png}})]})]]

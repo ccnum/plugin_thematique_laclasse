@@ -17,36 +17,36 @@
 			</B_nb_doc>
 				#SET{nb_doc,0}
 			<//B_nb_doc>
+
+ [(#REM) ---------------- Titre ---------------- ]
 			
 		<div class="sidebar_bubble">  		
 			<div class="fiche_titre couleur_texte_[(#TYPE_OBJET)] couleur_[(#TYPE_OBJET)][(#MODELE{nb2col}{id_article})]">
-			    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+			    <div class="photo #EDIT{logo}">[(#MODELE{logo_carre}{id_rubrique})]</div>
 			    <div class="texte">
-			        <div class="titre">[(#TITRE|supprimer_numero)]</div>
+			        <div class="titre #EDIT{titre}">[(#TITRE|supprimer_numero)]</div>
 			        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
 			    </div>
 			</div>
 		</div>
 		
-		[(#DESCRIPTIF|textebrut|=={''}|non)
-  		<div class="sidebar_bubble">
-    		
-  			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_iframe}>
-  			<div class="bloc_option_doc nettoyeur">
-  				<a id="bloc_option_classe_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Production transversale">
-  					Production transversale
-  				</a>
-  				<div style="clear:both" class='bloc_classe_iframe'>
-  					<div class="nettoyeur"></div>
-  					<iframe src="[(#DESCRIPTIF|textebrut)]" width="100%" height="100%"></iframe>
-  				</div>
-  			</div>
-  		
-  		</div>		
-		]
+    [(#REM) ---------------- Texte (descriptif) ---------------- ]
+    
+    [<div class="sidebar_bubble">
+      <div class="bloc_texte #EDIT{texte}">
+    		(#TEXTE)
+      </div>
+    </div>]
+    [(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|et{#TEXTE|=={''}|oui}|oui)
+      <div class="sidebar_bubble">
+      <div class="bloc_texte #EDIT{texte}">
+      Ajouter le descriptif de la classe
+      </div>
+      </div>
+    ]
 		
-		
-		
+    [(#REM) ---------------- Réponses ---------------- ]
+
 		<div class="sidebar_bubble">
   		
 			<INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_reponses_consignes_classe-#ID_ARTICLE}>
@@ -117,72 +117,41 @@
 					<div class="introduction nettoyeur"></div>
 				</div>
 		  </div>
-  		
-  		
+
 		</div>
 		
-		
+
+ [(#REM) ---------------- Inclusion/iframe des urls liées aux classes ---------------- ]
+
+[(#SET{tab,[(#DESCRIPTIF*|explode{'
+'})]})]
+
+        <B_tab>
+            <div class="sidebar_bubble cache">
+            <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_iframe}>
+            <div class="bloc_option_doc nettoyeur">
+            <a id="bloc_option_classe_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Production transversale">
+            Production transversale
+            </a>
+            <div style="clear:both" class='bloc_classe_iframe'>
+        <BOUCLE_tab(DATA){source tableau, #GET{tab}}>
+            <div class="nettoyeur ">
+            <iframe src="[(#VALEUR)]" width="100%" style="min-height: 600px;"></iframe>
+            </div>
+        </BOUCLE_tab>
+            </div>
+            </div>
+            </div>
+        </B_tab>
+
+
+
 		[(#REM) ---------------- bloc rubrique ---------------- ] 
 		<BOUCLE_police(MOTS){id_rubrique}{type=police}>#SET{police,#TITRE}</BOUCLE_police>
 		
-    <div id="bloc_article" class="edit_groupe_travail [(#GET{police})]">
-    		
-				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|oui)
-		  <div class="sidebar_bubble">
-  			<div style="clear: both;display:none;" class="introduction"></div>
-  			
-  			<div class="bloc_option_doc nettoyeur #EDIT{logo}">
-          <a id="bloc_option_doc-160" class="hac lien_ajouter bloc_option_doc_edit" title="Ajouter un document">
-            Modifier le logo
-            <span class="photo">[(#MODELE{logo_carre}{id_rubrique}{taille=40})]</span>
-          </a>
-  			</div>
-      </div>
-  		
-  		
-  		
-		  <div class="sidebar_bubble">
-  			<div style="clear: both;display:none;" class="introduction"></div>
-  			
-  			<div class="bloc_option_doc nettoyeur #EDIT{titre}">
-          <a id="bloc_option_doc-160" class="hac lien_ajouter bloc_option_doc_edit" title="Ajouter un document">
-            Modifier le nom du groupe de travail</span>
-          </a>
-  			</div>
-      </div>
-  		
-  		
-  		
-		  <div class="sidebar_bubble">
-  			<div style="clear: both;display:none;" class="introduction"></div>
-  			
-  			<div class="bloc_option_doc nettoyeur #EDIT{texte}">
-          <a id="bloc_option_doc-160" class="hac lien_ajouter bloc_option_doc_edit" title="Ajouter un document">
-            Modifier le descriptif du groupe de travail</span>
-          </a>
-  			</div>
-      </div>
-      ]
-      
-      
-				[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|non)
-				
-    		  <div class="sidebar_bubble">
-      		  <div class="bloc_texte">
-    					[(#TEXTE)]
-      		  </div>
-    		  </div>
-				]				
-		</div>
-  		
-		</div>
-
 		</div>
 		</div>
-
-	[(#AUTORISER{modifier, rubrique, #ID_RUBRIQUE}|oui)
-		</div>
-	]
+	</div>
 
 </div>
 

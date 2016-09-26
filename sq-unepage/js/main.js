@@ -226,6 +226,7 @@ function loadConsignes(fichier){
         xmlReponses = xmlConsignes[i].getElementsByTagName("reponse");
         
         dataForConsigne.nombre_reponses     = (xmlReponses) ? xmlReponses.length : 0;
+        dataForConsigne.reponses            = [];
         
         // Calcul nombre de jour max + totaux commentaires de la consigne à partir des réponses
         
@@ -245,6 +246,8 @@ function loadConsignes(fichier){
         	
         	var nombre_commentaires_reponse   = parseFloat(getXMLNodeValue('commentaires',xmlReponses[j]));
         	dataForConsigne.nombre_commentaires += nombre_commentaires_reponse;
+        	
+        	dataForConsigne.reponses.push(getXMLNodeValue('classe_id',xmlReponses[j]));
         }
         
         dataForConsigne.nombre_jours_max = 0;
@@ -610,8 +613,6 @@ function initTimeline(){
   }
   
 //  CCN.projet.showWholeTimeline();
-  
-  console.log('[ INIT TIMELINE ]');
   
 	setContentFromState({
   	data: {
