@@ -1,7 +1,12 @@
-<BOUCLE_consigne(ARTICLES){id_article=#ID_OBJET}>#SET{titre_consigne,#TITRE} #SET{date_consigne,#DATE}</BOUCLE_consigne>
-<BOUCLE_auteur(RUBRIQUES){id_rubrique=#ID_AUTEUR}>#SET{auteur_consigne,#TITRE}</BOUCLE_auteur>
+<BOUCLE_consigne(ARTICLES){id_article=#ID_OBJET}{tout}>
+#SET{titre_consigne,#TITRE} 
+#SET{date_consigne,#DATE}
+#SET{auteur_consigne,#LESAUTEURS*}
+</BOUCLE_consigne>
+<BOUCLE_auteur(RUBRIQUES){id_rubrique}{tout}>#SET{auteur_consigne0,#TITRE}</BOUCLE_auteur>
 
 <div class="actualites-actu" onclick="callConsigne(#ID_OBJET);">
-  #GET{auteur_consigne}&nbsp;a publié une nouvelle consigne : #GET{titre_consigne}.
-  <div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>
+	<span>[(#MODELE{logo_carre}{taille=15}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
+	#GET{auteur_consigne}&nbsp;a publié une nouvelle consigne : #GET{titre_consigne}.
+	<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>
 </div>
