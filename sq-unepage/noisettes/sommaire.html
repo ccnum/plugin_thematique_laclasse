@@ -150,7 +150,6 @@ et/ou
 			</div>
 
 			
-			
 		[(#REM)Classes]
 			<div id="menu-classes" class="bloc_view col" >
 				<h3><span>Classes</span></h3>
@@ -160,10 +159,11 @@ et/ou
   			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
   			            </BOUCLE_a3>
-  			            
   							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
-  							
   			            </B_a3>
+  			            	[(#_c3:DATE|substr{0,10}|replace{-,.}|>={#EVAL{_date_debut}}|oui|et{#_c3:DATE|substr{0,10}|replace{-,.}|<={#EVAL{_date_fin}}|oui}|oui)
+	  							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
+  			            	]
   			            <//B_a3>
   			          </BOUCLE_c3>
 			          </BOUCLE_r3>
