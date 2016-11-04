@@ -1,24 +1,30 @@
 #SET{dans_archives,non}
 
 <datas>
-  
+
+
     #SET{titre_rubrique_archive,#EVAL{_annee_scolaire}}
     
     <BOUCLE_archives_annee(RUBRIQUES){titre==^#GET{titre_rubrique_archive}}{tout}{0,1}>
     
       #SET{dans_archives,oui}
-      
-      <BOUCLE_archives_annee_intervenants(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre==Consignes$}{tout}>
-        <BOUCLE_archives_annee_intervenants_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre_mot IN consignes}{tout}>
-        
-        	<intervenant>
-          	<id>#ID_RUBRIQUE</id>
-          	<nom>[(#TITRE|entites_html)]</nom>
-        	</intervenant>
-        	
-        </BOUCLE_archives_annee_intervenants_in>
-      </BOUCLE_archives_annee_intervenants>
-      
+
+        <BOUCLE_archives_annee_intervenants(RUBRIQUES){id_parent=#ID_RUBRIQUE}{tout}>
+          <BOUCLE_archives_annee_intervenants_in(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre_mot==consignes}{tout}>
+            <intervenant>
+            	<id>#ID_RUBRIQUE</id>
+            	<nom>[(#TITRE|entites_html)]</nom>
+            </intervenant>
+          </BOUCLE_archives_annee_intervenants_in>
+        </BOUCLE_archives_annee_intervenants>
+        </B_archives_annee_intervenants>
+            <intervenant>
+              <id>0</id>
+              <nom>nom</nom>              
+            </intervenant>
+            <travail_en_cours_id>0</travail_en_cours_id>
+
+        <//B_archives_annee_intervenants>
       
         <BOUCLE_archives_annee_classes(RUBRIQUES){id_parent=#ID_RUBRIQUE}{titre_mot==travail_en_cours}{tout}>
         
