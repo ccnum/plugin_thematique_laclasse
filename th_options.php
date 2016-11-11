@@ -103,7 +103,7 @@
 	//define('_EXTRAIRE_LIENS',',^$,');
 
 // Limiter la longueur des messages de forum
-	define('_FORUM_LONGUEUR_MAXI', 3000);
+	define('_FORUM_LONGUEUR_MAXI', 10000);
 
 // Limiter la taille des images uploadees
 	//define('_LOGO_MAX_WIDTH',3000) ;
