@@ -45,7 +45,7 @@
         
         <div class="toggleshow intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
   			  [<div class="titre">(#TITRE)</div>]				
-  				[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
+  				[<div class="bloc_texte">(#TEXTE|liens_ouvrants)</div>]
   				<B_documents_joints>
   					<BOUCLE_documents_joints(DOCUMENTS) {id_forum} {tout} {doublons}>
   						<div class="forum_around_document">
@@ -105,7 +105,7 @@
   					
   					<div class="intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
               [<div class="titre">(#TITRE)</div>]				
-  						[<div class="bloc_texte #EDIT{texte}">(#TEXTE|liens_ouvrants)</div>]
+  						[<div class="bloc_texte ">(#TEXTE|liens_ouvrants)</div>]
   						<BOUCLE_documents_joints3(DOCUMENTS) {id_forum} {tout} {doublons}>
   							<div class="portfolio_grand">
   								[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]

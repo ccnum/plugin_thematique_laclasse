@@ -1,11 +1,12 @@
 <BOUCLE_consigne(ARTICLES){id_article=#ID_OBJET}>
 #SET{titre_consigne,#TITRE} 
 #SET{date_consigne,#DATE}
-</BOUCLE_consigne>
 <BOUCLE_auteur(RUBRIQUES){id_rubrique}>#SET{auteur_consigne,#TITRE}</BOUCLE_auteur>
 
-<div class="actualites-actu" onclick="callConsigne(#ID_OBJET);">
+<div class="actualites-actu 1" onclick="callConsigne(#ID_OBJET);">
 	<span>[(#MODELE{logo_carre}{taille=15}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
 	#GET{auteur_consigne}&nbsp;a publié une nouvelle réponse : #GET{titre_consigne}.
 	<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>
+	<div class="actualites-actu-date">[(#TEXTE|couper{100})]</div>
 </div>
+</BOUCLE_consigne>
