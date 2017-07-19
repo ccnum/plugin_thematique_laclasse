@@ -2,7 +2,7 @@
 	<BOUCLE_rubrique(RUBRIQUES){titre_mot=evenements}{tout}>
 		<BOUCLE_article(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 			<BOUCLE_forum(FORUMS){id_article}><?php ?></BOUCLE_forum>#SET{total,#TOTAL_BOUCLE}</B_forum>#SET{total,0}<//B_forum>
-			[(#SESSION{login}|oui)
+			[(#SESSION{statut}|=={0minirezo}|oui)
 			<article>
 				<id>article_#ID_ARTICLE</id>
 				<id_objet>#ID_ARTICLE</id_objet>				
@@ -19,7 +19,7 @@
 			<BOUCLE_exclusion(ARTICLES){titre=#_syndic:TITRE}>
 			</BOUCLE_exclusion>
 			</B_exclusion>
-				[(#SESSION{login}|oui)
+				[(#SESSION{statut}|=={0minirezo}|oui)
 				<article>
 					<id>syndic_article_#ID_SYNDIC_ARTICLE</id>
 					<id_objet>#ID_SYNDIC_ARTICLE</id_objet>				

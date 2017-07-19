@@ -376,7 +376,6 @@
   				
   				[(#REM)Ajouter un document]
   				
-          [(#GET{type_objet}|match{consignes|travail_en_cours|ressources|classes}|oui)
   					[(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
   						[(#GET{blocs_cplt}|=={non}|non)
   						
@@ -395,10 +394,7 @@
   						</div>
   						]
   					]
-  				]
   					
-  					
-  
   			[(#GET{blocs_cplt}|=={non}|non)
   
   				[(#REM)Mots-clefs]

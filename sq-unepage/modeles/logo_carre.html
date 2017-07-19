@@ -38,6 +38,16 @@
 		</BOUCLE_mot3>	
 	<//B_auteur3>
 <//B_rub>
+[(#REM)Test : on fait passer les logos auteur en priorité]
+<BOUCLE_auteur4(AUTEURS){id_auteur}{tout}>
+	#SET{logo,#LOGO_AUTEUR}
+</BOUCLE_auteur4>
+</B_auteur4>
+	<BOUCLE_mot4(MOTS){id_mot}{tout}>
+		#SET{logo,#LOGO_MOT}
+	</BOUCLE_mot4>	
+<//B_auteur4>
+
 [(#GET{logo}|sinon{
 	[(#LOGO_SITE_SPIP|sinon{[<img src="(#CHEMIN{img/picto-classe.jpg})" alt="" />]})]
 }||image_reduire{[(#GET{taille}|mult{1.2})],[(#GET{taille}|mult{1.05})]}|image_recadre{#GET{taille},#GET{taille},center})]

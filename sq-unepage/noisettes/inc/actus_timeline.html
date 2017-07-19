@@ -1,26 +1,37 @@
 #SET{actu_compteur,0}
-  <BOUCLE_actus(ARTICLES){tout}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{inverse}>
-    [(#SET{actu_id_article_auteur,#ID_AUTEUR})]
-    <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}>
+  <BOUCLE_rubrique(RUBRIQUES){titre_mot=evenements}{si #SESSION{statut}|=={0minirezo}|non}{tout}>
+    <BOUCLE_article(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{doublons}>
+    </BOUCLE_article>   
+  </BOUCLE_rubrique>
+
+  <BOUCLE_actus(ARTICLES){tout}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{inverse}{doublons}>
+    #SET{actu_mot_cle,article}
+    <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}{0,1}>
       <BOUCLE_actus_mots(MOTS){id_rubrique=#ID_PARENT}{0,1}>
         #SET{actu_mot_cle,#TITRE}
       </BOUCLE_actus_mots>
-        <BOUCLE_actus_mots2(MOTS){id_rubrique=#ID_RUBRIQUE}{0,1}>
+      </B_actus_mots>
+        <BOUCLE_actus_mots2(MOTS){id_rubrique}{0,1}>
           #SET{actu_mot_cle,#TITRE}
         </BOUCLE_actus_mots2>
       <//B_actus_mots>
     </BOUCLE_actus_rub>
-    
+
     [(#GET{actu_compteur}|<={#NB_ACTUS}|oui)
       [(#REM) Nouvelle consigne ]
-      [(#GET{actu_mot_cle}|=={consignes}|oui)
-        #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-        [(#MODELE{actu_consignes}{id_objet=#ID_ARTICLE}{id_auteur=#ID_RUBRIQUE})]
-      ]              
+        [(#GET{actu_mot_cle}|=={consignes}|oui)
+          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
+          [(#MODELE{actu_consignes}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
+        ]
       [(#REM) Nouvelle réponse à une consigne ]
-      [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
-        #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-        [(#MODELE{actu_travail_en_cours}{id_objet=#ID_ARTICLE}{id_auteur=#ID_RUBRIQUE})]
-      ]
+        [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
+          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
+          [(#MODELE{actu_travail_en_cours}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
+        ]
+      [(#REM) Nouvelle ressource ]
+        [(#GET{actu_mot_cle}|=={article}|oui)
+          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
+          [(#MODELE{actu_article}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
+        ]
     ]
   </BOUCLE_actus>
