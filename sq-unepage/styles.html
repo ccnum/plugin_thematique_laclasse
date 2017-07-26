@@ -248,6 +248,11 @@
 	margin: 0px;
 }
 
+embed, iframe, object
+{
+max-width: 100%;
+}
+
 option, select, form {
 font-size:#GET{font-size1}px;
 -webkit-appearance:none;
@@ -2333,6 +2338,18 @@ div.donnees_classe {
 .article_evenement .picto_nombre_commentaires {
 	top:-5px;
 	right:40px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  background: #FFC800;
+  margin-left: 10px;
+  color: #AD5D14;
+  box-shadow: 0 2px 5px rgba(0,0,0,.3);
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
 }
 
 .article_evenement_container img {
@@ -3186,7 +3203,8 @@ code, .coloration_code{
 	margin: 8px 0px 20px 8px;
 } 
 
-label em.aide, .formulaire_editer_article li.editer_parent, .markItUpButton10, .markItUpDropMenu {display: none;}
+/*Suppression de certains champs de la barre d'outils porte plumes*/
+label em.aide, .formulaire_editer_article li.editer_parent, .outil_code, .outil_caracteres, .outil_guillemets, .outil_liste_ol, .outil_quote {display: none;}
 
 .formulaire_spip .editer_texte #text_area  {height: 250px;}
 .formulaire_spip input.text { width: 290px;}
