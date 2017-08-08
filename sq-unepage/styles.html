@@ -183,6 +183,7 @@
     border-radius: 50%  !important;
     background-size: 50%  !important;
     margin-top: -8px !important ;
+    left: -30px
 }
 
 .markItUp {
@@ -1377,6 +1378,17 @@ div.sous-colonne2{
 	background-image: url(#ENV{chemin}/img/commentaire.png);
 }
 
+.intervention .action_supprimer {  
+  position: absolute;
+  z-index: 1000;
+  right: 1px;
+  top: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
 .action_supprimer, .formulaire_editer_rubrique .action_supprimer, .action_supprimer_off {
 	width: 15px;
 	height: 15px;
@@ -1396,15 +1408,34 @@ div.sous-colonne2{
 	z-index: 2;	
 }
 
+.forum .action_supprimer {
+  position:absolute;
+  top:0;
+  right:0;
+  float:none;
+  margin:0;
+  bottom:0;
+  width:30px;
+  height:100%;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.forum .action_supprimer:hover {
+  background-color:tomato;
+}
+
 .portfolio_grand .action_supprimer {
-  position: absolute;
-  z-index: 1000;
-  right: 1px;
-  top: 5px;
-  background-color: #fff;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  position:absolute;
+  top:0;
+  right:0;
+  float:none;
+  margin:0;
+  bottom:0;
+  width:30px;
+  height:100%;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .portfolio_grand .action_supprimer:hover {
@@ -1886,7 +1917,7 @@ div.donnees_classe {
   text-align: right;
   position: absolute;
   top: 22px;
-  right: 20px;
+  right: 35px;
 }
 
 .intervention_item_around {
@@ -1904,7 +1935,7 @@ div.donnees_classe {
 
 .intervention_nb_reponses {
   position: absolute;
-  top: -5px;
+  top: -15px;
   right: -7px;
   padding: 0;
   font-size: 14px;
@@ -1918,6 +1949,7 @@ div.donnees_classe {
   line-height: 30px;
   text-align: center;
   border-radius: 50%;
+  z-index: 10;
 }
 
 .reponse .picto_nombre_commentaires {
@@ -3655,6 +3687,7 @@ li a, li a:hover {
 .portfolio .crayon-icones span {
   width:100% !important;
   height:100% !important;
+  left: 30px
 }
 
 .portfolio .crayon .crayon-icones .crayon-crayon {
