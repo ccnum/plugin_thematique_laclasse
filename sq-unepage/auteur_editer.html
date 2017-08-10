@@ -1,39 +1,5 @@
 #CACHE{0}
 <div class="popup_titre">
-	<div class="titre">Éditer votre profil</div>
-	<BOUCLE_auteur(AUTEURS){id_auteur=#SESSION{id_auteur}{tout}>
-
-        <div class="vcard">[(#REM) microformat vcard]
-        <div class="cartouche">
-        [(#LOGO_AUTEUR|image_reduire{120,*})]
-                <h1 class="{qui} fn">#NOM</h1>
-        <font color="#c3969d">Ta signature ci-dessus ne peut être 
-changée.<br /><br />
-Pour modifier ton profil, cliques sur le petit symbole à droite de l'élément.
-                                <br />
-                                Ci-dessous, tu peux changer ton logo, ta bio, ton site.</font>
-<div class="#EDIT{logo}">                          [(#FORMULAIRE_EDITER_LOGO{auteur,#ID_AUTEUR,'',#ENV**}|
-sinon{"pas de logo"})]
-        </div>
-                                
+        <div class="titre">Éditer votre profil</div>
 </div>
-<div class="#EDIT{bio} texte note">[(#BIO|sinon{"pas de bio"})]</div>
-<div class="#EDIT{hyperlien} hyperlien">
-[(#URL_SITE|sinon{"pas de site"})] 
-<a href="(#URL_SITE)" class="url org spip_out">
-[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></div>
-        <font color="#c3969d">Ci-dessous, tu peux changer ton adresse mail, 
-ton login : ils n'apparaitront pas sur la page publique.
-                        <br />Ton mot de passe est crypté dans la base de 
-données, si tu as perdu le tien, fais-en la demande sur la page de connexion
-au site.</font>
-                        
-        <div class="#EDIT{email}">#EMAIL</div>
-        <div class="#EDIT{login}">#LOGIN</div>
-        <font color="#c3969d">TEST en manutention.<br />
-                        Ci-dessous, tu peux ajouter du texte, des images : ils seront sur ta présentation publique.</font>
-        <div class="#EDIT{texte}">[(#TEXTE|sinon{"pas de texte"})]</div>        
-</div>[(#REM) / vcard]
-        </BOUCLE_auteur>
-
-</div>
+#FORMULAIRE_EDITER_AUTEUR{#ID_AUTEUR,spip.php?page=sommaire}
