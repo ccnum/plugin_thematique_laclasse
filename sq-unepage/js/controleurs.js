@@ -462,6 +462,7 @@ function call(opts) {
   
   if (opts.type == 'rubrique') {  
     if (opts.type_objet == 'travail_en_cours') {
+      toggleSidebarExpand();
       // Classe
       callClasse(opts.id_rubrique);
     }  
@@ -536,7 +537,7 @@ function callConsigne(id_consigne){
  
 function callReponse(id_reponse){
   changeTimelineMode('consignes');
-	setFullscreenModeToCols(false);
+	setFullscreenModeToCols(true);
   
   var id_consigne = getIdConsigneFromIdReponse(id_reponse);
 	var id_classe = getIdClasseFromIdReponse(id_reponse);
@@ -555,10 +556,10 @@ function callReponse(id_reponse){
       }, "Réponse", "./spip.php?page=article&id_article="+id_reponse+"&mode=complet");
   });
   
-/*
+
 	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
 	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
-*/
+
 	showReponseInTimeline(id_reponse);
 }
 
@@ -578,6 +579,7 @@ function callReponse(id_reponse){
  
 function callClasse(id_classe){
   changeTimelineMode('consignes');
+  toggleSidebarExpand();
 	setFullscreenModeToCols(true);
 	updateMenuIcon(['classes','classes-'+id_classe],'sidebarView');
   
@@ -607,7 +609,8 @@ function callClasse(id_classe){
  
 function callClasses(){
   changeTimelineMode('consignes');
-	setFullscreenModeToCols(false);
+  toggleSidebarExpand();
+	setFullscreenModeToCols(true);
 	updateMenuIcon(['classes'], 'sidebarView');
   
 	
@@ -620,6 +623,9 @@ function callClasses(){
         'page':'rubrique'	
       }, "Classe", "./spip.php?page=rubrique&id_rubrique="+CCN.travailEnCoursId+"&mode=complet");
   });
+
+  var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+  loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
 }
 
 
@@ -677,7 +683,7 @@ function callArticleBlog(id_article){
 
 function callRessource(){
   changeTimelineMode('consignes');
-//  toggleSidebarExpand();
+  toggleSidebarExpand();
 	updateMenuIcon(['ressources'], 'sidebarView');
 	
 //	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'espace ressources grâce à la barre latérale sur votre droite.</div>');
@@ -692,6 +698,10 @@ function callRessource(){
       }, "Ressources", "./spip.php?page=rubrique&id_rubrique="+CCN.idRubriqueRessources+"&type_objet=ressources&mode=complet");
   });
 	
+  var url_lateral = CCN.projet.url_popup_ressources;
+  loadContentInLateralSidebar(url_lateral, 'rubrique', 'ressources', function(){
+  });
+
 	console.log('callRessource');
 }
 
@@ -846,7 +856,7 @@ function callArticleEvenement(id_objet, type_objet){
 
 function callAgora(){
   changeTimelineMode('consignes');
-//  toggleSidebarExpand();
+  toggleSidebarExpand();
 	updateMenuIcon(['agora'],'sidebarView');
 	
 //	blankMainSidebar('<div class="sidebar_bubble"><div class="fiche_titre couleur_texte_ressources couleur_ressources0"><div class="texte"><div class="titre">Espace ressources</div></div></div></div><div class="sidebar_bubble sidebar_bubble_blank">Naviguez dans l\'agora grâce à la barre latérale sur votre droite.</div>');

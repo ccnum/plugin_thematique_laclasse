@@ -2,4 +2,4 @@
 <div class="popup_titre">
         <div class="titre">Éditer votre profil</div>
 </div>
-#FORMULAIRE_EDITER_AUTEUR{#ID_AUTEUR,spip.php?page=sommaire}
+[(#SESSION{id_auteur}|=={#ID_AUTEUR}|oui)#FORMULAIRE_EDITER_AUTEUR{#ENV{id_auteur}}]
