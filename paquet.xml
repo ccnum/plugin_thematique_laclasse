@@ -1,7 +1,7 @@
 <paquet
     prefix="th"
     categorie="squelette"
-    version="3.0.2"
+    version="3.0.3"
     etat="stable"
     logo="th.png"
     schema="3.0.0"
@@ -18,6 +18,7 @@
     <necessite nom="socialtags" />
     <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
+    <necessite nom="autorite" compatibilite="[0.10.18;[" />
     
     <utilise nom="notations" />
     <utilise nom="medias" />

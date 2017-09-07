@@ -40,12 +40,27 @@
               [<div class="intervention_auteur">(#NOM)</div>]
             </BOUCLE_forum_billet_auteur>
 						[<div class="intervention_date">(#DATE|affdate)</div>]
+
+            <div class="forum">
+
+              [(#AUTORISER{modifier,forum,#ID_FORUM}|oui)
+                [<a href="(#URL_ACTION_AUTEUR{instituer_forum,#ID_FORUM-forum-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                  class='supprimer_couleur'
+                  onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce message ?")'
+                  title='Supprimer ce message' >
+                  <div class='action_supprimer'></div>
+                </a>]
+              ]
+            </div> 
+
   				</div>
   			</div>
+
+
         
         <div class="toggleshow intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
-  			  [<div class="titre">(#TITRE)</div>]				
-  				[<div class="bloc_texte">(#TEXTE|liens_ouvrants)</div>]
+  			  [<div class="#EDIT{titre} titre">(#TITRE)</div>]				
+  				[<div class="#EDIT{texte} bloc_texte">(#TEXTE|liens_ouvrants)</div>]
   				<B_documents_joints>
   					<BOUCLE_documents_joints(DOCUMENTS) {id_forum} {tout} {doublons}>
   						<div class="forum_around_document">
@@ -100,12 +115,22 @@
         				</div>
     						[<div class="intervention_auteur">(#NOM)</div>]
     						[<div class="intervention_date">(#DATE|affdate)</div>]
+
+                 [(#AUTORISER{modifier,forum,#ID_FORUM}|oui)
+                      [<a href="(#URL_ACTION_AUTEUR{instituer_forum,#ID_FORUM-forum-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                          class='supprimer_couleur'
+                          onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce message ?")'
+                          title='Supprimer ce message' >
+                          <div class='action_supprimer'></div>
+                      </a>]
+                   ]    
+
   						</div>
-  					</div>				
-  					
+  					</div>				  
+
   					<div class="intervention_item_content couleur_intervention_item[(#MODELE{nb2col}{id_auteur})] ">
-              [<div class="titre">(#TITRE)</div>]				
-  						[<div class="bloc_texte ">(#TEXTE|liens_ouvrants)</div>]
+              [<div class="#EDIT{titre} titre">(#TITRE)</div>]				
+  						[<div class="#EDIT{texte} bloc_texte">(#TEXTE|liens_ouvrants)</div>]
   						<BOUCLE_documents_joints3(DOCUMENTS) {id_forum} {tout} {doublons}>
   							<div class="portfolio_grand">
   								[<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" [(#TYPE_DOCUMENT|match{jpg|png|gif}|?{class="thickbox mediabox"})] type="#MIME_TYPE">(#EMBED_DOCUMENT||image_reduire{650}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]

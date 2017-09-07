@@ -7,6 +7,6 @@
 	<span>[(#MODELE{logo_carre}{taille=17}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
 	<span class="actualites-titre">#GET{auteur_consigne}&nbsp;a publié une nouvelle réponse : #GET{titre_consigne}.</span>
 	<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>
-	<div class="actualites-texte #EDIT{texte}">[(#TEXTE)]</div>
+	<div class="actualites-texte #EDIT{texte}">[(#TEXTE|couper{80})]</div>
 </div>
 </BOUCLE_consigne>
