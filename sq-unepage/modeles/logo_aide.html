@@ -1,0 +1,21 @@
+[(#REM)
+-href
+-filter
+-class
+-title
+-valeur
+-style
+-onclick
+-texte
+]
+<<li class="logo"><a [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"] [onClick="(#ONCLICK)"] class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS" title="[(#TITLE|sinon{#VALEUR})]" style="#STYLE" >[(#TEXTE*|sinon{&nbsp;})]</a></li>
+
+<div class="cache">
+	<a rel="presentation" class="mediabox" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
+  	<a rel="presentation" class="mediabox" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
+  	<a rel="presentation" class="mediabox" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
+  	<a rel="presentation" class="mediabox" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
+  	<a rel="presentation" class="mediabox" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
+  	<a rel="presentation" class="mediabox" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
+  	<a rel="presentation" class="mediabox" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
+ </div>

@@ -1282,6 +1282,27 @@ a:hover{
 
 
 
+/* Pictos aide */
+<BOUCLE_vue3(DATA){liste aide}>
+  #SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
+  [(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
+  [(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]
+  [(#GET{file}|is_file|non) #SET{file,#CHEMIN{img/logo_voir.png}} ]
+  [(#SET{img,#GET{file}|image_sepia{#GET{color_menu_hover}}|image_reduire{15}|extraire_attribut{src}})]
+  [(#SET{img2,#GET{file}|image_gamma{255}|image_reduire{15}|extraire_attribut{src}})]
+  [(#SET{col1,[(#GET{file}|couleur_extraire)]})]
+  #SET{col,#000}
+  #SET{col,#GET{color_menu_hover}}
+  #menu_haut.zone-menu li.[logo_menu-(#VALEUR)]{background-color: #fff; background-image: url(#GET{img});}
+  #menu_haut.zone-menu li.[logo_menu-(#VALEUR)]:hover{background-color: #GET{col};background-image: url(#GET{img2});}
+  [(#VALEUR|=={ecrire}|oui)
+    .zone-menu li.[logo_menu-(#VALEUR)], .zone-menu li.[logo_menu-(#VALEUR)]:hover{background-color: [#(#GET{col1};)]}
+  ]
+</BOUCLE_vue3>
+
+
+
+
 /*Surcharges mode 1024*/
 
 
