@@ -13,10 +13,10 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 [(#REM)Fonctions JS générales]
 	[(#VUE|=={classe}|oui|et{#MODE|=={detail}|oui}|non)
-	]	#INSERT_HEAD
+	]	
+	#INSERT_HEAD
 
-  <script src="#CHEMIN{js/bundled/html4+html5/jquery.history.js}"></script>
-
+	<script src="#CHEMIN{js/bundled/html4+html5/jquery.history.js}"></script>
 	<script type="application/javascript" src="#CHEMIN{js/layout.js}"></script>
 
 [(#REM)Fonctions JS spécifiques projet]
