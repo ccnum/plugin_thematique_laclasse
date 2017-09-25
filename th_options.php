@@ -113,6 +113,10 @@
 	//define('_IMG_MAX_SIZE',2024);
 	define('_DOC_MAX_SIZE', 3000);
 
+// Désactiver les warnings PHP
+	error_reporting(error_reporting() & (-1 ^ E_DEPRECATED));
+ 	// error_reporting(0);
+
 // AutoBR
 	//define('_AUTOBR', '');
 
