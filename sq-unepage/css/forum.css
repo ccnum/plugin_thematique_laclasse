@@ -1,0 +1,5 @@
+
+/* If the User is a guest do not display the native Spip connection form */
+.forum_commenter #formulaire_forum .explication, .forum_commenter #formulaire_forum .retour{
+    display: none;
+}
