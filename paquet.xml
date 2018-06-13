@@ -28,6 +28,5 @@
     <pipeline nom="jqueryui_plugins" inclure="th_pipelines.php" />
 
     <chemin path="./sq-unepage" />
-    <chemin path="./patch" />
     <chemin path="" />
 </paquet>
