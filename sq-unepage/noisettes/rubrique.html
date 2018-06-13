@@ -246,8 +246,7 @@
         			|   Articles ||| enfants ||| de la sous-rubrique #_rubriques n'ayant pas les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
               ]
               
-							<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
-									
+							<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {si #STATUT|== {publie}} {par num titre} {doublons}>
         				<script type="text/javascript">
         					$().ready(function(){
           					// TODO 
@@ -280,8 +279,7 @@
       			|   Tous les autres articles ||| enfants ||| de la sous-rubrique #_rubriques ||| enfant ||| de la rubrique #_principale
             ]
             
-						<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-									
+						<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {si #STATUT|== {publie}} {par date} {inverse} {doublons}>
       				<script type="text/javascript">
       					$().ready(function(){
         					// TODO 

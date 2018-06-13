@@ -1,12 +1,11 @@
 #CACHE{0}
 
 <div class="formulaire_spip formulaire_forum ajax" id="formulaire_forum">
-
 [<p class="reponse_formulaire reponse_formulaire_ok success">(#ENV*{message_ok})</p>]
 [<p class="reponse_formulaire reponse_formulaire_erreur error">(#ENV*{message_erreur})</p>]
 
 [(#ENV{login_forum_abo})
-<INCLURE{fond=formulaires/inc-login_forum_abo, env} />
+<p>Il est nécessaire de vous connecter afin de poster un commentaire</p>
 ]
 
 [(#ENV{editable})
