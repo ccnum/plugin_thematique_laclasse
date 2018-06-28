@@ -1,4 +1,5 @@
 #CACHE{0}
+#SET{laclasse_rubrique_admin,#EVAL{$_COOKIE[_cookie_rubrique]}}
 
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
   	
@@ -76,11 +77,65 @@
 			[(#REM) 
 			|
 			|  Si : 
+			|	… l'id de la rubrique correspond à l'id de laclasse_rubrique_admin
 			|   …la rubrique #_principale n'a pas les mots-clés blog ou chrono,
 			|
 			|  Alors on cherche :
 			|   Articles ||| enfants ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
-      ]
+			|
+			| 	Affiche la rubrique concernant l'utilisateur connecté en premiere place dans Travail en cours
+	  ]
+				<BOUCLE_filtreIdRubriques(RUBRIQUES) {id_rubrique == #GET{laclasse_rubrique_admin}} {doublons r}>
+						<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
+								<div class="[(#TYPE_OBJET|match{travail_en_cours}|oui) couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]] ressources_classes">
+					<a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom ">
+							<strong>#TITRE</strong>
+					</a>
+					<script type="text/javascript">
+						$().ready(function(){
+            					// TODO 
+            					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
+              					call({
+                					'type':'rubrique',
+                					'type_objet':'travail_en_cours',
+                					'id_rubrique':'#ID_RUBRIQUE',
+                					'mode':'ajax-detail'
+              					});				
+            					});
+          					});		
+					</script>
+
+					<ul>
+						<!-- AFFICHAGE ARTICLES  -->
+					<BOUCLE_sous_articlesTest(ARTICLES) {id_rubrique == #GET{laclasse_rubrique_admin}} {par num titre} {doublons}>
+								<li class="ressources_classe_consignes">
+									<a id="ajax#ID_ARTICLE" href="#" class="hac ajax  [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
+										[<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
+									</a>
+								</li>	
+						</ul>
+						<!--<h2 style="color: black; background: white">TEST - #ID_ARTICLE - RUBRIQUE : #ID_RUBRIQUE</h2>-->
+						<script type="text/javascript">
+							$().ready(function(){
+							// TODO 
+							$('#ajax#ID_ARTICLE').click(function() {
+								call({
+								'type':'article',
+								'type_objet':'travail_en_cours',
+								'id_article':'#ID_ARTICLE',
+						'id_parent':'#ID_PARENT',
+						[(#ID_CONSIGNE|oui) 'type_entite':'reponse',]	
+								'mode':'ajax-detail'
+								});				
+							});
+							});	
+						</script>
+						
+					</BOUCLE_sous_articlesTest>
+				</BOUCLE_filtreIdRubriques>
+			<br />
+		</div>
+	</div>
 				
 				<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
 					<script type="text/javascript">
@@ -143,11 +198,9 @@
 				  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
 					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
 				  </a>
-					
 					<ul>
 						[(#REM)Rubriques]
 						<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre} {doublons r}>
-						
       				<script type="text/javascript">
       					$().ready(function(){
         					// TODO 
@@ -263,8 +316,7 @@
         					});		
         				
                   // console.log("(B.c) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n——— Affichage de l'article ##ID_ARTICLE\r\n—— Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
-        			  </script>
-        			  
+					  </script>
 								<li class="ressources_classe_consignes">
 								  <a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">
   								  [(#TITRE|supprimer_numero|couper{80})]
