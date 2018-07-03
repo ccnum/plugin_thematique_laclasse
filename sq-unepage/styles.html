@@ -4452,7 +4452,8 @@ input.crayon-active {
 }
 
 .popup .actualites-actu {
-  background: rgb(224, 224, 224);
+  /*background: rgb(224, 224, 224);*/
+  color: white;
   margin: 7px;
   border-radius: 2px;
   padding: 12px 20px;
@@ -4462,10 +4463,10 @@ input.crayon-active {
   
 }
 
-.actualites-titre {
+/*.actualites-titre {
   font-size: 1.2em;
   font-weight: bold;
-}
+}*/
 .actualites-texte {
   
   text-overflow: ellipsis;
@@ -4488,6 +4489,50 @@ input.crayon-active {
   font-size:11px;
   color:gray
 }
+
+
+.actualites-actu .profil {
+  float: left;
+  display: inline-block;
+}
+
+.actualites-actu .profil img {
+  border-radius: 50%;
+  width: 45px;
+  height: auto;
+  margin: -5px 10px 0px -8px;
+  display: inline-block;
+}
+
+.actualites-actu .comment b:first-child {
+  text-transform: capitalize;
+}
+
+.actualites-actu .content {
+  background: white;
+  opacity: 0.8;
+  color: black;
+  border-radius: 5px 5px 5px 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.actualites-actu .arrow-down {
+  position: relative;
+    bottom: 0px;
+    left: 9px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 6px solid white;
+    opacity: 0.8;
+}
+
+#menu-actualites .content, #menu-actualites .comment, #menu-actualites .profil, #menu-actualites .arrow-down {
+  display: none;
+}
+
 
 #menu_bas .actualites-actu-date, #menu_bas .actualites-texte { display:none; }
 #menu_bas .actualites-titre { font-weight: normal;   font-size: 1.em;}

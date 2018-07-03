@@ -3,10 +3,10 @@
 #SET{date_consigne,#DATE}
 <BOUCLE_auteur(RUBRIQUES){id_rubrique}>#SET{auteur_consigne,#TITRE}</BOUCLE_auteur>
 
-<div class="actualites-actu" onclick="callConsigne(#ID_OBJET);">
-	<span>[(#MODELE{logo_carre}{taille=17}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
-	<span class="actualites-titre">#GET{auteur_consigne}&nbsp;a publié une nouvelle réponse : #GET{titre_consigne}.</span>
-	<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>
-	<div class="actualites-texte #EDIT{texte}">[(#TEXTE|couper{80})]</div>
+<div class="actualites-actu  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_OBJET);">
+	<span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
+	<span class="actualites-titre">Réponse de <b>#GET{auteur_consigne}</b> sur <b>#GET{titre_consigne}.</b> </span>
+	<!--<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>-->
+	<!--<div class="actualites-texte #EDIT{texte}">[(#TEXTE|couper{80})]</div>-->
 </div>
 </BOUCLE_consigne>
