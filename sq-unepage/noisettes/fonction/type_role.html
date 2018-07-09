@@ -1,0 +1,41 @@
+#HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
+#CACHE{0}
+[(#REM)
+    Retourne la status de l'utilisateur :
+        - INTERVENANT
+        - PROF
+        - ELEVE
+]
+
+#SET{restreint0,#EVAL{$_COOKIE[_cookie_rubrique]}}
+#SET{role,null}
+
+TEST
+<!--<BOUCLE_rub_aut(RUBRIQUES AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}>
+    #AUTHEUR
+    
+</BOUCLE_rub_aut>-->
+
+
+
+<BOUCLE_profRubriques(RUBRIQUES){titre_mot=travail_en_cours}>
+    <BOUCLE_auteur(AUTEURS)>
+            #NOM
+        </BOUCLE_auteur>
+    <!--<BOUCLE_profArticles(ARTICLES){id_auteur=#SESSION{id_auteur}}>
+        #TITRE
+        [(#ID_ARTICLE|?{#SET{role, 'prof'}, ""})]
+    </BOUCLE_profArticles>-->
+</BOUCLE_profRubriques>
+
+<p>SEPARATION</p>
+
+<!--<BOUCLE_rubriques(RUBRIQUES){titre_mot=consignes}>
+    <BOUCLE_articles(ARTICLES){id_auteur=#SESSION{id_auteur}}>
+        #TITRE
+        [(#ID_ARTICLE|?{#SET{role, 'intervenant'}, ""})]
+    </BOUCLE_articles>
+</BOUCLE_rubriques>-->
+
+
+#GET{role}
