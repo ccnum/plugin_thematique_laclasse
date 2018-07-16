@@ -1,32 +1,25 @@
 #HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
 #CACHE{0}
 [(#REM)
-    Retourne la status de l'utilisateur :
-        - INTERVENANT
-        - PROF
-        - ELEVE
+    Retourne le role de l'utilisateur :
+      - ADMIN
+      - INTERVENANT
+      - PROF
+      - ELEVE
 ]
 
-#SET{restreint0,#EVAL{$_COOKIE[_cookie_rubrique]}}
 #SET{role,null}
 #SET{prof,0}
 #SET{intervenant,0}
 #SET{eleve, 0}
 #SET{admin,0}
 
-TEST
-<!--<BOUCLE_rub_aut(RUBRIQUES AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}>
-    #AUTHEUR
-    
-</BOUCLE_rub_aut>-->
-
-
 <!-- SI PROF -->
 <BOUCLE_aut1(RUBRIQUES auteurs_liens){id_auteur=#SESSION{id_auteur}}{tout}>
   <BOUCLE_hie_rub(HIERARCHIE){id_rubrique}{tout}>
-      #TITRE
     <BOUCLE_mot_rub(MOTS){id_rubrique}{titre_mot==travail_en_cours}>
             #SET{prof,1}
+            #SESSION_SET{role,prof}
     </BOUCLE_mot_rub>
   </BOUCLE_hie_rub>
 </BOUCLE_aut1>
@@ -34,39 +27,31 @@ TEST
 <!-- SI INTERVENANT-->
 <BOUCLE_inter(RUBRIQUES auteurs_liens){id_auteur=#SESSION{id_auteur}}{tout}>
   <BOUCLE_inter_rub(HIERARCHIE){id_rubrique}{tout}>
-      #TITRE
     <BOUCLE_inter_mot_rub(MOTS){id_rubrique}{titre_mot==consignes}>
             #SET{intervenant,1}
+            #SESSION_SET{role,intervenant}
     </BOUCLE_inter_mot_rub>
   </BOUCLE_inter_rub>
 </BOUCLE_inter>
 
 <!--SI ADMIN -->
 <BOUCLE_admin(AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}>
-    [<hr /><h1>(#STATUT|choixsiegal{0minirezo, #SET{admin, 1}, ""})</h1>]
+    [(#STATUT|=={0minirezo}|oui)
+    [(#GET{intervenant}|=={0}|oui) 
+    [(#GET{prof}|=={0}|oui)  #SESSION_SET{role,admin}
+    ]
+    ] 
+    ]
 </BOUCLE_admin>
+
 
 <!-- SI ELEVE -->
 [(#SESSION{id_auteur}|?{#SET{logged, 1},#SET{logged, 0} })]
-
-
 
 [(#GET{admin}|=={0}|oui) 
 
 [(#GET{prof}|=={0}|oui) 
 
-
-[(#GET{intervenant}|=={0}|oui) #SET{eleve, 1}]
+[(#GET{intervenant}|=={0}|oui) #SESSION_SET{role,eleve}]
 ]
 ]
-
-
-[(#REM)]
-
-<br>
-LOGGED : #GET{logged}
-ADMIN : #GET{admin}<br>
-PROF : #GET{prof}<br>
-INTERVENANT : #GET{intervenant}<br>
-ELEVE : #GET{eleve}
-ROLE : #GET{role}<br>
