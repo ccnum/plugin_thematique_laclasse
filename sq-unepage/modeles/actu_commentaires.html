@@ -1,18 +1,4 @@
-<!--<BOUCLE_consigne(ARTICLES){id_article=#ID_OBJET}{tout}>
-#SET{titre_consigne,#TITRE} 
-#SET{date_consigne,#DATE}
-#SET{auteur_consigne,#LESAUTEURS*}
-<BOUCLE_auteur(RUBRIQUES){id_rubrique}{tout}>#SET{auteur_consigne0,#TITRE}</BOUCLE_auteur>
-
-<div class="actualites-actu" onclick="callConsigne(#ID_OBJET);">
-	<span>[(#MODELE{logo_carre}{taille=15}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
-	<span class="actualites-titre">#GET{auteur_consigne}&nbsp;a publié une nouvelle consigne : #GET{titre_consigne}.</span>
-	<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>
-	<div class="actualites-texte #EDIT{texte}">[(#TEXTE|couper{80})]</div>
-
-</div>
-</BOUCLE_consigne>-->
-
+[(#REM) Affiche les dernirs commentaires postés dans la section Actualités]
 <BOUCLE_commentaires(FORUMS) {par date}  {0,5} {doublons}>
 	<div class="actualites-actu couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_OBJET);">		
 		<div class="profil">[(#LOGO_AUTEUR|?{#LOGO_AUTEUR, ""})] </div>
@@ -21,8 +7,3 @@
 		 <div class="arrow-down"></div>
 	</div>	
 </BOUCLE_commentaires>
-
-<!--<BOUCLE_fichiers(DOCUMENTS){par date}>
-	#TITRE
-	<BOUCLE_travailEnCours(ARTICLES)
-</BOUCLE_fichiers>-->

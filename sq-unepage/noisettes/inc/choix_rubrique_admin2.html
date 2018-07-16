@@ -4,6 +4,9 @@
 -restreint : pour savoir si un choix existe déjà
 ]
 
+#SESSION_SET{idRubriqueUser,#RESTREINT}
+
+#SET{laclasse_rubrique_admin, #RESTREINT}
 <BOUCLE_rub(RUBRIQUES){id_rubrique=#RESTREINT}{tout}>
 	#SET{titre,#TITRE}
 </BOUCLE_rub>

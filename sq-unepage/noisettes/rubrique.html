@@ -7,6 +7,8 @@
   
 <INCLURE{fond=noisettes/call_sidebar}>
 
+[(#INCLURE{fond=noisettes/fonction/type_role})]
+
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
   [(#REM) ---------------- titre & logo ---------------- ] 
@@ -85,7 +87,9 @@
 			|
 			| 	Affiche la rubrique concernant l'utilisateur connecté en premiere place dans Travail en cours
 	  ]
-				<BOUCLE_filtreIdRubriques(RUBRIQUES) {id_rubrique == #GET{laclasse_rubrique_admin}} {doublons r}>
+			<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} {si #SESSION{role}|=={prof}}>
+				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}{0,2}>
+					<BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}   {id_rubrique == #SESSION{idRubriqueUser}} {doublons r}>
 						<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
 								<div class="[(#TYPE_OBJET|match{travail_en_cours}|oui) couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]] ressources_classes">
 					<a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom ">
@@ -133,6 +137,8 @@
 						
 					</BOUCLE_sous_articlesTest>
 				</BOUCLE_filtreIdRubriques>
+			</BOUCLE_filtreTravailEnCours>
+		</BOUCLE_rubAnnee>
 			<br />
 		</div>
 	</div>
