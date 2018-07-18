@@ -86,9 +86,16 @@
 			|   Articles ||| enfants ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
 			|
 			| 	Affiche la rubrique concernant l'utilisateur connecté en premiere place dans Travail en cours
+			|	seulement si l'utilisateur connecté est professeur
+
 	  ]
-			<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} {si #SESSION{role}|=={prof}}>
-				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}{0,2}>
+
+			<!-- Vérifie le mot clé de la rubrique  -->
+			<BOUCLE_getMotCle(MOTS) {id_rubrique == #SESSION{idRubriqueUser} }>
+				#SET{motcle, #TITRE}
+			</BOUCLE_getMotCle>
+			<BOUCLE_rubAnnee(RUBRIQUES) {racine}{titre LIKE %(#EVAL{_annee_scolaire})%} {si #SESSION{role}|=={prof}} {si #GET{motcle}|!={evenements} } >
+				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent} {titre_mot=travail_en_cours}{par date}{0,2}>
 					<BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}   {id_rubrique == #SESSION{idRubriqueUser}} {doublons r}>
 						<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
 								<div class="[(#TYPE_OBJET|match{travail_en_cours}|oui) couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]] ressources_classes">
