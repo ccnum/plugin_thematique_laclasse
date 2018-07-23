@@ -180,32 +180,34 @@
       
       [(#REM) ---------------- Productions transversales ---------------- ]
       
-        [(#URL_SITE|textebrut|=={''}|non)
-          <div class="sidebar_bubble">
-            
-            <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_reponse_iframe}>
-            <div class="bloc_option_doc nettoyeur">
-              <a id="bloc_option_classe_reponse_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Contenu lié">
-                Contenu lié
-              </a>
-              <div class="nettoyeur bloc_classe_iframe">
-                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                    [<div class="#EDIT{url_site} spip_doc_titre">(#URL_SITE|textebrut|sinon{<div class="ajouter_couleur">Modifier…</div>})</div>]
-                ]
-                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                    [<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>]
-                ]
-                [<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>]
-
-                <div class="nettoyeur"></div>
-                <iframe src="[(#URL_SITE|textebrut)]" width="100%" height="100%"></iframe>
-               
+        [(#CONFIG{articles_urlref}|=={oui}|oui)
+          [(#URL_SITE|textebrut|=={''}|non)
+            <div class="sidebar_bubble">
+              
+              <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_reponse_iframe}>
+              <div class="bloc_option_doc nettoyeur">
+                <a id="bloc_option_classe_reponse_iframe" class="hac liens_voir bloc_option_doc_ressources" title="Contenu lié">
+                  Contenu lié
+                </a>
+                <span class="texte nettoyeur bloc_classe_iframe">
+                  <p style="padding: 15px;" class="#EDIT{url_site}">[<a class="spip_doc_titre" href="[(#URL_SITE|textebrut)]">(#URL_SITE|textebrut)</a>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;]</p>
+                  <div class="nettoyeur"></div>
+                  <iframe src="[(#URL_SITE|textebrut)]" width="100%" height="100%"></iframe>
+                </span>
               </div>
-            </div>
-          
-          </div>    
+            
+            </div>    
+          ]
+          [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui|et{#URL_SITE|textebrut|=={''}|oui}|oui)
+              <div class="sidebar_bubble">
+              <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_classe_reponse_iframe}>
+              <div class="bloc_option_doc nettoyeur">
+              [<div class="#EDIT{url_site} titre_bubble bloc_option_doc_adddocument">(#URL_SITE|textebrut|sinon{<div class="">Ajouter un contenu intégré (url)</div>})</div>]
+              </div>
+              </div> 
+          ]
         ]
-        
+
         [(#GET{classe_iframe}|textebrut|=={''}|non)
           <div class="sidebar_bubble">
             

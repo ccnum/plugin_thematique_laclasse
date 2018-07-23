@@ -1,4 +1,5 @@
 #CACHE{0}
+#SET{laclasse_rubrique_admin,#EVAL{$_COOKIE[_cookie_rubrique]}}
 
 <BOUCLE_principale(RUBRIQUES){id_rubrique}{tout}>
   	
@@ -6,15 +7,17 @@
   
 <INCLURE{fond=noisettes/call_sidebar}>
 
+[(#INCLURE{fond=noisettes/fonction/type_role})]
+
 	<BOUCLE_rub1(HIERARCHIE){id_rubrique}{tout}{0,1}>[(#SET{coul,[(#ID_RUBRIQUE|moins{2})]})]</BOUCLE_rub1>
 	
   [(#REM) ---------------- titre & logo ---------------- ] 
   
 	<div class="sidebar_bubble">  		
 		<div class="fiche_titre">
-		    <div class="photo">[(#MODELE{logo_carre}{id_rubrique})]</div>
+		    <div class="photo #EDIT{logo}">[(#MODELE{logo_carre}{id_rubrique})]</div>
 		    <div class="texte">
-	        <div class="titre">[(#TITRE|supprimer_numero)]</div>
+	        <div class="titre #EDIT{titre}">[(#TITRE|supprimer_numero)]</div>
 	        <!--<div class="auteur_date">[(#NOM) - ][(#DATE|affdate)]</div>-->
 		    </div>
 		</div>
@@ -76,11 +79,76 @@
 			[(#REM) 
 			|
 			|  Si : 
+			|	… l'id de la rubrique correspond à l'id de laclasse_rubrique_admin
 			|   …la rubrique #_principale n'a pas les mots-clés blog ou chrono,
 			|
 			|  Alors on cherche :
 			|   Articles ||| enfants ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
-      ]
+			|
+			| 	Affiche la rubrique concernant l'utilisateur connecté en premiere place dans Travail en cours
+			|	seulement si l'utilisateur connecté est professeur
+
+	  ]
+
+			<!-- Vérifie le mot clé de la rubrique  -->
+			<BOUCLE_getMotCle(MOTS) {id_rubrique == #SESSION{idRubriqueUser} }>
+				#SET{motcle, #TITRE}
+			</BOUCLE_getMotCle>
+			<BOUCLE_rubAnnee(RUBRIQUES) {racine}{titre LIKE %(#EVAL{_annee_scolaire})%} {si #SESSION{role}|=={prof}} {si #GET{motcle}|!={evenements} } >
+				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent} {titre_mot=travail_en_cours}{par date}{0,2}>
+					<BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}   {id_rubrique == #SESSION{idRubriqueUser}} {doublons r}>
+						<div class="sidebar_bubble ressources_classes_around [(#TYPE_OBJET|match{travail_en_cours}|oui) ressources_travail_en_cours] [(#TYPE_OBJET|match{travail_en_cours}|non) ressources_no_color]">
+								<div class="[(#TYPE_OBJET|match{travail_en_cours}|oui) couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]] ressources_classes">
+					<a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom ">
+							<strong>#TITRE</strong>
+					</a>
+					<script type="text/javascript">
+						$().ready(function(){
+            					// TODO 
+            					$('#ajax_rub_#ID_RUBRIQUE').click(function() {
+              					call({
+                					'type':'rubrique',
+                					'type_objet':'travail_en_cours',
+                					'id_rubrique':'#ID_RUBRIQUE',
+                					'mode':'ajax-detail'
+              					});				
+            					});
+          					});		
+					</script>
+
+					<ul>
+						<!-- AFFICHAGE ARTICLES  -->
+					<BOUCLE_sous_articlesTest(ARTICLES) {id_rubrique == #GET{laclasse_rubrique_admin}} {par num titre} {doublons}>
+								<li class="ressources_classe_consignes">
+									<a id="ajax#ID_ARTICLE" href="#" class="hac ajax  [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
+										[<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
+									</a>
+								</li>	
+						</ul>
+						<!--<h2 style="color: black; background: white">TEST - #ID_ARTICLE - RUBRIQUE : #ID_RUBRIQUE</h2>-->
+						<script type="text/javascript">
+							$().ready(function(){
+							// TODO 
+							$('#ajax#ID_ARTICLE').click(function() {
+								call({
+								'type':'article',
+								'type_objet':'travail_en_cours',
+								'id_article':'#ID_ARTICLE',
+						'id_parent':'#ID_PARENT',
+						[(#ID_CONSIGNE|oui) 'type_entite':'reponse',]	
+								'mode':'ajax-detail'
+								});				
+							});
+							});	
+						</script>
+						
+					</BOUCLE_sous_articlesTest>
+				</BOUCLE_filtreIdRubriques>
+			</BOUCLE_filtreTravailEnCours>
+		</BOUCLE_rubAnnee>
+			<br />
+		</div>
+	</div>
 				
 				<BOUCLE_sous_articles1(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
 					<script type="text/javascript">
@@ -143,11 +211,9 @@
 				  <a id="ajax_rub_#ID_RUBRIQUE" href="#" class="hac ajax ressources_classe_nom [ (#EXPOSE)][ (#GET{rub1}|=={#ID_RUBRIQUE}|?{ on })]">
 					  [<strong>(#TITRE|supprimer_numero|couper{80})</strong>]
 				  </a>
-					
 					<ul>
 						[(#REM)Rubriques]
 						<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre} {doublons r}>
-						
       				<script type="text/javascript">
       					$().ready(function(){
         					// TODO 
@@ -246,8 +312,7 @@
         			|   Articles ||| enfants ||| de la sous-rubrique #_rubriques n'ayant pas les mots-clés blog ou chrono ||| enfant ||| de la rubrique #_principale n'ayant pas les mots-clés blog ou chrono
               ]
               
-							<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {tout} {par num titre} {doublons}>
-									
+							<BOUCLE_sous_articles3(ARTICLES) {id_rubrique} {si #STATUT|== {publie}} {par num titre} {doublons}>
         				<script type="text/javascript">
         					$().ready(function(){
           					// TODO 
@@ -264,8 +329,7 @@
         					});		
         				
                   // console.log("(B.c) BOUCLE ARTICLES (#TYPE_OBJET) :\r\n——— Affichage de l'article ##ID_ARTICLE\r\n—— Enfant de la sous-rubrique #_rubriques ##_rubriques:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono\r\n— Enfant de la rubrique #_principale ##_principale:ID_RUBRIQUE n'ayant pas les mots-clés blog ou chrono");				
-        			  </script>
-        			  
+					  </script>
 								<li class="ressources_classe_consignes">
 								  <a id="ajax#ID_ARTICLE" href="#" class="ajax [(#EXPOSE) [(#GET{art1}|=={#ID_ARTICLE}|?{ gauche_menu_on })]]">
   								  [(#TITRE|supprimer_numero|couper{80})]
@@ -280,8 +344,7 @@
       			|   Tous les autres articles ||| enfants ||| de la sous-rubrique #_rubriques ||| enfant ||| de la rubrique #_principale
             ]
             
-						<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {tout} {par date} {inverse} {doublons}>
-									
+						<BOUCLE_sous_articles(ARTICLES) {id_rubrique} {si #STATUT|== {publie}} {par date} {inverse} {doublons}>
       				<script type="text/javascript">
       					$().ready(function(){
         					// TODO 

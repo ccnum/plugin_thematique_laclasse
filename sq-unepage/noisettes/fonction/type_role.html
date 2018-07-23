@@ -1,0 +1,57 @@
+#HTTP_HEADER{Content-Type: text/plain; charset=#CHARSET}
+#CACHE{0}
+[(#REM)
+    Retourne le role de l'utilisateur :
+      - ADMIN
+      - INTERVENANT
+      - PROF
+      - ELEVE
+]
+
+#SET{role,null}
+#SET{prof,0}
+#SET{intervenant,0}
+#SET{eleve, 0}
+#SET{admin,0}
+
+<!-- SI PROF -->
+<BOUCLE_aut1(RUBRIQUES auteurs_liens){id_auteur=#SESSION{id_auteur}}{tout}>
+  <BOUCLE_hie_rub(HIERARCHIE){id_rubrique}{tout}>
+    <BOUCLE_mot_rub(MOTS){id_rubrique}{titre_mot==travail_en_cours}>
+            #SET{prof,1}
+            #SESSION_SET{role,prof}
+    </BOUCLE_mot_rub>
+  </BOUCLE_hie_rub>
+</BOUCLE_aut1>
+
+<!-- SI INTERVENANT-->
+<BOUCLE_inter(RUBRIQUES auteurs_liens){id_auteur=#SESSION{id_auteur}}{tout}>
+  <BOUCLE_inter_rub(HIERARCHIE){id_rubrique}{tout}>
+    <BOUCLE_inter_mot_rub(MOTS){id_rubrique}{titre_mot==consignes}>
+            #SET{intervenant,1}
+            #SESSION_SET{role,intervenant}
+    </BOUCLE_inter_mot_rub>
+  </BOUCLE_inter_rub>
+</BOUCLE_inter>
+
+<!--SI ADMIN -->
+<BOUCLE_admin(AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}>
+    [(#STATUT|=={0minirezo}|oui)
+    [(#GET{intervenant}|=={0}|oui) 
+    [(#GET{prof}|=={0}|oui)  #SESSION_SET{role,admin}
+    ]
+    ] 
+    ]
+</BOUCLE_admin>
+
+
+<!-- SI ELEVE -->
+[(#SESSION{id_auteur}|?{#SET{logged, 1},#SET{logged, 0} })]
+
+[(#GET{admin}|=={0}|oui) 
+
+[(#GET{prof}|=={0}|oui) 
+
+[(#GET{intervenant}|=={0}|oui) #SESSION_SET{role,eleve}]
+]
+]

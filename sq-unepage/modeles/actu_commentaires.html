@@ -1,0 +1,9 @@
+[(#REM) Affiche les dernirs commentaires postés dans la section Actualités]
+<BOUCLE_commentaires(FORUMS) {par date}  {0,5} {doublons}>
+	<div class="actualites-actu couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_OBJET);">		
+		<div class="profil">[(#LOGO_AUTEUR|?{#LOGO_AUTEUR, ""})] </div>
+		Commentaire de <b>#AUTEUR</b> sur  <b>#TITRE </b>
+		 <div class="content">[(#TEXTE|couper{80})]<br></div>
+		 <div class="arrow-down"></div>
+	</div>	
+</BOUCLE_commentaires>

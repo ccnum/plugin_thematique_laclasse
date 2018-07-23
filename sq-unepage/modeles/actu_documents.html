@@ -1,0 +1,28 @@
+<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
+				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}>
+            <BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}{par date}>
+              <div class="actu-documents">
+                <div class="actualites-actu couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_OBJET);">
+                    <div class="profil">#LOGO_RUBRIQUE</div>	
+                Nouveau document de #TITRE
+              <BOUCLE_articles(ARTICLES){id_rubrique} {0,5} {par date}>
+                  <BOUCLE_docs(DOCUMENTS){id_article}{0,1} {par date}>
+                    [(#MEDIA|match{'audio|video'}|oui)
+                      [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
+                    ]
+                    [(#MEDIA|match{'image'}|oui)
+                    <div class="img-container">
+                      <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+                      [(#EMBED_DOCUMENT||image_reduire{400}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+                      </a>
+                  </div>
+                    ]
+
+                    #TITRE
+                  </BOUCLE_docs>
+              </BOUCLE_articles>
+            </div>
+          </div>
+            </BOUCLE_filtreIdRubriques>
+        </BOUCLE_filtreTravailEnCours>
+</BOUCLE_rubAnnee>

@@ -714,8 +714,8 @@ function callRessourceArticle(id_article, type_objet){
 	});
 	
 	var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
-	loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
-  });
+	/*loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
+  });*/
 	
 	console.log('callRessourceArticle');
 }
@@ -771,7 +771,7 @@ function callRessourceRubrique(id_rubrique, type_objet){
   changeTimelineMode('consignes');
 	setFullscreenModeToCols(true);
 	updateMenuIcon([type_objet],'sidebarView');
-	
+  
 	var url = "./spip.php?page=rubrique&id_rubrique="+id_rubrique+"&mode=ajax-detail";
 	loadContentInMainSidebar(url, 'rubrique', type_objet, function(){
   	updateUrl({
@@ -782,10 +782,10 @@ function callRessourceRubrique(id_rubrique, type_objet){
   });
 	
 	
-	var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
-	loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
-  });
-	
+  var url_lateral = (type_objet == 'ressources') ? CCN.projet.url_popup_ressources : CCN.projet.url_popup_agora;
+  //loadContentInLateralSidebar(url_lateral, 'rubrique', type_objet, function(){
+
+
 	console.log('callRessourceRubrique');
 }
 
@@ -1145,7 +1145,7 @@ function loadContentInLateralSidebar(url, typePage, typeObjet, callback) {
   
   $('body').addClass('loading');
   showSidebar();
-  emptyLateralSidebar();
+  //emptyLateralSidebar();
   
   $('#sidebar_lateral_inner').load(url, function(response, status, xhr){
     $('body').removeClass('loading');

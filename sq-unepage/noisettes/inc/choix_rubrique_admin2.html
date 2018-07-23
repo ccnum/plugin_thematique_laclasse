@@ -4,6 +4,15 @@
 -restreint : pour savoir si un choix existe déjà
 ]
 
+<!-- Si aucune rubrique n'est selectionnee par le user alors en choisir une par defaut -->
+<BOUCLE_rubAnnee(RUBRIQUES) {racine}{titre LIKE %(#EVAL{_annee_scolaire})%} {si #GET{motcle}|!={evenements} } >
+			<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent} {titre_mot=travail_en_cours}{par date}{0,1}>
+					[(#RESTREINT|?{#SESSION_SET{idRubriqueUser,#RESTREINT}, #SESSION_SET{idRubriqueUser,#ID_RUBRIQUE}})]
+			</BOUCLE_filtreTravailEnCours>
+</BOUCLE_rubAnnee>
+					
+
+#SET{laclasse_rubrique_admin, #RESTREINT}
 <BOUCLE_rub(RUBRIQUES){id_rubrique=#RESTREINT}{tout}>
 	#SET{titre,#TITRE}
 </BOUCLE_rub>

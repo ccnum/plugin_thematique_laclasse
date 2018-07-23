@@ -24,6 +24,7 @@
 [(#REM) Admin restreint]
 	<B_rub_aut2>[(#GET{affiche}|=={oui}|oui)
 	<form id="choix_rubrique_admin" name="rubrique_admin">
+		[(#EVAL{_cookie_rubrique})|?{document.rubrique_admin.rubrique_admin.value, 'COOKIE ALREADY SET'}]
 	<select class="custom-select" onchange="reloadAndSetCookie('','[(#EVAL{_cookie_rubrique})]',document.rubrique_admin.rubrique_admin.value)" name="rubrique_admin" [title="(#GET{titre}|attribut_html)"]><option>Profil de publication</option>)]
 	<BOUCLE_rub_aut2(rubriques auteurs_rubriques){id_auteur=#SESSION{id_auteur}}{tout}>
 		[(#GET{affiche}|=={oui}|oui)<option value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" [(#ID_RUBRIQUE|=={#ENV{restreint}}|oui) selected ]>[(#TITRE|supprimer_numero|couper{18})]</option>)]
@@ -35,6 +36,7 @@
 	</B_rub_aut2>
 		[(#REM) Admin complet]
 		<B_rub2>[(#GET{affiche}|=={oui}|oui)<form name="rubrique_admin">
+			LOLOLOLOLOL
 		<select class="custom-select" onchange="reloadAndSetCookie('','[(#EVAL{_cookie_rubrique})]',document.rubrique_admin.rubrique_admin.value)" name="rubrique_admin" [title="(#GET{titre}|attribut_html)"]><option>Profil de publication</option>)]
 		<BOUCLE_rub2(RUBRIQUES){id_parent=0}{par num titre}{tout}>
 			[(#GET{affiche}|=={oui}|oui)<option value="#ID_RUBRIQUE" title="[(#TITRE|supprimer_numero|attribut_html)]" [(#ID_RUBRIQUE|=={#ENV{restreint}}|oui) selected ]>[(#TITRE|supprimer_numero|couper{18})]</option> )]

@@ -629,7 +629,36 @@ function initTimeline(){
 	
 	$().ready(function(){
 		// Listener popups
-    $('.presentation').colorbox({width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
+	/*$('.cache .mediabox').colorbox({width:'80%',height: '80%', className:"aide-ccn", slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false, title: function(){
+		var title = $(this).data("title");
+		if ($(this).hasClass("description")) {
+			$(this).css({position: 'absolute', top:'50%', color: 'red' })
+			console.log("Description");
+			console.log($(this).parent());
+			$(this).parent();
+			return "<p class='desc'>" + title + "</p>";
+		}
+		else {
+
+			return "<p class='lol'>" + title + "</p>";
+		}
+
+		$(".aide-ccn .cboxLoadedContent").each(function(){
+
+			if ($(this).hasClass("description")) {
+
+			}
+			$("#cboxTitle").hasClass('description').html("TESTETSTETSTSSTSTS");
+		});
+
+	}});*/
+	// Silder colorbox d'aide
+	$(".ccn-aide").colorbox({width:'80%',height: 'auto',rel:'ccn-aide', inline:true, href:$(this).attr('href'), current: "{current}/{total}" });
+	$('.logo_menu-aide').click(function(){
+		$(".ccn-aide").colorbox({open: true});
+	})
+	
+    //$('.presentation').colorbox({ width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
     $('.profil').colorbox({width:'80%',height: '80%'});
     
     window.addEventListener("resize", function(event) { updateTimeline(); }, false);

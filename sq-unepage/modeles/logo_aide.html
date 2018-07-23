@@ -8,14 +8,58 @@
 -onclick
 -texte
 ]
-<li class="logo"><a [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"] [onClick="(#ONCLICK)"] class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS" title="[(#TITLE|sinon{#VALEUR})]" style="#STYLE" >[(#TEXTE*|sinon{&nbsp;})]</a></li>
+
+<li class="logo"><a class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] "></a></li>
 
 <div class="cache">
-	<a rel="presentation" class="mediabox" title="2. L'intervenant principal publie une consigne" href="#CHEMIN{img/presentation/02.png}">Le projet</a>
-  	<a rel="presentation" class="mediabox" title="3. Les élèves répondent en classe" href="#CHEMIN{img/presentation/03.png}">Le projet</a>
-  	<a rel="presentation" class="mediabox" title="4. Les spécialistes et les classes discutent en ligne" href="#CHEMIN{img/presentation/04.png}">Le projet</a>
-  	<a rel="presentation" class="mediabox" title="5. Les participants se rencontrent en classe" href="#CHEMIN{img/presentation/05.png}">Le projet</a>
-  	<a rel="presentation" class="mediabox" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs" href="#CHEMIN{img/presentation/06.png}">Le projet</a>
-  	<a rel="presentation" class="mediabox" title="7. L'ensemble des classes se rencontrent lors d'un évènement public" href="#CHEMIN{img/presentation/07.png}">Le projet</a>
-  	<a rel="presentation" class="mediabox" title="8. A l'issue de la résidence, laclasse.com crèe une publication" href="#CHEMIN{img/presentation/08.png}">Le projet</a>
- </div>
+	[(#DESCRIPTIF_SITE_SPIP|oui)
+		<p><a class="ccn-aide" href="#slide1">Slider 1</a></p> 
+	]
+	<p><a class="ccn-aide" href="#slide2" title="1. Le projet" >Slider 4</a></p>
+	<p><a class="ccn-aide" href="#slide3" title="2. L'intervenant principal publie une consigne">Slider 2</a></p>
+	<p><a class="ccn-aide" href="#slide4" title="3. Les élèves répondent en classe" >Slider 4</a></p>
+	<p><a class="ccn-aide" href="#slide5" title="4. Les spécialistes et les classes discutent en ligne">Slider 5</a></p>
+	<p><a class="ccn-aide" href="#slide6" title="5. Les participants se rencontrent en classe" >Slider 6</a></p>
+	<p><a class="ccn-aide" href="#slide7" title="6. L'espace de publication vit en ligne pendant un an animé par tous ses acteurs">Slider 7</a></p>
+	<p><a class="ccn-aide" href="#slide8" title="7. L'ensemble des classes se rencontrent lors d'un évènement public">Slider 8</a></p>
+	<p><a class="ccn-aide" href="#slide9" title="8. A l'issue de la résidence, laclasse.com crèe une publication">Slider 9</a></p>
+
+	[(#DESCRIPTIF_SITE_SPIP|oui)
+		<div id="slide1" class="slider">
+			<img src="#CHEMIN{img/presentation/09.png}">
+			<p>[(#DESCRIPTIF_SITE_SPIP|PtoBR)]</p>
+		</div>
+	]
+
+	<div id="slide2" class="slider">
+			<img src="#CHEMIN{img/presentation/01.png}">    
+	</div>
+
+	<div id="slide3" class="slider">
+		<img src="#CHEMIN{img/presentation/02.png}">    
+	</div>
+
+	<div id="slide4" class="slider">
+		<img src="#CHEMIN{img/presentation/03.png}">              
+	</div>      
+
+	<div id="slide5" class="slider">
+		<img src="#CHEMIN{img/presentation/04.png}">              
+	</div>      
+
+	<div id="slide6" class="slider">
+		<img src="#CHEMIN{img/presentation/05.png}">              
+	</div>      
+
+	<div id="slide7" class="slider" >
+		<img src="#CHEMIN{img/presentation/06.png}">              
+	</div>      
+
+	<div id="slide8" class="slider" >
+		<img src="#CHEMIN{img/presentation/07.png}">              
+	</div>      
+
+	<div id="slide9" class="slider" >
+		<img src="#CHEMIN{img/presentation/08.png}">              
+	</div>      
+</div>

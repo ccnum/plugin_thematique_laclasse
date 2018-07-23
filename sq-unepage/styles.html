@@ -2434,7 +2434,6 @@ div.donnees_classe {
   line-height: 13px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 0 70px 0;
   margin: 0 7px 1px 0;
 }
 
@@ -2446,7 +2445,7 @@ div.donnees_classe {
 	text-decoration: none;	
 }
 
-.popup a.hac {
+.popup a.hac, .titre_bubble {
 	font-weight:bold;
 }
 
@@ -3154,6 +3153,22 @@ a.liens_forum:hover { }
     z-index: 2000px;
 }
 
+/* --- Silder d'aide ---  */
+#slide1 p {
+  position: absolute;
+  text-align: center;
+  color: black;
+  font-size: 2.5vw;
+  top: 50%;
+    transform: translateY(-50%);
+  width: 100%;
+  padding: 0 15px 0 15px;
+}
+
+.slider img {
+  width: 100%;
+}
+
 /* --- Menu --- */
 #sidebar_lateral .ui-state-active {
 	color: #GET{gris_fonce};
@@ -3439,6 +3454,12 @@ ul.forum ul.forum {
   margin-top: 5px;
 }
 
+/* Dans le cas ou l'utilisateur est un invité ne pas afficher */
+.forum_commenter #formulaire_forum .explication, .forum_commenter #formulaire_forum .retour{
+  display: none;
+}
+
+
 /*Formulaire_joindre_document*/
 .formulaire_editer_document .titrem, .popup .editer_fichier_upload label, .formulaire_editer_document .sourceup, #joindre_mediatheque__new, #joindre_distant__new, #defaultsubmit__new {display:none; }
 div#joindre_mode__new {display: inline;}
@@ -3517,7 +3538,7 @@ li a, li a:hover {
   border-top: none;
 }
 
-#bloc_option_doc > a, .bloc_option_doc > a {
+#bloc_option_doc > a, .bloc_option_doc > a, .titre_bubble {
   display: block;
   padding: 18px 30px 18px 60px;
   color: #000;
@@ -4431,7 +4452,8 @@ input.crayon-active {
 }
 
 .popup .actualites-actu {
-  background: rgb(224, 224, 224);
+  /*background: rgb(224, 224, 224);*/
+  color: white;
   margin: 7px;
   border-radius: 2px;
   padding: 12px 20px;
@@ -4441,10 +4463,10 @@ input.crayon-active {
   
 }
 
-.actualites-titre {
+/*.actualites-titre {
   font-size: 1.2em;
   font-weight: bold;
-}
+}*/
 .actualites-texte {
   
   text-overflow: ellipsis;
@@ -4467,6 +4489,50 @@ input.crayon-active {
   font-size:11px;
   color:gray
 }
+
+
+.actualites-actu .profil {
+  float: left;
+  display: inline-block;
+}
+
+.actualites-actu .profil img {
+  border-radius: 50%;
+  width: 45px;
+  height: auto;
+  margin: -5px 10px 0px -8px;
+  display: inline-block;
+}
+
+.actualites-actu .comment b:first-child {
+  text-transform: capitalize;
+}
+
+.actualites-actu .content {
+  background: white;
+  opacity: 0.8;
+  color: black;
+  border-radius: 5px 5px 5px 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.actualites-actu .arrow-down {
+  position: relative;
+    bottom: 0px;
+    left: 9px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 6px solid white;
+    opacity: 0.8;
+}
+
+#menu-actualites .content, #menu-actualites .comment, #menu-actualites .profil, #menu-actualites .arrow-down {
+  display: none;
+}
+
 
 #menu_bas .actualites-actu-date, #menu_bas .actualites-texte { display:none; }
 #menu_bas .actualites-titre { font-weight: normal;   font-size: 1.em;}

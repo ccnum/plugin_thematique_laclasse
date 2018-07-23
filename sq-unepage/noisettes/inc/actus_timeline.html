@@ -4,6 +4,7 @@
     </BOUCLE_article>   
   </BOUCLE_rubrique>
 
+
   <BOUCLE_actus(ARTICLES){tout}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{inverse}{doublons}>
     #SET{actu_mot_cle,article}
     <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}{0,1}>
@@ -28,10 +29,15 @@
           #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
           [(#MODELE{actu_travail_en_cours}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
         ]
+      [(#REM) Nouveaux documents ]
+        [(#MODELE{actu_documents})]  
+      [(#REM) Nouveaux commentaires ]
+        [(#MODELE{actu_commentaires})]
       [(#REM) Nouvelle ressource ]
         [(#GET{actu_mot_cle}|=={article}|oui)
           #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          [(#MODELE{actu_article}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
+          <!--Commenté car le modèle actu_article 'existe pas-->
+          [(#REM) [(#MODELE{actu_article}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})] ]
         ]
     ]
   </BOUCLE_actus>
