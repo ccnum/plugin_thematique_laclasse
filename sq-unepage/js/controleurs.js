@@ -66,6 +66,28 @@ $().ready(function(){
     }          
   });
 
+
+
+  // Ouverture de la page livrables
+  $( ".menu_logo_livrables" ).click(function() {
+    $(this).addClass("selected");
+    console.log('LIVRABLES');
+    $('.zone-livrables').stop().fadeIn(1000,function(){
+    });
+    vue = 'livrables';
+  });
+
+  //Fermeture de la page livrables
+  $( "#livrables" ).click(function() {
+    console.log('LIVRABLES');
+    $('.zone-livrables').stop().fadeOut(1000,function(){
+    });
+    vue = 'timeline';
+  });
+  
+
+
+
   // Click des logos-menus
   // Ouverture Timeline
   /*

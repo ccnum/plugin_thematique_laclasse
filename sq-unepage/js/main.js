@@ -661,7 +661,11 @@ function initTimeline(){
     //$('.presentation').colorbox({ width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
     $('.profil').colorbox({width:'80%',height: '80%'});
     
-    window.addEventListener("resize", function(event) { updateTimeline(); }, false);
+	window.addEventListener("resize", function(event) { updateTimeline(); }, false);
+	
+
+	// Modal Details livrables
+	$(".livrable-inline").colorbox({inline:true});
 	});	
 }
 

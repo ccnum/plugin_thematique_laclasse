@@ -1,0 +1,49 @@
+<div id="livrables" class="zone-livrables">
+    <div class="wrapper">
+        <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
+                <BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}>
+                    <BOUCLE_colleges(RUBRIQUES){id_parent}>
+                        #SET{auteur, #TITRE}
+                        <BOUCLE_filtreLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
+                        <!-- Boite Livrable -->
+                        <a class="livrable-inline"  href="#livrable[(#ID_ARTICLE|nb2col)]">
+                            <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE|nb2col)]">
+                                    <div class="featured-image">[(#LOGO_ARTICLE |image_reduire{500,300})]</div>
+                                    <span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>    
+                                    <h3>#TITRE</h3>
+                            </div>
+                        </a>
+                        <!-- Popup Livrable details -->
+                        <div style="display: none;">
+                            <div  id="livrable[(#ID_ARTICLE|nb2col)]" class="livrable-details-wrapper">
+                                <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
+                                    <div class="featured-image">[(#LOGO_ARTICLE |image_reduire{500,300})]</div>
+                                    <p class="titre">#TITRE</p>
+                                    <p class="pitch">"#SOUSTITRE"<div class="souligne"></div></p>
+                                    <div class="texte">#TEXTE</div>
+                                    <!-- documents -->
+                                    <div class="documents">
+                                        <BOUCLE_medias(DOCUMENTS){id_article}>
+                                                [(#MEDIA|match{'audio|video'}|oui) [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})] ] [(#MEDIA|match{'image'}|oui)
+                                                <div class="img-container">
+                                                    <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+                                                        [(#EMBED_DOCUMENT||image_reduire{400}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px
+                                                        solid #000000;'})]
+                                                    </a>
+                                                </div>
+                                                ] #TITRE
+                                        </BOUCLE_medias>
+                                        #GET{auteur}
+                                        <li class="double bloc1">
+                                        <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span>[(#NOM_SITE_SPIP)]</a>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </BOUCLE_filtreLivrable>
+                    </BOUCLE_colleges>
+                </BOUCLE_filtreTravailEnCours>
+        </BOUCLE_rubAnnee>
+    </div>
+</div>
