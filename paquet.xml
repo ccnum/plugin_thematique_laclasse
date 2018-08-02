@@ -18,7 +18,7 @@
     <necessite nom="socialtags" />
     <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
-    <necessite nom="notations" />
+    <necessite nom="notation" />
     
     <utilise nom="autorite" compatibilite="[0.10.18;[" />
     <utilise nom="medias" />
