@@ -18,9 +18,9 @@
     <necessite nom="socialtags" />
     <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
+    <necessite nom="notations" />
     
     <utilise nom="autorite" compatibilite="[0.10.18;[" />
-    <utilise nom="notations" />
     <utilise nom="medias" />
 
     <pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
