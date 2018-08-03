@@ -67,22 +67,26 @@ $().ready(function(){
   });
 
 
-
+  //TODO En faire une fonction plus generale pouvant s'appliquer à plusieurs cas d'usage
   // Ouverture de la page livrables
   $( ".menu_logo_livrables" ).click(function() {
     $(this).addClass("selected");
     console.log('LIVRABLES');
-    $('.zone-livrables').stop().fadeIn(1000,function(){
-    });
+    //$('#timeline_layer_consignes').css({"opacity": 0.4})
+    $('.zone-livrables').stop().fadeIn(1000);
     vue = 'livrables';
+    state.type_objet = 'livrables';
   });
+
 
   //Fermeture de la page livrables
   $( "#livrables" ).click(function() {
     console.log('LIVRABLES');
-    $('.zone-livrables').stop().fadeOut(1000,function(){
-    });
+    //$('#timeline_layer_consignes').css({"opacity": 1})
+    $('.zone-livrables').stop().fadeOut(1000);
+    changeTimelineMode('consignes');
     vue = 'timeline';
+    state.type_objet = 'consignes';
   });
   
 

@@ -19,25 +19,30 @@
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
                                     <div class="featured-image">[(#LOGO_ARTICLE |image_reduire{500,300})]</div>
                                     <p class="titre">#TITRE</p>
-                                    <p class="pitch">"#SOUSTITRE"<div class="souligne"></div></p>
-                                    <div class="texte">#TEXTE</div>
-                                    <!-- documents -->
-                                    <div class="documents">
-                                        <BOUCLE_medias(DOCUMENTS){id_article}>
-                                                [(#MEDIA|match{'audio|video'}|oui) [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})] ] [(#MEDIA|match{'image'}|oui)
-                                                <div class="img-container">
-                                                    <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                                                        [(#EMBED_DOCUMENT||image_reduire{400}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px
-                                                        solid #000000;'})]
-                                                    </a>
-                                                </div>
-                                                ] #TITRE
-                                        </BOUCLE_medias>
-                                        #GET{auteur}
-                                        <li class="double bloc1">
-                                        <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span>[(#NOM_SITE_SPIP)]</a>
-                                        </li>
+                                    <p class="pitch">"#SOUSTITRE"</p>
+                                    <div class="souligne"></div>
+                                    <div class="corps-wrapper">
+                                        <div class="corps">
+                                            <div class="texte">#TEXTE</div>
+                                            <!-- documents -->
+                                            <div class="documents">
+                                                <BOUCLE_medias(DOCUMENTS){id_article}>
+                                                        [(#MEDIA|match{'audio|video'}|oui) [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})] ] [(#MEDIA|match{'image'}|oui)
+                                                        <div class="img-container">
+                                                            <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+                                                                [(#EMBED_DOCUMENT||image_reduire{400}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px
+                                                                solid #000000;'})]
+                                                            </a>
+                                                        </div>
+                                                        ] #TITRE
+                                                </BOUCLE_medias>
+                                                #GET{auteur}
+                                                <li class="ccn-logo">
+                                                <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span>[(#NOM_SITE_SPIP)]</a>
+                                                </li>
+                                        </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
