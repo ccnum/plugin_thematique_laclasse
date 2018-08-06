@@ -337,7 +337,7 @@ function loadConsignes(fichier){
         	if ((dataForReponse.y === 0)||(dataForReponse.y > 0.8)||(dataForReponse.y < -0.2)) {
         		dataForReponse.y = (liste_y[j])/(xmlReponses.length);
         	}
-        	dataForReponse.y = (liste_y[j])/(xmlReponses.length+5)+0.12;
+			/*dataForReponse.y = (liste_y[j])/(xmlReponses.length+5)+0.12;*/
         
           dataForReponse.consigne = nouvelleConsigne;
           dataForReponse.classes = CCN.classes;
