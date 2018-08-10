@@ -25,6 +25,19 @@ function th_declarer_champs_extras($champs = array()) {
         'modifier' => array('auteur' => array('webmestre','0minirezo'))),//Seuls les webmestres peuvent modifier
         ),
     );
+
+    $champs['spip_rubriques']['url_id_doc'] = array(
+        'saisie' => 'input',//Type du champ (voir plugin Saisies)
+        'options' => array(
+        'nom' => 'url_id_doc',
+        'label' => _T('th:url_id_doc'),
+        'sql' => "text",
+        'defaut' => '',// Valeur par défaut
+        'restrictions'=>array('voir' => array('auteur' => ''),//Tout le monde peut voir
+        'modifier' => array('auteur' => array('auteur' => ''))),//Seuls les webmestres peuvent modifier
+        ),
+    );
+
     return $champs;
 }
 ?>

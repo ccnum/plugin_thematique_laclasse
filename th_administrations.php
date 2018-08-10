@@ -55,6 +55,9 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_configurer_rubriques'),
     );
 
+    cextras_api_upgrade(th_declarer_champs_extras(), $maj['2.4.2']);
+
+    
     include_spip('base/upgrade');
     maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
