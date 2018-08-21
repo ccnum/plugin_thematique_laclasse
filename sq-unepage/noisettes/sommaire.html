@@ -200,12 +200,25 @@ et/ou
 					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora menu_logo_type_sidebarView}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
 				
 					[(#REM)Espace Doc]
+				
+					<B_getDocId>
 						<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #RESTREINT}{0,1}>
+						[(#CONFIG{th/espace_doc_url}|oui)
 							<li class="logo">
 								<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}#URL_ID_DOC" title="#GET{docTitre}" onclick="window.open(this.href, 'mywin',
 								'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
 							</li>
+							]
 						</BOUCLE_getDocId>
+					</B_getDocId>
+					[(#CONFIG{th/espace_doc_url}|oui)
+						<li class="logo">
+							<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}" title="#GET{docTitre}" onclick="window.open(this.href, 'mywin',
+							'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
+						</li>
+						]
+					<//B_getDocId>
+
 
 				</ul>
 		    </div>
