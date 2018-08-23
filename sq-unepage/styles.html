@@ -4448,6 +4448,10 @@ input.crayon-active {
   max-height: 500px;
 }
 
+
+
+/*** ACTUALITES ***/
+
 #menu_bas.zone-menu ul.actualites-ul {
   width:27px;
   margin-right:3px;
@@ -4458,13 +4462,16 @@ input.crayon-active {
   height: 27px;
   display:inline-block;
   overflow:hidden;
+  width: 500px;
 }
 
 .actualites-actu {
-  cursor:pointer
+  cursor:pointer;
+  transition: opacity 0.1s ease-in;
 }
 
 #menu_bas .actualites-actu {
+  display: flex;
   font-size: 11px;
   line-height: 14px;
   height: 27px;
@@ -4509,7 +4516,6 @@ input.crayon-active {
 }
 
 .actualites-actu-date {
-  /*text-transform:uppercase;*/
   font-size:11px;
   color:gray
 }
@@ -4524,7 +4530,7 @@ input.crayon-active {
   border-radius: 50%;
   width: 45px;
   height: auto;
-  margin: -5px 10px 0px -8px;
+  margin: 0px 10px 0px -10px;
   display: inline-block;
 }
 
@@ -4538,7 +4544,7 @@ input.crayon-active {
   color: black;
   border-radius: 5px 5px 5px 5px;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .actualites-actu .arrow-down {
@@ -4552,6 +4558,27 @@ input.crayon-active {
     border-top: 6px solid white;
     opacity: 0.8;
 }
+
+.actualites-actu .spip_documents {
+  margin-top: 20px;
+}
+
+.actualites-actu .document {
+  display: flex;
+  padding: 10px;
+  background: #ffffff78;
+  color: black;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.actualites-actu .document img {
+  width: 30px;
+  height: 30px;
+  border: 0px solid #000000;
+  margin: 10px;
+}
+
 
 #menu-actualites .content, #menu-actualites .comment, #menu-actualites .profil, #menu-actualites .arrow-down {
   display: none;

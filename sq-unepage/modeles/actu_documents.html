@@ -7,7 +7,7 @@
                     [(#DATE|affdate)]
             </BOUCLE_getAuteur>
             
-            <BOUCLE_docs(DOCUMENTS){id_article}{0,1}{par date}>
+            <BOUCLE_docs(DOCUMENTS){id_article}{0,1}{!par date}>
                     
     
                   [(#MEDIA|match{'image'}|oui)
@@ -15,15 +15,14 @@
                     [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
                     </a>
                   ]
-                  [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                    [<div class="spip_doc_titre">(#TITRE|supprimer_numero|sinon{<div class="ajouter_couleur">Ajouter un titre…</div>})</div>]
-                  ]
+                 
                   [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
                     [<div class="spip_doc_titre">(#TITRE|supprimer_numero)</div>]
                   ]
                   
                   
                   [(#MEDIA|match{'image'}|non)
+                  <div class="document">
                     [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
 								    [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
@@ -31,6 +30,7 @@
                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
                       [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
                     ]
+                  </div>
                   ]
                 
             </BOUCLE_docs>
