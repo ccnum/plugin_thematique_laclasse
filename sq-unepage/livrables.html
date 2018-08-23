@@ -1,3 +1,9 @@
+[(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
+[(#SESSION{role}|choixsiegal{intervenant,"<script>
+	window.onload = function () {
+		lastConsigne = $('#menu-consignes ul li:last-child a').click();
+	}
+	</script>", ""})]
 <div id="livrables" class="zone-livrables">
     <div class="wrapper">
         <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
