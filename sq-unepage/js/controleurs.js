@@ -88,7 +88,7 @@ $().ready(function(){
     vue = 'timeline';
     state.type_objet = 'consignes';
   });
-  
+
   // Ouverture livrables details
   $(".livrable").click(function() {
     $(this).addClass("selected");

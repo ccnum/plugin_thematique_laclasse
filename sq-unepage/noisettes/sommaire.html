@@ -12,6 +12,7 @@ et/ou
 <div id="global">
 
 	<INCLURE{fond=noisettes/inc/no_ie6}>
+	[(#INCLURE{fond=noisettes/fonction/type_role})]
 
 	[(#VUE|=={classe}|non)]
 
@@ -32,7 +33,7 @@ et/ou
         </div>
         <div class="timeline_layer" id="timeline_layer_evenements">
           <div class="timeline_trigger"></div>
-        </div>
+				</div>
 				<div class="timeline_layer" id="timeline_layer_livrables">
 					<h1>Livrables</h1>
           <div class="timeline_trigger"></div>
@@ -109,7 +110,7 @@ et/ou
 					[(#MODELE{logo_menu}{valeur=blog}{class=menu_logo_blogs}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
 					
 					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
-					
+
 					[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Fiches projet}{onclick=changeTimelineMode('livrables');})]
 					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
@@ -200,7 +201,7 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-						
+
 						[(#NOM_SITE_SPIP|=={ontourne}|oui) #SET{docTitre,la salle des rushs} ]
 						[(#NOM_SITE_SPIP|=={ontourne}|non) #SET{docTitre,Espace Doc} ]
 						
@@ -225,7 +226,7 @@ et/ou
 						</li>
 						]
 					<//B_getDocId>
-
+					
 
 				</ul>
 		    </div>
@@ -298,3 +299,10 @@ et/ou
 
 </div>
 
+
+[(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
+[(#SESSION{role}|choixsiegal{intervenant,"<script>
+	window.onload = function () {
+		lastConsigne = $('#menu-consignes ul li:last-child a').click();
+	}
+	</script>", ""})]
