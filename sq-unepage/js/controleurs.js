@@ -83,14 +83,29 @@ $().ready(function(){
   $( "#livrables" ).click(function() {
     console.log('LIVRABLES');
     //$('#timeline_layer_consignes').css({"opacity": 1})
-    $('.zone-livrables').stop().fadeOut(1000);
+    //$('.zone-livrables').stop().fadeOut(1000);
     changeTimelineMode('consignes');
     vue = 'timeline';
     state.type_objet = 'consignes';
   });
   
+  // Ouverture livrables details
+  $(".livrable").click(function() {
+    $(this).addClass("selected");
+    dataId = $(this).data('id')
+    console.log('LIVRABLES');
+    $(".overlay").stop().fadeIn(500);
+    $('#livrable'+dataId).stop().fadeIn(500);
+    $('#livrable'+dataId).addClass('active');
+    vue = 'livrables';
+    state.type_objet = 'livrables';
+  });
 
-
+  //Fermeture livrables-details
+  $("#livrables .overlay").click(function(){
+    $("#livrables .active").stop().fadeOut(500);
+    $(".overlay").stop().fadeOut(500);
+  })
 
   // Click des logos-menus
   // Ouverture Timeline

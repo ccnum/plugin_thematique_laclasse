@@ -4553,6 +4553,16 @@ input.crayon-active {
 #menu_bas .actualites-actu-date, #menu_bas .actualites-texte { display:none; }
 #menu_bas .actualites-titre { font-weight: normal;   font-size: 1.em;}
 
+
+.overlay {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  top: -40px;
+  background: #00000033;
+}
+
 /* LIVRABLES */
 #livrables{
   display: none;
@@ -4560,12 +4570,13 @@ input.crayon-active {
   z-index: 999999;
   width: 100vw;
   height: 100vh;
-  padding-top: 50px;
+  padding-top: 100px;
 }
 #livrables .wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .livrable{
   overflow: hidden;
@@ -4576,7 +4587,7 @@ input.crayon-active {
   box-shadow: 0 2px 7px rgba(0,0,0,.3);
   width: 200px;
   height: 220px;
-  margin-left: 15px;
+  margin: 15px 0 0 15px;
 }
 
 .livrable .featured-image {
@@ -4590,44 +4601,81 @@ input.crayon-active {
   filter: blur(2px) grayscale(0%);
 }
 
+/*.livrable .profil {
+  position: absolute;
+  top: 171px;
+  z-index: 999;
+}*/
+
+.livrable .profil {
+  display: flex;
+  flex-direction: column;
+}
+
 .livrable .profil img {
   border-radius: 50%;
+  margin: auto;
 }
 
 .livrable h3 {
-  position: absolute;
-  top: 70px;
   color: white;
   background: black;
   padding: 8px;
+  margin: 10px;
   font-size: 1rem;
   text-transform: uppercase;
 }
 
+.livrable h4 {
+  font-size: 15px;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+
+/* Livrable details */
+
 .livrable-details-wrapper{
+    left: 30%;
+    position: absolute;
+    display: none;
   overflow: hidden;
-  width: 365px;
+    width: 680px;
   border-radius: 5px;
   box-shadow: 0 2px 7px rgba(0,0,0,.3);
+    height: 82vh;
+    z-index: 2;
+    top: 100px;
 }
 
 .livrable-details {
   overflow-y: hidden;
   overflow-x: hidden;
   position: relative;
-  height: 530px;
-  width: 380px;
+  height: 82vh;
+  width: 680px;
   font-size: 20px;
   color: white;
   padding-top: 0;
 }
 
 .livrable-details .corps{
-  width: 100%;
   overflow: scroll;
-  height: 400px;
+  height: 431px;
+}
+
+
+.livrable-details .corps-wrapper {
+  overflow: hidden;
+  width: 695px;
   display: inline-block;
-  margin-top: -24px;
+}
+
+.livrable-details .border-bg {
+  background: #ffffff26;
+  margin: 15px;
+  border-radius: 3px;
 }
 
 .livrable-details .texte {
@@ -4640,16 +4688,19 @@ input.crayon-active {
 
 .livrable-details .featured-image {
   float: left;
-  height: 145px;
+  height: 200px;
   overflow: hidden;
 }
 
+.livrable-details .featured-image .crayon-icones {
+  top: 10%;
+  left: -10%;
+}
+
 .livrable-details .pitch {
-  position: relative;
-  width: 100%;
+  width: 93%;
   float: left;
-  top: -35px;
-  left: 15px;
+  padding: 9px;
 }
 
 .livrable-details .titre {
@@ -4658,10 +4709,51 @@ input.crayon-active {
   padding: 7px;
   position: absolute;
   left: 50%;
-  top: 60px;
+  top: 105px;
   text-transform: uppercase;
   transform: translate(-50%, -50%);
 }
+
+.livrable-details .autres-docs {
+  display: inline-block;
+  width: 100%;
+  padding-top: 13px;
+}
+
+.livrable-details .autres-docs .fichier, 
+.livrable-details .autres-docs .audio {
+  width: 43%;
+  float: left;
+  margin: 10px;
+  padding: 10px;
+}
+
+.livrable-details .autres-docs .fichier{
+  background-color: white;
+  border-radius: 2px;
+  color: black;
+}
+
+.livrable-details .documents {
+  display: inline-block;
+  width: 91%;
+  padding: 15px;
+}
+
+.livrable-details  .img-container img {
+  float: left;
+  margin: 10px;
+  width: 45%;
+  height: auto;
+}
+
+.livrable-details .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 15px;
+}
+
 
 .livrable-details .ccn-logo {
     padding: 3px;

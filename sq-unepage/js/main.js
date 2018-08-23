@@ -664,13 +664,8 @@ function initTimeline(){
 	window.addEventListener("resize", function(event) { updateTimeline(); }, false);
 	
 
-	// Modal Details livrables
-	$(".livrable-inline").colorbox({inline:true});
-	});	
+});	
 }
-
-
-
 
 // C'est parti
 
