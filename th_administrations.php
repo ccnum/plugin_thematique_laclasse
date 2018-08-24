@@ -55,7 +55,7 @@ function th_upgrade($nom_meta_base_version, $version_cible){
         array('th_configurer_rubriques'),
     );
 
-    cextras_api_upgrade(th_declarer_champs_extras(), $maj['2.4.2']);
+    cextras_api_upgrade(th_declarer_champs_extras(), $maj['2.4.2'] = array());
 
     
     include_spip('base/upgrade');
@@ -207,6 +207,8 @@ function th_ajouter_mots_clef() {
         $id_veille_defaut = sql_insertq('spip_mots', array('titre'=>'laclasse.com','id_groupe'=>$id_groupe));
     if (!$id_mot = sql_getfetsel("id_mot", "spip_mots", "titre='sommaire_edito' AND id_groupe=$id_groupe")) 
         $id_veille_defaut = sql_insertq('spip_mots', array('titre'=>'sommaire_edito','id_groupe'=>$id_groupe));
+    if (!$id_mot = sql_getfetsel("id_mot", "spip_mots", "titre='livrables' AND id_groupe=$id_groupe")) 
+        $id_veille_defaut = sql_insertq('spip_mots', array('titre'=>'livrables','id_groupe'=>$id_groupe));
 
     //Groupe Sites
     if (!$id_groupe = sql_getfetsel("id_groupe", "spip_groupes_mots", "titre='site'"))
