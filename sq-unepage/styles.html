@@ -106,6 +106,9 @@
 .crayon-html textara.crayon-active {
 }
 
+.crayon-active.markItUpEditor {
+  color: black !important;
+}
 .resizehandle_boutons {
   margin:0 !important;
 }
@@ -525,6 +528,10 @@ body {
 .logo_menu-cible {
   background-image: url(#ENV{chemin}/img/logo_cible.png);
   background-size: 25px; 
+}
+
+.logo_menu-cible.selected {
+  background-color: #999;
 }
 
 
@@ -4510,29 +4517,28 @@ input.crayon-active {
 #menu_bas .actualites-titre { font-weight: normal;   font-size: 1.em;}
 
 
-.overlay {
+.details-overlay {
   display: none;
   position: absolute;
   width: 100%;
-  height: 120%;
-  top: -40px;
-  background: #00000033;
+  height: 100%;
+  background: #0c0c0c0d;
 }
 
 /* LIVRABLES */
 #livrables{
   display: none;
   position: absolute;
-  z-index: 999999;
-  width: 100vw;
-  height: 100vh;
-  padding-top: 100px;
+  z-index: 105;
 }
 #livrables .wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
 }
 .livrable{
   overflow: hidden;
@@ -4566,6 +4572,7 @@ input.crayon-active {
 .livrable .profil {
   display: flex;
   flex-direction: column;
+  pointer-events: none;
 }
 
 .livrable .profil img {
@@ -4600,9 +4607,11 @@ input.crayon-active {
     width: 680px;
     border-radius: 5px;
     box-shadow: 0 2px 7px rgba(0,0,0,.3);
-    height: 82vh;
+    height: 565px;
     z-index: 2;
     top: 100px;
+    margin-top: 40vh;
+    transform: translateY(-50%);
 }
 
 .livrable-details {
@@ -4616,9 +4625,16 @@ input.crayon-active {
   padding-top: 0;
 }
 
+.livrable-details .close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+}
+
 .livrable-details .corps{
   overflow: scroll;
-  height: 431px;
+  height: 382px;
 }
 
 
@@ -4650,13 +4666,16 @@ input.crayon-active {
 
 .livrable-details .featured-image .crayon-icones {
   top: 10%;
-  left: -10%;
+  left: -20%;
 }
 
 .livrable-details .pitch {
   width: 93%;
   float: left;
   padding: 9px;
+}
+.livrable-details .texte {
+  width: 87%;
 }
 
 .livrable-details .titre {

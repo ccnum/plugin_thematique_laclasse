@@ -3,7 +3,7 @@
 	window.onload = function () {
 		lastConsigne = $('#menu-consignes ul li:last-child a').click();
 	}
-	</script>", ""})]
+    </script>", ""})]  
 <div id="livrables" class="zone-livrables">
     <div class="wrapper">
         <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
@@ -12,7 +12,7 @@
                         #SET{auteur, #TITRE}
                         #SET{desc, #TEXTE}
                         <BOUCLE_filtreLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
-                        <!-- Boite Livrable -->
+                        <!-- PAGE LIVRABLE -->
                         <a class="livrable-inline"  href="#livrable[(#ID_ARTICLE|nb2col)]">
                             <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE|nb2col)]">
                                 <div class="header">
@@ -24,18 +24,18 @@
                                     <!--<div class="featured-image">[(#LOGO_ARTICLE |image_reduire{500,300})]</div>-->
                             </div>
                         </a>
-                        <div class="overlay"></div>
-                        <!-- Popup Livrable details -->
+                        <!-- LLIVRABLE DETAILS -->
                         <div>
                             <div  id="livrable[(#ID_ARTICLE|nb2col)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE|nb2col)]">
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
+                                    <span class="close">x</span>
                                     <div class="featured-image #EDIT{logo}">[(#LOGO_ARTICLE |image_reduire{800,500})|?#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE}]</div>
                                     <p class="titre #EDIT{titre}">#TITRE</p>
                                     <div class="corps-wrapper">
                                         <div class="corps">
                                             <p class="pitch border-bg #EDIT{soustitre}">"#SOUSTITRE"</p>
                                             <div class="texte border-bg #EDIT{texte}">#TEXTE</div>
-                                            <!-- documents -->
+                                            <!-- Affichage documents -->
                                             <div class="documents border-bg">
                                                 <BOUCLE_images(DOCUMENTS){id_article}>
                                                         [(#MEDIA|match{'image'}|oui)
@@ -64,46 +64,20 @@
                                                             ]
                                                     </BOUCLE_autresDocs>
                                                 </div>
-                                                [(#REM)Ajouter un document]
-          
-                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                  [(#GET{blocs_cplt}|=={non}|non)
-                                                  
+                                                [(#REM)Ajouter un document]    
                                                   <div class="sidebar_bubble">
-                                                  
                                                     <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_doc-#ID_ARTICLE}>
                                                     <div class="bloc_option_doc nettoyeur">
                                                       <a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un document">
                                                         Ajouter un document
                                                       </a>
                                                       <div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
-                                                        <INCLURE{fond=formulaires/ajouter_document,ajax,env}/>
-                                                      </div>
-                                                      <INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
-                                                    </div>
-                                                  </div>
-                                                  ]
-                                                ]
-                                                
-
-                                      
-                                              [(#REM)Mots-clefs]
-                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                  [(#NOM_SITE_SPIP|match{novaterra.laclasse.com}|oui)
-                                                  <div class="sidebar_bubble">
-                                                    <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_motsclefs-#ID_ARTICLE}>
-                                                    <div class="bloc_option_doc nettoyeur">
-                                                      <a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter à l'encyclopédie" href="#">
-                                                        Ajouter à l'encyclopédie
-                                                      </a>
-                                                      <div class="nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc">
-                                                        <INCLURE{fond=noisettes/inc/article-mot}{id_article}{id_groupe=5}{titre='Thématique'}>
+                                                        #FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}
                                                       </div>
                                                     </div>
                                                   </div>
-                                                  ]
-                                                ]
                                             </div>
+                                            <!-- Footer -->
                                             <div class="footer border-bg">
                                                     #GET{auteur}
                                                 <li class="ccn-logo">
