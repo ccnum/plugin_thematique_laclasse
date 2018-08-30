@@ -72,7 +72,6 @@ $().ready(function(){
 
   // Ouverture de la page livrables
   $( ".menu_logo_livrables" ).click(function() {
-    console.log('ouvre page livrable ');
     $('.zone-livrables').stop().fadeIn(1000);
     changeTimelineMode('livrables');
   });
@@ -81,9 +80,9 @@ $().ready(function(){
   //Fermeture page livrable
   $(".zone-livrables").click(function(){
     if(doNotClose == false){
-      console.log('ferme livrable detail');
       $('.zone-livrables').stop().fadeOut(1000);
       $('.logo_menu-consignes').click();
+      changeTimelineMode('consignes');
     }
   });
   
@@ -91,7 +90,6 @@ $().ready(function(){
    $(".livrable").click(function() {
       doNotClose = true;
       dataId = $(this).data('id');
-      console.log('ouvre livrable detail');
       $(".livrable").css({'opacity': '0.4'});
       $('#livrable'+dataId).stop().fadeIn(500);
       $('#livrable'+dataId).addClass('active');
@@ -99,7 +97,6 @@ $().ready(function(){
 
   //Fermeture livrables-details
   $(".close").click(function(){
-      console.log('ferme livrable detail');
       $('.livrable-details-wrapper').fadeOut(500);
       $('.livrable-details-wrapper').removeClass('active');
       $(".livrable").css({'opacity': '1'});
@@ -413,7 +410,8 @@ function changeTimelineMode(type) {
   var classCss = {};
       classCss.consignes = 'show_consignes';
       classCss.blogs = 'show_blogs';
-      classCss.evenements = 'show_evenements';  
+      classCss.evenements = 'show_evenements';
+      classCss.livrables = 'show_livrables';  
   
   
   if (!$('body').hasClass(classCss[type])) {
@@ -928,6 +926,34 @@ function callActualites(){
 	
 	console.log('callActualites');
 }
+
+
+function callLivrable(id_livrable){
+  
+  changeTimelineMode('livrables');
+  
+	var url = CCN.projet.url_popup_consigne+"&id_article="+id_livrable;
+	//showConsigneInTimeline(id_livrable);
+	updateMenuIcon(['livrable-'+id_livrable], 'mainView');
+	
+  	//loadContentInMainSidebar(url, 'article', 'livrables', function(){
+    	updateUrl({
+        'type_objet':'livrables',
+        'id_objet':id_livrable,
+        'id_rubrique':id_livrable,
+        'page':'article'	
+      },'Consigne',"./spip.php?page=article&id_article="+id_livrable+"&mode=complet&type=livrables");
+   //});
+  
+	
+	/*
+	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
+	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
+	*/
+	
+	console.log('callLivrable');
+}
+
 
 
 /**

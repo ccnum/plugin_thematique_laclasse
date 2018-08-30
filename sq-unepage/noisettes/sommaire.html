@@ -109,7 +109,21 @@ et/ou
 					
 					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
 
-					[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Livrables}{onclick=changeTimelineMode('livrables');})]
+					#SET{hasLivrable, 'false'}   
+
+					[(#SET{rubIdTravail,[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]})]
+					<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique = #GET{rubIdTravail}}{par date}>
+							<BOUCLE_getRubColleges(RUBRIQUES){id_parent}>
+								<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
+								#SET{hasLivrable, 'true'}
+								</BOUCLE_getLivrable>   
+							</BOUCLE_getRubColleges>
+					</BOUCLE_getRubTravail>
+					
+					[(#GET{hasLivrable}|choixsiegal{true, 
+						[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Livrables}{onclick=changeTimelineMode('livrables');})], 
+						''}
+					)]
 					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
 		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
