@@ -25,7 +25,11 @@
                             <div  id="livrable[(#ID_ARTICLE|nb2col)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE|nb2col)]">
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
                                     <span class="close">x</span>
-                                    <div class="featured-image #EDIT{logo}">[(#LOGO_ARTICLE |image_reduire{800,500})|?#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE}]</div>
+                                    <div class="featured-image #EDIT{logo}">
+                                    [(#LOGO_ARTICLE|sinon{
+                                        [<img src="(#CHEMIN{img/presentation/02.png})" alt="" />]
+                                    }|image_reduire{800,500})]
+                                    </div>
                                     <p class="titre #EDIT{titre}">#TITRE</p>
                                     <div class="corps-wrapper">
                                         <div class="corps">
@@ -51,16 +55,17 @@
                                                             <div class="fichier">
                                                                 [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
                                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+                                                                [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
                                                                 ]
                                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                                                                [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+                                                                [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25})</span>]
                                                                 ]
                                                             </div>
                                                             ]
                                                     </BOUCLE_autresDocs>
                                                 </div>
                                                 [(#REM)Ajouter un document]    
+                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
                                                   <div class="sidebar_bubble">
                                                     <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_doc-#ID_ARTICLE}>
                                                     <div class="bloc_option_doc nettoyeur">
@@ -72,13 +77,14 @@
                                                       </div>
                                                     </div>
                                                   </div>
+                                                ]
                                             </div>
                                              [(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
           
                                                 [(#GET{is_agora}|=={oui}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
                                                 [(#GET{is_agora}|=={oui}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&type_objet=agora&mode=complet})]})]]
                                                 [
-                                                <div class="sidebar_bubble">
+                                                <div class="sidebar_bubble cache">
                                                 <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
                                                 <div class="bloc_option_doc nettoyeur">
                                                     <a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
