@@ -256,7 +256,7 @@
         
           [(#REM)Documents joints]
           <B_documents_joints1>
-            <BOUCLE_documents_joints1(DOCUMENTS){vu=non} {media IN audio,video,image} {id_article} {doublons d}>
+            <BOUCLE_documents_joints1(DOCUMENTS){vu=non} {id_article} {doublons d}>
                 <div class="portfolio_grand">
     
                   [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
@@ -391,7 +391,8 @@
                     Ajouter un document
                   </a>
                   <div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
-                    <INCLURE{fond=formulaires/ajouter_document,ajax,env}/>
+                      Vos documents apparaîtront par ordre de chargement (du premier au dernier document chargé)
+                      <INCLURE{fond=formulaires/ajouter_document,ajax,env}/>
                   </div>
                   <INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
                 </div>

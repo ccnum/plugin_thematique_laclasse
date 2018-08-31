@@ -7,12 +7,10 @@ et/ou
 ]
 
 <style id="crayons-surcharge-styles"></style>
-
 <div id="offset"></div>
 <div id="global">
 
 	<INCLURE{fond=noisettes/inc/no_ie6}>
-	[(#INCLURE{fond=noisettes/fonction/type_role})]
 
 	[(#VUE|=={classe}|non)]
 
@@ -24,7 +22,7 @@ et/ou
     <div id="timeline_responsive">
       <div id="timeline_fixed"></div>
       <div id="timeline_wrapin">
-					<INCLURE{fond=livrables} />
+			<INCLURE{fond=livrables} />
         <div class="timeline_layer" id="timeline_layer_consignes">
           <div class="timeline_trigger"></div>
         </div>
@@ -35,7 +33,6 @@ et/ou
           <div class="timeline_trigger"></div>
 				</div>
 				<div class="timeline_layer" id="timeline_layer_livrables">
-					<h1>Livrables</h1>
           <div class="timeline_trigger"></div>
         </div>
         <div id="timeline_background"></div>
@@ -111,7 +108,21 @@ et/ou
 					
 					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
 
-					[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Fiches projet}{onclick=changeTimelineMode('livrables');})]
+					#SET{hasLivrable, 'false'}   
+
+					[(#SET{rubIdTravail,[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]})]
+					<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique = #GET{rubIdTravail}}{par date}>
+							<BOUCLE_getRubColleges(RUBRIQUES){id_parent}>
+								<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
+								#SET{hasLivrable, 'true'}
+								</BOUCLE_getLivrable>   
+							</BOUCLE_getRubColleges>
+					</BOUCLE_getRubTravail>
+					
+					[(#GET{hasLivrable}|choixsiegal{true, 
+						[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Livrables}{onclick=changeTimelineMode('livrables');})], 
+						''}
+					)]
 					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
 		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
@@ -201,31 +212,30 @@ et/ou
 						[(#NOM_SITE_SPIP|=={aqueduc.laclasse.com}|oui) #SET{blog,Le blog de Flavie Jones} ]
 						[(#NOM_SITE_SPIP|=={design.laclasse.com}|oui) #SET{blog,Les actualités} ]
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
-
-						[(#NOM_SITE_SPIP|=={ontourne}|oui) #SET{docTitre,la salle des rushs} ]
-						[(#NOM_SITE_SPIP|=={ontourne}|non) #SET{docTitre,Espace Doc} ]
 						
 					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora menu_logo_type_sidebarView}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
 				
 					[(#REM)Espace Doc]
-				
-					<B_getDocId>
-						<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #RESTREINT}{0,1}>
+				 	
+					 	[(#RESTREINT|?{#SET{docId,#RESTREINT}, #SET{docId,false}})]
+
+						<B_getDocId>
+							<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #GET{docId}}{0,1}>
+							[(#CONFIG{th/espace_doc_url}|oui)
+								<li class="logo">
+									<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}#URL_ID_DOC" title="Espace Doc" onclick="window.open(this.href, 'mywin',
+									'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
+								</li>
+								]
+							</BOUCLE_getDocId>
+						</B_getDocId>
 						[(#CONFIG{th/espace_doc_url}|oui)
 							<li class="logo">
-								<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}#URL_ID_DOC" title="#GET{docTitre}" onclick="window.open(this.href, 'mywin',
+								<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}" title="Espace Doc" onclick="window.open(this.href, 'mywin',
 								'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
 							</li>
 							]
-						</BOUCLE_getDocId>
-					</B_getDocId>
-					[(#CONFIG{th/espace_doc_url}|oui)
-						<li class="logo">
-							<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}" title="#GET{docTitre}" onclick="window.open(this.href, 'mywin',
-							'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
-						</li>
-						]
-					<//B_getDocId>
+						<//B_getDocId>
 					
 
 				</ul>
@@ -299,10 +309,12 @@ et/ou
 
 </div>
 
-
-[(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
-[(#SESSION{role}|choixsiegal{intervenant,"<script>
-	window.onload = function () {
-		lastConsigne = $('#menu-consignes ul li:last-child a').click();
-	}
-	</script>", ""})]
+[(#REM)
+	[(#INCLURE{fond=noisettes/fonction/type_role})]
+	[(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
+	[(#SESSION{role}|choixsiegal{intervenant,"<script>
+		window.onload = function () {
+			lastConsigne = $('#menu-consignes ul li:last-child a').click();
+		}
+		</script>", ""})]
+]

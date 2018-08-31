@@ -38,6 +38,7 @@ function initCCN() {
   CCN.timelineLayerConsignes  = $('#timeline_layer_consignes');
   CCN.timelineLayerBlogs      = $('#timeline_layer_blogs');
   CCN.timelineLayerEvenements = $('#timeline_layer_evenements');
+  CCN.timelineLayerLivrables = $('#timeline_layer_livrables');
   
   // Charge le projet
   

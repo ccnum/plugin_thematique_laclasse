@@ -1,3 +1,4 @@
+#SET{hasLivrable, 'false'}    
 <div id="livrables" class="zone-livrables">
     <div class="wrapper">
         <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
@@ -6,8 +7,9 @@
                         #SET{auteur, #TITRE}
                         #SET{desc, #TEXTE}
                         <BOUCLE_filtreLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
-                        <!-- Boite Livrable -->
-                        <a class="livrable-inline"  href="#livrable[(#ID_ARTICLE|nb2col)]">
+                            #SET{hasLivrable, 'true'}
+                        <!-- PAGE LIVRABLE -->
+                        <a class="livrable-inline"  onclick="callLivrable(#ID_ARTICLE);">
                             <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE|nb2col)]">
                                 <div class="header">
                                     <h3>#TITRE</h3>
@@ -18,18 +20,22 @@
                                     <!--<div class="featured-image">[(#LOGO_ARTICLE |image_reduire{500,300})]</div>-->
                             </div>
                         </a>
-                        <div class="overlay"></div>
-                        <!-- Popup Livrable details -->
+                        <!-- LLIVRABLE DETAILS -->
                         <div>
                             <div  id="livrable[(#ID_ARTICLE|nb2col)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE|nb2col)]">
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
-                                    <div class="featured-image #EDIT{logo}">[(#LOGO_ARTICLE |image_reduire{800,500})|?#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE}]</div>
+                                    <span class="close">x</span>
+                                    <div class="featured-image #EDIT{logo}">
+                                    [(#LOGO_ARTICLE|sinon{
+                                        [<img src="(#CHEMIN{img/presentation/02.png})" alt="" />]
+                                    }|image_reduire{800,500})]
+                                    </div>
                                     <p class="titre #EDIT{titre}">#TITRE</p>
                                     <div class="corps-wrapper">
                                         <div class="corps">
                                             <p class="pitch border-bg #EDIT{soustitre}">"#SOUSTITRE"</p>
                                             <div class="texte border-bg #EDIT{texte}">#TEXTE</div>
-                                            <!-- documents -->
+                                            <!-- Affichage documents -->
                                             <div class="documents border-bg">
                                                 <BOUCLE_images(DOCUMENTS){id_article}>
                                                         [(#MEDIA|match{'image'}|oui)
@@ -44,60 +50,53 @@
                                                 <div class="autres-docs">
                                                     <BOUCLE_autresDocs(DOCUMENTS){id_article}>
                                                            
-                                                            [(#MEDIA|match{'audio|video'}|oui) <div class="audio">[(#MODELE{audio, autostart=false, hauteur=400, largeur=300})]</div> ]
+                                                            [(#MEDIA|match{'audio|video'}|oui) <div class="audio">[(#MODELE{audio, autostart=false, hauteur=50px, largeur=35%})]</div> ]
                                                             [(#MEDIA|match{'image|audio'}|non)
                                                             <div class="fichier">
                                                                 [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
                                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+                                                                [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
                                                                 ]
                                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                                                                [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+                                                                [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25})</span>]
                                                                 ]
                                                             </div>
                                                             ]
                                                     </BOUCLE_autresDocs>
                                                 </div>
-                                                [(#REM)Ajouter un document]
-          
+                                                [(#REM)Ajouter un document]    
                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                  [(#GET{blocs_cplt}|=={non}|non)
-                                                  
                                                   <div class="sidebar_bubble">
-                                                  
                                                     <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_option_doc-#ID_ARTICLE}>
                                                     <div class="bloc_option_doc nettoyeur">
                                                       <a id="bloc_option_doc-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter un document">
                                                         Ajouter un document
                                                       </a>
                                                       <div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
-                                                        <INCLURE{fond=formulaires/ajouter_document,ajax,env}/>
-                                                      </div>
-                                                      <INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
-                                                    </div>
-                                                  </div>
-                                                  ]
-                                                ]
-                                                
-
-                                      
-                                              [(#REM)Mots-clefs]
-                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                  [(#NOM_SITE_SPIP|match{novaterra.laclasse.com}|oui)
-                                                  <div class="sidebar_bubble">
-                                                    <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_motsclefs-#ID_ARTICLE}>
-                                                    <div class="bloc_option_doc nettoyeur">
-                                                      <a id="bloc_motsclefs-#ID_ARTICLE" class="hac lien_ajouter bloc_option_doc_adddocument" title="Ajouter à l'encyclopédie" href="#">
-                                                        Ajouter à l'encyclopédie
-                                                      </a>
-                                                      <div class="nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc">
-                                                        <INCLURE{fond=noisettes/inc/article-mot}{id_article}{id_groupe=5}{titre='Thématique'}>
+                                                        #FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}
                                                       </div>
                                                     </div>
                                                   </div>
-                                                  ]
                                                 ]
                                             </div>
+                                             [(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
+          
+                                                [(#GET{is_agora}|=={oui}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
+                                                [(#GET{is_agora}|=={oui}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&type_objet=agora&mode=complet})]})]]
+                                                [
+                                                <div class="sidebar_bubble cache">
+                                                <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
+                                                <div class="bloc_option_doc nettoyeur">
+                                                    <a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
+                                                    Partager le lien
+                                                    </a>
+                                                    <div class="cache">
+                                                    <code><a href="#URL_SITE_SPIP/(#GET{url})&type=livrable" target="_blank">#URL_SITE_SPIP/#GET{url}&type=livrable</a></code>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                ]
+                                            <!-- Footer -->
                                             <div class="footer border-bg">
                                                     #GET{auteur}
                                                 <li class="ccn-logo">
@@ -116,3 +115,4 @@
         </BOUCLE_rubAnnee>
     </div>
 </div>
+HAS LIVRABLE :: #GET{hasLivrable}
