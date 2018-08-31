@@ -11,7 +11,7 @@ et/ou
 <div id="global">
 
 	<INCLURE{fond=noisettes/inc/no_ie6}>
-	[(#INCLURE{fond=noisettes/fonction/type_role})]
+	<!--[(#INCLURE{fond=noisettes/fonction/type_role})]-->
 
 	[(#VUE|=={classe}|non)]
 
@@ -108,7 +108,7 @@ et/ou
 					[(#MODELE{logo_menu}{valeur=blog}{class=menu_logo_blogs}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
 					
 					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
-
+					
 					#SET{hasLivrable, 'false'}   
 
 					[(#SET{rubIdTravail,[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]})]
@@ -217,9 +217,10 @@ et/ou
 					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora menu_logo_type_sidebarView}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
 				
 					[(#REM)Espace Doc]
-				
+
+					[(#RESTREINT|?{#SET{docId,#RESTREINT}, #SET{docId,false}})]
 					<B_getDocId>
-						<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #RESTREINT}{0,1}>
+						<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {si #GET{docId}|oui } {id_rubrique == #RESTREINT}{0,1}>
 						[(#CONFIG{th/espace_doc_url}|oui)
 							<li class="logo">
 								<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}#URL_ID_DOC" title="Espace Doc" onclick="window.open(this.href, 'mywin',
@@ -309,6 +310,8 @@ et/ou
 </div>
 
 
+
+<!-- Ouverture de panneaux si role  -->
 [(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
 [(#SESSION{role}|choixsiegal{intervenant,"<script>
 	window.onload = function () {
