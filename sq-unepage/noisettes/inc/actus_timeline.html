@@ -1,10 +1,20 @@
 
     
 #SET{contenu,#ARRAY}
-<BOUCLE_commentaires(FORUMS){!par date}{0,5}>
-  #SET_PUSH{contenu,#ARRAY{#DATE, #ARRAY{forum, #ID_ARTICLE}}}
-</BOUCLE_commentaires>
+
 <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%}>
+
+        <BOUCLE_filtreRessources(RUBRIQUES){racine}{titre_mot= ressources}>
+            <BOUCLE_ressources(RUBRIQUES){id_parent}{!par date}>
+              <BOUCLE_ressourcesArticles(ARTICLES){id_rubrique}{!par date}{0,1}>
+                  #SET_PUSH{contenu,#ARRAY{#DATE, #ARRAY{ressources, #ID_ARTICLE}}}
+              </BOUCLE_ressourcesArticles>
+            </BOUCLE_ressources>
+        </BOUCLE_filtreRessources>
+
+        <BOUCLE_commentaires(FORUMS){!par date}{0,5}>
+        #SET_PUSH{contenu,#ARRAY{#DATE, #ARRAY{forum, #ID_ARTICLE}}}
+        </BOUCLE_commentaires>
 				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}>
           <BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}{!par date}>
               <BOUCLE_articles(ARTICLES){id_rubrique} {0,1} {!par date}>
@@ -24,20 +34,24 @@
 
 <BOUCLE_dataContenu(DATA){source table, #GET{contenu}}>
 
-  <BOUCLE_triDate(POUR){tableau #VALEUR}{par date}>
-    #CLE
+  <BOUCLE_triDate(POUR){tableau #VALEUR}>
+    [(#REM) #CLE]
   <BOUCLE_affiche_doc(POUR){tableau #VALEUR}{cle= doc}>
-      [(#REM) Nouveaux documents ]
-      [(#MODELE{actu_documents}{id_article=#VALEUR})]
+    [(#REM) Nouveaux documents ]
+    [(#MODELE{actu_documents}{id_article=#VALEUR})]
   </BOUCLE_affiche_doc>
   <BOUCLE_affiche_forum(POUR){tableau #VALEUR}{cle= forum}>
-        [(#REM) Nouveaux commentaires ]
-          [(#MODELE{actu_commentaires}{id_forum=#VALEUR})]
+    [(#REM) Nouveaux commentaires ]
+    [(#MODELE{actu_commentaires}{id_forum=#VALEUR})]
   </BOUCLE_affiche_forum>
   <BOUCLE_affiche_consignes(POUR){tableau #VALEUR}{cle= consigne}>
-        [(#REM) Nouvelles consignes ]
-          [(#MODELE{actu_consignes}{id_objet=#VALEUR})]
+    [(#REM) Nouvelles consignes ]
+    [(#REM)[(#MODELE{actu_consignes}{id_objet=#VALEUR})]]
+    [(#MODELE{actu_travail_en_cours}{id_objet=#VALEUR})]
   </BOUCLE_affiche_consignes>
+  <BOUCLE_affiche_ressources(POUR){tableau #VALEUR}{cle= ressources}>
+    [(#MODELE{actu_ressources}{id_article=#VALEUR})]
+  </BOUCLE_affiche_ressources>
   </BOUCLE_triDate>
 </BOUCLE_dataContenu>
 

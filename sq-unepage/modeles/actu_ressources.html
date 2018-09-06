@@ -1,0 +1,13 @@
+<BOUCLE_ressource(ARTICLES){id_article}>
+
+<BOUCLE_auteur(RUBRIQUES){id_rubrique}>#SET{auteur_consigne,#TITRE}</BOUCLE_auteur>
+
+<div class="actualites-actu  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_ARTICLE);">
+
+	<span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
+	<span class="actualites-titre"><b>#GET{auteur_consigne}</b> à publié <b>#TITRE</b> sur <b>l'espace Ressources</span><br>
+	[(#DATE|affdate)]
+	<!--<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>-->
+	<!--<div class="actualites-texte #EDIT{texte}">[(#TEXTE|couper{80})]</div>-->
+</div>
+</BOUCLE_ressource>
