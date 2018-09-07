@@ -5,7 +5,7 @@
             <span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
             <BOUCLE_getAuteur(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}>
                     Nouveau document de #TITRE<br>
-                    [(#DATE|affdate)]
+                    [(#DATE_MODIF|affdate)]
             </BOUCLE_getAuteur>
           </div>
             <BOUCLE_docs(DOCUMENTS){id_article}{0,1}{!par date}>

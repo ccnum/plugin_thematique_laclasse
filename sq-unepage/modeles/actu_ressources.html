@@ -6,7 +6,7 @@
 
 	<span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
 	<span class="actualites-titre"><b>#GET{auteur_consigne}</b> à publié <b>#TITRE</b> sur <b>l'espace Ressources</span><br>
-	[(#DATE|affdate)]
+	[(#DATE_MODIF|affdate)]
 	<!--<div class="actualites-actu-date">[(#GET{date_consigne}|affdate)]</div>-->
 	<!--<div class="actualites-texte #EDIT{texte}">[(#TEXTE|couper{80})]</div>-->
 </div>
