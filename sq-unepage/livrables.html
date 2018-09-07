@@ -1,6 +1,6 @@
 #SET{hasLivrable, 'false'}    
 <div id="livrables" class="zone-livrables">
-    <div class="wrapper">
+    <div class="wrapper" onclick="callLivrable(null, 'close')">
         <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
                 <BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}>
                     <BOUCLE_colleges(RUBRIQUES){id_parent}>
@@ -9,8 +9,8 @@
                         <BOUCLE_filtreLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
                             #SET{hasLivrable, 'true'}
                         <!-- PAGE LIVRABLE -->
-                        <a class="livrable-inline"  onclick="callLivrable(#ID_ARTICLE);">
-                            <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE|nb2col)]">
+                        <a class="livrable-inline"  onclick="callLivrable('#ID_ARTICLE', 'openDetails');">
+                            <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE)]">
                                 <div class="header">
                                     <h3>#TITRE</h3>
                                 </div>
@@ -22,9 +22,9 @@
                         </a>
                         <!-- LLIVRABLE DETAILS -->
                         <div>
-                            <div  id="livrable[(#ID_ARTICLE|nb2col)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE|nb2col)]">
+                            <div  id="livrable[(#ID_ARTICLE)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE)]">
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
-                                    <span class="close">x</span>
+                                    <span class="close" onclick="callLivrable(null, 'closeDetails')">x</span>
                                     <div class="featured-image #EDIT{logo}">
                                     [(#LOGO_ARTICLE|sinon{
                                         [<img src="(#CHEMIN{img/presentation/02.png})" alt="" />]
@@ -78,7 +78,8 @@
                                                                     title='Supprimer ce document' >
                                                                     <div class='action_supprimer'></div>
                                                                 </a>]
-                                                                    [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
+                                                                
+                                                                    [<a href="#URL_DOCUMENT" target="blank">(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'}) </a>]
                                                                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
                                                                     [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
                                                                     ]
