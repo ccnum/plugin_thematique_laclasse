@@ -312,6 +312,17 @@ et/ou
 
 </div>
 
+[(#REM) TODO PAS DE REDIRECTION]
+<script>
+	window.onload = function () {
+		if($.urlParam('page') == 'sommaire'){
+			console.log('premiere connexion');
+			//window.location.replace("./spip.php?page=actualites&mode=complet");
+			window.location.href = "./spip.php?page=actualites&mode=complet";
+		}
+	}
+</script>
+
 [(#REM)
 	[(#INCLURE{fond=noisettes/fonction/type_role})]
 	[(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
