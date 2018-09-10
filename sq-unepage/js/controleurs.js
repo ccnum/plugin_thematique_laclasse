@@ -69,44 +69,6 @@ $().ready(function(){
   });
 
 
-  // TODO En faire une fonction plus generale pouvant s'appliquer à plusieurs cas d'usage
-  var doNotClose = false;
-
-  // Ouverture de la page livrables
-  /*$( ".menu_logo_livrables" ).click(function() {
-    $('.zone-livrables').stop().fadeIn(1000);
-    changeTimelineMode('livrables');
-  });*/
-
-
-  //Fermeture page livrable
-  /*$(".zone-livrables").click(function(){
-    if(doNotClose == false){
-      $('.zone-livrables').stop().fadeOut(1000);
-      $('.logo_menu-consignes').click();
-      changeTimelineMode('consignes');
-    }
-  });*/
-  
-   // Ouverture livrables details
-   /*$(".livrable").click(function() {
-      doNotClose = true;
-      dataId = $(this).data('id');
-      $(".livrable").css({'opacity': '0.4'});
-      $('#livrable'+dataId).stop().fadeIn(500);
-      $('#livrable'+dataId).addClass('active');
-      });*/
-
-  //Fermeture livrables-details
-  /*$(".close").click(function(){
-      $('.livrable-details-wrapper').fadeOut(500);
-      $('.livrable-details-wrapper').removeClass('active');
-      $(".livrable").css({'opacity': '1'});
-      doNotClose = false;
-      event.stopPropagation();
-  });*/
-
-
 
   // Click des logos-menus
   // Ouverture Timeline
@@ -199,7 +161,7 @@ function setContentFromState(state) {
     } 
   }
   currentState = state;
-  
+
   if (isSamePage) { return; }
   
   antifloodHashChange = true;
@@ -212,6 +174,7 @@ function setContentFromState(state) {
      CCN.projet.showWholeTimeline();
    }
   
+
   if (state.type_objet == "ressources"){
 		changeTimelineMode('consignes');
 		callRessource();
@@ -285,15 +248,18 @@ function setContentFromState(state) {
         callLivrable(null, open);
         callLivrable(state.id_objet);
         console.log('il y a un livrable dans url');
+        changeTimelineMode('livrables');
       }
-      changeTimelineMode('consignes');
-    	for (k=0; k<CCN.consignes.length;k++){
-    		for (l=0; l<CCN.consignes[k].reponses.length;l++){
-    			if (CCN.consignes[k].reponses[l].id == state.id_objet){
-    				callReponse(state.id_objet);
-    			}
-    		}
-    	}
+      else {
+        changeTimelineMode('consignes');
+        for (k=0; k<CCN.consignes.length;k++){
+          for (l=0; l<CCN.consignes[k].reponses.length;l++){
+            if (CCN.consignes[k].reponses[l].id == state.id_objet){
+              callReponse(state.id_objet);
+            }
+          }
+        }
+      }
     }
 		
 		
@@ -421,7 +387,11 @@ function changeTimelineMode(type) {
       classCss.blogs = 'show_blogs';
       classCss.evenements = 'show_evenements';
       classCss.livrables = 'show_livrables';  
-  
+
+  /*if(type != 'livrables'){
+    console.log('PAS LIVRABLE OUAIS !');
+    callLivrable(null, 'close');
+  }*/ 
   
   if (!$('body').hasClass(classCss[type])) {
     CCN.projet.showWholeTimeline();
@@ -997,7 +967,6 @@ function callLivrable(id_livrable = null, state = null){
       $(".livrable").css({'opacity': '0.4'});
       $('#livrable'+dataId).stop().fadeIn(500);
       $('#livrable'+dataId).addClass('active');
-      changeTimelineMode('livrables');
       console.log('ouvre url livrable');
     }
   
@@ -1015,6 +984,8 @@ function callLivrable(id_livrable = null, state = null){
     console.log('callLivrable');
     console.log('genere url livrable');
   }
+
+  console.log(vue);
 }
 
 

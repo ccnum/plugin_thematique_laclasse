@@ -4343,13 +4343,22 @@ input.crayon-active {
 
 .show_consignes #timeline_layer_consignes,
 .show_blogs #timeline_layer_blogs,
-.show_evenements #timeline_layer_evenements,
-.show_livrables #timeline_layer_livrables {
+.show_evenements #timeline_layer_evenements {
   opacity:1;
   z-index:101;
   pointer-events:all;
 }
 
+#livrables {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.1s ease-in;
+}
+
+.show_livrables #livrables {
+  opacity: 1;
+  pointer-events: all;
+}
 
 .show_blogs .connecteur_timeline,
 .show_evenements .connecteur_timeline {
@@ -4529,7 +4538,6 @@ input.crayon-active {
 
 /* LIVRABLES */
 #livrables{
-  display: none;
   position: absolute;
   z-index: 105;
 }
