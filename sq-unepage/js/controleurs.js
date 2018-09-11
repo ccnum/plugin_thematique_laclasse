@@ -168,7 +168,7 @@ function setContentFromState(state) {
     } 
   }
   currentState = state;
-  
+
   if (isSamePage) { return; }
   
   antifloodHashChange = true;
@@ -181,6 +181,7 @@ function setContentFromState(state) {
      CCN.projet.showWholeTimeline();
    }
   
+
   if (state.type_objet == "ressources"){
 		changeTimelineMode('consignes');
 		callRessource();
@@ -249,15 +250,18 @@ function setContentFromState(state) {
         callLivrable(null, open);
         callLivrable(state.id_objet);
         console.log('il y a un livrable dans url');
+        changeTimelineMode('livrables');
       }
-      changeTimelineMode('consignes');
-    	for (k=0; k<CCN.consignes.length;k++){
-    		for (l=0; l<CCN.consignes[k].reponses.length;l++){
-    			if (CCN.consignes[k].reponses[l].id == state.id_objet){
-    				callReponse(state.id_objet);
-    			}
-    		}
-    	}
+      else {
+        changeTimelineMode('consignes');
+        for (k=0; k<CCN.consignes.length;k++){
+          for (l=0; l<CCN.consignes[k].reponses.length;l++){
+            if (CCN.consignes[k].reponses[l].id == state.id_objet){
+              callReponse(state.id_objet);
+            }
+          }
+        }
+      }
     }
 		
 		
@@ -385,7 +389,11 @@ function changeTimelineMode(type) {
       classCss.blogs = 'show_blogs';
       classCss.evenements = 'show_evenements';
       classCss.livrables = 'show_livrables';  
-  
+
+  /*if(type != 'livrables'){
+    console.log('PAS LIVRABLE OUAIS !');
+    callLivrable(null, 'close');
+  }*/ 
   
   if (!$('body').hasClass(classCss[type])) {
     CCN.projet.showWholeTimeline();
@@ -961,7 +969,6 @@ function callLivrable(id_livrable = null, state = null){
       $(".livrable").css({'opacity': '0.4'});
       $('#livrable'+dataId).stop().fadeIn(500);
       $('#livrable'+dataId).addClass('active');
-      changeTimelineMode('livrables');
       console.log('ouvre url livrable');
     }
   
@@ -979,6 +986,8 @@ function callLivrable(id_livrable = null, state = null){
     console.log('callLivrable');
     console.log('genere url livrable');
   }
+
+  console.log(vue);
 }
 
 
