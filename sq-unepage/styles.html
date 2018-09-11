@@ -4343,13 +4343,22 @@ input.crayon-active {
 
 .show_consignes #timeline_layer_consignes,
 .show_blogs #timeline_layer_blogs,
-.show_evenements #timeline_layer_evenements,
-.show_livrables #timeline_layer_livrables {
+.show_evenements #timeline_layer_evenements {
   opacity:1;
   z-index:101;
   pointer-events:all;
 }
 
+#livrables {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.1s ease-in;
+}
+
+.show_livrables #livrables {
+  opacity: 1;
+  pointer-events: all;
+}
 
 .show_blogs .connecteur_timeline,
 .show_evenements .connecteur_timeline {
@@ -4509,6 +4518,10 @@ input.crayon-active {
   margin: 10px;
 }
 
+.actu-documents  a{
+  color: white;
+  text-decoration: none;
+}
 
 #menu-actualites .content, #menu-actualites .comment, #menu-actualites .profil, #menu-actualites .arrow-down {
   display: none;
@@ -4529,7 +4542,6 @@ input.crayon-active {
 
 /* LIVRABLES */
 #livrables{
-  display: none;
   position: absolute;
   z-index: 105;
 }
@@ -4603,8 +4615,11 @@ input.crayon-active {
 /* Livrable details */
 
 .livrable-details-wrapper{
-    left: 30%;
     position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
     display: none;
     overflow: hidden;
     width: 680px;
@@ -4704,12 +4719,14 @@ input.crayon-active {
   float: left;
   margin: 10px;
   padding: 10px;
-}
-
-.livrable-details .autres-docs .fichier{
   background-color: white;
   border-radius: 2px;
   color: black;
+  height: 100px;
+}
+
+.livrable-details .autres-docs .audio audio{
+  width: 100%;
 }
 
 .livrable-details .documents {
@@ -4718,28 +4735,47 @@ input.crayon-active {
   padding: 15px;
 }
 
-.livrable-details  .img-container img {
+.livrable-details .img-container .action_supprimer {
+  left: 35px;
+  top: 15px;
   float: left;
+}
+
+.livrable-details  .img-container{
+  float: left;
+  width: 48%;
+  height: 230px;;
+}
+
+.livrable-details  .img-container img {
   margin: 10px;
-  width: 45%;
+  width: 84%;
   height: auto;
+}
+
+.livrable-details .img-container span {
+  color: white;
+  text-align: center;
+  display: block;
+}
+
+.livrable-details .img-container strong:hover {
+
 }
 
 .livrable-details .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 15px;
+  padding: 15px;
+  flex-wrap: wrap;
 }
 
 
 .livrable-details .ccn-logo {
-    padding: 3px;
-    display: flex;
+    padding: 5px;
     background: black;
     border-radius: 2px;
-    width: max-content;
-    height: max-content;
     margin: 10px;
     font-size: 20px
 }
@@ -4751,6 +4787,13 @@ input.crayon-active {
 
 .livrable-details .ccn-logo a {
   color: white;
+  display: flex;
+  align-items: center;
+}
+
+.livrable-details .classe-desc {
+  flex: 100%;
+  padding-bottom: 15px;
 }
 
 #debug-nav {

@@ -1,6 +1,6 @@
 #SET{hasLivrable, 'false'}    
 <div id="livrables" class="zone-livrables">
-    <div class="wrapper">
+    <div class="wrapper" onclick="callLivrable(null, 'close')">
         <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
                 <BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{par date}>
                     <BOUCLE_colleges(RUBRIQUES){id_parent}>
@@ -9,8 +9,8 @@
                         <BOUCLE_filtreLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
                             #SET{hasLivrable, 'true'}
                         <!-- PAGE LIVRABLE -->
-                        <a class="livrable-inline"  onclick="callLivrable(#ID_ARTICLE);">
-                            <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE|nb2col)]">
+                        <a class="livrable-inline"  onclick="callLivrable('#ID_ARTICLE', 'openDetails');">
+                            <div class="livrable couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" data-id="[(#ID_ARTICLE)]">
                                 <div class="header">
                                     <h3>#TITRE</h3>
                                 </div>
@@ -22,9 +22,9 @@
                         </a>
                         <!-- LLIVRABLE DETAILS -->
                         <div>
-                            <div  id="livrable[(#ID_ARTICLE|nb2col)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE|nb2col)]">
+                            <div  id="livrable[(#ID_ARTICLE)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE)]">
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
-                                    <span class="close">x</span>
+                                    <span class="close" onclick="callLivrable(null, 'closeDetails')">x</span>
                                     <div class="featured-image #EDIT{logo}">
                                     [(#LOGO_ARTICLE|sinon{
                                         [<img src="(#CHEMIN{img/presentation/02.png})" alt="" />]
@@ -39,27 +39,56 @@
                                             <div class="documents border-bg">
                                                 <BOUCLE_images(DOCUMENTS){id_article}>
                                                         [(#MEDIA|match{'image'}|oui)
+                                                        
                                                             <div class="img-container">
+                                                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                                                        class='supprimer_couleur'
+                                                                        onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
+                                                                        title='Supprimer ce document' >
+                                                                        <div class='action_supprimer'></div>
+                                                                    </a>]
+                                                                    ]  
                                                                 <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                                                                    [(#EMBED_DOCUMENT||image_reduire{400}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px
-                                                                    solid #000000;'})]
+                                                                    [(#FICHIER |image_reduire{500})]
                                                                 </a>
+                                                                [<span class="spip_doc_titre #EDIT{titre}">(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+                                                                
                                                             </div>
                                                         ] 
                                                 </BOUCLE_images>
                                                 <div class="autres-docs">
                                                     <BOUCLE_autresDocs(DOCUMENTS){id_article}>
                                                            
-                                                            [(#MEDIA|match{'audio|video'}|oui) <div class="audio">[(#MODELE{audio, autostart=false, hauteur=50px, largeur=35%})]</div> ]
+                                                            [(#MEDIA|match{'audio|video'}|oui) <div class="audio">
+                                                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                                                                    <a href="[(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})]"
+                                                                    class='supprimer_couleur'
+                                                                    onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
+                                                                    title='Supprimer ce document' >
+                                                                    <div class='action_supprimer'></div>
+                                                                </a>]
+                                                                [(#MODELE{audio, autostart=false, hauteur=50px, largeur=35%})]
+                                                            </div> ]
+                                                            
                                                             [(#MEDIA|match{'image|audio'}|non)
                                                             <div class="fichier">
-                                                                [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
                                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                                                        class='supprimer_couleur'
+                                                                        onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
+                                                                        title='Supprimer ce document' >
+                                                                        <div class='action_supprimer'></div>
+                                                                    </a>]
                                                                 ]
-                                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
-                                                                [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25})</span>]
-                                                                ]
+                                                                
+                                                                    [<a href="#URL_DOCUMENT" target="blank">(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'}) </a>]
+                                                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                                                                    [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">ajouter un titre</span>})</span>]
+                                                                    ]
+                                                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                                                                    [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+                                                                    ]
                                                             </div>
                                                             ]
                                                     </BOUCLE_autresDocs>
@@ -100,9 +129,9 @@
                                             <div class="footer border-bg">
                                                     #GET{auteur}
                                                 <li class="ccn-logo">
-                                                <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span>[(#NOM_SITE_SPIP)]</a>
+                                                <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span><span>[(#NOM_SITE_SPIP)]</span></a>
                                                 </li>
-                                                <p>#GET{desc}</p>
+                                                <p class="classe-desc">[(#GET{desc}|textebrut)]</p>
                                             </div>
                                         </div>
                                     </div>
