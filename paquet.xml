@@ -1,7 +1,7 @@
 <paquet
     prefix="th"
     categorie="squelette"
-    version="3.0.7"
+    version="3.0.8"
     etat="stable"
     logo="th.png"
     schema="3.0.3"
