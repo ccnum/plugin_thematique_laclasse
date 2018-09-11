@@ -68,8 +68,7 @@ $().ready(function(){
     show: {
       duration: 100,
       effect: 'fadeIn'
-    }
-    ,
+    },
     hide: {
       duration: 100,
       effect: 'fadeOut'
@@ -77,8 +76,6 @@ $().ready(function(){
     
     
   });
-
-
 
   // Click des logos-menus
   // Ouverture Timeline
