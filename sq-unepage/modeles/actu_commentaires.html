@@ -4,7 +4,7 @@
 		<div class="actualites-actu couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_OBJET);">		
 				<span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
 				Commentaire de &nbsp;<b>#AUTEUR</b> &nbsp; sur &nbsp; <b>#TITRE </b> &nbsp;
-				[<p>(#DATE|affdate)</p>]
+				[<p class="date">(#DATE|affdate)</p>]
 				 <div class="content">[(#TEXTE|couper{80})]<br></div>
 				 <div class="arrow-down"></div>
 			</div>

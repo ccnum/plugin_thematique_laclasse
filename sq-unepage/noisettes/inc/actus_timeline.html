@@ -3,7 +3,6 @@
 #SET{contenu,#ARRAY}
 
 <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%}>
-
         <BOUCLE_filtreRessources(RUBRIQUES){racine}{titre_mot= ressources}>
             <BOUCLE_ressources(RUBRIQUES){id_parent}{!par date}>
               <BOUCLE_ressourcesArticles(ARTICLES){id_rubrique}{!par date}{0,1}>
@@ -12,9 +11,6 @@
             </BOUCLE_ressources>
         </BOUCLE_filtreRessources>
 
-        <BOUCLE_commentaires(FORUMS){id_rubrique}{!par date}{0,5}>
-          #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_ARTICLE}}}
-        </BOUCLE_commentaires>
 				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{!par date}>
           <BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}{!par date}>
               <BOUCLE_articles(ARTICLES){id_rubrique} {0,1} {!par date}>
@@ -30,6 +26,9 @@
           </BOUCLE_Rubconsignes>
         </BOUCLE_filtreConsigne>
 </BOUCLE_rubAnnee>
+<BOUCLE_commentaires(FORUMS){!par date}{0,5}>
+          #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_ARTICLE}}}
+        </BOUCLE_commentaires>
 
 
 <BOUCLE_dataContenu(DATA){source table, #GET{contenu}}{!par date}>
@@ -52,47 +51,3 @@
   </BOUCLE_affiche_ressources>
   </BOUCLE_triDate>
 </BOUCLE_dataContenu>
-
-
-
-
-#SET{actu_compteur,0}
-  <BOUCLE_rubrique(RUBRIQUES){titre_mot=evenements}{si #SESSION{statut}|=={0minirezo}|non}{tout}>
-    <BOUCLE_article(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{doublons}>
-    </BOUCLE_article>   
-  </BOUCLE_rubrique>
-
-  <BOUCLE_actus(ARTICLES){tout}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{inverse}{doublons}>
-    #SET{actu_mot_cle,article}
-    <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}{0,1}>
-      <BOUCLE_actus_mots(MOTS){id_rubrique=#ID_PARENT}{0,1}>
-        #SET{actu_mot_cle,#TITRE}
-      </BOUCLE_actus_mots>
-      </B_actus_mots>
-        <BOUCLE_actus_mots2(MOTS){id_rubrique}{0,1}>
-          #SET{actu_mot_cle,#TITRE}
-        </BOUCLE_actus_mots2>
-      <//B_actus_mots>
-    </BOUCLE_actus_rub>
-
-    
-
-    [(#GET{actu_compteur}|<={#NB_ACTUS}|oui)
-      [(#REM) Nouvelle consigne ]
-        [(#GET{actu_mot_cle}|=={consignes}|oui)
-          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          [(#REM) [(#MODELE{actu_consignes}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]]
-        ]
-      [(#REM) Nouvelle réponse à une consigne ]
-        [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
-          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          [(#REM) [(#MODELE{actu_travail_en_cours}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})] ]
-        ]
-      [(#REM) Nouvelle ressource ]
-        [(#GET{actu_mot_cle}|=={article}|oui)
-          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          <!--Commenté car le modèle actu_article n'existe pas-->
-          [(#REM) [(#MODELE{actu_article}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})] ]
-        ]
-    ]
-  </BOUCLE_actus>

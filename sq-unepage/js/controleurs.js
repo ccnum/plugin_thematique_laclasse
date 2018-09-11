@@ -68,8 +68,7 @@ $().ready(function(){
     show: {
       duration: 100,
       effect: 'fadeIn'
-    }
-    ,
+    },
     hide: {
       duration: 100,
       effect: 'fadeOut'
@@ -77,46 +76,6 @@ $().ready(function(){
     
     
   });
-
-
-  // TODO En faire une fonction plus generale pouvant s'appliquer à plusieurs cas d'usage
-  var doNotClose = false;
-
-  // Ouverture de la page livrables
-  /*$( ".menu_logo_livrables" ).click(function() {
-    $('.zone-livrables').stop().fadeIn(1000);
-    changeTimelineMode('livrables');
-  });*/
-
-
-  //Fermeture page livrable
-  /*$(".zone-livrables").click(function(){
-    if(doNotClose == false){
-      $('.zone-livrables').stop().fadeOut(1000);
-      $('.logo_menu-consignes').click();
-      changeTimelineMode('consignes');
-    }
-  });*/
-  
-   // Ouverture livrables details
-   /*$(".livrable").click(function() {
-      doNotClose = true;
-      dataId = $(this).data('id');
-      $(".livrable").css({'opacity': '0.4'});
-      $('#livrable'+dataId).stop().fadeIn(500);
-      $('#livrable'+dataId).addClass('active');
-      });*/
-
-  //Fermeture livrables-details
-  /*$(".close").click(function(){
-      $('.livrable-details-wrapper').fadeOut(500);
-      $('.livrable-details-wrapper').removeClass('active');
-      $(".livrable").css({'opacity': '1'});
-      doNotClose = false;
-      event.stopPropagation();
-  });*/
-
-
 
   // Click des logos-menus
   // Ouverture Timeline

@@ -5,12 +5,11 @@
             <span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
             <BOUCLE_getAuteur(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}>
                     Nouveau document de #TITRE<br>
-                    [(#DATE_MODIF|affdate)]
             </BOUCLE_getAuteur>
           </div>
             <BOUCLE_docs(DOCUMENTS){id_article}{0,1}{!par date}>
                     
-    
+                  <p class="date">[(#DATE|affdate)]</p>
                   [(#MEDIA|match{'image'}|oui)
                     <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]"  title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
                     [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
