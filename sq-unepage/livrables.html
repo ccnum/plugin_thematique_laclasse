@@ -61,26 +61,20 @@
                                                     <BOUCLE_autresDocs(DOCUMENTS){id_article}>
                                                            
                                                             [(#MEDIA|match{'audio|video'}|oui) <div class="audio">
-                                                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                    <a href="[(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})]"
+                                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                                                                [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
                                                                     class='supprimer_couleur'
                                                                     onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
                                                                     title='Supprimer ce document' >
                                                                     <div class='action_supprimer'></div>
                                                                 </a>]
+                                                            ]
                                                                 [(#MODELE{audio, autostart=false, hauteur=50px, largeur=35%})]
                                                             </div> ]
                                                             
                                                             [(#MEDIA|match{'image|audio'}|non)
                                                             <div class="fichier">
-                                                                [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
-                                                                        class='supprimer_couleur'
-                                                                        onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
-                                                                        title='Supprimer ce document' >
-                                                                        <div class='action_supprimer'></div>
-                                                                    </a>]
-                                                                ]
+                            
                                                                 
                                                                     [<a href="#URL_DOCUMENT" target="blank">(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'}) </a>]
                                                                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
@@ -89,6 +83,15 @@
                                                                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
                                                                     [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25})</span>]
                                                                     ]
+
+                                                                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
+                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                                                        class='supprimer_couleur'
+                                                                        onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
+                                                                        title='Supprimer ce document' >
+                                                                        <div class='action_supprimer'></div>
+                                                                    </a>]
+                                                                ]
                                                             </div>
                                                             ]
                                                     </BOUCLE_autresDocs>
