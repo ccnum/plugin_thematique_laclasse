@@ -249,7 +249,6 @@ function setContentFromState(state) {
       if($.urlParam('type') == 'livrables'){
         callLivrable(null, open);
         callLivrable(state.id_objet);
-        console.log('il y a un livrable dans url');
         changeTimelineMode('livrables');
       }
       else {
@@ -390,11 +389,6 @@ function changeTimelineMode(type) {
       classCss.evenements = 'show_evenements';
       classCss.livrables = 'show_livrables';  
 
-  /*if(type != 'livrables'){
-    console.log('PAS LIVRABLE OUAIS !');
-    callLivrable(null, 'close');
-  }*/ 
-  
   if (!$('body').hasClass(classCss[type])) {
     CCN.projet.showWholeTimeline();
     
@@ -925,7 +919,6 @@ function callLivrable(id_livrable = null, state = null){
   if(state == 'open'){
     $('.zone-livrables').stop().fadeIn(1000);
     changeTimelineMode('livrables');
-    console.log('ouvre page livrable');
   }
 
   // Ouvre le detail d'un livrable
@@ -934,9 +927,7 @@ function callLivrable(id_livrable = null, state = null){
       $(".livrable").css({'opacity': '0.4'});
       $('#livrable'+dataId).stop().fadeIn(500);
       $('#livrable'+dataId).addClass('active');
-      console.log('ouvre detail livrable');
       detailsLivrableOpen = true;
-      console.log(detailsLivrableOpen);
     }
 
   // Ferme le detail d'un livrable  
@@ -944,32 +935,28 @@ function callLivrable(id_livrable = null, state = null){
       $('.livrable-details-wrapper').fadeOut(500);
       $('.livrable-details-wrapper').removeClass('active');
       $(".livrable").css({'opacity': '1'});
-      console.log('ferme detail livrable');
       detailsLivrableOpen = false;
       event.stopPropagation();
     }
 
   // Ferme la page livrable  
   else if(state == 'close'){
-    console.log(detailsLivrableOpen);
     if(detailsLivrableOpen == false){
       $('.zone-livrables').stop().fadeOut(1000);
       $('.logo_menu-consignes').click();
       changeTimelineMode('consignes');
-      console.log('ferme page livrable');
     }
     }
 
   // Ouvre le detail d'un livrable en fonction de l'url  
   else {
       changeTimelineMode('livrables');
-      console.log('hello !!');
       $('.zone-livrables').stop().fadeIn(1000);
       dataId = id_livrable;
       $(".livrable").css({'opacity': '0.4'});
       $('#livrable'+dataId).stop().fadeIn(500);
       $('#livrable'+dataId).addClass('active');
-      console.log('ouvre url livrable');
+      detailsLivrableOpen = true;
     }
   
   // Genere le lien d'un detail livrable  
@@ -984,10 +971,8 @@ function callLivrable(id_livrable = null, state = null){
         },'Consigne',"./spip.php?page=article&id_article="+id_livrable+"&mode=complet&type=livrables");
       
     console.log('callLivrable');
-    console.log('genere url livrable');
   }
 
-  console.log(vue);
 }
 
 
