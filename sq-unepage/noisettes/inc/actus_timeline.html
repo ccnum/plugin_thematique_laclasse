@@ -13,8 +13,11 @@
 
 				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{!par date}>
           <BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}{!par date}>
-              <BOUCLE_articles(ARTICLES){id_rubrique} {0,1} {!par date}>
+              <BOUCLE_articles(ARTICLES){id_rubrique}{!titre_mot=livrable} {0,1} {!par date}>
                   #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{doc, #ID_ARTICLE}}}
+                  <BOUCLE_commentaires1(FORUMS){id_article}{!par date}{0,10} {doublons}>
+                    #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
+                  </BOUCLE_commentaires1>
               </BOUCLE_articles>
           </BOUCLE_filtreIdRubriques>
         </BOUCLE_filtreTravailEnCours>
@@ -26,9 +29,6 @@
           </BOUCLE_Rubconsignes>
         </BOUCLE_filtreConsigne>
 </BOUCLE_rubAnnee>
-<BOUCLE_commentaires(FORUMS){!par date}{0,5}>
-          #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_ARTICLE}}}
-        </BOUCLE_commentaires>
 
 
 <BOUCLE_dataContenu(DATA){source table, #GET{contenu}}{!par date}>
