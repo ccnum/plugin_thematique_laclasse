@@ -24,7 +24,7 @@
                         <div>
                             <div  id="livrable[(#ID_ARTICLE)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE)]">
                                 <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
-                                    <span class="close" onclick="callLivrable(null, 'closeDetails')">x</span>
+                                    <span class="close" onclick="callLivrable(null, 'closeDetails')"><img src="[(#CHEMIN{img/close.svg}|image_reduire{25}|extraire_attribut{src})]"></span>
                                     <div class="featured-image #EDIT{logo}">
                                     [(#LOGO_ARTICLE|sinon{
                                         [<img src="(#CHEMIN{img/presentation/02.png})" alt="" />]
@@ -105,8 +105,9 @@
                                                         Ajouter un document
                                                       </a>
                                                       <div class='nettoyeur cache formulaire_spip formulaire_editer_document bloc_option_doc'>
-                                                        #FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_ARTICLE,article}
+                                                        <INCLURE{fond=formulaires/ajouter_document,ajax,env}/>
                                                       </div>
+                                                      <INCLURE{fond=prive/squelettes/inclure/colonne-documents,env,ajax=documents} />
                                                     </div>
                                                   </div>
                                                 ]
@@ -116,14 +117,14 @@
                                                 [(#GET{is_agora}|=={oui}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
                                                 [(#GET{is_agora}|=={oui}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&type_objet=agora&mode=complet})]})]]
                                                 [
-                                                <div class="sidebar_bubble cache">
+                                                <div class="sidebar_bubble">
                                                 <INCLURE{fond=noisettes/js/accordeon}{nom=bloc_permalien-#ID_ARTICLE}>
                                                 <div class="bloc_option_doc nettoyeur">
                                                     <a id="bloc_permalien-#ID_ARTICLE" class="hac liens_forum bloc_option_doc_link" title="Permalien" href="#">
                                                     Partager le lien
                                                     </a>
                                                     <div class="cache">
-                                                    <code><a href="#URL_SITE_SPIP/(#GET{url})&type=livrable" target="_blank">#URL_SITE_SPIP/#GET{url}&type=livrable</a></code>
+                                                    <code><a href="#URL_SITE_SPIP/(#GET{url})&type=livrables" target="_blank">#URL_SITE_SPIP/#GET{url}&type=livrables</a></code>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -147,4 +148,3 @@
         </BOUCLE_rubAnnee>
     </div>
 </div>
-HAS LIVRABLE :: #GET{hasLivrable}

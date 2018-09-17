@@ -1,11 +1,25 @@
 [(#REM) Affiche les derniers commentaires postés dans la section Actualités]
-
+<BOUCLE_getCouleur(FORUMS){id_forum}>
+	<BOUCLE_getCouleur1(ARTICLES){id_article}>
+		#SET{IdCouleur, #ID_RUBRIQUE}
+	</BOUCLE_getCouleur1>
+</BOUCLE_getCouleur>
 <BOUCLE_commentaires(FORUMS){id_forum}>
-		<div class="actualites-actu couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]" onclick="callConsigne(#ID_OBJET);">		
+		<div class="actualites-actu couleur_travail_en_cours[(#GET{IdCouleur}|nb2col)]" onclick="callConsigne(#ID_OBJET);">		
 				<span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
 				Commentaire de &nbsp;<b>#AUTEUR</b> &nbsp; sur &nbsp; <b>#TITRE </b> &nbsp;
 				[<p class="date">(#DATE|affdate)</p>]
-				 <div class="content">[(#TEXTE|couper{80})]<br></div>
+				 <div class="content">[(#TEXTE|couper{80})]<br><br>
+					<BOUCLE_images(DOCUMENTS){id_forum}>
+							[(#MEDIA|match{'image'}|oui)                                   
+								<div class="img-container">
+									<a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
+									[(#FICHIER |image_reduire{200})]
+									</a>
+								</div>
+							] 
+					</BOUCLE_images>
+				</div>
 				 <div class="arrow-down"></div>
 			</div>
 </BOUCLE_commentaires>
