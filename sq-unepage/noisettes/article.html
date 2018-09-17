@@ -261,6 +261,7 @@
     
     
                   [(#MEDIA|match{'audio|video'}|oui)
+                    <div class="audio">
                   [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
                   [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
                       class='supprimer_couleur'
@@ -270,6 +271,7 @@
                   </a>]
               ]
                     [(#MODELE{audio, autostart=false, hauteur=400, largeur=600})]
+                  </div>
                   ]
     
                   [(#MEDIA|match{'image'}|oui)
