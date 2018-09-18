@@ -2,11 +2,12 @@
    
             <BOUCLE_getAuteur(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}>
               #SET{titre, #TITRE}
+              #SET{IdCouleur, #ID_RUBRIQUE}
             </BOUCLE_getAuteur>
           
             <BOUCLE_docs(DOCUMENTS){id_article}{0,1}{!par date}>
               <div class="actu-documents">
-                <div class="actualites-actu couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
+                <div class="actualites-actu couleur_travail_en_cours[(#GET{IdCouleur}|nb2col)]">
                   <div onclick="callReponse(#ID_ARTICLE);">
                     <span class="profil">[(#MODELE{logo_carre}{taille=40}{id_rubrique=#ID_RUBRIQUE}{titre=#TITRE})]</span>
                     Nouveau document de #GET{titre}<br>
