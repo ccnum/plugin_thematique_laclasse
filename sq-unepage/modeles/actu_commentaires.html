@@ -17,7 +17,18 @@
 									[(#FICHIER |image_reduire{200})]
 									</a>
 								</div>
-							] 
+							]
+							
+							[(#MEDIA|match{'image'}|non)
+                  <div class="document">
+                    [(#LOGO_DOCUMENT||image_reduire{100}|inserer_attribut{style,'border:0px solid #000000;'})]
+								    [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">Document sans titre</span>})</span>]
+                    [(#AUTORISER{modifier,article,#ID_ARTICLE}|non)
+                      [<span class="spip_doc_titre"><br />(#TITRE|supprimer_numero|couper{25})</span>]
+                    ]
+                  </div>
+                  ]
+							
 					</BOUCLE_images>
 				</div>
 				 <div class="arrow-down"></div>
