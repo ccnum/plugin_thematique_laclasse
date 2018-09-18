@@ -220,7 +220,7 @@ et/ou
 				
 					[(#REM)Espace Doc]
 				 	
-					 	[(#RESTREINT|?{#SET{docId,#RESTREINT}, #SET{docId,false}})]
+					 	[(#ENV{restreint}|?{#SET{docId,#ENV{restreint}}, #SET{docId,false}})]
 
 						<B_getDocId>
 							<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #GET{docId}}{0,1}>
