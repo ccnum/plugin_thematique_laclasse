@@ -4573,9 +4573,9 @@ input.crayon-active {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  height: 100vh;
+  height: 80vh;
   width: 100vw;
-  align-items: center;
+  align-items: flex-end;
 }
 .livrable{
   overflow: hidden;
@@ -4749,15 +4749,19 @@ input.crayon-active {
 
 .livrable-details .autres-docs .fichier, 
 .livrable-details .autres-docs .audio {
-  width: 43%;
-  float: left;
+  width: 92%;
   margin: 10px;
   padding: 10px;
   background-color: white;
   border-radius: 2px;
   color: black;
-  height: 100px;
+  height: 30px;
 }
+
+.livrable-details .autres-docs .fichier a:first-child {
+  float: left;
+}
+
 
 .livrable-details .autres-docs .audio audio{
   width: 100%;
