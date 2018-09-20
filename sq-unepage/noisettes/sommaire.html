@@ -111,15 +111,18 @@ et/ou
 
 		[(#REM) Si il n'y a pas de livrables ne pas afficher le bouton]
 
-					#SET{hasLivrable, 'false'} 
-					[(#SET{rubIdTravail,[(#MODELE{rub_mot_clef}{titre_mot=travail_en_cours})]})]
-					<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique = #GET{rubIdTravail}}{par date}>
-							<BOUCLE_getRubColleges(RUBRIQUES){id_parent}>
-								<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
-								#SET{hasLivrable, 'true'}
-								</BOUCLE_getLivrable>   
-							</BOUCLE_getRubColleges>
-					</BOUCLE_getRubTravail>
+					#SET{hasLivrable, 'false'}
+					<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
+                <BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}> 
+									<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique}{par date}>
+											<BOUCLE_getRubColleges(RUBRIQUES){id_parent}>
+												<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
+												#SET{hasLivrable, 'true'}
+												</BOUCLE_getLivrable>   
+											</BOUCLE_getRubColleges>
+									</BOUCLE_getRubTravail>
+							</BOUCLE_filtreTravailEnCours>
+					</BOUCLE_rubAnnee>
 					
 					[(#GET{hasLivrable}|choixsiegal{true, 
 						[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Livrables}{onclick=callLivrable(null, 'open');})], 
