@@ -4396,6 +4396,7 @@ input.crayon-active {
 
 #choix_rubrique_admin:hover > .choix_rubrique_wrapper {
   display: block;
+  height: initial;
 }
 
 .choix_rubrique_wrapper {
@@ -4742,7 +4743,8 @@ input.crayon-active {
 }
 
 .livrable-details .autres-docs {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   padding-top: 13px;
 }
@@ -4755,7 +4757,17 @@ input.crayon-active {
   background-color: white;
   border-radius: 2px;
   color: black;
-  height: 30px;
+  height: 65px;
+}
+
+.livrable-details .autres-docs .fichier a img {
+  height: auto;
+  width: 40px;
+  margin: 12px 15px 0 0;
+}
+
+.livrable-details .autres-docs .audio {
+  height: 100px;;
 }
 
 .livrable-details .autres-docs .fichier a:first-child {
@@ -4893,7 +4905,12 @@ input.crayon-active {
 		height: 22px;
 		line-height: 22px;
 	}
-	*/
+  */
+  
+  .choix_rubrique_wrapper{
+    height: max-content !important;
+  }
+
 	.select, .select:hover div, .select input.first + label, .select:hover input, .select:hover label {
 		height: 22px;
 		line-height: 22px;
