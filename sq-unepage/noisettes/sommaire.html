@@ -184,7 +184,6 @@ et/ou
 							<!-- Nouveau modele -->
 							
 							<BOUCLE_FiltreAnnee(RUBRIQUES){racine} {titre LIKE %(#EVAL{_annee_scolaire})%}>
-								NOUVELLE BOUCLE
 									#SET{hasYearRub, true}
 								<BOUCLE_rubMot(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}>								
   			          <BOUCLE_rubLoop(RUBRIQUES){id_parent}{tout}>
