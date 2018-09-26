@@ -42,7 +42,7 @@
                                                         
                                                             <div class="img-container">
                                                                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?page=article&id_article=#ID_ARTICLE&mode=complet&type=livrables})"
                                                                         class='supprimer_couleur'
                                                                         onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
                                                                         title='Supprimer ce document' >
@@ -62,7 +62,7 @@
                                                            
                                                             [(#MEDIA|match{'audio|video'}|oui) <div class="audio">
                                                                 [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                                                [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?page=article&id_article=#ID_ARTICLE&mode=complet&type=livrables})"
                                                                     class='supprimer_couleur'
                                                                     onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
                                                                     title='Supprimer ce document' >
@@ -85,7 +85,7 @@
                                                                     ]
 
                                                                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
-                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?article#_principale:ID_ARTICLE&var_mode=recalcul})"
+                                                                    [<a href="(#URL_ACTION_AUTEUR{dissocier_document,#ID_ARTICLE-article-#ID_DOCUMENT-suppr-safe,#URL_SITE_SPIP/spip.php?page=article&id_article=#ID_ARTICLE&mode=complet&type=livrables})"
                                                                         class='supprimer_couleur'
                                                                         onClick='return confirmation("Êtes-vous sûr de vouloir supprimer ce document ?")'
                                                                         title='Supprimer ce document' >
