@@ -114,9 +114,9 @@ et/ou
 					#SET{hasLivrable, 'false'}
 					<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
                 <BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}> 
-									<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique}{par date}>
+									<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique}>
 											<BOUCLE_getRubColleges(RUBRIQUES){id_parent}>
-												<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}{par date}>
+												<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}>
 												#SET{hasLivrable, 'true'}
 												</BOUCLE_getLivrable>   
 											</BOUCLE_getRubColleges>
@@ -188,8 +188,8 @@ et/ou
 								<BOUCLE_rubMot(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}>								
   			          <BOUCLE_rubLoop(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_filterDate(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
-  			            </BOUCLE_filterDate>
-  							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
+										</BOUCLE_filterDate>
+  							[(#MODELE{logo_menu_classe}{valeur=#TITRE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
   			            </B_filterDate>
   			            	[(#_c3:DATE|substr{0,10}|replace{-,.}|>={#EVAL{_date_debut}}|oui|et{#_c3:DATE|substr{0,10}|replace{-,.}|<={#EVAL{_date_fin}}|oui}|oui)
 	  							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
@@ -201,7 +201,6 @@ et/ou
 
 
 							<BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{si #GET{hasYearRub}|== {false}}{par date}{inverse}>
-								ANCIENNE BOUCLE
   			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
   			            </BOUCLE_a3>
