@@ -33,7 +33,7 @@
         </BOUCLE_filtreConsigne>
 </BOUCLE_rubAnnee>
 
-
+<B_dataContenu>
 <BOUCLE_dataContenu(DATA){source table, #GET{contenu}}{!par date}>
   <BOUCLE_triDate(POUR){tableau #VALEUR}>
   <BOUCLE_affiche_doc(POUR){tableau #VALEUR}{cle= doc}>
@@ -53,4 +53,17 @@
    
   </BOUCLE_affiche_ressources>
   </BOUCLE_triDate>
+</BOUCLE_dataContenu> consignes ]
+    [(#REM)[(#MODELE{actu_consignes}{id_objet=#VALEUR})]]
+    [(#MODELE{actu_travail_en_cours}{id_objet=#VALEUR})]
+  </BOUCLE_affiche_consignes>
+  <BOUCLE_affiche_ressources(POUR){tableau #VALEUR}{cle= ressources}>
+   
+  </BOUCLE_affiche_ressources>
+  </BOUCLE_triDate>
 </BOUCLE_dataContenu>
+</B_dataContenu>
+<div class="actualites-actu couleur_travail_en_cours1">		
+  <p>Il n'a aucune actualité pour le moment</p>
+</div>
+<//B_dataContenu>
