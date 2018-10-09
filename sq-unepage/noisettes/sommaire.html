@@ -106,8 +106,10 @@ et/ou
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
 					[(#MODELE{logo_menu}{valeur=blog}{class=menu_logo_blogs}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
 					
-					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
-
+					[(#INCLURE{fond=noisettes/fonction/type_role})]
+					[(#SESSION{role}|=={prof}|ou {#SESSION{role}|=={intervenant}}|ou {#SESSION{role}|=={admin}})
+						[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
+					]
 
 		[(#REM) Si il n'y a pas de livrables ne pas afficher le bouton]
 

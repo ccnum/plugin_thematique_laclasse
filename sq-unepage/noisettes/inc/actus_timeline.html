@@ -2,6 +2,15 @@
     
 #SET{contenu,#ARRAY}
 
+[(#INCLURE{fond=noisettes/fonction/type_role})]
+<BOUCLE_blogPrive(RUBRIQUES){racine}{si #SESSION{role}|=={prof}|ou {#SESSION{role}|=={intervenant}}|ou {#SESSION{role}|=={admin}}}{titre_mot= evenements}>
+  <BOUCLE_articleBlogPrive(ARTICLES){id_rubrique}>
+      <BOUCLE_commentaires1(FORUMS){id_article}{!par date}{0,5} {doublons}>
+          #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
+        </BOUCLE_commentaires1>
+  </BOUCLE_articleBlogPrive>
+</BOUCLE_blogPrive>
+
 <BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%}>
         <BOUCLE_filtreRessources(RUBRIQUES){racine}{titre_mot= ressources}>
             <BOUCLE_ressources(RUBRIQUES){id_parent}{!par date}>
