@@ -22,20 +22,23 @@
 
 				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{!par date}>
           <BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}{!par date}>
+              <BOUCLE_filtreLivrables(ARTICLES){id_rubrique}{titre_mot=livrable} {0,1} {!par date}>
+                  #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{livrable, #ID_ARTICLE}}}
+              </BOUCLE_filtreLivrables>
               <BOUCLE_articles(ARTICLES){id_rubrique}{!titre_mot=livrable} {0,1} {!par date}>
                   #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{doc, #ID_ARTICLE}}}
-                  <BOUCLE_commentaires1(FORUMS){id_article}{!par date}{0,5} {doublons}>
+                  <BOUCLE_commentaires2(FORUMS){id_article}{!par date}{0,5} {doublons}>
                     #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
-                  </BOUCLE_commentaires1>
+                  </BOUCLE_commentaires2>
               </BOUCLE_articles>
           </BOUCLE_filtreIdRubriques>
         </BOUCLE_filtreTravailEnCours>
         <BOUCLE_filtreConsigne(RUBRIQUES){id_parent}>
           <BOUCLE_Rubconsignes(RUBRIQUES){id_parent}{!par date}{titre_mot=consignes}>
               <BOUCLE_Artconsignes(ARTICLES){id_rubrique}{!par date} {0,2} >
-                  <BOUCLE_commentaires2(FORUMS){id_article}{!par date}{0,5} {doublons}>
+                  <BOUCLE_commentaires3(FORUMS){id_article}{!par date}{0,5} {doublons}>
                     #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
-                  </BOUCLE_commentaires2>
+                  </BOUCLE_commentaires3>
                   #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{consigne, #ID_ARTICLE}}}
               </BOUCLE_Artconsignes>
           </BOUCLE_Rubconsignes>
@@ -45,6 +48,14 @@
 <B_dataContenu>
 <BOUCLE_dataContenu(DATA){source table, #GET{contenu}}{!par date}>
   <BOUCLE_triDate(POUR){tableau #VALEUR}>
+      <BOUCLE_test(POUR){tableau #VALEUR}>
+      </BOUCLE_test>
+
+  <BOUCLE_affiche_livrable(POUR){tableau #VALEUR}{cle= livrable}>
+      [(#REM) Nouveaux documents sur livrable]
+      [(#MODELE{actu_livrables}{id_article=#VALEUR})]
+  </BOUCLE_affiche_livrable>    
+
   <BOUCLE_affiche_doc(POUR){tableau #VALEUR}{cle= doc}>
     [(#REM) Nouveaux documents ]
     [(#MODELE{actu_documents}{id_article=#VALEUR})]
