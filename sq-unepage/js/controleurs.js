@@ -2,6 +2,16 @@ var vue = 'timeline';
 var canShowConsigneSidebar = false;
 var antiPushState = false;
 
+var detailsLivrableOpen = false;
+
+
+// Verifie les parametres dans l'url
+$.urlParam = function(name){
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  if (results){
+    return results[1] || 0;
+  }
+}
 
 $().ready(function(){
   
@@ -58,53 +68,14 @@ $().ready(function(){
     show: {
       duration: 100,
       effect: 'fadeIn'
-    }
-    ,
+    },
     hide: {
       duration: 100,
       effect: 'fadeOut'
-    }          
-  });
-
-
-  // TODO En faire une fonction plus generale pouvant s'appliquer à plusieurs cas d'usage
-  var doNotClose = false;
-
-  // Ouverture de la page livrables
-  $( ".menu_logo_livrables" ).click(function() {
-    $('.zone-livrables').stop().fadeIn(1000);
-    changeTimelineMode('livrables');
-  });
-
-
-  //Fermeture page livrable
-  $(".zone-livrables").click(function(){
-    if(doNotClose == false){
-      $('.zone-livrables').stop().fadeOut(1000);
-      $('.logo_menu-consignes').click();
-      changeTimelineMode('consignes');
     }
+    
+    
   });
-  
-   // Ouverture livrables details
-   $(".livrable").click(function() {
-      doNotClose = true;
-      dataId = $(this).data('id');
-      $(".livrable").css({'opacity': '0.4'});
-      $('#livrable'+dataId).stop().fadeIn(500);
-      $('#livrable'+dataId).addClass('active');
-      });
-
-  //Fermeture livrables-details
-  $(".close").click(function(){
-      $('.livrable-details-wrapper').fadeOut(500);
-      $('.livrable-details-wrapper').removeClass('active');
-      $(".livrable").css({'opacity': '1'});
-      doNotClose = false;
-      event.stopPropagation();
-  });
-
-
 
   // Click des logos-menus
   // Ouverture Timeline
@@ -168,11 +139,10 @@ function onHashChange() {
  */
  
 var currentState = {};
-  
+
 function setContentFromState(state) {
   
   if (typeof state.data !== 'object' || state.data == null) return;
-  
   var state = state.data;  
   
   if (state.type_objet == undefined)        { state.type_objet = ''; }
@@ -197,15 +167,13 @@ function setContentFromState(state) {
       break;
     } 
   }
-  
   currentState = state;
-  
+
   if (isSamePage) { return; }
   
   antifloodHashChange = true;
   
   // Ressource
-  
   if ((state.type_objet == '0'
    && state.id_objet == '0')
    || (state.type_objet == ''
@@ -213,6 +181,7 @@ function setContentFromState(state) {
      CCN.projet.showWholeTimeline();
    }
   
+
   if (state.type_objet == "ressources"){
 		changeTimelineMode('consignes');
 		callRessource();
@@ -271,20 +240,27 @@ function setContentFromState(state) {
 					callConsigne(state.id_objet);
 				}
 			}
-		}
-		
-		
+    }
+
     // Réponse
     
     if (state.type_objet == "travail_en_cours"){
-      changeTimelineMode('consignes');
-    	for (k=0; k<CCN.consignes.length;k++){
-    		for (l=0; l<CCN.consignes[k].reponses.length;l++){
-    			if (CCN.consignes[k].reponses[l].id == state.id_objet){
-    				callReponse(state.id_objet);
-    			}
-    		}
-    	}
+      // Si travail en cours est un livrable
+      if($.urlParam('type') == 'livrables'){
+        callLivrable(null, open);
+        callLivrable(state.id_objet);
+        changeTimelineMode('livrables');
+      }
+      else {
+        changeTimelineMode('consignes');
+        for (k=0; k<CCN.consignes.length;k++){
+          for (l=0; l<CCN.consignes[k].reponses.length;l++){
+            if (CCN.consignes[k].reponses[l].id == state.id_objet){
+              callReponse(state.id_objet);
+            }
+          }
+        }
+      }
     }
 		
 		
@@ -412,8 +388,7 @@ function changeTimelineMode(type) {
       classCss.blogs = 'show_blogs';
       classCss.evenements = 'show_evenements';
       classCss.livrables = 'show_livrables';  
-  
-  
+
   if (!$('body').hasClass(classCss[type])) {
     CCN.projet.showWholeTimeline();
     
@@ -927,31 +902,77 @@ function callActualites(){
 	console.log('callActualites');
 }
 
+/**
+ * Gère les événements lors du clic sur un livrable
+ * 
+ * @param {number} id_livrable
+ * @param {string} state
+ * 
+ * @example
+ * callLivrable(254, null)
+ * callLivrable(null, open)
+ */
 
-function callLivrable(id_livrable){
+function callLivrable(id_livrable = null, state = null){
+
+  // Ouvre la page livrables
+  if(state == 'open'){
+    $('.zone-livrables').stop().fadeIn(1000);
+    changeTimelineMode('livrables');
+  }
+
+  // Ouvre le detail d'un livrable
+  else if(state == 'openDetails'){
+      dataId = id_livrable;
+      $(".livrable").css({'opacity': '0.4'});
+      $('#livrable'+dataId).stop().fadeIn(500);
+      $('#livrable'+dataId).addClass('active');
+      detailsLivrableOpen = true;
+    }
+
+  // Ferme le detail d'un livrable  
+  else if(state == 'closeDetails'){
+      $('.livrable-details-wrapper').fadeOut(500);
+      $('.livrable-details-wrapper').removeClass('active');
+      $(".livrable").css({'opacity': '1'});
+      detailsLivrableOpen = false;
+      event.stopPropagation();
+    }
+
+  // Ferme la page livrable  
+  else if(state == 'close'){
+    if(detailsLivrableOpen == false){
+      $('.zone-livrables').stop().fadeOut(1000);
+      $('.logo_menu-consignes').click();
+      changeTimelineMode('consignes');
+    }
+    }
+
+  // Ouvre le detail d'un livrable en fonction de l'url  
+  else {
+      changeTimelineMode('livrables');
+      $('.zone-livrables').stop().fadeIn(1000);
+      dataId = id_livrable;
+      $(".livrable").css({'opacity': '0.4'});
+      $('#livrable'+dataId).stop().fadeIn(500);
+      $('#livrable'+dataId).addClass('active');
+      detailsLivrableOpen = true;
+    }
   
-  changeTimelineMode('livrables');
-  
-	var url = CCN.projet.url_popup_consigne+"&id_article="+id_livrable;
-	//showConsigneInTimeline(id_livrable);
-	updateMenuIcon(['livrable-'+id_livrable], 'mainView');
-	
-  	//loadContentInMainSidebar(url, 'article', 'livrables', function(){
-    	updateUrl({
-        'type_objet':'livrables',
-        'id_objet':id_livrable,
-        'id_rubrique':id_livrable,
-        'page':'article'	
-      },'Consigne',"./spip.php?page=article&id_article="+id_livrable+"&mode=complet&type=livrables");
-   //});
-  
-	
-	/*
-	var url_travail_en_cours = 'spip.php?page=rubrique&mode=detail&id_rubrique='+CCN.travailEnCoursId;
-	loadContentInLateralSidebar(url_travail_en_cours, 'rubrique', 'travail_en_cours');
-	*/
-	
-	console.log('callLivrable');
+  // Genere le lien d'un detail livrable  
+  if(id_livrable){
+    var url = CCN.projet.url_popup_consigne+"&id_article="+id_livrable;
+    //updateMenuIcon(['livrable-'+id_livrable], 'mainView');
+        updateUrl({
+          'type_objet':'livrables',
+          'id_objet':id_livrable,
+          'id_rubrique':id_livrable,
+          'page':'article'	
+        },'Consigne',"./spip.php?page=article&id_article="+id_livrable+"&mode=complet&type=livrables");
+      
+    console.log('callLivrable');
+  }
+
 }
 
 

@@ -38,6 +38,18 @@ function th_declarer_champs_extras($champs = array()) {
         ),
     );
 
+    $champs['spip_rubriques']['id_rubrique_lien'] = array(
+        'saisie' => 'input',//Type du champ (voir plugin Saisies)
+        'options' => array(
+        'nom' => 'id_rubrique_lien',
+        'label' => _T('th:id_rubrique_lien'),
+        'sql' => "text",
+        'defaut' => '',// Valeur par défaut
+        'restrictions'=>array('voir' => array('auteur' => ''),//Tout le monde peut voir
+        'modifier' => array('auteur' => array('auteur' => ''))),//Seuls les webmestres peuvent modifier
+        ),
+    );
+
     return $champs;
 }
 ?>

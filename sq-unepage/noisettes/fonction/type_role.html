@@ -44,14 +44,11 @@
     ]
 </BOUCLE_admin>
 
+<!--SI ELEVE -->
+<BOUCLE_eleve(AUTEURS){id_auteur=#SESSION{id_auteur}}{tout}>
+    [(#STATUT|=={6forum}|oui)
+      #SESSION_SET{role,eleve}
+    ]
+</BOUCLE_eleve>
 
-<!-- SI ELEVE -->
-[(#SESSION{id_auteur}|?{#SET{logged, 1},#SET{logged, 0} })]
 
-[(#GET{admin}|=={0}|oui) 
-
-[(#GET{prof}|=={0}|oui) 
-
-[(#GET{intervenant}|=={0}|oui) #SESSION_SET{role,eleve}]
-]
-]

@@ -1478,6 +1478,23 @@ div.sous-colonne2{
   background-color: rgba(0, 0, 0, 0);
 }
 
+.portfolio_grand {
+  display: flex;
+  align-items: center;
+}
+
+.portfolio_grand .audio {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.portfolio_grand .icone img{
+  padding-left: 15px;
+  height: auto;
+  width: 25px;
+}
+
 .portfolio_grand .action_supprimer:hover {
   background-color:tomato;
 }
@@ -1584,6 +1601,7 @@ div.jaimeplus {
 }
 
 .ui-tooltip {
+  opacity: 0.8;
   padding: 4px 8px;
   color: white;
   border-radius: 0px;
@@ -2568,7 +2586,7 @@ div.donnees_classe {
 
 .popup .portfolio_grand .spip_doc_titre,
 .popup .bloc_texte .spip_doc_titre {
-  padding:10px;
+  padding: 0px 5px 12px 10px;
   font-size:12px;
   width:auto !important;
   display:block;
@@ -4343,13 +4361,22 @@ input.crayon-active {
 
 .show_consignes #timeline_layer_consignes,
 .show_blogs #timeline_layer_blogs,
-.show_evenements #timeline_layer_evenements,
-.show_livrables #timeline_layer_livrables {
+.show_evenements #timeline_layer_evenements {
   opacity:1;
   z-index:101;
   pointer-events:all;
 }
 
+#livrables {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.1s ease-in;
+}
+
+.show_livrables #livrables {
+  opacity: 1;
+  pointer-events: all;
+}
 
 .show_blogs .connecteur_timeline,
 .show_evenements .connecteur_timeline {
@@ -4369,6 +4396,7 @@ input.crayon-active {
 
 #choix_rubrique_admin:hover > .choix_rubrique_wrapper {
   display: block;
+  height: initial;
 }
 
 .choix_rubrique_wrapper {
@@ -4404,7 +4432,7 @@ input.crayon-active {
   display: flex;
   font-size: 11px;
   line-height: 14px;
-  height: 27px;
+  height: 30px;
   background: rgb(204, 204, 204);
   padding: 7px 10px;
   box-sizing: border-box;
@@ -4509,8 +4537,17 @@ input.crayon-active {
   margin: 10px;
 }
 
+.actu-documents  a{
+  color: white;
+  text-decoration: none;
+}
 
-#menu-actualites .content, #menu-actualites .comment, #menu-actualites .profil, #menu-actualites .arrow-down {
+#menu-actualites .content,
+#menu-actualites .comment,
+#menu-actualites .profil,
+#menu-actualites .arrow-down,
+#menu-actualites .mediabox,
+#menu-actualites .actu-documents  .document {
   display: none;
 }
 
@@ -4529,7 +4566,6 @@ input.crayon-active {
 
 /* LIVRABLES */
 #livrables{
-  display: none;
   position: absolute;
   z-index: 105;
 }
@@ -4538,9 +4574,9 @@ input.crayon-active {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  height: 100vh;
+  height: 80vh;
   width: 100vw;
-  align-items: center;
+  align-items: flex-end;
 }
 .livrable{
   overflow: hidden;
@@ -4603,8 +4639,11 @@ input.crayon-active {
 /* Livrable details */
 
 .livrable-details-wrapper{
-    left: 30%;
     position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
     display: none;
     overflow: hidden;
     width: 680px;
@@ -4633,6 +4672,17 @@ input.crayon-active {
   right: 15px;
   top: 10px;
   cursor: pointer;
+  background: white;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.livrable-details .close:hover {
+  background-color: #b1b1b1 
+}
+
+.livrable-details .close img {
+  width: 25px;
 }
 
 .livrable-details .corps{
@@ -4693,23 +4743,59 @@ input.crayon-active {
 }
 
 .livrable-details .autres-docs {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   padding-top: 13px;
 }
 
 .livrable-details .autres-docs .fichier, 
-.livrable-details .autres-docs .audio {
-  width: 43%;
-  float: left;
+.livrable-details .autres-docs .audio, .livrable-details .autres-docs .video {
+  width: 92%;
   margin: 10px;
   padding: 10px;
-}
-
-.livrable-details .autres-docs .fichier{
   background-color: white;
   border-radius: 2px;
   color: black;
+  height: 65px;
+}
+
+.livrable-details .autres-docs .video {
+  height: 205px;
+}
+
+.livrable-details .autres-docs .video .spip_documents{
+  align-items: center;
+}
+
+.livrable-details .autres-docs .audio .spip_documents,
+.livrable-details .autres-docs .video .spip_documents{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.livrable-details .autres-docs .audio .spip_documents a,
+.livrable-details .autres-docs .video .spip_documents a  {
+  padding-bottom: 15px;
+}
+
+.livrable-details .autres-docs .fichier a img {
+  height: auto;
+  width: 40px;
+  margin: 12px 15px 0 0;
+}
+
+.livrable-details .autres-docs .audio {
+  height: 100px;
+}
+
+.livrable-details .autres-docs .fichier a:first-child {
+  float: left;
+}
+
+
+.livrable-details .autres-docs .audio audio{
+  width: 100%;
 }
 
 .livrable-details .documents {
@@ -4718,28 +4804,47 @@ input.crayon-active {
   padding: 15px;
 }
 
-.livrable-details  .img-container img {
+.livrable-details .img-container .action_supprimer {
+  left: -40px;
+  top: 15px;
+  float: right;
+}
+
+.livrable-details  .img-container{
   float: left;
+  width: 48%;
+  height: 230px;;
+}
+
+.livrable-details  .img-container img {
   margin: 10px;
-  width: 45%;
+  width: 84%;
   height: auto;
+}
+
+.livrable-details .img-container span {
+  color: white;
+  text-align: center;
+  display: block;
+}
+
+.livrable-details .img-container strong:hover {
+
 }
 
 .livrable-details .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 15px;
+  padding: 15px;
+  flex-wrap: wrap;
 }
 
 
 .livrable-details .ccn-logo {
-    padding: 3px;
-    display: flex;
+    padding: 5px;
     background: black;
     border-radius: 2px;
-    width: max-content;
-    height: max-content;
     margin: 10px;
     font-size: 20px
 }
@@ -4751,6 +4856,13 @@ input.crayon-active {
 
 .livrable-details .ccn-logo a {
   color: white;
+  display: flex;
+  align-items: center;
+}
+
+.livrable-details .classe-desc {
+  flex: 100%;
+  padding-bottom: 15px;
 }
 
 #debug-nav {
@@ -4812,7 +4924,12 @@ input.crayon-active {
 		height: 22px;
 		line-height: 22px;
 	}
-	*/
+  */
+  
+  .choix_rubrique_wrapper{
+    height: max-content !important;
+  }
+
 	.select, .select:hover div, .select input.first + label, .select:hover input, .select:hover label {
 		height: 22px;
 		line-height: 22px;
