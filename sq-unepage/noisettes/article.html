@@ -460,7 +460,8 @@
               ]
             ]
   
-          [(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]]
+    <!--
+          [(#REM)Permalien - [&annee_scolaire=(#ANNEE_SCOLAIRE)]
           
             [(#GET{is_agora}|=={oui}|non)[(#SET{url,[(#URL_ARTICLE|concat{&mode=complet})]})]]
             [(#GET{is_agora}|=={oui}|oui)[(#SET{url,[(#URL_ARTICLE|concat{&type_objet=agora&mode=complet})]})]]
@@ -477,6 +478,9 @@
               </div>
             </div>
             ]
+            ]
+  -->
+  
   <!--
           [(#REM)Liens sociaux]
             [(#PLUGIN{SOCIALTAGS}|oui)
