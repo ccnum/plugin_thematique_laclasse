@@ -1,10 +1,10 @@
 <paquet
     prefix="th"
     categorie="squelette"
-    version="3.0.6"
+    version="3.0.9"
     etat="stable"
     logo="th.png"
-    schema="3.0.0"
+    schema="3.0.3"
     documentation="http://www.laclasse.com"
     compatibilite="[3.0;["
 >
@@ -18,9 +18,10 @@
     <necessite nom="socialtags" />
     <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
+    <necessite nom="notation" />
+    <necessite nom="spip_bonux" />
     
     <utilise nom="autorite" compatibilite="[0.10.18;[" />
-    <utilise nom="notations" />
     <utilise nom="medias" />
 
     <pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />

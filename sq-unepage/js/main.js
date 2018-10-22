@@ -38,6 +38,7 @@ function initCCN() {
   CCN.timelineLayerConsignes  = $('#timeline_layer_consignes');
   CCN.timelineLayerBlogs      = $('#timeline_layer_blogs');
   CCN.timelineLayerEvenements = $('#timeline_layer_evenements');
+  CCN.timelineLayerLivrables = $('#livrables');
   
   // Charge le projet
   
@@ -337,7 +338,7 @@ function loadConsignes(fichier){
         	if ((dataForReponse.y === 0)||(dataForReponse.y > 0.8)||(dataForReponse.y < -0.2)) {
         		dataForReponse.y = (liste_y[j])/(xmlReponses.length);
         	}
-        	dataForReponse.y = (liste_y[j])/(xmlReponses.length+5)+0.12;
+			/*dataForReponse.y = (liste_y[j])/(xmlReponses.length+5)+0.12;*/
         
           dataForReponse.consigne = nouvelleConsigne;
           dataForReponse.classes = CCN.classes;
@@ -661,12 +662,11 @@ function initTimeline(){
     //$('.presentation').colorbox({ width:'80%',height: '80%',slideshow:true, slideshowSpeed: 5000, transition:"fade", loop:false});
     $('.profil').colorbox({width:'80%',height: '80%'});
     
-    window.addEventListener("resize", function(event) { updateTimeline(); }, false);
-	});	
+	window.addEventListener("resize", function(event) { updateTimeline(); }, false);
+	
+
+});	
 }
-
-
-
 
 // C'est parti
 

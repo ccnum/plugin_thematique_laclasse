@@ -1,43 +1,81 @@
-#SET{actu_compteur,0}
-  <BOUCLE_rubrique(RUBRIQUES){titre_mot=evenements}{si #SESSION{statut}|=={0minirezo}|non}{tout}>
-    <BOUCLE_article(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{doublons}>
-    </BOUCLE_article>   
-  </BOUCLE_rubrique>
 
+    
+#SET{contenu,#ARRAY}
 
-  <BOUCLE_actus(ARTICLES){tout}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}{inverse}{doublons}>
-    #SET{actu_mot_cle,article}
-    <BOUCLE_actus_rub(RUBRIQUES){id_rubrique}{0,1}>
-      <BOUCLE_actus_mots(MOTS){id_rubrique=#ID_PARENT}{0,1}>
-        #SET{actu_mot_cle,#TITRE}
-      </BOUCLE_actus_mots>
-      </B_actus_mots>
-        <BOUCLE_actus_mots2(MOTS){id_rubrique}{0,1}>
-          #SET{actu_mot_cle,#TITRE}
-        </BOUCLE_actus_mots2>
-      <//B_actus_mots>
-    </BOUCLE_actus_rub>
+[(#INCLURE{fond=noisettes/fonction/type_role})]
+<BOUCLE_blogPrive(RUBRIQUES){racine}{si #SESSION{role}|=={prof}|ou {#SESSION{role}|=={intervenant}}|ou {#SESSION{role}|=={admin}}}{titre_mot= evenements}>
+  <BOUCLE_articleBlogPrive(ARTICLES){id_rubrique}>
+      <BOUCLE_commentaires1(FORUMS){id_article}{!par date}{0,5} {doublons}>
+          #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
+        </BOUCLE_commentaires1>
+  </BOUCLE_articleBlogPrive>
+</BOUCLE_blogPrive>
 
-    [(#GET{actu_compteur}|<={#NB_ACTUS}|oui)
-      [(#REM) Nouvelle consigne ]
-        [(#GET{actu_mot_cle}|=={consignes}|oui)
-          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          [(#MODELE{actu_consignes}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
-        ]
-      [(#REM) Nouvelle réponse à une consigne ]
-        [(#GET{actu_mot_cle}|=={travail_en_cours}|oui)
-          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          [(#MODELE{actu_travail_en_cours}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})]
-        ]
-      [(#REM) Nouveaux documents ]
-        [(#MODELE{actu_documents})]  
-      [(#REM) Nouveaux commentaires ]
-        [(#MODELE{actu_commentaires})]
-      [(#REM) Nouvelle ressource ]
-        [(#GET{actu_mot_cle}|=={article}|oui)
-          #SET{actu_compteur,#GET{actu_compteur}|plus{1}}
-          <!--Commenté car le modèle actu_article 'existe pas-->
-          [(#REM) [(#MODELE{actu_article}{id_objet=#ID_ARTICLE}{id_auteur}{id_rubrique})] ]
-        ]
-    ]
-  </BOUCLE_actus>
+<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%}>
+        <BOUCLE_filtreRessources(RUBRIQUES){racine}{titre_mot= ressources}>
+            <BOUCLE_ressources(RUBRIQUES){id_parent}{!par date}>
+              <BOUCLE_ressourcesArticles(ARTICLES){id_rubrique}{!par date}{0,1}>
+                  #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{ressources, #ID_ARTICLE}}}
+              </BOUCLE_ressourcesArticles>
+            </BOUCLE_ressources>
+        </BOUCLE_filtreRessources>
+
+				<BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}{!par date}>
+          <BOUCLE_filtreIdRubriques(RUBRIQUES){id_parent}{!par date}>
+              <BOUCLE_filtreLivrables(ARTICLES){id_rubrique}{titre_mot=livrable} {0,1} {!par date}>
+                  #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{livrable, #ID_ARTICLE}}}
+              </BOUCLE_filtreLivrables>
+              <BOUCLE_articles(ARTICLES){id_rubrique}{!titre_mot=livrable} {0,1} {!par date}>
+                  #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{doc, #ID_ARTICLE}}}
+                  <BOUCLE_commentaires2(FORUMS){id_article}{!par date}{0,5} {doublons}>
+                    #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
+                  </BOUCLE_commentaires2>
+              </BOUCLE_articles>
+          </BOUCLE_filtreIdRubriques>
+        </BOUCLE_filtreTravailEnCours>
+        <BOUCLE_filtreConsigne(RUBRIQUES){id_parent}>
+          <BOUCLE_Rubconsignes(RUBRIQUES){id_parent}{!par date}{titre_mot=consignes}>
+              <BOUCLE_Artconsignes(ARTICLES){id_rubrique}{!par date} {0,2} >
+                  <BOUCLE_commentaires3(FORUMS){id_article}{!par date}{0,5} {doublons}>
+                    #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
+                  </BOUCLE_commentaires3>
+                  #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{consigne, #ID_ARTICLE}}}
+              </BOUCLE_Artconsignes>
+          </BOUCLE_Rubconsignes>
+        </BOUCLE_filtreConsigne>
+</BOUCLE_rubAnnee>
+
+<B_dataContenu>
+<BOUCLE_dataContenu(DATA){source table, #GET{contenu}}{!par date}>
+  <BOUCLE_triDate(POUR){tableau #VALEUR}>
+      <BOUCLE_test(POUR){tableau #VALEUR}>
+      </BOUCLE_test>
+
+  <BOUCLE_affiche_livrable(POUR){tableau #VALEUR}{cle= livrable}>
+      [(#REM) Nouveaux documents sur livrable]
+      [(#MODELE{actu_livrables}{id_article=#VALEUR})]
+  </BOUCLE_affiche_livrable>    
+
+  <BOUCLE_affiche_doc(POUR){tableau #VALEUR}{cle= doc}>
+    [(#REM) Nouveaux documents ]
+    [(#MODELE{actu_documents}{id_article=#VALEUR})]
+  </BOUCLE_affiche_doc>
+  <BOUCLE_affiche_forum(POUR){tableau #VALEUR}{cle= forum}>
+    [(#REM) Nouveaux commentaires ]
+    [(#MODELE{actu_commentaires}{id_forum=#VALEUR})]
+  </BOUCLE_affiche_forum>
+  <BOUCLE_affiche_consignes(POUR){tableau #VALEUR}{cle= consigne}>
+    [(#REM) Nouvelles consignes ]
+    [(#REM)[(#MODELE{actu_consignes}{id_objet=#VALEUR})]]
+    [(#MODELE{actu_travail_en_cours}{id_objet=#VALEUR})]
+  </BOUCLE_affiche_consignes>
+  <BOUCLE_affiche_ressources(POUR){tableau #VALEUR}{cle= ressources}>
+   
+  </BOUCLE_affiche_ressources>
+  </BOUCLE_triDate>
+</BOUCLE_dataContenu>
+</B_dataContenu>
+<div class="actualites-actu couleur_travail_en_cours1">		
+  <p>Il n'a aucune actualité pour le moment</p>
+</div>
+<//B_dataContenu>

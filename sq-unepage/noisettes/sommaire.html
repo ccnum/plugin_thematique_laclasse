@@ -7,7 +7,6 @@ et/ou
 ]
 
 <style id="crayons-surcharge-styles"></style>
-
 <div id="offset"></div>
 <div id="global">
 
@@ -23,6 +22,7 @@ et/ou
     <div id="timeline_responsive">
       <div id="timeline_fixed"></div>
       <div id="timeline_wrapin">
+			<INCLURE{fond=livrables} />
         <div class="timeline_layer" id="timeline_layer_consignes">
           <div class="timeline_trigger"></div>
         </div>
@@ -30,6 +30,9 @@ et/ou
           <div class="timeline_trigger"></div>
         </div>
         <div class="timeline_layer" id="timeline_layer_evenements">
+          <div class="timeline_trigger"></div>
+				</div>
+				<div class="timeline_layer" id="timeline_layer_livrables">
           <div class="timeline_trigger"></div>
         </div>
         <div id="timeline_background"></div>
@@ -94,7 +97,7 @@ et/ou
 		      	<ul class="filter clearfix option-set ressource" data-filter-group="ressource">
 					[(#MODELE{logo_menu}{valeur=consignes}{class=menu_logo_consignes}{onclick=changeTimelineMode('consignes');CCN.projet.showWholeTimeline();}{title=Toutes les consignes})]
 					
-						#SET{blog,Le blog du projet}
+						#SET{blog, Agenda}
 						[(#NOM_SITE_SPIP|=={novaterra.laclasse.com}|oui) #SET{blog,Le journal du capitaine et le novamag} ]
 						[(#NOM_SITE_SPIP|=={air.laclasse.com}|oui) #SET{blog,Les actualités littéraires} ]
 						[(#NOM_SITE_SPIP|=={miam.laclasse.com}|oui) #SET{blog,Le blog du potager} ]
@@ -103,7 +106,31 @@ et/ou
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
 					[(#MODELE{logo_menu}{valeur=blog}{class=menu_logo_blogs}{filter=.ressource_blogs}{onclick=changeTimelineMode('blogs');}{title=#GET{blog}})]
 					
-					[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
+					[(#INCLURE{fond=noisettes/fonction/type_role})]
+					[(#SESSION{role}|=={prof}|ou {#SESSION{role}|=={intervenant}}|ou {#SESSION{role}|=={admin}})
+						[(#MODELE{logo_menu}{valeur=evenement}{class=menu_logo_evenements}{filter=.ressource_evenements}{onclick=changeTimelineMode('evenements');}{title=Le blog pédagogique})]
+					]
+
+		[(#REM) Si il n'y a pas de livrables ne pas afficher le bouton]
+
+					#SET{hasLivrable, 'false'}
+					<BOUCLE_rubAnnee(RUBRIQUES) {racine} {titre LIKE %(#EVAL{_annee_scolaire})%} >
+                <BOUCLE_filtreTravailEnCours(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}> 
+									<BOUCLE_getRubTravail(RUBRIQUES){id_rubrique}>
+											<BOUCLE_getRubColleges(RUBRIQUES){id_parent}>
+												<BOUCLE_getLivrable(ARTICLES){id_rubrique}{titre_mot=livrable}>
+												#SET{hasLivrable, 'true'}
+												</BOUCLE_getLivrable>   
+											</BOUCLE_getRubColleges>
+									</BOUCLE_getRubTravail>
+							</BOUCLE_filtreTravailEnCours>
+					</BOUCLE_rubAnnee>
+					
+					[(#GET{hasLivrable}|choixsiegal{true, 
+						[(#MODELE{logo_menu}{valeur=livrable}{class=menu_logo_livrables logo_menu-cible}{filter=.ressource_livrables}{title=Livrables}{onclick=callLivrable(null, 'open');})], 
+						''}
+					)]
+					
 					
 					<BOUCLE_j(DATA){liste tout,blog,evenement,ressources,consignes,travail_en_cours}>
 		          		<!--<li><a href="#ressource-[(#VALEUR)]" data-filter-value="[(#VALEUR|=={tout}|non)[.ressource_(#VALEUR)s]]" onClick="showhide_articles_[(#VALEUR)]();" class="couleur_grille [(#COMPTEUR_BOUCLE|=={1}|oui) selected]" title="[(#VALEUR)]" style="background-image: url([(#CHEMIN{img/logo_[(#VALEUR)]_grand_#NOM_SITE_SPIP.png}|sinon{[(#CHEMIN{img/logo_[(#VALEUR)]_grand.png})]}|sinon{#CHEMIN{img/logo_voir.png}}|image_gamma{255}|image_reduire{#GET{taille_bloc_option}}|extraire_attribut{src})]);">&nbsp;</a></li>-->
@@ -155,7 +182,27 @@ et/ou
 				<h3><span>Classes</span></h3>
 	      		<ul class="filter clearfix option-set" data-filter-group="classe">
 			        [(#MODELE{logo_menu}{valeur=tout}{title=Toutes les classes}{class=menu_logo_consignes menu_logo_classes menu_logo_type_sidebarView}{onclick=callClasses();})]
-			          <BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{par date}{inverse}>
+							#SET{hasYearRub, false}
+							<!-- Nouveau modele -->
+							
+							<BOUCLE_FiltreAnnee(RUBRIQUES){racine} {titre LIKE %(#EVAL{_annee_scolaire})%}>
+									#SET{hasYearRub, true}
+								<BOUCLE_rubMot(RUBRIQUES){id_parent}{titre_mot=travail_en_cours}>								
+  			          <BOUCLE_rubLoop(RUBRIQUES){id_parent}{tout}>
+  			            <BOUCLE_filterDate(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
+										</BOUCLE_filterDate>
+  							[(#MODELE{logo_menu_classe}{valeur=#TITRE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
+  			            </B_filterDate>
+  			            	[(#_c3:DATE|substr{0,10}|replace{-,.}|>={#EVAL{_date_debut}}|oui|et{#_c3:DATE|substr{0,10}|replace{-,.}|<={#EVAL{_date_fin}}|oui}|oui)
+	  							[(#MODELE{logo_menu_classe}{valeur=#ID_RUBRIQUE}{filter=.#ID_RUBRIQUE}{title=[(#_c3:TITRE)]}{class=menu_logo_classes-#ID_RUBRIQUE hover_couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{classcouleur=couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]}{texte=[(#_c3:TITRE|couper{2})]})]
+  			            	]
+  			            <//B_filterDate>
+  			          </BOUCLE_rubLoop>
+								</BOUCLE_rubMot>
+							</BOUCLE_FiltreAnnee>
+
+
+							<BOUCLE_r3(RUBRIQUES){titre_mot==travail_en_cours}{tout}{si #GET{hasYearRub}|== {false}}{par date}{inverse}>
   			          <BOUCLE_c3(RUBRIQUES){id_parent}{tout}>
   			            <BOUCLE_a3(ARTICLES){id_rubrique}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
   			            </BOUCLE_a3>
@@ -166,7 +213,8 @@ et/ou
   			            	]
   			            <//B_a3>
   			          </BOUCLE_c3>
-			          </BOUCLE_r3>
+			        </BOUCLE_r3>
+
 				</ul>
 			</div>
 
@@ -195,6 +243,29 @@ et/ou
 						[(#NOM_SITE_SPIP|=={theatre.laclasse.com}|oui) #SET{blog,L'agenda} ]
 						
 					[(#MODELE{logo_menu}{valeur=agora}{class=menu_logo_agora menu_logo_type_sidebarView}{filter=.ressource_agora}{title=L'espace de discussion}{onclick=callAgora();})]		
+				
+					[(#REM)Espace Doc]
+				 	
+					 	[(#ENV{restreint}|?{#SET{docId,#ENV{restreint}}, #SET{docId,false}})]
+
+						<B_getDocId>
+							<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #GET{docId}}{0,1}>
+							[(#CONFIG{th/espace_doc_url}|oui)
+								<li class="logo">
+									<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}#URL_ID_DOC" title="Espace Doc" target="blank">	</a>
+								</li>
+								]
+							</BOUCLE_getDocId>
+						</B_getDocId>
+						[(#CONFIG{th/espace_doc_url}|oui)
+							<li class="logo">
+								<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}" title="Espace Doc" onclick="window.open(this.href, 'mywin',
+								'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
+							</li>
+							]
+						<//B_getDocId>
+					
+
 				</ul>
 		    </div>
 
@@ -266,3 +337,23 @@ et/ou
 
 </div>
 
+[(#REM) TODO PAS DE REDIRECTION]
+<script>
+	window.onload = function () {
+		if($.urlParam('page') == 'sommaire'){
+			console.log('premiere connexion');
+			//window.location.replace("./spip.php?page=actualites&mode=complet");
+			window.location.href = "./spip.php?page=actualites&mode=complet";
+		}
+	}
+</script>
+
+[(#REM)
+	[(#INCLURE{fond=noisettes/fonction/type_role})]
+	[(#SESSION{role}|choixsiegal{prof,"<script>	window.onload = function () {	$('.menu_logo_classes').click(); }</script>", ""})]
+	[(#SESSION{role}|choixsiegal{intervenant,"<script>
+		window.onload = function () {
+			lastConsigne = $('#menu-consignes ul li:last-child a').click();
+		}
+		</script>", ""})]
+]
