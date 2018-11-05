@@ -15,12 +15,23 @@
 		</couleur_blog>
 		
 		<image_fond>
-			<BOUCLE_rub(RUBRIQUES){titre_mot=images_background}{titre IN #ANNEE_SCOLAIRE,Images,Background,Images Background,Contenu Editorial}{par hasard}{0,1}{tout}>
-				<BOUCLE_images(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1600}|extraire_attribut{src})]})]</BOUCLE_images>
+			#SET{anneeEnCours, false}
+			<BOUCLE_rub(RUBRIQUES){titre_mot=images_background}{par hasard}{0,1}{tout}>
+				[(#REM) Si l'image dans le contenu editorial porte le TITRE de l'année en cours]
+				<BOUCLE_yearImage(DOCUMENTS){id_rubrique}>
+						<BOUCLE_selectYearImage(DOCUMENTS){id_document}{si #EVAL{_annee_scolaire}|=={#TITRE}}{si #GET{anneeEnCours}|=={false}}>
+								[(#SET{url,[(#URL_DOCUMENT||image_reduire{1600}|extraire_attribut{src})]})]
+								#SET{anneeEnCours, true}
+						</BOUCLE_selectYearImage>
+
+				</BOUCLE_yearImage>
+				[(#REM) Sinon choisir une image au hasard]
+				<BOUCLE_Image(DOCUMENTS){id_rubrique}{si #GET{anneeEnCours}|=={false}}{par hasard}{0,1}>
+						<BOUCLE_selectImage(DOCUMENTS){id_document}{par hasard}{0,1}>
+								[(#SET{url,[(#URL_DOCUMENT||image_reduire{1600}|extraire_attribut{src})]})]
+						</BOUCLE_selectImage>
+				</BOUCLE_Image>
 			</BOUCLE_rub>
-				<BOUCLE_rub1(RUBRIQUES){titre_mot=images_background}{par hasard}{0,1}{tout}>
-					<BOUCLE_images1(DOCUMENTS){id_rubrique}{extension IN jpg,png,gif}{par hasard}{0,1}{tout}>[(#SET{url,[(#URL_DOCUMENT||image_reduire{1600}|extraire_attribut{src})]})]</BOUCLE_images1>
-				</BOUCLE_rub1>
 			<//B_rub>
 			[(#GET{url}|non)[(#SET{url,[(#CHEMIN{img/fond_#NOM_SITE_SPIP.png}|sinon{#CHEMIN{img/fond.png}})]})]]
 			[(#NOM_SITE_SPIP|match{test}|oui)
