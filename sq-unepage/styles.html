@@ -2579,6 +2579,15 @@ div.donnees_classe {
   margin-right:auto;
 }
 
+.forum_around_document .doc {
+  background: white;
+  border-radius: 3px; 
+}
+
+.forum_around_document .doc a {
+  color: black;
+}
+
 .popup .spip_documents a[type="application/pdf"] img {
   clear: both;
   padding-top: 15px;
@@ -3466,6 +3475,23 @@ ul.forum ul.forum {
 /*	margin-left: 60px; */
 }
 
+/*Affichage Doc*/
+.forum .doc a img {
+  width: 10%;
+  float: left;
+}
+
+.forum .doc {
+  height: 55px;
+  padding: 15px;
+}
+
+.forum .doc a span {
+  padding-left: 10px;
+  height: 85%;
+  display: flex;
+  align-items: center;
+}
 
 .bloc_previsu {
   background:white;
@@ -3811,7 +3837,6 @@ ul#forum, .lien_forum {
     padding: 10px 20px;
     font-size: 14px;
     line-height: 20px;
-    cursor: pointer;
     margin-top:-10px;
     margin-bottom:2px;
 }
@@ -3825,11 +3850,6 @@ ul#forum, .lien_forum {
 
 .ressource_article:hover {
     text-decoration:underline;
-}
-
-.ressource_rubrique_titre:hover {
-    background: rgb(197, 197, 197);
-    cursor: pointer;
 }
 
 .syndic_article_lire_suite {
@@ -4956,4 +4976,10 @@ input.crayon-active {
 	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 
 
+}
+
+@media screen and (max-width: 1050px) and (max-height: 770px ) {
+  #livrables {
+    overflow: scroll;
+  }
 }

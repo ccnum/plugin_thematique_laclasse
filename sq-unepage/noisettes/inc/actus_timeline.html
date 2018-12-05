@@ -3,8 +3,8 @@
 #SET{contenu,#ARRAY}
 
 [(#INCLURE{fond=noisettes/fonction/type_role})]
-<BOUCLE_blogPrive(RUBRIQUES){racine}{si #SESSION{role}|=={prof}|ou {#SESSION{role}|=={intervenant}}|ou {#SESSION{role}|=={admin}}}{titre_mot= evenements}>
-  <BOUCLE_articleBlogPrive(ARTICLES){id_rubrique}>
+<BOUCLE_blogPrive(RUBRIQUES){racine} {si #SESSION{role}|=={prof}|ou {#SESSION{role}|=={intervenant}}|ou {#SESSION{role}|=={admin}}}{titre_mot= evenements}>
+  <BOUCLE_articleBlogPrive(ARTICLES){id_rubrique} {date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
       <BOUCLE_commentaires1(FORUMS){id_article}{!par date}{0,5} {doublons}>
           #SET_PUSH{contenu,#ARRAY{#DATE_MODIF, #ARRAY{forum, #ID_FORUM}}}
         </BOUCLE_commentaires1>
