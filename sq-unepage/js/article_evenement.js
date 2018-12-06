@@ -44,6 +44,11 @@
 		
 		var date_texte = this.date.substring(0, 2) + " " + CCN.nomMois[parseFloat(this.date.substring(3, 5))-1];
 		
+		// Trim text if too long
+		if (this.titre.length > 25){
+				this.titre = this.titre.substring(0, 25) + "(...)";
+		}
+
 		var html = "<div id='article_evenement"+this.id+"' class='article_evenement'>";
 		html += "<div class='article_evenement_inner'><div class='article_evenement_texte'><b>"+this.titre+"</b><br/><span class='article_evenement_date'>"+date_texte+"</span></div></div>";
 		
