@@ -2,6 +2,10 @@
 
 **Plugin pour SPIP 3**
 
+## Documentation 
+
+[ lien vers la documentation (en construction) ](#)
+
 ## Installation
 
 - Installer une version de `SPIP 3`
