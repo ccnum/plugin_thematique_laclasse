@@ -156,8 +156,8 @@ Une fois votre fichier csv préparé
 ex : 
 nom;email;login;statut;ss_groupe;zone;pass
 Adam Léonie;leonie.adam@laclasse.local;ladam;visiteur;;;motdepasse
-AkepourLui;fausse@adresse.com;yakepourlui;visiteur;;;motdepasse
-Aurore Boréale;aurore.boreale@laclasse.local;aboreale;redacteur;;Intranet lycée Truc;motdepasse
+Ake pourLui;apourlui@adresse.com;yakepourlui;visiteur;;;motdepasse
+Aurore Boréale;aurore.boreale@laclasse.local;aboreale;redacteur;;Collège Jane Doe;motdepasse
 
 
 Vous pouvez sous maintenance -> csv2auteurs importer votre fichier, vous pouvez laissez les champs configurés par défaut et appuyer sur “lancer la moulinette”
