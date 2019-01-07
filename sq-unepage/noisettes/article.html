@@ -289,13 +289,13 @@
                     [<span class="spip_doc_titre #EDIT{titre}"><br />(#TITRE|supprimer_numero|couper{25})</span>]
                   ]
                     <a href="#URL_DOCUMENT" title="[(#TITRE|supprimer_numero)]" class="thickbox mediabox" type="#MIME_TYPE">
-                    [(#EMBED_DOCUMENT||image_reduire{700}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
+                    [(#FICHIER||image_reduire{300}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]}|inserer_attribut{style,'border:0px solid #000000;'})]
                     </a>
 
                     [(#AUTORISER{modifier,article,#ID_ARTICLE}|oui)
                    
                     ]
-                    [<span class="spip_doc_titre #EDIT{descriptif}"><br />(#DESCRIPTIF|supprimer_numero|couper{25}|sinon{<span class="ajouter_couleur" style="text-color: gray;">Votre descriptif ici</span>})</span>]
+                    [<span class="spip_doc_titre #EDIT{descriptif}"><br />(#DESCRIPTIF|supprimer_numero|couper{120}|sinon{<span class="ajouter_couleur" style="text-color: gray;">Votre descriptif ici</span>})</span>]
                     
 
                   ]
