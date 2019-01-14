@@ -108,7 +108,6 @@ function th_configurer_site() {
     switch ($nom_site_spip) {
         case "philo.laclasse.com" :
             $nom_site_spip = "philo";
-            $site_ent_url = "http://museedesconfluences.blogs.laclasse.com";
             $site_ent_nom = ".laclasse.com";
             /*
             if login

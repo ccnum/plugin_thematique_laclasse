@@ -1098,7 +1098,10 @@ function updateUrl(object, title, url) {
   currentState = object;
   
   if (CCN.hash != '') {
-    History.pushState(object, title, url+'#'+CCN.hash);
+    if(CCN.hash.substring(0,5) == 'forum'){}
+    else {
+      History.pushState(object, title, url+'#'+CCN.hash);
+    }
     
     setTimeout(function(){
     

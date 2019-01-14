@@ -1480,6 +1480,7 @@ div.sous-colonne2{
 
 .portfolio_grand {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -1532,7 +1533,11 @@ div.sous-colonne2{
 	position: relative;
 	float: right;
 	margin: 0px 5px 10px 10px;	
-} 
+}
+
+.formulaire_jaime .submit {
+  margin-right: 10px; 
+}
 
 .formulaire_jaime form .submit.jaime,.formulaire_jaime form .submit.jaimeplus, .formulaire_jaime .dejavote, div.jaimeplus {
 	background-image: url([(#CHEMIN{img/logo_notation_white.svg}|image_reduire{25}|extraire_attribut{src})]);
@@ -1573,7 +1578,8 @@ div.jaimeplus:hover {
 .formulaire_jaime .dejavote, 
 .formulaire_jaime form .submit.jaimeplus, 
 div.jaimeplus {
-	background-image: url([(#CHEMIN{img/logo_notation_bas_white.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-color: #00c800;
+	/*background-image: url([(#CHEMIN{img/logo_notation_bas_white.svg}|image_reduire{25}|extraire_attribut{src})]);*/
 }
 
 .formulaire_jaime form {
