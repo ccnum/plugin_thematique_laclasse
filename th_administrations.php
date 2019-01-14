@@ -108,7 +108,6 @@ function th_configurer_site() {
     switch ($nom_site_spip) {
         case "philo.laclasse.com" :
             $nom_site_spip = "philo";
-            $site_ent_url = "http://museedesconfluences.blogs.laclasse.com";
             $site_ent_nom = ".laclasse.com";
             /*
             if login
@@ -231,9 +230,9 @@ function  th_configurer_rubriques() {
     $mots = array(
         'travail_en_cours' => 'Travail des classes',
         'consignes' => 'Consignes',
-        'ressources' => 'Bibliothèque',
-        'blogs' => 'Blog public',
-        'evenements' => 'Blog privé',
+        'ressources' => 'Espace Ressources',
+        'blogs' => 'Agenda',
+        'evenements' => 'Blog pédagogique',
         'images_background' => 'Contenu éditorial',
         'agora' => 'Discuter avec'
     );

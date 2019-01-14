@@ -1480,6 +1480,7 @@ div.sous-colonne2{
 
 .portfolio_grand {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -1532,7 +1533,11 @@ div.sous-colonne2{
 	position: relative;
 	float: right;
 	margin: 0px 5px 10px 10px;	
-} 
+}
+
+.formulaire_jaime .submit {
+  margin-right: 10px; 
+}
 
 .formulaire_jaime form .submit.jaime,.formulaire_jaime form .submit.jaimeplus, .formulaire_jaime .dejavote, div.jaimeplus {
 	background-image: url([(#CHEMIN{img/logo_notation_white.svg}|image_reduire{25}|extraire_attribut{src})]);
@@ -1573,7 +1578,8 @@ div.jaimeplus:hover {
 .formulaire_jaime .dejavote, 
 .formulaire_jaime form .submit.jaimeplus, 
 div.jaimeplus {
-	background-image: url([(#CHEMIN{img/logo_notation_bas_white.svg}|image_reduire{25}|extraire_attribut{src})]);
+  background-color: #00c800;
+	/*background-image: url([(#CHEMIN{img/logo_notation_bas_white.svg}|image_reduire{25}|extraire_attribut{src})]);*/
 }
 
 .formulaire_jaime form {
@@ -2579,6 +2585,15 @@ div.donnees_classe {
   margin-right:auto;
 }
 
+.forum_around_document .doc {
+  background: white;
+  border-radius: 3px; 
+}
+
+.forum_around_document .doc a {
+  color: black;
+}
+
 .popup .spip_documents a[type="application/pdf"] img {
   clear: both;
   padding-top: 15px;
@@ -3466,6 +3481,23 @@ ul.forum ul.forum {
 /*	margin-left: 60px; */
 }
 
+/*Affichage Doc*/
+.forum .doc a img {
+  width: 10%;
+  float: left;
+}
+
+.forum .doc {
+  height: 55px;
+  padding: 15px;
+}
+
+.forum .doc a span {
+  padding-left: 10px;
+  height: 85%;
+  display: flex;
+  align-items: center;
+}
 
 .bloc_previsu {
   background:white;
@@ -3811,7 +3843,6 @@ ul#forum, .lien_forum {
     padding: 10px 20px;
     font-size: 14px;
     line-height: 20px;
-    cursor: pointer;
     margin-top:-10px;
     margin-bottom:2px;
 }
@@ -3825,11 +3856,6 @@ ul#forum, .lien_forum {
 
 .ressource_article:hover {
     text-decoration:underline;
-}
-
-.ressource_rubrique_titre:hover {
-    background: rgb(197, 197, 197);
-    cursor: pointer;
 }
 
 .syndic_article_lire_suite {
@@ -4956,4 +4982,10 @@ input.crayon-active {
 	#menu-tris {width: [(#GET{lar_col}|mult{2}|moins{3})]px;}
 
 
+}
+
+@media screen and (max-width: 1050px) and (max-height: 770px ) {
+  #livrables {
+    overflow: scroll;
+  }
 }
