@@ -42,21 +42,34 @@
 
 ## Qu’est ce qu’une CCN ?
 ### Usages 
+
+Présentation des CCN : https://youtu.be/5nUco1oTMwE
+https://www.laclasse.com/portail/inscription_CCN/index.html
+
+Les rencontres finales des CCN : https://youtu.be/99Xwfi2OfgY
+
 ### Différentes section du front 
 
+![](medias/vue_par_defaut.png)
 
 # Une nouvelle CCN
  ### Configuration générale 
  ### Paramètres du site 
 
-Configuration -> Identitée du site
-Dans le champ Nom de votre Site vous avez la possibilité de préciser le nom de votre CCN, ce champ sera ensuite affiché sur toutes les parties du site en front comme ci dessous
+> **Configuration -> Identitée du site**
 
-Le champs description rapide est utilisé pour la rubrique aide que l’on retrouver par le biais du pictogramme
+Dans le champ **Nom de votre Site** vous avez la possibilité de préciser le nom de votre CCN, ce champ sera ensuite affiché sur toutes les parties du site en front comme ci dessous
+
+ **[MANQUE IMAGE]**
+
+Le champs **description rapide** est utilisé pour la rubrique aide que l’on retrouver par le biais du pictogramme
  
+ **[MANQUE IMAGE]**
+
 Dans la barre de navigation en haut de page
 Il vous permet d’y ajouter des information plus spécifiques concernant votre CCN (ce champs accepter les balises html ainsi que les embed si vous souhaitez par exemple y intégrer une vidéo youtube ou tout type de média hébergé sur une plateforme annexe)
 
+ **[MANQUE IMAGE]**
 Exemple d’utilisation du champ
 
 #### Paramètres du plugin Thématique
@@ -64,8 +77,9 @@ Le plugin thématique est le coeur du fonctionnement des CCN il permet la transf
 
 
 Il est configurable sous 
-Configuration -> Gestion des plugins -> Pictogramme marteau/clé à molette
+> Configuration -> Gestion des plugins -> Pictogramme marteau/clé à molette
 
+![](medias/acces_config_plugin_thematique.png)
 
 
 Vous y trouverez plusieurs champs :
@@ -75,48 +89,51 @@ Vous y trouverez plusieurs champs :
 - ce champ permet la modification du nom de la pastille blanche en haut de page sur la
 partie front
  
+  **[MANQUE IMAGE]**
 
-
-	
 ##### label site ent url :
 
  - ce champ permet la modification de l’url de la pastille blanche 
 
 
-label espace doc url :
-	voir configuration de l’espace Doc
+#####label espace doc url :
+
+- voir [configuration de l’espace Doc](#)
 
 ### Configuration du CAS 
 	
-Le plugin thématique utilise une version modifiée  du plugin cicas 
-disponible ici il permet la connection par l’ENT laclasse.com et le création de l’utilisateur du CAS dans la base de donnée SPIP
+Le plugin thématique utilise une version modifiée  du plugin [cicas](https://contrib.spip.net/cicas-plugin-d-authentification-avec-CAS-pour-SPIP
+) 
+disponible [ici](https://github.com/ccnum/plugin_cas_thematique_laclasse) il permet la connection par l’ENT laclasse.com et le création de l’utilisateur du CAS dans la base de donnée SPIP
 
 La configuration du CAS est possible sous
-configuration => Configurer CAS (SSO)
+> configuration => Configurer CAS (SSO)
+
+**[MANQUE IMAGE]**
+
+Le premier champ “**Mode d’authentification**” permet de choisir quel mode de connection est proposé  par défaut
+
+Les champs “**Url du serveur CAS**” “**Repertoire du serveur CAS**” “**Port du serveur CAS**”  permettent de se connecter au serveur CAS afin de transmettre les information de connection
 
 
+Le champ “**Identifiant utilisateur fourni par le serveur CAS**” permet de choisir la valeur qui sera utilisée afin de connecter l’utilisateur au site SPIP (soit par le login fourni par le CAS soit par l’email fourni par la CAS)
 
-Le premier champ “Mode d’authentification” permet de choisir quel mode de connection est proposé  par défaut
+Le champ “**eq texte cicasstatutcrea**” permet de définir le rôle spip qui sera attribué par défaut à l’utilisateur lors de sa première connection  :
 
-Les champs “Url du serveur CAS” “Repertoire du serveur CAS” “Port du serveur CAS”  permettent de se connecter au serveur CAS afin de transmettre les information de connection
+>**0minirezo** (administrateur ou administrateur restreint)
+**1comite** (rédacteur)
+**6forum** (visiteur)
 
-
-Le champ “Identifiant utilisateur fourni par le serveur CAS” permet de choisir la valeur qui sera utilisée afin de connecter l’utilisateur au site SPIP (soit par le login fourni par le CAS soit par l’email fourni par la CAS)
-
-Le champ “eq texte cicasstatutcrea” permet de définir le rôle spip qui sera attribué par défaut à l’utilisateur lors de sa première connection  :
-
-0minirezo (administrateur ou administrateur restreint)
-1comite (rédacteur)
-6forum (visiteur)
 
 le champ titre cicas attributtes permet lier les information utilisateurs reçus  par la CAS au nom des champs de base de donnée SPIP de l’utilisateur
 
 par exemple le champs laclasse reçu par le CAS sera lié au champ ent dans la BD de SPIP
 
-Le plugin cicas Propose aussi d’autres options de configuration disponibles sous Configuration => Gestion des plugins => cicas: Authentification CAS (SSO)  Pictogramme marteau/clé à molette
+Le plugin cicas Propose aussi d’autres options de configuration disponibles sous 
+>Configuration => Gestion des plugins => cicas: Authentification CAS (SSO)  Pictogramme marteau/clé à molette
 
 
-Le champ “titre cuid list” [A COMPLETER]
+##### Le champ “titre cuid list” [A COMPLETER]
 Le champ  “eq titre serveur nb cas” permet de définir le nombre de serveur de connection disponibles une fois les paramètres sauvés, l’on pourra configurer les information de connection sous Configuration => Configurer CAS (SSO)
 
 le champ “eq update auteur vide” Dans le cas où le champ “Identifiant utilisateur fourni par le serveur CAS” (voir ci dessus) est vide en base de donnée SPIP le CAS ira remplir ce champ à la connection de l’utilisateur
@@ -124,10 +141,46 @@ le champ “eq update auteur vide” Dans le cas où le champ “Identifiant uti
 le champs “eq update auteur all” écrase le champ “Identifiant utilisateur fourni par le serveur CAS” (voir ci dessus) en tout condition et le remplace par la valeur reçue par le serveur CAS
  
 ### Configuration de la section Aide 
-### Configuration de l’espace docs 
-### Les Rubriques 
+### Configuration de l’espace docs
+
+#### Espace Doc
+
+L’espace doc est initialement prévu pour l’upload de fichiers plus volumineux sur l’espace laclasse.com/docs/
+
+Il permet aux professeurs des différentes classes d’uploader des fichiers dans un dossier qui leur à été attribué
+
+L’url de l’espace doc se configure dans les paramètres du plugin thematique
+
+ 
+
+
+le dossier de chaque classe est configuré directement dans la rubrique de la classe en question sous “url_id_doc”
+
+
+![](medias/config_plugin_thematique.png)
+
+![](medias/rubrique_config_url_id.png)
+
+Le professeur pourra ensuite y accéder en cliquant sur l'icône “cartable” qui chargera dans une nouvelle fenêtre l’url de l’espace doc et le dossier de la classe sélectionnée dans la liste déroulante de choix de rubrique
+
+**[MANQUE IMAGE]**
+
+Cette fonctionnalitée à vocation à devenir plus modulaire afin d'intégrer facilement d’autres “espaces” sour forme de nouvelles fenêtres
+
+
+
+### Les Rubriques
 #### Les mots clefs
-#### L’Agenda
+#### La rubrique Agenda / blog du projet / blog public 
+
+Cet espace permet de rappeler les dates importantes qui jalonnent le projet (les dates de rencontres de formation, en classe et rencontre finale, les dates de publication e chaque consigne et les dates de réponses des classes aux consignes), d’indiquer des événements en lien avec le projet.
+
+L’espace agenda est accessible dans le menu bas de la timeline en cliquant sur l’icône en forme de bulle. 
+![](medias/zone_timeline.png)
+
+Les articles apparaissent sous forme de bulles roses sur la timeline à la date concernée.
+![](medias/vue_agenda.png)
+
 #### Le Blog pédagogique
 #### Le Blog privé
 #### Le Contenu éditorial (Image de fond de la CCN)
@@ -136,6 +189,21 @@ le champs “eq update auteur all” écrase le champ “Identifiant utilisateur
 #### Consignes
 #### Les classes
 #### Les livrables
+
+Cet espace permet au professeurs de présenter la finalité du projet réalisé par leurs classes,
+Il peuvent l’alimenter au courant de l’année 
+
+L’espace livrable est accessible dans le menu  bas de la timeline en cliquant sur l'icône en forme de cible
+
+![](medias/vue_livrable.png)
+
+##### Création des livrables
+Afin de créer un livrable il suffit d’ajouter le mot clef livrable sur un article, une fois publié il s'affichera automatiquement dans la vue
+
+##### Modification des livrables
+Les champs sont modifiables sur la partie front avec le plugin crayon
+
+
 #### Les notifications (mails)
 #### Import des utilisateurs.trices 
 ##### Import csv
@@ -154,13 +222,16 @@ zone: ce champ va vous permettre de définir l’ecole ou college à créer un t
 
 Une fois votre fichier csv préparé 
 ex : 
-nom;email;login;statut;ss_groupe;zone;pass
+>nom;email;login;statut;ss_groupe;zone;pass
 Adam Léonie;leonie.adam@laclasse.local;ladam;visiteur;;;motdepasse
 Ake pourLui;apourlui@adresse.com;yakepourlui;visiteur;;;motdepasse
 Aurore Boréale;aurore.boreale@laclasse.local;aboreale;redacteur;;Collège Jane Doe;motdepasse
 
 
-Vous pouvez sous maintenance -> csv2auteurs importer votre fichier, vous pouvez laissez les champs configurés par défaut et appuyer sur “lancer la moulinette”
+Vous pouvez sous :
+>maintenance -> csv2auteurs importer votre fichier
+
+vous pouvez laissez les champs configurés par défaut et appuyer sur “**lancer la moulinette**”
 Les utilisateur seront ajoutés à spip
 Attention dans le cas de l’utilisation du CAS vous devez être sur que l’adresse mail indiquée sur laclasse et l’adresse dans le fichier csv soit bien la même sans quoi le CAS ne sera pas capable de lier l’utilisateur laclasse à SPIP, vous pouvez aussi lier les utilisateur par leur pseudo au lieu du mail (sous configuration -> configuration CAS(SSO) -> Identifiant utilisateur fournit par le serveur CAS) dans le cas d’une nouvelle CCN ce changement ne devrait pas  poser problème mais attention aux ccns instanciées depuis plusieurs années il ce pourrait que les pseudos aient changé sur laclasse ou sur SPIP
 
