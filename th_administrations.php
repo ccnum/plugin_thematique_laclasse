@@ -89,7 +89,7 @@ function th_configurer_meta() {
     ecrire_meta('accepter_visiteurs','oui');
 
     ecrire_meta('forums_publics','abo');
-    ecrire_meta('formats_documents_forum','gif, jpg, png, mp3, mp4, pdf');
+    ecrire_meta('formats_documents_forum','gif, jpg, png, mp3, mp4, pdf, hex');
 
     ecrire_meta('type_urls','simple');
 

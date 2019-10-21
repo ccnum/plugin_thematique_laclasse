@@ -320,7 +320,7 @@ function initLocalEvents(parent) {
  */
 
 function onResize() {
-  $('#crayons-surcharge-styles').text('.crayon-active.markItUpEditor { height: '+(parseInt($(window).height())-228)+'px !important; } .resizehandle { display:none !important; }');
+  $('#crayons-surcharge-styles').text('.crayon-active.markItUpEditor { height: '+(parseInt($(window).height())/5)+'px !important; } .resizehandle { display:none !important; }');
 }
 
 
