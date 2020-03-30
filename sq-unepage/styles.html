@@ -4605,13 +4605,12 @@ input.crayon-active {
   align-items: flex-end;
 }
 .livrable{
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
   box-shadow: 0 2px 7px rgba(0,0,0,.3);
-  width: 200px;
+  width: 300px;
   height: 220px;
   margin: 15px 0 0 15px;
   cursor: pointer;
@@ -4665,6 +4664,7 @@ input.crayon-active {
 /* Livrable details */
 
 .livrable-details-wrapper{
+    overflow-y: scroll;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -4672,23 +4672,20 @@ input.crayon-active {
     right: 0;
     display: none;
     overflow: hidden;
-    width: 680px;
+    width: 720px;
     border-radius: 5px;
     box-shadow: 0 2px 7px rgba(0,0,0,.3);
-    height: 85%;
+    height: 90%;
     z-index: 2;
     top: 100px;
     margin-top: 25vh;
     transform: translateY(-50%);
-    overflow-y: scroll;
 }
 
 .livrable-details {
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow-y: scroll;
   position: relative;
   height: 82vh;
-  width: 680px;
   font-size: 20px;
   color: white;
   padding-top: 0;
@@ -4713,7 +4710,6 @@ input.crayon-active {
 }
 
 .livrable-details .corps{
-  overflow: scroll;
   height: 382px;
 }
 
@@ -4726,16 +4722,21 @@ input.crayon-active {
 
 .livrable-details .border-bg {
   background: #ffffff26;
-  margin: 15px;
   border-radius: 3px;
 }
+.border-bg{
+  width:85%;
+  margin:15px;
+  margin-left:7%;
+  margin-right:8%;
+  padding: 9px;
+}
+
 
 .livrable-details .texte {
     margin-top: 10px;
     font-size: 15px;
     float: left;
-    
-    padding: 15px 28px 15px 28px;
 }
 
 .livrable-details .featured-image {
@@ -4750,14 +4751,8 @@ input.crayon-active {
 }
 
 .livrable-details .pitch {
-  width: 93%;
   float: left;
-  padding: 9px;
 }
-.livrable-details .texte {
-  width: 87%;
-}
-
 .livrable-details .titre {
   background: white;
   color: black;
@@ -4827,8 +4822,6 @@ input.crayon-active {
 
 .livrable-details .documents {
   display: inline-block;
-  width: 91%;
-  padding: 15px;
 }
 
 .livrable-details .img-container .action_supprimer {
@@ -4863,7 +4856,6 @@ input.crayon-active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
   flex-wrap: wrap;
 }
 
@@ -4987,6 +4979,6 @@ input.crayon-active {
 
 @media screen and (max-width: 1050px) and (max-height: 770px ) {
   #livrables {
-    overflow: scroll;
+    overflow-y: scroll;
   }
 }

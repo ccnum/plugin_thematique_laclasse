@@ -34,6 +34,14 @@
                                     <p class="titre #EDIT{titre}">#TITRE</p>
                                     <div class="corps-wrapper">
                                         <div class="corps">
+                                            <!-- Footer -->
+                                            <div class="footer border-bg">
+                                                #GET{auteur}
+                                                <li class="ccn-logo">
+                                                    <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span><span>[(#NOM_SITE_SPIP)]</span></a>
+                                                </li>
+                                                <p class="classe-desc">[(#GET{desc}|textebrut)]</p>
+                                            </div>
                                             <p class="pitch border-bg #EDIT{soustitre}">"#SOUSTITRE"</p>
                                             <div class="texte border-bg #EDIT{texte}">#TEXTE</div>
                                             <!-- Affichage documents -->
@@ -143,14 +151,7 @@
                                                 </div>
                                                 ]
                                             ]   
-                                            <!-- Footer -->
-                                            <div class="footer border-bg">
-                                                    #GET{auteur}
-                                                <li class="ccn-logo">
-                                                <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span><span>[(#NOM_SITE_SPIP)]</span></a>
-                                                </li>
-                                                <p class="classe-desc">[(#GET{desc}|textebrut)]</p>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
