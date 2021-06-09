@@ -26,7 +26,7 @@ fichier nommé `spip.php` ou encore `index.php`, etc).
 avec quelques configurations supplémentaires. Durant l'installation, il vous sera demandé de renseigner un utilisateur
 SQL qui aura des droits suffisants. Je recommande de créer un utilisateur SQL dédié à l'usage des CCN.
 
-Assurez-vous que le dossier suivant existe et est accessible en écriture `/var/www/html/ccn/nouvelle_ccn/plugins/auto`.
+Assurez-vous que le dossier suivant existe et est accessible en écriture `/var/www/html/ccn/nouvelle_ccn/plugins/auto/`.
 
 Activez le dépôt officiel de SPIP à l'adresse
 [http://localhost/ccn/nouvelle_ccn/ecrire/?exec=charger_plugin](http://localhost/ccn/nouvelle_ccn/ecrire/?exec=charger_plugin).

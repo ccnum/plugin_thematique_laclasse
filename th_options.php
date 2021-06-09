@@ -56,7 +56,7 @@
 /************************************************************************************/
 	//Calcul de l'année scolaire en lien avec le dernier article en cours
 		include_spip('base/abstract_sql');
-		$date = sql_getfetsel("date", "spip_articles", "date !=  '0000'", "", "date DESC");
+		$date = sql_getfetsel("date", "spip_articles", "date !=  '0000-00-00 00:00:00'", "", "date DESC");
 		if ($date != '')
 		{
 			$annee_scolaire = intval(substr($date,0,4));
@@ -203,5 +203,3 @@
 			return true;
 		}
 	}
-
-?>
