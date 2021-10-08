@@ -9,10 +9,19 @@
 -texte
 ]
 <li class="logo">
-  <a [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"] onClick="callClasse(#ID_RUBRIQUE);" class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS logo_menu_classe" title="[(#TITLE|sinon{#VALEUR})]" style="#STYLE">
-    <div class="logo_menu_classe_image" style="background-image:url([(#MODELE{logo_carre}{id_rubrique}{taille=35}|extraire_attribut{src})])">
-      [(#TEXTE*|sinon{&nbsp;})]
-    </div>
-    <div class="logo_menu_classe_couleur #CLASSCOULEUR"></div>
-  </a>
+    <a
+            [href="(#HREF)"] [rel="(#REL)"] [data-filter-value="(#FILTER)"] [data-option-value="(#OPTION)"]
+            onClick="callClasse(#ID_RUBRIQUE);"
+            class="[(#TEXTE|=={''}|oui)[logo_menu-(#VALEUR)]] #CLASS logo_menu_classe"
+            title="<BOUCLE_titre_rubrique(RUBRIQUES){id_rubrique}>#TITRE</BOUCLE_titre_rubrique>"
+            style="#STYLE"
+    >
+        <div
+                class="logo_menu_classe_image"
+                style="background-image:url([(#MODELE{logo_carre}{id_rubrique}{taille=35}|extraire_attribut{src})])"
+        >
+            [(#TEXTE*|sinon{&nbsp;})]
+        </div>
+        <div class="logo_menu_classe_couleur #CLASSCOULEUR"></div>
+    </a>
 </li>
