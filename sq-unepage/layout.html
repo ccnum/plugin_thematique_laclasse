@@ -60,7 +60,16 @@
 			/>
 		]
 		[(#TYPE_OBJET|=={evenements}|oui|et{#GET{admin}|<{0}|oui}|oui)
-			Vous devez être connecté pour accéder à cette ressource.
+		<script>
+			/*
+			Cette page ne doit être vue que par des utilisateurs connectés. On force en javascript une redirection vers
+			un formulaire de connexion qui, à son tour, renverra vers la page désirée. J'ai fait en sorte que cela soit
+			compatible avec toutes les CCN. Croisons les doigts
+			 */
+			const urlCourante = encodeURIComponent("#URL_ARTICLE");
+			const urlFormulaireConnexion = "https://code.laclasse.com/spip.php?page=sommaire&url=" + urlCourante + "&cicas=oui&ent=1";
+			window.location = urlFormulaireConnexion;
+		</script>
 		]
 	</body>
 
