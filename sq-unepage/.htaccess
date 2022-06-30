@@ -1,8 +1,0 @@
-# On désactive l'index par précaution.
-Options -Indexes
-
-# N'importe qui peut voir le fichier .env via navigateur sans cela.
-<Files .env>
-    Order allow,deny
-    Deny from all
-</Files>
