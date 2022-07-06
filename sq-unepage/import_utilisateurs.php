@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 
 // On active les sessions (pour gérer les connexions).
 session_start();
-//session_destroy();
 $env=new Env();
 
 /*
