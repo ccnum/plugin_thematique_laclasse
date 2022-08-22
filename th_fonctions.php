@@ -122,9 +122,12 @@ function nb2col($nb){
 
 /****************** Tableaux et dates *****************************/
 
+/*
+ * Ces deux fonctions fonctionnaient très mal et n'étaient pas propres et mal utilisées. 22/08/2022
+ * -> Si pas de crash/bug SPIP d'ici décembre 2022, on pourra les supprimer sans souci.
 function afficher_options_date($annee,$mois,$annee_scolaire)
 {
-	if (date('m')>=9) $annee_actuelle = date('Y'); else $annee_actuelle = date('Y')-1;
+	if (date('m')>=8) $annee_actuelle = date('Y'); else $annee_actuelle = date('Y')-1;
 	if ($mois<9) $annee = $annee--;	
   for ($i=$annee_actuelle;$i>=$annee;$i--) {
 		$j=$i+1;
@@ -144,8 +147,8 @@ function afficher_options_date2($anneed,$moisd,$anneef,$moisf)
 
   //echo $anneef." ".$moisf;
 
-  if ($moisd<9) $anneed = $anneed-1;
-  if ($moisf<9) $anneef = $anneef-1;
+  if ($moisd<=8) $anneed = $anneed-1;
+  if ($moisf<=8) $anneef = $anneef-1;
   //echo $anneef." ".$moisf;
 
   for ($i=$anneef ; $i>=$anneed ; $i--) {
@@ -154,7 +157,7 @@ function afficher_options_date2($anneed,$moisd,$anneef,$moisf)
   }
   return $texte;
 }
-
+*/
 
 function tab_vide($taille)
 {

@@ -14,21 +14,12 @@
   </div>
 	
 	<div id="menu_haut_titre_more">
-  	<div class="select" name="annee_scolaire">
-  		<input type="radio" value="#ENV{annee_scolaire}" class="first"><label class="first_label"><span id="annee_scolaire_more">année scolaire </span><span class="highlight">#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</span></label>
-
-  	   <div>
-  			<BOUCLE_date(ARTICLES){par date}{date!=0000-00-00 00:00:00}{0,1}{tout}>
-  			#SET{date_debut,#DATE}
-  			</BOUCLE_date>
-  			<BOUCLE_datef(ARTICLES){!par date}{date!=0000-00-00 00:00:00}{0,1}{tout}>
-  			#SET{date_fin,#DATE}
-  			</BOUCLE_datef>
-  			[(#GET{date_debut}|annee|afficher_options_date2{[(#GET{date_debut}|mois)],[(#GET{date_fin}|annee)],[(#GET{date_fin}|mois)]})]
-  		</div>
-  	</div>
-  
-	
+      <div class="select" name="annee_scolaire">
+          <input type="radio" value="#ENV{annee_scolaire}" class="first"><label class="first_label"><span id="annee_scolaire_more">année scolaire </span><span class="highlight">#ENV{annee_scolaire}/[(#ENV{annee_scolaire}|plus{1})]</span></label>
+          <BOUCLE_dates(RUBRIQUES){!par titre}{racine}{titre==^[2]}>
+          <input type='radio' value='#TITRE'><label>#TITRE/[(#TITRE|plus{1})]</label>
+          </BOUCLE_dates>
+      </div>
 	</div>
 	
 	<!--[(#MODELE{logo_menu}{valeur=aide}{title=Aide}{href=#CHEMIN{img/modeemploi.pdf}})]-->
