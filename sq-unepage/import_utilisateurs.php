@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+define('accès_autorisé', TRUE);
+
 // On active les sessions (pour gérer les connexions).
 session_start();
 $env=new Env();
@@ -63,6 +65,8 @@ th{border: 5px solid black;}
         </tr>
     </thead>
 </table>
+
+<h2>NE METTEZ JAMAIS LES COMPTES DES WEBMESTRES DANS CE CSV ! (càd : pvincent, cmonet, pracine, tneveu, etc...)</h2>
 ';
     $codeHTML .= '<form enctype="multipart/form-data" method="post" action="' . $url_courante . '">';
     $codeHTML .= '<h4>Formulaire d\'import :</h4>';
@@ -206,6 +210,7 @@ class Auteur_SPIP{
         $connexion = $connexion->getConnexion();
         // L'auteur existe-t-il déjà dans la base de données ? Si non, on le créé.
         if (!$this->existe_deja_en_bdd($table_auteur)){
+            echo $this->nom . ' n\'existe pas en bdd.<br>';
             try {
                 $transaction = $connexion->prepare("INSERT INTO " . $table_auteur . " (nom, email, login, statut, webmestre, bio, nom_site, url_site,pass,low_sec,pgp,htpass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
                 $connexion->beginTransaction();
@@ -214,11 +219,17 @@ class Auteur_SPIP{
                 $connexion->commit();
             }catch (Exception $e){var_dump($e);}
         } else {
-            // Si il existe déjà, on récupère au moins son identifiant.
+            echo $this->nom . ' existe en bdd.<br>';
+            // S'il existe déjà, on récupère au moins son identifiant.
             try {
                 $transaction = $connexion->query("SELECT * FROM " . $table_auteur . " WHERE login=\"" .$this->login . "\"");
                 $user = $transaction->fetch();
                 $this->id_auteur = $user['id_auteur'];
+            }catch (Exception $e){var_dump($e);}
+            // Et on s'assure qu'il est bel et bien en auteur. S'ils se sont connectés par eux-mêmes, ils auront été assignés en tant que visiteur.
+            try {
+                $transaction = $connexion->query("UPDATE " . $table_auteur . " SET statut=\"" . $this->statut . "\" WHERE id_auteur=\"" . $this->id_auteur . "\"" );
+                $user = $transaction->fetch();
             }catch (Exception $e){var_dump($e);}
         }
         // Maintenant que l'auteur est en BDD, mettons à jour ses rubriques et articles possédés.
