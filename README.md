@@ -31,3 +31,8 @@ Assurez-vous que le dossier suivant existe et est accessible en écriture `/var/
 Activez le dépôt officiel de SPIP à l'adresse
 [http://localhost/ccn/nouvelle_ccn/ecrire/?exec=charger_plugin](http://localhost/ccn/nouvelle_ccn/ecrire/?exec=charger_plugin).
 Un simple clic suffit, le champ contenant l'url du dépôt officiel devrait déjà être pré-rempli.
+
+
+# todo
+
+- mettre le bon module jquery en dépendance du nôtre : https://plugins.spip.net/jqueryui.html
