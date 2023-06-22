@@ -23,24 +23,24 @@
                         </a>
                         <!-- LLIVRABLE DETAILS -->
                         <div>
-                            <div  id="livrable[(#ID_ARTICLE)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE)]">
-                                <div class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
+                            <div style="overflow:scroll;" id="livrable[(#ID_ARTICLE)]" class="livrable-details-wrapper" data-id="[(#ID_ARTICLE)]">
+                                <div style="overflow:scroll;" class="livrable-details  couleur_travail_en_cours[(#ID_RUBRIQUE|nb2col)]">
                                     <span class="close" onclick="callLivrable(null, 'closeDetails')"><img src="[(#CHEMIN{img/close.svg}|image_reduire{25}|extraire_attribut{src})]"></span>
-                                    <div class="featured-image #EDIT{logo}">
+                                    <div style="overflow:scroll;" class="featured-image #EDIT{logo}">
                                     [(#LOGO_ARTICLE|sinon{
                                         [<img src="(#CHEMIN{img/presentation/02.png})" alt="" />]
                                     }|image_reduire{800,500})]
                                     </div>
                                     <p class="titre #EDIT{titre}">#TITRE</p>
-                                    <div class="corps-wrapper">
-                                        <div class="corps">
+                                    <div class="corps-wrapper" style="overflow:scroll;">
+                                        <div class="corps" style="overflow:scroll;">
                                             <!-- Footer -->
-                                            <div class="footer border-bg">
+                                            <div class="footer border-bg" style="overflow:scroll;">
                                                 #GET{auteur}
                                                 <li class="ccn-logo">
                                                     <a href="[(#URL_SITE_SPIP)]" title="Accueil"><span class="logo">[(#CHEMIN{img/pictos_blc/[(#NOM_SITE_SPIP)].png}|image_reduire{100})]</span><span>[(#NOM_SITE_SPIP)]</span></a>
                                                 </li>
-                                                <p class="classe-desc">[(#GET{desc}|textebrut)]</p>
+                                                <p class="classe-desc #EDIT{titre}">[(#GET{desc}|textebrut)]</p>
                                             </div>
                                             <p class="pitch border-bg #EDIT{soustitre}">"#SOUSTITRE"</p>
                                             <div class="texte border-bg #EDIT{texte}">#TEXTE</div>
