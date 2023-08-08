@@ -71,7 +71,7 @@ function th_vider_tables($nom_meta_base_version) {
 
 function th_configurer_meta() {
 
-    $documents_objets = lire_meta('documents_objets');
+    $documents_objets = lire_config('documents_objets');
     if (!preg_match('/spip\_articles/',$documents_objets))
         $documents_objets .= ",spip_articles";
     if (!preg_match('/spip\_rubriques/',$documents_objets))
@@ -79,7 +79,7 @@ function th_configurer_meta() {
     ecrire_meta('documents_objets',$documents_objets);
 
     ecrire_meta('image_process','gd2','non');
-    ecrire_meta('formats_graphiques',lire_meta('gd_formats_read'),'non');
+    ecrire_meta('formats_graphiques',lire_config('gd_formats_read'),'non');
 
     ecrire_meta('auto_compress_http','oui');
     ecrire_meta('auto_compress_js','oui');
