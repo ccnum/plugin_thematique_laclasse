@@ -962,7 +962,7 @@ a:hover{
 }
 
 #menu_haut.zone-menu li.bloc1, #menu_haut.zone-menu li.bloc1 a {
-	background-color: #000;
+	background-color: #4d54ff;
 	color: #fff;
 	font-weight: bold;
 }
@@ -1282,7 +1282,7 @@ a:hover{
 </BOUCLE_vue>
 
 /* Pictos haut */
-<BOUCLE_vue2(DATA){liste aide,presentation,deconnecter,connecter,connecter1,connecter2,prive,ecrire,mdpperdu,inscription,profil-publication}>
+<BOUCLE_vue2(DATA){liste aide,presentation,connecter,connecter1,connecter2,prive,ecrire,mdpperdu,inscription,profil-publication}>
 	#SET{file,#CHEMIN{img}/logo_#NOM_SITE_SPIP_#VALEUR.png}
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{img}/logo_#VALEUR.png} ]
 	[(#GET{file}|is_file|non) #SET{file,#CHEMIN{prive/vignettes}/#VALEUR.png} ]
@@ -1299,7 +1299,13 @@ a:hover{
 	]
 </BOUCLE_vue2>
 
-
+#menu_haut.zone-menu li a.logo_menu-deconnecter{
+  background-color: #fff; background-image: url(#CHEMIN{img/logo_deconnecter.png});
+}
+#choix_rubrique_admin{
+  padding-left:50px;
+  margin-left:50px;
+}
 
 /* Pictos aide */
 <BOUCLE_vue3(DATA){liste aide}>
