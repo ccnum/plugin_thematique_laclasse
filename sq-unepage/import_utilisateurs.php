@@ -3,8 +3,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-define('accès_autorisé', TRUE);
-
 // On active les sessions (pour gérer les connexions).
 session_start();
 $env=new Env();
@@ -21,7 +19,7 @@ if ( isset($_POST['mdp']) && $env->verifier_mot_de_passe($_POST['mdp'])){
 }
 
 if( !isset($_SESSION['auth']) || $_SESSION['auth']!==true ){
-    echo '<form method="post" action="' . $url_courante . '"><input type="password" name="mdp" placeholder="Accès à l\'import"></form>';
+    echo '<form method="post"><input type="password" name="mdp" placeholder="Accès à l\'import"></form>';
 } else{
     // Ici, on est connecté et autorisé à voir. On peut donc afficher la page d'import des utilisateurs et importer les données.
     if( isset($_POST['import_utilisateurs']) ){
@@ -311,7 +309,11 @@ function get_liste_tables(): array
     try {
         $stmt = $connexion->query("SHOW TABLES;");
         $liste_tables = $stmt->fetchAll();
-    }catch (Exception $e){}
+    }catch (Exception $e){
+        throw new Erreur(
+            'Impossible de récupérer la liste des tables de la base.',
+            'Vérifiez l\'accès à la BDD');
+    }
     return $liste_tables;
 }
 
@@ -319,7 +321,7 @@ function get_liste_tables(): array
  * Gestion de la connexion à la BDD.
  */
 class ConnexionBDD{
-    private string $servername = "localhost";
+    private string $servername = "127.0.0.1";
     private string $db         = "";
     private string $username   = "";
     private string $password   = "";
