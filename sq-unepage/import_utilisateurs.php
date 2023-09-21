@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 // On active les sessions (pour gérer les connexions).
 session_start();
+
 $env=new Env();
 
 /*
@@ -108,7 +109,7 @@ function generer_liste_auteur(string $nom_fichier_tableur=''): array
     $liste_auteurs = array();
     $ligne=0;
     if (($handle = fopen($nom_fichier_tableur, "r")) !== FALSE) {
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",", "\"", "\\")) !== FALSE) {
             if ($ligne!==0){
                 $liste_auteurs[] = new Auteur_SPIP($data);
             }
@@ -139,7 +140,7 @@ class Auteur_SPIP{
 
     /**
      * @var string
-     * Toujous non webmestre par défaut. Il n'y a AUCUNE raison de donner des droits de webmestre automatiquement.
+     * Toujours non-webmestre par défaut. Il n'y a AUCUNE raison de donner des droits de webmestre automatiquement.
      */
     public string $webmestre = 'non';
 
@@ -149,6 +150,7 @@ class Auteur_SPIP{
 
     public function __construct(array $data=array())
     {
+        var_dump($data);
         $this->nom = $data[1] . ' ' . $data[0];
         $this->emails = explode(':', $data[3]);
         $this->login = $data[2];
