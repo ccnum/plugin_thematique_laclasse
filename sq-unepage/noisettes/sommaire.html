@@ -246,23 +246,15 @@ et/ou
 				 	
 					 	[(#ENV{restreint}|?{#SET{docId,#ENV{restreint}}, #SET{docId,false}})]
 
-						<B_getDocId>
-							<BOUCLE_getDocId(RUBRIQUES) {si #CONFIG{th/espace_doc_url}|oui } {id_rubrique == #GET{docId}}{0,1}>
-							[(#CONFIG{th/espace_doc_url}|oui)
-								<li class="logo">
-									<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}#URL_ID_DOC" title="Espace Doc" target="blank">	</a>
-								</li>
-								]
-							</BOUCLE_getDocId>
-						</B_getDocId>
-						[(#CONFIG{th/espace_doc_url}|oui)
-							<li class="logo">
-								<a class="logo_menu-doc menu_logo_type_sidebarView" href="#CONFIG{th/espace_doc_url}" title="Espace Doc" onclick="window.open(this.href, 'mywin',
-								'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">	</a>
-							</li>
-							]
-						<//B_getDocId>
-					
+					<!-- [(#REM) GESTION DU LIEN DE L'ESPACE DOC] -->
+					<!-- [(#REM) ON RÉCUPÈRE LA DERNIÈRE RUBRIQUE DES ANNÉES, ON EN TIRE LE DESCRIPTIF ET VOILÀ !] -->
+					<!-- tutu -->
+					<BOUCLE_espace_doc(RUBRIQUES){tout}{racine}{titre==^[20]}{par titre}{inverse}{0,1}>
+					<!-- #ID_RUBRIQUE -->
+					<li class="logo">
+						<a class="logo_menu-doc menu_logo_type_sidebarView" href="[(#DESCRIPTIF|textebrut)]" title="Espace Doc" target="blank">	</a>
+					</li>
+					</BOUCLE_espace_doc>
 
 				</ul>
 		    </div>
