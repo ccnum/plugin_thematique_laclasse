@@ -73,8 +73,9 @@
 	$annee_scolaire = $_COOKIE[_cookie_annee_scolaire];
 
 	define('_annee_scolaire',$annee_scolaire);
-	define('_date_debut',$annee_scolaire.'.08.01');
-	define('_date_fin',($annee_scolaire+1).'.08.01');
+    // Les dates SPIP sont représentées ainsi AAAA-MM-JJ
+	define('_date_debut',$annee_scolaire.'-08-01');
+	define('_date_fin',($annee_scolaire+1).'-08-01');
 	//spip_log($annee_scolaire);
 
 /************************************************************************************/
