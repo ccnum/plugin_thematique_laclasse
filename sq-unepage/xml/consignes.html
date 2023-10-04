@@ -2,10 +2,6 @@
 <B_rubrique>
 <datas>
 <BOUCLE_rubrique(RUBRIQUES){titre_mot=consignes}{par id_rubrique}{inverse}{tout}>
-	<!-- #ID_RUBRIQUE-->
-	<!-- date début : #EVAL{_date_debut} -->
-	<!-- date fin : #EVAL{_date_fin} -->
-	<!-- date spip : #DATE -->
 	<BOUCLE_consigne(ARTICLES){branche}{par date}{date>=#EVAL{_date_debut}}{date<=#EVAL{_date_fin}}>
 		<consigne>
 			<id>#ID_ARTICLE</id>
