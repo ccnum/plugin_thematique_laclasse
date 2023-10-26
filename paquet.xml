@@ -1,12 +1,19 @@
+<!--
+Vérifier la conformité du fichier paquet.xml sur ce site : https://plugins.spip.net/validation/
+Documentation sur la construction du fichier : https://plugins.spip.net/redaction-du-paquet-xml.html
+-->
 <paquet
-    prefix="th"
-    categorie="squelette"
-    version="3.1.1"
-    etat="stable"
-    logo="th.png"
-    schema="3.0.3"
-    documentation="http://www.laclasse.com"
-    compatibilite="[3.0;["
+        categorie="squelette"
+        prefix="th"
+        version="4.0.0"
+        etat="dev"
+        logo="th.png"
+        schema="3.0.3"
+        meta="spip_meta"
+        documentation="https://github.com/ccnum/plugin_thematique_laclasse"
+        demonstration="https://zerodechet.laclasse.com/"
+        developpement="https://github.com/ccnum/plugin_thematique_laclasse"
+        compatibilite="[3.0;["
 >
     <nom>Thematiques</nom>
     <auteur>Patrick Vincent</auteur>
