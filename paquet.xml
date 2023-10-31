@@ -24,7 +24,7 @@
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
     <necessite nom="cicas" />
     <necessite nom="crayons" />
-    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />
+    <necessite nom="jqueryui" />
     <necessite nom="notation" />
     <necessite nom="notifications" />
     <necessite nom="socialtags" />
