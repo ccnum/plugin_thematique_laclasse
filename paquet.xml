@@ -1,6 +1,7 @@
 <!--
-Vérifier la conformité du fichier paquet.xml sur ce site : https://plugins.spip.net/validation/
-Documentation sur la construction du fichier : https://plugins.spip.net/redaction-du-paquet-xml.html
+    Sommaire sur la gestion des dépendances : https://programmer.spip.net/+-paquet-xml-486-+?lang=fr
+    Documentation sur la construction du fichier : https://plugins.spip.net/redaction-du-paquet-xml.html
+    Vérifier la conformité du fichier paquet.xml sur ce site : https://plugins.spip.net/validation/
 -->
 <paquet
         categorie="squelette"
@@ -13,28 +14,37 @@ Documentation sur la construction du fichier : https://plugins.spip.net/redactio
         documentation="https://github.com/ccnum/plugin_thematique_laclasse"
         demonstration="https://zerodechet.laclasse.com/"
         developpement="https://github.com/ccnum/plugin_thematique_laclasse"
-        compatibilite="[3.0;["
+        compatibilite="[4.*]"
 >
     <nom>Thematiques</nom>
     <auteur>Patrick Vincent</auteur>
     <licence>GNU/GPL</licence>
 
-    <necessite nom="notifications" />
-    <necessite nom="crayons" />
-    <necessite nom="cicas" />
-    <necessite nom="socialtags" />
-    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
+    <!-- Gestion des dépendances : https://programmer.spip.net/Gestion-des-dependances -->
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
+    <necessite nom="cicas" />
+    <necessite nom="crayons" />
+    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />
     <necessite nom="notation" />
+    <necessite nom="notifications" />
+    <necessite nom="socialtags" />
     <necessite nom="spip_bonux" />
-    
     <utilise nom="autorite" compatibilite="[0.10.18;[" />
     <utilise nom="medias" />
-
-    <pipeline nom="declarer_tables_principales" inclure="base/th_install.php" />
-    <pipeline nom="declarer_champs_extras" inclure="base/th_cextras.php" />
-    <pipeline nom="jqueryui_plugins" inclure="th_pipelines.php" />
-
+    <!-- Gestion des pipelines : https://programmer.spip.net/Utiliser-les-pipelines -->
+    <pipeline>
+        <nom>declarer_tables_principales</nom>
+        <inclure>base/th_install.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>declarer_champs_extras</nom>
+        <inclure>base/th_cextras.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>jqueryui_plugins</nom>
+        <inclure>th_pipelines.php</inclure>
+    </pipeline>
+    <!-- Gestion des paths : https://plugins.spip.net/redaction-du-paquet-xml.html -->
     <chemin path="./sq-unepage" />
-    <chemin path="" />
+    <chemin path="" /> <!-- nécessaire pour rendre la racine du plugin accessible (voir la doc ci-dessus) -->
 </paquet>
