@@ -198,15 +198,8 @@ function  th_configurer_rubriques() {
 	);
 	foreach ($mots as $mot => $titre) {
 		$count = (int)sql_countsel(
-			'spip_rubriques as sr
-                LEFT JOIN spip_mots_liens as sml
-                    ON (sr.id_rubrique = sml.id_objet AND sml.objet = "rubrique")
-                LEFT JOIN spip_mots as sm
-                    ON (sml.id_mot = sm.id_mot)',
-			array(
-				'sm.titre = "' . $mot . '"',
-				'sr.id_parent = 0'
-			)
+			'spip_rubriques as sr LEFT JOIN spip_mots_liens as sml ON (sr.id_rubrique = sml.id_objet AND sml.objet = "rubrique") LEFT JOIN spip_mots as sm ON (sml.id_mot = sm.id_mot)',
+			['sm.titre = "' . $mot . '"', 'sr.id_parent = 0']
 		);
 
 		if ($count < 1) {
