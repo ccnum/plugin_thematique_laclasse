@@ -4,7 +4,7 @@
     version="3.1.1"
     etat="stable"
     logo="th.png"
-    schema="3.0.3"
+    schema="3.0.4"
     documentation="http://www.laclasse.com"
     compatibilite="[3.0;["
 >
@@ -16,11 +16,11 @@
     <necessite nom="crayons" />
     <necessite nom="cicas" />
     <necessite nom="socialtags" />
-    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />    
+    <necessite nom="jqueryui" compatibilite="[1.8.21;[" />
     <necessite nom="cextras" compatibilite="[3.0.5;[" />
     <necessite nom="notation" />
     <necessite nom="spip_bonux" />
-    
+
     <utilise nom="autorite" compatibilite="[0.10.18;[" />
     <utilise nom="medias" />
 

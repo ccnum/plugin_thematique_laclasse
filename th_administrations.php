@@ -20,7 +20,7 @@ function th_upgrade($nom_meta_base_version, $version_cible) {
 		array('ecrire_meta', 'activer_sites', 'oui'),
 		array('ecrire_meta', 'activer_syndic', 'oui'),
 		array('ecrire_meta', 'activer_statistiques', 'oui'),
-		array('ecrire_meta', 'arteicles_descriptif', 'oui'),
+		array('ecrire_meta', 'articles_descriptif', 'oui'),
 		array('ecrire_meta', 'articles_soustitre', 'oui'),
 		array('ecrire_meta', 'articles_surtitre', 'oui'),
 		array('ecrire_meta', 'articles_modif', 'oui'),
@@ -61,6 +61,10 @@ function th_upgrade($nom_meta_base_version, $version_cible) {
 		array('maj_tables', array('spip_rubriques')),
 	);
 
+	$maj['3.0.4'] = array(
+		array('th_configurer_meta'),
+	);
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
@@ -92,52 +96,11 @@ function th_configurer_meta() {
 	ecrire_meta('formats_documents_forum', 'gif, jpg, png, mp3, mp4, pdf, hex');
 
 	ecrire_meta('type_urls', 'simple');
+	ecrire_meta('post_dates', 'oui');
 
 	include_spip('inc/config');
 	appliquer_modifs_config(true);
 }
-
-
-function th_configurer_site() {
-
-	$nom_site_spip = lire_config('nom_site');
-	$site_ent_url = "";
-	$site_ent_nom = "";
-
-	switch ($nom_site_spip) {
-		case "philo.laclasse.com":
-			$nom_site_spip = "philo";
-			$site_ent_nom = ".laclasse.com";
-			/*
-            if login
-                http://www.laclasse.com/pls/education/!page.laclasse?rubrique=428&choix=105&p_env_id=688
-            */
-			break;
-
-		case "design.laclasse.com":
-			$nom_site_spip = "design";
-			$site_ent_url = "Atelier design";
-			$site_ent_nom = $url_site_spip;
-			/*
-                if login & pgp = cybercolleges42
-                    $site_parent_url = http://www.cybercolleges42.fr
-                    $site_parent_nom = ".cybercolleges42.fr"
-                if login
-                    $site_parent_nom = ".laclasse.com"
-                    $site_parent_url = http://www.laclasse.com
-            */
-
-			break;
-		default:
-			$site_ent_url = lire_config('th/site_parent_url');
-			$site_ent_nom = lire_config('th/site_ent_nom');
-	}
-
-	ecrire_config('th/site_ent_url', $site_ent_url);
-	ecrire_config('th/site_ent_nom', $site_ent_nom);
-	ecrire_config('nom_site', $nom_site_spip);
-}
-
 
 function th_ajouter_mots_clef() {
 	spip_log('erererr');

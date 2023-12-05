@@ -14,9 +14,13 @@ function th_pre_boucle($boucle) {
 	$mois2 = '08';
 	$jour2 = '01';
 
+	/**
+	 * Commenter par Pierre KUHN le 01/12/2023 ne sais pas si cela sert
+	 */
+	/*
 	$date_debut = $annee_scolaire . "." . $mois . "." . $jour;
 	$date_fin = $annee_scolaire2 . "." . $mois2 . "." . $jour2;
-
+	*/
 	if (($boucle->type_requete == 'articles') || ($boucle->type_requete == 'syndic_articles')) {
 		$date = $boucle->id_table . ".date";
 		if ((!isset($boucle->modificateur['tout'])) && (!strstr($_SERVER['REQUEST_URI'], "/ecrire")) && (!$affichage == 'unepage'))
