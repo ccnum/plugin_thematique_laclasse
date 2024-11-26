@@ -1,5 +1,7 @@
 # Outil d'administration et d'animation des classes culturelles numériques liées à l'ENT laclasse.com
 
+**N'EST PLUS MAINTENU, VERSION A JOUR ICI : https://github.com/ccnum/ccn**
+
 **Plugin pour SPIP 3**
 
 ## Installation
